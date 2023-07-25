@@ -1,3 +1,7 @@
 package response
 
-type Owner struct{}
+type OwnerReadResponse struct {
+	OwnerId  int
+	PhoneNum string
+	Address  string
+}
