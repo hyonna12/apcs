@@ -21,8 +21,8 @@ func (d *DeliveryService) InitService() error {
 	return nil
 }
 
-func (d *DeliveryService) CheckDeliveryMatch(deliveryId int) (*[]response.DeliveryReadResponse, error) {
+func (d *DeliveryService) CheckDeliveryMatch(deliveryId int) (*response.DeliveryReadResponse, error) {
 	resp, err := d.Repository.SelectDeliveryByDeliveryId(deliveryId)
 	// if null 이면 재입력하라는 msg 보냄
-	return resps, err
+	return resp, err
 }

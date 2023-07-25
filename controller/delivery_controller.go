@@ -33,7 +33,7 @@ func DeliveryController(router *mux.Router) error {
 		return err
 	}
 
-	// GET 특정 id의 데이터 반환
+	// 물품기사 일치 확인
 	router.HandleFunc("/delivery/{id}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, err := strconv.Atoi(vars["id"])
@@ -43,7 +43,7 @@ func DeliveryController(router *mux.Router) error {
 		if err != nil {
 			switch err.Error() {
 			case "NOT FOUND":
-				Response(w, nil, http.StatusNotFound, errors.New("해당 배달원이 없습니다."))
+				Response(w, nil, http.StatusNotFound, errors.New("해당 물품기사가 없습니다."))
 			default:
 				Response(w, nil, http.StatusInternalServerError, err)
 			}
@@ -53,4 +53,7 @@ func DeliveryController(router *mux.Router) error {
 		Response(w, resp, http.StatusOK, nil)
 
 	}).Methods("GET")
+
+	return nil
+
 }
