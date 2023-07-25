@@ -38,7 +38,7 @@ func DeliveryController(router *mux.Router) error {
 		vars := mux.Vars(r)
 		id, err := strconv.Atoi(vars["id"])
 
-		resp, err := service.Service.FindById(id)
+		resp, err := service.Service.CheckDeliveryMatch(id)
 
 		if err != nil {
 			switch err.Error() {

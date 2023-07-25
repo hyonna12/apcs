@@ -3,6 +3,7 @@ package repository
 import (
 	"APCS/data/response"
 	"database/sql"
+	"errors"
 )
 
 type OwnerRepository struct {
@@ -13,24 +14,23 @@ func (o *OwnerRepository) AssignDB(db *sql.DB) {
 	o.DB = db
 }
 
-func (o *OwnerRepository) SelectOwnerByOwnerId(ownerId int) (*[]response.OwnerReadResponse, error) {
-	var Resps []response.OwnerReadResponse
+func (o *OwnerRepository) SelectOwnerByOwnerId(ownerId int) (*response.OwnerReadResponse, error) {
+	var Resp response.OwnerReadResponse
+
 	query := `SELECT owner_id, phone_num, address
 			FROM TN_INF_OWNER
 			WHERE owner_id = ?
 			`
 
-	rows, err := o.DB.Query(query, ownerId)
-
-	for rows.Next() {
-		var Resp response.OwnerReadResponse
-		rows.Scan(&Resp.OwnerId, &Resp.PhoneNum, &Resp.Address)
-		Resps = append(Resps, Resp)
-	}
+	err := o.DB.QueryRow(query, ownerId).Scan(&Resp.OwnerId, &Resp.PhoneNum, &Resp.Address)
 
 	if err != nil {
-		return nil, err
+		if err.Error() == "sql: no rows in result set" {
+			return nil, errors.New("NOT FOUND")
+		} else {
+			return nil, err
+		}
 	} else {
-		return &Resps, nil
+		return &Resp, nil
 	}
 }

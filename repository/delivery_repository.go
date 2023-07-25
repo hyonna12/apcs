@@ -3,6 +3,7 @@ package repository
 import (
 	"APCS/data/response"
 	"database/sql"
+	"errors"
 )
 
 type DeliveryRepository struct {
@@ -13,25 +14,23 @@ func (d *DeliveryRepository) AssignDB(db *sql.DB) {
 	d.DB = db
 }
 
-func (d *DeliveryRepository) SelectDeliveryByDeliveryId(deliveryId int) (*[]response.DeliveryReadResponse, error) {
-	var Resps []response.DeliveryReadResponse
+func (d *DeliveryRepository) SelectDeliveryByDeliveryId(deliveryId int) (*response.DeliveryReadResponse, error) {
+	var Resp response.DeliveryReadResponse
 
 	query := `SELECT delivery_id, delivery_name, delivery_company
 			FROM TN_INF_DELIVERY
 			WHERE delivery_id = ?
 			`
 
-	rows, err := d.DB.Query(query, deliveryId)
-
-	for rows.Next() {
-		var Resp response.DeliveryReadResponse
-		rows.Scan(&Resp.DeliveryId, &Resp.DeliveryName, &Resp.DeliveryCompany)
-		Resps = append(Resps, Resp)
-	}
+	err := d.DB.QueryRow(query, deliveryId).Scan(&Resp.DeliveryId, &Resp.DeliveryName, &Resp.DeliveryCompany)
 
 	if err != nil {
-		return nil, err
+		if err.Error() == "sql: no rows in result set" {
+			return nil, errors.New("NOT FOUND")
+		} else {
+			return nil, err
+		}
 	} else {
-		return &Resps, nil
+		return &Resp, nil
 	}
 }
