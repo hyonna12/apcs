@@ -1,3 +1,3 @@
 package service
 
-type SlotServie struct{}
+type SlotService struct{}

@@ -10,8 +10,6 @@ type DeliveryService struct {
 	Repository *repository.DeliveryRepository
 }
 
-var Service DeliveryService
-
 func (d *DeliveryService) InitService() error {
 	db := config.DBConnection()
 

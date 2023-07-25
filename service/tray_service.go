@@ -1,3 +1,3 @@
 package service
 
-type TrayServie struct{}
+type TrayService struct{}

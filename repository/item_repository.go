@@ -63,8 +63,8 @@ func (i *ItemRepository) SelectItemListByOwnerId(ownerId int) (*[]response.ItemR
 	}
 }
 
-func (i *ItemRepository) SelectItemListBySlot(lane, floor int) (*[]response.ItemReadResponse, error) {
-	var Resps []response.ItemReadResponse
+func (i *ItemRepository) SelectItemBySlot(lane, floor int) (*response.ItemReadResponse, error) {
+	var Resp response.ItemReadResponse
 
 	query := `SELECT i.item_id, i.item_name
 			FROM TN_CTR_ITEM i
@@ -72,18 +72,16 @@ func (i *ItemRepository) SelectItemListBySlot(lane, floor int) (*[]response.Item
 			ON i.item_id = s.item_id
 			WHERE (s.lane = ? AND s.floor = ?)
 			`
-	rows, err := i.DB.Query(query, lane, floor)
-
-	for rows.Next() {
-		var Resp response.ItemReadResponse
-		rows.Scan(&Resp.ItemId, &Resp.ItemName)
-		Resps = append(Resps, Resp)
-	}
+	err := i.DB.QueryRow(query, lane, floor).Scan(&Resp.ItemId, &Resp.ItemName)
 
 	if err != nil {
-		return nil, err
+		if err.Error() == "sql: no rows in result set" {
+			return nil, errors.New("NOT FOUND")
+		} else {
+			return nil, err
+		}
 	} else {
-		return &Resps, nil
+		return &Resp, nil
 	}
 }
 

@@ -1,3 +1,3 @@
 package service
 
-type OwnerServie struct{}
+type OwnerService struct{}
