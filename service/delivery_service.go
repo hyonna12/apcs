@@ -7,15 +7,13 @@ import (
 )
 
 type DeliveryService struct {
-	DliveryRepository *repository.DeliveryRepository
+	DliveryRepository repository.DeliveryRepository
 }
 
 func (d *DeliveryService) InitService() error {
 	db := config.DBConnection()
 
-	d.DliveryRepository = &repository.DeliveryRepository{}
 	d.DliveryRepository.AssignDB(db)
-
 	return nil
 }
 

@@ -7,13 +7,11 @@ import (
 )
 
 type TrayService struct {
-	TrayRepository *repository.TrayRepository
+	TrayRepository repository.TrayRepository
 }
 
 func (t *TrayService) InitService() error {
 	db := config.DBConnection()
-
-	t.TrayRepository = &repository.TrayRepository{}
 	t.TrayRepository.AssignDB(db)
 
 	return nil

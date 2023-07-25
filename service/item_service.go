@@ -8,14 +8,12 @@ import (
 )
 
 type ItemService struct {
-	ItemRepository *repository.ItemRepository
-	SlotRepository *repository.SlotRepository
+	ItemRepository repository.ItemRepository
+	SlotRepository repository.SlotRepository
 }
 
 func (i *ItemService) InitService() error {
 	db := config.DBConnection()
-
-	i.ItemRepository = &repository.ItemRepository{}
 	i.ItemRepository.AssignDB(db)
 
 	return nil

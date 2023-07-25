@@ -1,15 +1,22 @@
 package service
 
 import (
+	"APCS/config"
 	"APCS/data/request"
 	"APCS/data/response"
 	"APCS/repository"
 )
 
 type SlotService struct {
-	SlotRepository *repository.SlotRepository
+	SlotRepository repository.SlotRepository
 }
 
+func (s *SlotService) InitService() error {
+	db := config.DBConnection()
+	s.SlotRepository.AssignDB(db)
+
+	return nil
+}
 func (s *SlotService) FindSlotListForEmptyTray() (*[]response.SlotReadResponse, error) {
 	resp, err := s.SlotRepository.SelectSlotListForEmptyTray()
 	return resp, err

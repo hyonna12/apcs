@@ -1,8 +1,8 @@
-package controller
+package internal
 
 import "APCS/service"
 
-type Controller struct {
+type OutputItem struct {
 	DeliveryBoxService service.DeliveryBoxService
 	RobotService       service.RobotService
 	ItemServie         service.ItemService
@@ -12,11 +12,4 @@ type Controller struct {
 	SlotServie         service.SlotService
 }
 
-func Storage() {
-}
-func Release() {
-}
-func Sort() {
-}
-func OverallSort() {
-}
+func (r *OutputItem) StartRelease() {}

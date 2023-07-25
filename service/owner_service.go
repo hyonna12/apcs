@@ -7,13 +7,11 @@ import (
 )
 
 type OwnerService struct {
-	OwnerRepository *repository.OwnerRepository
+	OwnerRepository repository.OwnerRepository
 }
 
 func (o *OwnerService) InitService() error {
 	db := config.DBConnection()
-
-	o.OwnerRepository = &repository.OwnerRepository{}
 	o.OwnerRepository.AssignDB(db)
 
 	return nil
