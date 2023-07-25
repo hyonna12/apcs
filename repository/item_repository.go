@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"APCS/data/request"
 	"APCS/data/response"
 	"database/sql"
 	"errors"
@@ -84,6 +85,30 @@ func (i *ItemRepository) SelectItemListBySlot(lane, floor int) (*[]response.Item
 	} else {
 		return &Resps, nil
 	}
+}
+
+func (i *ItemRepository) InsertItem(resq request.ItemCreateRequest) (sql.Result, error) {
+
+	query := `INSERT INTO TN_CTR_ITEM(item_name, item_height, tracking_number, input_date, delivery_id, owner_id)
+			VALUES(?, ?, ?, now(), ?, ?)
+			`
+	result, err := i.DB.Exec(query, resq.ItemName, resq.ItemHeight, resq.TrackingNumber, resq.DeliveryId, resq.OwnerId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	affected, err := result.RowsAffected()
+
+	if err != nil {
+		return nil, err
+	}
+
+	if affected == 0 {
+		return nil, errors.New("NOT FOUND")
+	}
+
+	return result, nil
 }
 
 func (i *ItemRepository) UpdateOutputTime() (sql.Result, error) {
