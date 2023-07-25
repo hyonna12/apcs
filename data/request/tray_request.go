@@ -1,3 +1,6 @@
 package request
 
-type Tray struct{}
+type TrayUpdateRequest struct {
+	TrayOccupied bool
+	ItemId       int
+}

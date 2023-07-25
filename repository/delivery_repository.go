@@ -23,9 +23,9 @@ func (d *DeliveryRepository) FindAll() (*[]response.DeliveryReadResponse, error)
 	rows, err := d.DB.Query(query)
 
 	for rows.Next() {
-		var Rest response.DeliveryReadResponse
-		rows.Scan(&Rest.DeliveryId, &Rest.DeliveryName, &Rest.DeliveryCompany)
-		Resps = append(Resps, Rest)
+		var Resp response.DeliveryReadResponse
+		rows.Scan(&Resp.DeliveryId, &Resp.DeliveryName, &Resp.DeliveryCompany)
+		Resps = append(Resps, Resp)
 	}
 
 	if err != nil {
