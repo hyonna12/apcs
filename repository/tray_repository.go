@@ -47,7 +47,7 @@ func (t *TrayRepository) SelectEmptyTrayList() (*[]response.TrayReadResponse, er
 			FROM TN_CTR_TRAY t
 			JOIN TN_CTR_SLOT s
 			ON t.tray_id = s.tray_id
-			WHERE tray_occupied = ?
+			WHERE tray_occupied = 1
 			`
 
 	rows, err := t.DB.Query(query)
