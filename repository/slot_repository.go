@@ -283,8 +283,7 @@ func (s *SlotRepository) UpdateReleaseSlotKeepCnt(lane, floor int) (sql.Result, 
 	query := `
 			UPDATE TN_CTR_SLOT s 
 			SET s.slot_keep_cnt = (s.slot_keep_cnt + ?) 
-			WHERE (
-				s.floor > ? AND s.floor <= 
+			WHERE (s.floor > ? AND s.floor <= 
 				IFNULL( 
 						( 
 							SELECT * FROM ( 

@@ -1,3 +1,8 @@
 package response
 
-type Item struct{}
+type ItemReadResponse struct {
+	ItemId   int
+	ItemName string
+	Lane     int
+	Floor    int
+}
