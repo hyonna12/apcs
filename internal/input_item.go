@@ -4,6 +4,7 @@ import (
 	"APCS/data/request"
 	"APCS/module"
 	"APCS/service"
+	"sort"
 )
 
 type InputItem struct {
@@ -42,7 +43,7 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 		_ = resp
 		// 최적의 빈트레이 선정
 		s.DeliveryBoxService.SetUpDoor("뒷문", "열림") // 뒷문 열림
-		service.MoveTray()                         // 슬롯에서 테이블로
+		s.RobotService.MoveTray(1, 1, 0, 0)        // 슬롯에서 테이블로
 		s.DeliveryBoxService.SetUpDoor("뒷문", "닫힘") // 뒷문 닫힘
 		// 슬롯에 빈트레이가 없으면 셀프 트레일 수납
 
@@ -65,9 +66,33 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	// 7. 수납 가능한 슬롯 조회
 	available, _ := s.SlotService.FindAvailableSlotList(h)
 	// 8. 최적의 슬롯 선정
-	lane, floor := s.SlotService.ChoiceBestSlot(available)
-	_ = lane
-	_ = floor
+	best_lane, best_floor := s.SlotService.ChoiceBestSlot(available)
+	// 9. 최적 슬롯에 트레이 유무 확인
+	resp, _ := s.SlotService.FindStorageSlotWithTray(h, best_lane, best_floor)
+	best_slot := *resp
+	if len(best_slot) != 0 {
+		for _, num := range best_slot {
+			// 트레이를 옮길 최적의 슬롯 찾기
+			slots, _ := s.SlotService.FindEmptySlotList(best_lane, best_floor)
+			list := *slots
+			// 슬롯 리스트 찾아서 정렬
+			sort.SliceStable(list, func(i, j int) bool {
+				return list[i].TransportDistance > list[j].TransportDistance
+			})
+
+			tray_lane := list[0].Lane
+			tray_floor := list[0].Floor
+
+			s.RobotService.MoveTray(num.Lane, num.Floor, tray_lane, tray_floor)
+			// 슬롯 트레이 정보 update
+			s.SlotService.ChangeTrayInfo(num.Lane, num.Floor, 0)
+			s.SlotService.ChangeTrayInfo(tray_lane, tray_floor, num.TrayId)
+		}
+
+	}
+	// 10. 뒷문 열림
+	s.DeliveryBoxService.SetUpDoor("뒷문", "열림")
+
 	/*
 		트레이 유무 확인
 		문설정(뒷문, 열림)
