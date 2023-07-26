@@ -18,12 +18,6 @@ type InputItem struct {
 	Notification       module.Notification
 }
 
-/*
-	 func NewStartStorage(slotService service.SlotService) *InputItem {
-		return &InputItem{SlotService: slotService}
-	}
-*/
-
 func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item request.ItemCreateRequest) {
 	s.ItemService.InitService()
 	s.TrayService.InitService()
