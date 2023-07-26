@@ -17,6 +17,7 @@ func (s *SlotService) InitService() error {
 
 	return nil
 }
+
 func (s *SlotService) FindSlotListForEmptyTray() (*[]response.SlotReadResponse, error) {
 	resp, err := s.SlotRepository.SelectSlotListForEmptyTray()
 	return resp, err
