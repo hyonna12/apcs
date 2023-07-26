@@ -32,8 +32,12 @@ func (d *DeliveryBoxService) SenseTableForEmptyTray() bool {
 }
 
 // 물품정보(높이, 무게) 감지
-func (d *DeliveryBoxService) SenseItemInfo() {
-	// 반환값 - 높이, 무게
+func (d *DeliveryBoxService) SenseItemInfo() (item_height, item_weight int) {
+	// 센서 동작
+	item_height = 3
+	item_weight = 5
+
+	return item_height, item_weight
 }
 
 // 미이동 감지

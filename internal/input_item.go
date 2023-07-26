@@ -2,6 +2,7 @@ package internal
 
 import (
 	"APCS/data/request"
+	"APCS/module"
 	"APCS/service"
 )
 
@@ -13,6 +14,7 @@ type InputItem struct {
 	OwnerService       service.OwnerService
 	DeliveryService    service.DeliveryService
 	SlotService        service.SlotService
+	Notification       module.Notification
 }
 
 /*
@@ -21,7 +23,7 @@ type InputItem struct {
 	}
 */
 
-func (s *InputItem) StartStorage(req request.DeliveryCreateRequest) {
+func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item request.ItemCreateRequest) {
 	s.ItemService.InitService()
 	s.TrayService.InitService()
 	s.DeliveryService.InitService()
@@ -29,7 +31,7 @@ func (s *InputItem) StartStorage(req request.DeliveryCreateRequest) {
 	s.OwnerService.InitService()
 
 	// 1. 물품기사 일치여부 확인
-	s.DeliveryService.CheckDeliveryMatch(req)
+	s.DeliveryService.CheckDeliveryMatch(delivery)
 
 	// 2. 테이블에 빈 트레이 유무 감지
 	result := s.DeliveryBoxService.SenseTableForEmptyTray()
@@ -46,26 +48,28 @@ func (s *InputItem) StartStorage(req request.DeliveryCreateRequest) {
 
 	}
 
+	// 3. 앞문 열림
+	s.DeliveryBoxService.SetUpDoor("앞문", "열림")
+	// 4. 물품 감지
+	s.DeliveryBoxService.SenseTableForItem()
+	// 5. 앞문 닫힘
+	s.DeliveryBoxService.SetUpDoor("앞문", "닫힘")
+	// 6. 물품 정보 감지
+	h, w := s.DeliveryBoxService.SenseItemInfo()
+	if w > 10 {
+		s.DeliveryBoxService.SetUpDoor("앞문", "열림")
+		s.Notification.PushNotification("무게 초과")
+		// 수납 중단?
+	}
+	_ = h
+
 	/*
-		문설정(앞문, 열림)
-		물품 정보 입력(바코드, 수기 등)
-			물품 정보 생성
-		수납 완료 버튼
-		문설정(앞문, 닫힘)
-		물품 정보(높이, 무게, 돌출) 감지
-			수납 불가
-				알림(문제점)
-				문설정(앞문, 열림)
-				재수납 버튼 클릭
-					문설정(앞문, 닫힘)
-					물품 정보(높이, 무게, 돌출) 감지
-				수납 취소 버튼 클릭
-					수납 중단
 		수납 가능한 슬롯 조회
 		최적의 슬롯 선정
 		문설정(뒷문, 열림)
 		이동(트레이, 테이블 -> 슬롯)
 		문설정(뒷문, 닫힘)
-		알림(수납완료) */
+		알림(수납완료)
+	*/
 
 }

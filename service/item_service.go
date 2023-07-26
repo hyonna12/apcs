@@ -25,8 +25,8 @@ func (i *ItemService) FindItemLocation(itemId int) (*response.SlotReadResponse, 
 	return resp, err
 }
 
-func (i *ItemService) CreateItemInfo(resq request.ItemCreateRequest) error {
-	_, err := i.ItemRepository.InsertItem(resq)
+func (i *ItemService) CreateItemInfo(req request.ItemCreateRequest) error {
+	_, err := i.ItemRepository.InsertItem(req)
 
 	return err
 }
