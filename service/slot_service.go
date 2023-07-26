@@ -62,13 +62,18 @@ func (s *SlotService) FindEmptySlotList(lane, floor int) (*[]response.SlotReadRe
 	resp, err := s.SlotRepository.SelectEmptySlotList(lane, floor)
 	return resp, err
 }
-func (s *SlotService) ChangeSlotInfo(lane, floor int) {
-	req, _ := s.SlotRepository.SelectSlotInfoByLocation(lane, floor)
-	slot := *req
-	update := request.SlotUpdateRequest{SlotEnabled: slot.SlotEnabled, SlotKeepCnt: slot.SlotKeepCnt, TrayId: slot.TrayId, ItemId: slot.ItemId, Lane: slot.Lane, Floor: slot.Floor}
+func (s *SlotService) ChangeSlotInfo(lane, floor, tray_id, item_id int) {
+	update := request.SlotUpdateRequest{SlotEnabled: false, SlotKeepCnt: 0, TrayId: tray_id, ItemId: item_id, Lane: lane, Floor: floor}
 	// 슬롯 정보 가져와서
 	s.SlotRepository.UpdateSlot(update)
 }
+func (s *SlotService) ChangeStorageSlotInfo(itemHeight, lane, floor, item_id int) {
+	resp, _ := s.SlotRepository.SelectSlotInfoByLocation(lane, floor)
+	update := request.SlotUpdateRequest{SlotEnabled: false, SlotKeepCnt: resp.SlotKeepCnt - floor, ItemId: item_id, Lane: lane, Floor: floor}
+	// 슬롯 정보 가져와서
+	s.SlotRepository.UpdateStorageSlotList(itemHeight, update)
+}
+
 func (s *SlotService) ChangeTrayInfo(lane, floor, tray_id int) {
 	// 슬롯 정보 가져와서
 	s.SlotRepository.UpdateSlotTrayInfo(lane, floor, tray_id)

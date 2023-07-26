@@ -241,7 +241,7 @@ func (s *SlotRepository) UpdateStorageSlotList(itemHeight int, resq request.Slot
 	var minStorageSlot = (resq.Floor - itemHeight + 1)
 	query := `
 			UPDATE TN_CTR_SLOT
-			SET slot_enabled = ?, slot_keep_cnt = ?,  tray_id = ?, item_id = ?
+			SET slot_enabled = ?, slot_keep_cnt = ?, item_id = ?
 			WHERE (lane = ?) AND (floor >= ? AND floor <= ?) 
 			`
 	result, err := s.DB.Exec(query, resq.SlotEnabled, resq.SlotKeepCnt, resq.ItemId, resq.Lane, minStorageSlot, resq.Floor)

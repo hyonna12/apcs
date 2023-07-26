@@ -2,6 +2,7 @@ package service
 
 import (
 	"APCS/config"
+	"APCS/data/request"
 	"APCS/data/response"
 	"APCS/repository"
 )
@@ -28,4 +29,8 @@ func (t *TrayService) ChoiceEmptyTray() (*[]response.TrayReadResponse, error) {
 	// 알고리즘 돌려서 가장 최적의 빈트레이 선정하기
 	return resp, err // 리턴값 바꿔야함 - 하나의 트레이
 
+}
+
+func (t *TrayService) UpdateTray(tray_id int, req request.TrayUpdateRequest) {
+	t.TrayRepository.UpdateTray(tray_id, req)
 }

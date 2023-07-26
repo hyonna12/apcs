@@ -64,14 +64,14 @@ func (t *TrayRepository) SelectEmptyTrayList() (*[]response.TrayReadResponse, er
 	}
 }
 
-func (t *TrayRepository) UpdateTray(trayId int, resq request.TrayUpdateRequest) (sql.Result, error) {
+func (t *TrayRepository) UpdateTray(trayId int, req request.TrayUpdateRequest) (sql.Result, error) {
 
 	query := `
 			UPDATE TN_CTR_TRAY
 			SET tray_occupied = ?, item_id = ?
 			WHERE tray_id = ?
 			`
-	result, err := t.DB.Exec(query, resq.TrayOccupied, resq.ItemId, trayId)
+	result, err := t.DB.Exec(query, req.TrayOccupied, req.ItemId, trayId)
 
 	if err != nil {
 		return nil, err

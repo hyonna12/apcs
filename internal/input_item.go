@@ -40,10 +40,18 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 		// 있으면 다음 동작
 	} else {
 		resp, _ := s.SlotService.FindSlotListForEmptyTray()
-		_ = resp
+		list := *resp
+		// 슬롯 리스트 찾아서 정렬
+		sort.SliceStable(list, func(i, j int) bool {
+			return list[i].TransportDistance > list[j].TransportDistance
+		})
+
+		tray_lane := list[0].Lane
+		tray_floor := list[0].Floor
 		// 최적의 빈트레이 선정
-		s.DeliveryBoxService.SetUpDoor("뒷문", "열림") // 뒷문 열림
-		s.RobotService.MoveTray(1, 1, 0, 0)        // 슬롯에서 테이블로
+		s.DeliveryBoxService.SetUpDoor("뒷문", "열림")           // 뒷문 열림
+		s.RobotService.MoveTray(tray_lane, tray_floor, 0, 0) // 슬롯에서 테이블로
+		s.SlotService.ChangeTrayInfo(tray_lane, tray_floor, 0)
 		s.DeliveryBoxService.SetUpDoor("뒷문", "닫힘") // 뒷문 닫힘
 		// 슬롯에 빈트레이가 없으면 셀프 트레일 수납
 
@@ -62,6 +70,14 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 		s.Notification.PushNotification("무게 초과")
 		// 수납 중단?
 	}
+	// 물품 정보 insert
+	item.ItemHeight = h
+	s.ItemService.CreateItemInfo(item)
+	// 트레이 정보 update
+	tray_id := 10
+	item_id := 10
+	tray := request.TrayUpdateRequest{TrayOccupied: true, ItemId: item_id}
+	s.TrayService.UpdateTray(tray_id, tray)
 
 	// 7. 수납 가능한 슬롯 조회
 	available, _ := s.SlotService.FindAvailableSlotList(h)
@@ -92,13 +108,15 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	}
 	// 10. 뒷문 열림
 	s.DeliveryBoxService.SetUpDoor("뒷문", "열림")
+	// 11. 물품이 든 트레이 이동
+	s.RobotService.MoveTray(0, 0, best_lane, best_floor)
+	s.SlotService.ChangeTrayInfo(best_lane, best_floor, tray_id)
+	s.SlotService.ChangeStorageSlotInfo(item.ItemHeight, best_lane, best_floor, item_id)
+	s.SlotService.SlotRepository.UpdateStorageSlotKeepCnt(best_lane, best_floor)
 
-	/*
-		트레이 유무 확인
-		문설정(뒷문, 열림)
-		이동(트레이, 테이블 -> 슬롯)
-		문설정(뒷문, 닫힘)
-		알림(수납완료)
-	*/
+	// 12. 뒷문 닫힘
+	s.DeliveryBoxService.SetUpDoor("뒷문", "닫힘")
+	// 13. 알림
+	s.Notification.PushNotification("수납완료")
 
 }
