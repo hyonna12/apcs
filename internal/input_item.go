@@ -61,11 +61,15 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 		s.Notification.PushNotification("무게 초과")
 		// 수납 중단?
 	}
-	_ = h
 
+	// 7. 수납 가능한 슬롯 조회
+	available, _ := s.SlotService.FindAvailableSlotList(h)
+	// 8. 최적의 슬롯 선정
+	lane, floor := s.SlotService.ChoiceBestSlot(available)
+	_ = lane
+	_ = floor
 	/*
-		수납 가능한 슬롯 조회
-		최적의 슬롯 선정
+		트레이 유무 확인
 		문설정(뒷문, 열림)
 		이동(트레이, 테이블 -> 슬롯)
 		문설정(뒷문, 닫힘)

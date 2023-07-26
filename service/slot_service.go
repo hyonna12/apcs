@@ -5,6 +5,7 @@ import (
 	"APCS/data/request"
 	"APCS/data/response"
 	"APCS/repository"
+	"sort"
 )
 
 type SlotService struct {
@@ -41,8 +42,15 @@ func (s *SlotService) ChoiceOverallSortSlot() {
 	// 알고리즘 돌려서 통합정리 시 이동할 슬롯 찾기
 }
 
-func (s *SlotService) ChoiceBestSlot(availableSlots []response.SlotReadResponse) {
+func (s *SlotService) ChoiceBestSlot(availableSlots *[]response.SlotReadResponse) (lane, floor int) {
 	// available slots 받아서 알고리즘으로 수납할 최적의 슬롯 찾기
+	list := *availableSlots
+	sort.SliceStable(list, func(i, j int) bool {
+		return list[i].TransportDistance > list[j].TransportDistance
+	})
+	lane = list[0].Lane
+	floor = list[0].Floor
+	return lane, floor
 }
 
 func (s *SlotService) ChangeItemInfo(req request.SlotUpdateRequest) {
