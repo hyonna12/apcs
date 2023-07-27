@@ -1,3 +1,7 @@
 package request
 
-type Owner struct{}
+type OwnerCreateRequest struct {
+	OwnerName string
+	PhoneNum  string
+	Address   string
+}

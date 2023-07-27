@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"APCS/data/request"
 	"APCS/plc"
 	"APCS/service"
 )
@@ -16,4 +17,22 @@ type OutputItem struct {
 	SlotServie      service.SlotService
 }
 
-func (r *OutputItem) OutputItem() {}
+func (o *OutputItem) OutputItem(owner request.OwnerCreateRequest) {
+	o.ItemServie.InitService()
+	o.TrayServie.InitService()
+	o.OwnerServie.InitService()
+	o.DeliveryService.InitService()
+	o.SlotServie.InitService()
+
+	// 1. 해당 유저의 물품 정보 조회
+	// 2. 테이블에 빈 트레이 유무 감지
+	// 3. 물품이 든 트레이 이동 / 4,5,6 하나로 묶을지?
+	// 4. 뒷문 열림
+	// 5. 물품 감지
+	// 6. 뒷문 닫힘
+	// 7. 앞문 열림
+	// 8. 물품 감지
+	// 9. 앞문 닫힘
+	// 10. 트레이 테이블, 슬롯 테이블, 물품 테이블 업데이트
+	// 11. 불출 완료 알림
+}
