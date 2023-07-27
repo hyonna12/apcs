@@ -5,6 +5,7 @@ import (
 	"APCS/data/response"
 	"database/sql"
 	"errors"
+	"fmt"
 )
 
 type ItemRepository struct {
@@ -133,10 +134,11 @@ func (i *ItemRepository) UpdateOutputTime() (sql.Result, error) {
 
 func (i *ItemRepository) SelectItemIdByTrackingNum(tracking_number int) (response.ItemReadResponse, error) {
 	var Resp response.ItemReadResponse
+	fmt.Println(tracking_number)
 
-	query := `SELECT i.item_id
+	query := `SELECT item_id
 			FROM TN_CTR_ITEM 
-			WHERE tracking_num = ?
+			WHERE tracking_number = ?
 			`
 	err := i.DB.QueryRow(query, tracking_number).Scan(&Resp.ItemId)
 

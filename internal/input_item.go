@@ -107,16 +107,17 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 		}
 	}
 
-	/* // 10. 뒷문 열림
+	// 10. 뒷문 열림
 	s.DeliveryBoxService.SetUpDoor("뒷문", "열림")
 	// 11. 물품이 든 트레이 이동
 	s.RobotService.MoveTray(0, 0, best_lane, best_floor)
+
 	// 트레이 테이블 update
 	tray_id := 10 // 테이블에 놓인 트레이
 	storage_item, _ := s.ItemService.ItemRepository.SelectItemIdByTrackingNum(item.TrackingNumber)
-	fmt.Println(storage_item)
-	tray := request.TrayUpdateRequest{TrayOccupied: true, ItemId: storage_item.ItemId}
-	fmt.Println(tray)
+	fmt.Println("수납할 물품", storage_item)
+	tray := request.TrayUpdateRequest{TrayOccupied: false, ItemId: storage_item.ItemId}
+	fmt.Println("수납트레이 정보:", tray)
 	s.TrayService.UpdateTray(tray_id, tray)
 	// best_slot 슬롯 테이블 - 트레이
 	s.SlotService.ChangeTrayInfo(best_lane, best_floor, tray_id)
@@ -128,6 +129,6 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	// 12. 뒷문 닫힘
 	s.DeliveryBoxService.SetUpDoor("뒷문", "닫힘")
 	// 13. 알림
-	s.Notification.PushNotification("수납완료") */
+	s.Notification.PushNotification("수납완료")
 
 }

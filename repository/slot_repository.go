@@ -260,14 +260,14 @@ func (s *SlotRepository) UpdateSlotItemInfo(lane, floor, item_id int) (sql.Resul
 	return result, nil
 }
 
-func (s *SlotRepository) UpdateStorageSlotList(itemHeight int, resq request.SlotUpdateRequest) (sql.Result, error) {
-	var minStorageSlot = (resq.Floor - itemHeight + 1)
+func (s *SlotRepository) UpdateStorageSlotList(itemHeight int, req request.SlotUpdateRequest) (sql.Result, error) {
+	var minStorageSlot = (req.Floor - itemHeight + 1)
 	query := `
 			UPDATE TN_CTR_SLOT
 			SET slot_enabled = ?, slot_keep_cnt = ?, item_id = ?
 			WHERE (lane = ?) AND (floor >= ? AND floor <= ?) 
 			`
-	result, err := s.DB.Exec(query, resq.SlotEnabled, resq.SlotKeepCnt, resq.ItemId, resq.Lane, minStorageSlot, resq.Floor)
+	result, err := s.DB.Exec(query, req.SlotEnabled, req.SlotKeepCnt, req.ItemId, req.Lane, minStorageSlot, req.Floor)
 
 	if err != nil {
 		return nil, err
