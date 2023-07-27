@@ -11,7 +11,6 @@ import (
 type DeliveryService struct {
 	DeliveryRepository repository.DeliveryRepository
 	Notification       module.Notification
-	DeliveryBoxService
 }
 
 func (d *DeliveryService) InitService() error {
