@@ -15,7 +15,7 @@ func (d *DeliveryRepository) AssignDB(db *sql.DB) {
 	d.DB = db
 }
 
-func (d *DeliveryRepository) SelectDeliveryByDeliveryInfo(req request.DeliveryCreateRequest) (*response.DeliveryReadResponse, error) {
+func (d *DeliveryRepository) SelectDeliveryByDeliveryInfo(req request.DeliveryCreateRequest) (response.DeliveryReadResponse, error) {
 	var Resp response.DeliveryReadResponse
 
 	query := `SELECT delivery_id, delivery_name, phone_num, delivery_company
@@ -27,11 +27,11 @@ func (d *DeliveryRepository) SelectDeliveryByDeliveryInfo(req request.DeliveryCr
 
 	if err != nil {
 		if err.Error() == "sql: no rows in result set" {
-			return nil, errors.New("NOT FOUND")
+			return Resp, errors.New("NOT FOUND")
 		} else {
-			return nil, err
+			return Resp, err
 		}
 	} else {
-		return &Resp, nil
+		return Resp, nil
 	}
 }

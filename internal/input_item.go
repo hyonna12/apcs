@@ -4,6 +4,7 @@ import (
 	"APCS/data/request"
 	"APCS/module"
 	"APCS/service"
+	"fmt"
 	"sort"
 )
 
@@ -30,18 +31,19 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 
 	// 2. 테이블에 빈 트레이 유무 감지
 	result := s.DeliveryBoxService.SenseTableForEmptyTray()
+	fmt.Println("테이블에 빈 트레이 유무:", result)
 	if result {
 		// 있으면 다음 동작
 	} else {
 		resp, _ := s.SlotService.FindSlotListForEmptyTray()
-		list := *resp
 		// 슬롯 리스트 찾아서 정렬
-		sort.SliceStable(list, func(i, j int) bool {
-			return list[i].TransportDistance > list[j].TransportDistance
+		sort.SliceStable(resp, func(i, j int) bool {
+			return resp[i].TransportDistance > resp[j].TransportDistance
 		})
 
-		tray_lane := list[0].Lane
-		tray_floor := list[0].Floor
+		tray_lane := resp[0].Lane
+		tray_floor := resp[0].Floor
+		fmt.Println(tray_lane, tray_floor)
 		// 최적의 빈트레이 선정
 		s.DeliveryBoxService.SetUpDoor("뒷문", "열림")           // 뒷문 열림
 		s.RobotService.MoveTray(tray_lane, tray_floor, 0, 0) // 슬롯에서 테이블로
@@ -59,6 +61,7 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	s.DeliveryBoxService.SetUpDoor("앞문", "닫힘")
 	// 6. 물품 정보 감지
 	h, w := s.DeliveryBoxService.SenseItemInfo()
+	fmt.Println("물품감지:", "height:", h, "weight:", w)
 	if w > 10 {
 		s.DeliveryBoxService.SetUpDoor("앞문", "열림")
 		s.Notification.PushNotification("무게 초과")
@@ -66,51 +69,65 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	}
 	// 물품 정보 insert
 	item.ItemHeight = h
+	delivery_info, _ := s.DeliveryService.DeliveryRepository.SelectDeliveryByDeliveryInfo(delivery)
+	item.DeliveryId = delivery_info.DeliveryId
+	fmt.Println("물품정보:", item)
 	s.ItemService.CreateItemInfo(item)
-	// 트레이 정보 update
-	tray_id := 10
-	item_id := 10
-	tray := request.TrayUpdateRequest{TrayOccupied: true, ItemId: item_id}
-	s.TrayService.UpdateTray(tray_id, tray)
 
 	// 7. 수납 가능한 슬롯 조회
 	available, _ := s.SlotService.FindAvailableSlotList(h)
+	fmt.Println("수납 가능 슬롯", available)
 	// 8. 최적의 슬롯 선정
 	best_lane, best_floor := s.SlotService.ChoiceBestSlot(available)
+	fmt.Println("최적슬롯:", best_lane, best_floor)
+
 	// 9. 최적 슬롯에 트레이 유무 확인
 	resp, _ := s.SlotService.FindStorageSlotWithTray(h, best_lane, best_floor)
-	best_slot := *resp
-	if len(best_slot) != 0 {
-		for _, num := range best_slot {
+	fmt.Println("트레이 O 최적슬롯:", resp)
+
+	if len(resp) != 0 {
+		for a, num := range resp {
+			fmt.Println(a+1, "번:", num)
 			// 트레이를 옮길 최적의 슬롯 찾기
-			slots, _ := s.SlotService.FindEmptySlotList(best_lane, best_floor)
-			list := *slots
+			slots, _ := s.SlotService.FindEmptySlotList(best_lane, best_floor, item.ItemHeight)
 			// 슬롯 리스트 찾아서 정렬
-			sort.SliceStable(list, func(i, j int) bool {
-				return list[i].TransportDistance > list[j].TransportDistance
+			sort.SliceStable(slots, func(i, j int) bool {
+				return slots[i].TransportDistance < slots[j].TransportDistance
 			})
 
-			tray_lane := list[0].Lane
-			tray_floor := list[0].Floor
-
+			tray_lane := slots[0].Lane
+			tray_floor := slots[0].Floor
+			fmt.Println("가능한 슬롯들 정렬", slots)
+			fmt.Println("트레이 옮길 슬롯:", tray_lane, tray_floor)
+			fmt.Println("빈트레이 옮기기")
 			s.RobotService.MoveTray(num.Lane, num.Floor, tray_lane, tray_floor)
 			// 슬롯 트레이 정보 update
 			s.SlotService.ChangeTrayInfo(num.Lane, num.Floor, 0)
 			s.SlotService.ChangeTrayInfo(tray_lane, tray_floor, num.TrayId)
 		}
-
 	}
-	// 10. 뒷문 열림
+
+	/* // 10. 뒷문 열림
 	s.DeliveryBoxService.SetUpDoor("뒷문", "열림")
 	// 11. 물품이 든 트레이 이동
 	s.RobotService.MoveTray(0, 0, best_lane, best_floor)
+	// 트레이 테이블 update
+	tray_id := 10 // 테이블에 놓인 트레이
+	storage_item, _ := s.ItemService.ItemRepository.SelectItemIdByTrackingNum(item.TrackingNumber)
+	fmt.Println(storage_item)
+	tray := request.TrayUpdateRequest{TrayOccupied: true, ItemId: storage_item.ItemId}
+	fmt.Println(tray)
+	s.TrayService.UpdateTray(tray_id, tray)
+	// best_slot 슬롯 테이블 - 트레이
 	s.SlotService.ChangeTrayInfo(best_lane, best_floor, tray_id)
-	s.SlotService.ChangeStorageSlotInfo(item.ItemHeight, best_lane, best_floor, item_id)
+	// storage_slot 슬롯 테이블 - 정보
+	s.SlotService.ChangeStorageSlotInfo(item.ItemHeight, best_lane, best_floor, storage_item.ItemId)
+	// 같은 행 keet_cnt
 	s.SlotService.SlotRepository.UpdateStorageSlotKeepCnt(best_lane, best_floor)
 
 	// 12. 뒷문 닫힘
 	s.DeliveryBoxService.SetUpDoor("뒷문", "닫힘")
 	// 13. 알림
-	s.Notification.PushNotification("수납완료")
+	s.Notification.PushNotification("수납완료") */
 
 }

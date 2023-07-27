@@ -40,7 +40,6 @@ func (s *SlotRepository) SelectSlotList() (*[]response.SlotReadResponse, error) 
 
 func (s *SlotRepository) SelectItemLocationByItemId(itemId int) (*response.SlotReadResponse, error) {
 	var Resp response.SlotReadResponse
-
 	query := `
 			SELECT item_id, slot_id, lane, floor 
 			FROM TN_CTR_SLOT
@@ -58,8 +57,8 @@ func (s *SlotRepository) SelectItemLocationByItemId(itemId int) (*response.SlotR
 		return &Resp, nil
 	}
 }
-func (s *SlotRepository) SelectAvailableSlotList(itemHeight int) (*[]response.SlotReadResponse, error) {
-	slotInterval := 50
+func (s *SlotRepository) SelectAvailableSlotList(itemHeight int) ([]response.SlotReadResponse, error) {
+	slotInterval := 1
 	var available = itemHeight / slotInterval
 	var Resps []response.SlotReadResponse
 
@@ -80,7 +79,7 @@ func (s *SlotRepository) SelectAvailableSlotList(itemHeight int) (*[]response.Sl
 	if err != nil {
 		return nil, err
 	} else {
-		return &Resps, nil
+		return Resps, nil
 	}
 }
 
@@ -107,31 +106,29 @@ func (s *SlotRepository) SelectSlotListWithoutItem() (*[]response.SlotReadRespon
 	}
 }
 
-func (s *SlotRepository) SelectEmptySlotList(lane, floor int) (*[]response.SlotReadResponse, error) {
+func (s *SlotRepository) SelectEmptySlotList() ([]response.SlotReadResponse, error) {
 	var Resps []response.SlotReadResponse
-
 	query := `
-			SELECT slot_id, lane, floor, slot_keep_cnt
+			SELECT slot_id, lane, floor, transport_distance, slot_enabled, slot_keep_cnt, tray_id, item_id
 			FROM TN_CTR_SLOT
-			WHERE (slot_enabled = 1 and tray_id is null) AND (floor !=? AND lane != ?)
+			WHERE (slot_enabled = 1 and tray_id is null)
 			`
 
-	rows, err := s.DB.Query(query, lane, floor)
-
+	rows, err := s.DB.Query(query)
 	for rows.Next() {
 		var Resp response.SlotReadResponse
-		rows.Scan(&Resp.SlotId, &Resp.Lane, &Resp.Floor, &Resp.SlotKeepCnt, &Resp.TrayId)
+		rows.Scan(&Resp.SlotId, &Resp.Lane, &Resp.Floor, &Resp.TransportDistance, &Resp.SlotEnabled, &Resp.SlotKeepCnt, &Resp.TrayId, &Resp.ItemId)
 		Resps = append(Resps, Resp)
 	}
 
 	if err != nil {
 		return nil, err
 	} else {
-		return &Resps, nil
+		return Resps, nil
 	}
 }
 
-func (s *SlotRepository) SelectSlotListForEmptyTray() (*[]response.SlotReadResponse, error) {
+func (s *SlotRepository) SelectSlotListForEmptyTray() ([]response.SlotReadResponse, error) {
 	var Resps []response.SlotReadResponse
 
 	query := `
@@ -153,7 +150,7 @@ func (s *SlotRepository) SelectSlotListForEmptyTray() (*[]response.SlotReadRespo
 	if err != nil {
 		return nil, err
 	} else {
-		return &Resps, nil
+		return Resps, nil
 	}
 }
 
@@ -187,12 +184,38 @@ func (s *SlotRepository) UpdateSlot(resq request.SlotUpdateRequest) (sql.Result,
 func (s *SlotRepository) UpdateSlotTrayInfo(lane, floor, tray_id int) (sql.Result, error) {
 
 	query := `
-			UPDATE TN_CTR_SLOT
-			SET tray_id = ?
-			WHERE (lane = ? AND floor = ?)
-			`
+		UPDATE TN_CTR_SLOT
+		SET tray_id = ?
+		WHERE (lane = ? AND floor = ?)
+		`
 
 	result, err := s.DB.Exec(query, tray_id, lane, floor)
+
+	if err != nil {
+		return nil, err
+	}
+
+	affected, err := result.RowsAffected()
+
+	if err != nil {
+		return nil, err
+	}
+
+	if affected == 0 {
+		return nil, errors.New("NOT FOUND")
+	}
+
+	return result, nil
+}
+func (s *SlotRepository) UpdateSlotToEmptyTray(lane, floor int) (sql.Result, error) {
+
+	query := `
+		UPDATE TN_CTR_SLOT
+		SET tray_id = null
+		WHERE (lane = ? AND floor = ?)
+		`
+
+	result, err := s.DB.Exec(query, lane, floor)
 
 	if err != nil {
 		return nil, err
@@ -263,12 +286,12 @@ func (s *SlotRepository) UpdateStorageSlotList(itemHeight int, resq request.Slot
 	return result, nil
 }
 
-func (s *SlotRepository) SelectStorageSlotListWithTray(itemHeight, lane, floor int) (*[]response.SlotReadResponse, error) {
+func (s *SlotRepository) SelectStorageSlotListWithTray(itemHeight, lane, floor int) ([]response.SlotReadResponse, error) {
 	var minStorageSlot = (floor - itemHeight + 1)
 	var Resps []response.SlotReadResponse
 
 	query := `
-			SELECT lane, floor, tray_id
+			SELECT slot_id, lane, floor, tray_id
 			FROM TN_CTR_SLOT 
 			WHERE (lane = ?) AND (floor >= ? AND floor <= ?) AND (tray_id IS NOT NULL)
 			`
@@ -277,17 +300,17 @@ func (s *SlotRepository) SelectStorageSlotListWithTray(itemHeight, lane, floor i
 
 	for rows.Next() {
 		var Resp response.SlotReadResponse
-		rows.Scan(&Resp.Lane, &Resp.Floor, &Resp.TrayId)
+		rows.Scan(&Resp.SlotId, &Resp.Lane, &Resp.Floor, &Resp.TrayId)
 		Resps = append(Resps, Resp)
 	}
 
 	if err != nil {
 		return nil, err
 	} else {
-		return &Resps, nil
+		return Resps, nil
 	}
 }
-func (s *SlotRepository) SelectSlotInfoByLocation(lane, floor int) (*response.SlotReadResponse, error) {
+func (s *SlotRepository) SelectSlotInfoByLocation(lane, floor int) (response.SlotReadResponse, error) {
 
 	var Resp response.SlotReadResponse
 
@@ -300,12 +323,12 @@ func (s *SlotRepository) SelectSlotInfoByLocation(lane, floor int) (*response.Sl
 
 	if err != nil {
 		if err.Error() == "sql: no rows in result set" {
-			return nil, errors.New("NOT FOUND")
+			return Resp, errors.New("NOT FOUND")
 		} else {
-			return nil, err
+			return Resp, err
 		}
 	} else {
-		return &Resp, nil
+		return Resp, nil
 	}
 }
 

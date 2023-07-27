@@ -12,8 +12,8 @@ type New struct {
 
 func (n *New) Start() {
 	fmt.Println("server start")
-	item := request.ItemCreateRequest{ItemName: "10", TrackingNumber: 1111, OwnerId: 10}
-	delivery := request.DeliveryCreateRequest{DeliveryName: "10", PhoneNum: "010", DeliveryCompany: "10"}
+	item := request.ItemCreateRequest{ItemName: "10", TrackingNumber: 1111, OwnerId: 1}
+	delivery := request.DeliveryCreateRequest{DeliveryName: "1", PhoneNum: "01011111111", DeliveryCompany: "a"}
 
 	n.InputItem.StartStorage(delivery, item)
 }

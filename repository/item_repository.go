@@ -85,13 +85,11 @@ func (i *ItemRepository) SelectItemBySlot(lane, floor int) (*response.ItemReadRe
 	}
 }
 
-func (i *ItemRepository) InsertItem(resq request.ItemCreateRequest) (sql.Result, error) {
-
+func (i *ItemRepository) InsertItem(req request.ItemCreateRequest) (sql.Result, error) {
 	query := `INSERT INTO TN_CTR_ITEM(item_name, item_height, tracking_number, input_date, delivery_id, owner_id)
 			VALUES(?, ?, ?, now(), ?, ?)
 			`
-	result, err := i.DB.Exec(query, resq.ItemName, resq.ItemHeight, resq.TrackingNumber, resq.DeliveryId, resq.OwnerId)
-
+	result, err := i.DB.Exec(query, req.ItemName, req.ItemHeight, req.TrackingNumber, req.DeliveryId, req.OwnerId)
 	if err != nil {
 		return nil, err
 	}
@@ -131,4 +129,24 @@ func (i *ItemRepository) UpdateOutputTime() (sql.Result, error) {
 	}
 
 	return result, nil
+}
+
+func (i *ItemRepository) SelectItemIdByTrackingNum(tracking_number int) (response.ItemReadResponse, error) {
+	var Resp response.ItemReadResponse
+
+	query := `SELECT i.item_id
+			FROM TN_CTR_ITEM 
+			WHERE tracking_num = ?
+			`
+	err := i.DB.QueryRow(query, tracking_number).Scan(&Resp.ItemId)
+
+	if err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			return Resp, errors.New("NOT FOUND")
+		} else {
+			return Resp, err
+		}
+	} else {
+		return Resp, nil
+	}
 }
