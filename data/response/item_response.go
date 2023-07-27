@@ -5,4 +5,5 @@ type ItemReadResponse struct {
 	ItemName string
 	Lane     int
 	Floor    int
+	TrayId   int
 }

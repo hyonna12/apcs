@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"APCS/data/request"
 	"APCS/data/response"
 	"database/sql"
 	"errors"
@@ -14,23 +15,23 @@ func (o *OwnerRepository) AssignDB(db *sql.DB) {
 	o.DB = db
 }
 
-func (o *OwnerRepository) SelectOwnerByOwnerId(ownerId int) (*response.OwnerReadResponse, error) {
+func (o *OwnerRepository) SelectOwnerByOwnerInfo(req request.OwnerReadRequest) (response.OwnerReadResponse, error) {
 	var Resp response.OwnerReadResponse
 
-	query := `SELECT owner_id, phone_num, address
+	query := `SELECT owner_id, owner_name, phone_num, address
 			FROM TN_INF_OWNER
-			WHERE owner_id = ?
+			WHERE owner_name = ? AND phone_num = ? AND address = ?
 			`
 
-	err := o.DB.QueryRow(query, ownerId).Scan(&Resp.OwnerId, &Resp.PhoneNum, &Resp.Address)
+	err := o.DB.QueryRow(query, req.OwnerName, req.PhoneNum, req.Address).Scan(&Resp.OwnerId, &Resp.OwnerName, &Resp.PhoneNum, &Resp.Address)
 
 	if err != nil {
 		if err.Error() == "sql: no rows in result set" {
-			return nil, errors.New("NOT FOUND")
+			return Resp, errors.New("NOT FOUND")
 		} else {
-			return nil, err
+			return Resp, err
 		}
 	} else {
-		return &Resp, nil
+		return Resp, nil
 	}
 }

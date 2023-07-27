@@ -1,7 +1,8 @@
 package response
 
 type OwnerReadResponse struct {
-	OwnerId  int
-	PhoneNum string
-	Address  string
+	OwnerId   int
+	OwnerName string
+	PhoneNum  string
+	Address   string
 }

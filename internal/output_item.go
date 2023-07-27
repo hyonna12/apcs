@@ -4,6 +4,7 @@ import (
 	"APCS/data/request"
 	"APCS/plc"
 	"APCS/service"
+	"fmt"
 )
 
 type OutputItem struct {
@@ -17,7 +18,7 @@ type OutputItem struct {
 	SlotServie      service.SlotService
 }
 
-func (o *OutputItem) OutputItem(owner request.OwnerCreateRequest) {
+func (o *OutputItem) OutputItem(owner request.OwnerReadRequest) {
 	o.ItemServie.InitService()
 	o.TrayServie.InitService()
 	o.OwnerServie.InitService()
@@ -25,7 +26,13 @@ func (o *OutputItem) OutputItem(owner request.OwnerCreateRequest) {
 	o.SlotServie.InitService()
 
 	// 1. 해당 유저의 물품 정보 조회
+	ownerInfo, _ := o.OwnerServie.CheckOwnerMatch(owner)
+	ItemInfo, _ := o.ItemServie.ItemRepository.SelectItemListByOwnerId(ownerInfo.OwnerId)
+	fmt.Println(ItemInfo)
+	// 여러개인 경우 선택할 수 있도록??
+
 	// 2. 테이블에 빈 트레이 유무 감지
+
 	// 3. 물품이 든 트레이 이동 / 4,5,6 하나로 묶을지?
 	// 4. 뒷문 열림
 	// 5. 물품 감지

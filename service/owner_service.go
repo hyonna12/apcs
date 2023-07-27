@@ -2,6 +2,7 @@ package service
 
 import (
 	"APCS/config"
+	"APCS/data/request"
 	"APCS/data/response"
 	"APCS/repository"
 )
@@ -17,8 +18,8 @@ func (o *OwnerService) InitService() error {
 	return nil
 }
 
-func (o *OwnerService) CheckOwnerMatch(ownerId int) (*response.OwnerReadResponse, error) {
-	resp, err := o.OwnerRepository.SelectOwnerByOwnerId(ownerId)
+func (o *OwnerService) CheckOwnerMatch(req request.OwnerReadRequest) (response.OwnerReadResponse, error) {
+	resp, err := o.OwnerRepository.SelectOwnerByOwnerInfo(req)
 	// if null 이면 재입력하라는 msg 보냄 - null이면 정보불일치 알림 전송
 	return resp, err
 }

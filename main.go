@@ -19,7 +19,7 @@ func (n *New) Start() {
 
 	n.InputItem.InputItem(delivery, item) */
 
-	owner := request.OwnerCreateRequest{OwnerName: "1", PhoneNum: "0109999", Address: "101-101"}
+	owner := request.OwnerReadRequest{OwnerName: "1", PhoneNum: "0109999", Address: "101-101"}
 	n.OutputItem.OutputItem(owner)
 }
 

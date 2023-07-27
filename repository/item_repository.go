@@ -40,27 +40,27 @@ func (i *ItemRepository) SelectItemLocationList() (*[]response.ItemReadResponse,
 	}
 }
 
-func (i *ItemRepository) SelectItemListByOwnerId(ownerId int) (*[]response.ItemReadResponse, error) {
+func (i *ItemRepository) SelectItemListByOwnerId(ownerId int) ([]response.ItemReadResponse, error) {
 	var Resps []response.ItemReadResponse
 
-	query := `SELECT i.item_id, i.item_name, s.lane, s.floor
+	query := `SELECT i.item_id, i.item_name, s.lane, s.floor, s.tray_id
 			FROM TN_CTR_ITEM i
 			JOIN TN_CTR_SLOT s
 			ON i.item_id = s.item_id
-			WHERE i.owner_id = ?
+			WHERE i.owner_id = ? AND tray_id is not null
 			`
 	rows, err := i.DB.Query(query, ownerId)
 
 	for rows.Next() {
 		var Resp response.ItemReadResponse
-		rows.Scan(&Resp.ItemId, &Resp.ItemName, &Resp.Lane, &Resp.Floor)
+		rows.Scan(&Resp.ItemId, &Resp.ItemName, &Resp.Lane, &Resp.Floor, &Resp.TrayId)
 		Resps = append(Resps, Resp)
 	}
 
 	if err != nil {
 		return nil, err
 	} else {
-		return &Resps, nil
+		return Resps, nil
 	}
 }
 

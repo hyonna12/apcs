@@ -1,6 +1,6 @@
 package request
 
-type OwnerCreateRequest struct {
+type OwnerReadRequest struct {
 	OwnerName string
 	PhoneNum  string
 	Address   string
