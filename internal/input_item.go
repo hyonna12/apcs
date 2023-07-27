@@ -62,7 +62,7 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	// 5. 앞문 닫힘
 	s.Gate.SetUpDoor("앞문", "닫힘")
 	// 6. 물품 정보 감지
-	h, w := s.Sensor.SenseItemInfo()
+	h, w := s.Sensor.DetectBox()
 	fmt.Println("물품감지:", "height:", h, "weight:", w)
 	if w > 10 {
 		s.Gate.SetUpDoor("앞문", "열림")

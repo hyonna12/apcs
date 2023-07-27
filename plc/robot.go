@@ -4,7 +4,7 @@ import "fmt"
 
 type Robot struct{}
 
-func (r *Robot) ScanTrayQrcode() {
+func (r *Robot) GetTraylocation() {
 	// 트레이 큐알코드 스캔하라는 요청
 	// 파라미터 - lane, floor, robot_id
 	// 반환값 - qrcode
@@ -19,4 +19,8 @@ func (r *Robot) MoveTray(from_lane, from_floor, to_lane, to_floor int) {
 func (r *Robot) MoveRobot() {
 	// 로봇을 이동하라는 요청
 	// 파라미터 - (lane, floor), (lane, floor), robot_id
+}
+
+func (r *Robot) GetRobotState() {
+	// 로봇 상태 조회 명령
 }
