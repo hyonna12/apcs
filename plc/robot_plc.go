@@ -16,9 +16,10 @@ func (r *RobotPlc) MoveTray(from_lane, from_floor, to_lane, to_floor int) {
 	fmt.Println(from_lane, from_floor, "에서", to_lane, to_floor, "로 이동")
 }
 
-func (r *RobotPlc) MoveRobot() {
+func (r *RobotPlc) MoveRobot(from_lane, from_floor, to_lane, to_floor int) {
 	// 로봇을 이동하라는 요청
 	// 파라미터 - (lane, floor), (lane, floor), robot_id
+	fmt.Println(from_lane, from_floor, "에서", to_lane, to_floor, "로 이동")
 }
 
 func (r *RobotPlc) GetRobotState() {

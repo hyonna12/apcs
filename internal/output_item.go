@@ -57,14 +57,27 @@ func (o *OutputItem) OutputItem(owner request.OwnerReadRequest) {
 		o.SlotServie.ChangeTrayInfo(trayLane, trayFloor, trayId)
 	}
 
-	// 3. 물품이 든 트레이 이동 / 4,5,6 하나로 묶을지?
-
-	// 4. 뒷문 열림
+	// 3. 뒷문 열림
+	o.GatePlc.SetUpDoor("뒷문", "열림")
+	// 4. 물품이 든 트레이 이동 / 4,5,6 하나로 묶을지?
+	o.RobotPlc.MoveTray(OutputItem.Lane, OutputItem.Floor, 0, 0)
 	// 5. 물품 감지
+	result := o.SensorPlc.SenseTableForItem()
+	if !result {
+		fmt.Println("물품 들어올 때까지 대기")
+	}
 	// 6. 뒷문 닫힘
+	o.GatePlc.SetUpDoor("뒷문", "닫힘")
 	// 7. 앞문 열림
+	o.GatePlc.SetUpDoor("앞문", "열림")
 	// 8. 물품 감지
+	result = o.SensorPlc.SenseTableForItem()
+	if result {
+		fmt.Println("물품 가져갈 때까지 대기")
+	}
 	// 9. 앞문 닫힘
+	o.GatePlc.SetUpDoor("앞문", "닫힘")
+
 	// 10. 트레이 테이블, 슬롯 테이블, 물품 테이블 업데이트
 	// 11. 불출 완료 알림
 }
