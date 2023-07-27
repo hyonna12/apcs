@@ -2,6 +2,7 @@ package internal
 
 import (
 	"APCS/data/request"
+	"APCS/data/response"
 	"APCS/plc"
 	"APCS/service"
 	"fmt"
@@ -29,14 +30,18 @@ func (o *OutputItem) OutputItem(owner request.OwnerReadRequest) {
 	// 1. 해당 유저의 물품 정보 조회
 	ownerInfo, _ := o.OwnerServie.CheckOwnerMatch(owner)
 	ItemInfo, _ := o.ItemServie.ItemRepository.SelectItemListByOwnerId(ownerInfo.OwnerId)
-	fmt.Println(ItemInfo)
-	// 여러개인 경우 선택할 수 있도록??
+	fmt.Println("해당 유저의 아이템 리스트:", ItemInfo)
+
+	// 불출할 물품 선택(한 개인 경우/여러 개 중 하나만 꺼냄/여러 개 중 여러 개 꺼냄)
+	// 키오스크 - 물품 선택
+	OutputItem := response.ItemReadResponse{ItemId: 5, ItemName: "5", Lane: 3, Floor: 3, TrayId: 9}
+	fmt.Println(OutputItem)
 
 	// 2. 테이블에 빈 트레이 유무 감지
 	tableTray := o.SensorPlc.SenseTableForEmptyTray()
 	fmt.Println("테이블에 빈 트레이 유무:", tableTray)
 	if tableTray {
-		trayId := 100 // db에 있는 트레이로!!
+		trayId := 11 // db에 있는 트레이로!!
 		// 트레이를 옮길 최적의 슬롯 찾기
 		resp, _ := o.SlotServie.SlotRepository.SelectEmptySlotList()
 		sort.SliceStable(resp, func(i, j int) bool {
@@ -51,7 +56,9 @@ func (o *OutputItem) OutputItem(owner request.OwnerReadRequest) {
 		// 슬롯 트레이 정보
 		o.SlotServie.ChangeTrayInfo(trayLane, trayFloor, trayId)
 	}
+
 	// 3. 물품이 든 트레이 이동 / 4,5,6 하나로 묶을지?
+
 	// 4. 뒷문 열림
 	// 5. 물품 감지
 	// 6. 뒷문 닫힘

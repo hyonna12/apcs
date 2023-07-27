@@ -6,7 +6,7 @@ type SensorPlc struct{}
 // 테이블에 빈 트레이 유무 감지
 func (s *SensorPlc) SenseTableForEmptyTray() bool {
 	// 센서 동작
-	a := true
+	a := false
 	return a
 }
 
