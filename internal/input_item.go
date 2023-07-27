@@ -21,7 +21,7 @@ type InputItem struct {
 	Notification    module.Notification
 }
 
-func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item request.ItemCreateRequest) {
+func (s *InputItem) InputItem(delivery request.DeliveryCreateRequest, item request.ItemCreateRequest) {
 	s.ItemService.InitService()
 	s.TrayService.InitService()
 	s.DeliveryService.InitService()
@@ -32,11 +32,9 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	s.DeliveryService.CheckDeliveryMatch(delivery)
 
 	// 2. 테이블에 빈 트레이 유무 감지
-	result := s.SensorPlc.SenseTableForEmptyTray()
-	fmt.Println("테이블에 빈 트레이 유무:", result)
-	if result {
-		// 있으면 다음 동작
-	} else {
+	tableTray := s.SensorPlc.SenseTableForEmptyTray()
+	fmt.Println("테이블에 빈 트레이 유무:", tableTray)
+	if !tableTray {
 		resp, _ := s.SlotService.FindSlotListForEmptyTray()
 		// 슬롯 리스트 찾아서 정렬
 		sort.SliceStable(resp, func(i, j int) bool {
@@ -52,13 +50,15 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 		s.SlotService.ChangeTrayInfo(tray_lane, tray_floor, 0)
 		s.GatePlc.SetUpDoor("뒷문", "닫힘") // 뒷문 닫힘
 		// 슬롯에 빈트레이가 없으면 셀프 트레일 수납
-
 	}
 
 	// 3. 앞문 열림
 	s.GatePlc.SetUpDoor("앞문", "열림")
 	// 4. 물품 감지
-	s.SensorPlc.SenseTableForItem()
+	tableItem := s.SensorPlc.SenseTableForItem()
+	if !tableItem {
+		s.Notification.PushNotification("물품이 없습니다.")
+	}
 	// 5. 앞문 닫힘
 	s.GatePlc.SetUpDoor("앞문", "닫힘")
 	// 6. 물품 정보 감지
@@ -67,9 +67,9 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	if w > 10 {
 		s.GatePlc.SetUpDoor("앞문", "열림")
 		s.Notification.PushNotification("무게 초과")
-		// 수납 중단?
+		// 수납 중단??
 	}
-	// 물품 정보 insert
+	// 물품 정보 db에 insert
 	item.ItemHeight = h
 	delivery_info, _ := s.DeliveryService.DeliveryRepository.SelectDeliveryByDeliveryInfo(delivery)
 	item.DeliveryId = delivery_info.DeliveryId

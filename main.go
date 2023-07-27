@@ -15,7 +15,7 @@ func (n *New) Start() {
 	item := request.ItemCreateRequest{ItemName: "6", TrackingNumber: 666, OwnerId: 1}
 	delivery := request.DeliveryCreateRequest{DeliveryName: "1", PhoneNum: "01011111111", DeliveryCompany: "a"}
 
-	n.InputItem.StartStorage(delivery, item)
+	n.InputItem.InputItem(delivery, item)
 }
 
 func main() {

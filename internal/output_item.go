@@ -1,8 +1,14 @@
 package internal
 
-import "APCS/service"
+import (
+	"APCS/plc"
+	"APCS/service"
+)
 
 type OutputItem struct {
+	SensorPlc       plc.SensorPlc
+	GatePlc         plc.GatePlc
+	RobotPlc        plc.RobotPlc
 	ItemServie      service.ItemService
 	TrayServie      service.TrayService
 	OwnerServie     service.OwnerService
@@ -10,4 +16,4 @@ type OutputItem struct {
 	SlotServie      service.SlotService
 }
 
-func (r *OutputItem) StartRelease() {}
+func (r *OutputItem) OutputItem() {}

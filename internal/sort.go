@@ -10,4 +10,4 @@ type Sort struct {
 	SlotServie      service.SlotService
 }
 
-func (s *Sort) StartSort() {}
+func (s *Sort) Sort() {}
