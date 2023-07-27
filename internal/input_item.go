@@ -10,9 +10,9 @@ import (
 )
 
 type InputItem struct {
-	Sensor          plc.Sensor
-	Gate            plc.Gate
-	Robot           plc.Robot
+	SensorPlc       plc.SensorPlc
+	GatePlc         plc.GatePlc
+	RobotPlc        plc.RobotPlc
 	ItemService     service.ItemService
 	TrayService     service.TrayService
 	OwnerService    service.OwnerService
@@ -32,7 +32,7 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	s.DeliveryService.CheckDeliveryMatch(delivery)
 
 	// 2. 테이블에 빈 트레이 유무 감지
-	result := s.Sensor.SenseTableForEmptyTray()
+	result := s.SensorPlc.SenseTableForEmptyTray()
 	fmt.Println("테이블에 빈 트레이 유무:", result)
 	if result {
 		// 있으면 다음 동작
@@ -47,25 +47,25 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 		tray_floor := resp[0].Floor
 		fmt.Println(tray_lane, tray_floor)
 		// 최적의 빈트레이 선정
-		s.Gate.SetUpDoor("뒷문", "열림")                  // 뒷문 열림
-		s.Robot.MoveTray(tray_lane, tray_floor, 0, 0) // 슬롯에서 테이블로
+		s.GatePlc.SetUpDoor("뒷문", "열림")                  // 뒷문 열림
+		s.RobotPlc.MoveTray(tray_lane, tray_floor, 0, 0) // 슬롯에서 테이블로
 		s.SlotService.ChangeTrayInfo(tray_lane, tray_floor, 0)
-		s.Gate.SetUpDoor("뒷문", "닫힘") // 뒷문 닫힘
+		s.GatePlc.SetUpDoor("뒷문", "닫힘") // 뒷문 닫힘
 		// 슬롯에 빈트레이가 없으면 셀프 트레일 수납
 
 	}
 
 	// 3. 앞문 열림
-	s.Gate.SetUpDoor("앞문", "열림")
+	s.GatePlc.SetUpDoor("앞문", "열림")
 	// 4. 물품 감지
-	s.Sensor.SenseTableForItem()
+	s.SensorPlc.SenseTableForItem()
 	// 5. 앞문 닫힘
-	s.Gate.SetUpDoor("앞문", "닫힘")
+	s.GatePlc.SetUpDoor("앞문", "닫힘")
 	// 6. 물품 정보 감지
-	h, w := s.Sensor.DetectBox()
+	h, w := s.SensorPlc.DetectBox()
 	fmt.Println("물품감지:", "height:", h, "weight:", w)
 	if w > 10 {
-		s.Gate.SetUpDoor("앞문", "열림")
+		s.GatePlc.SetUpDoor("앞문", "열림")
 		s.Notification.PushNotification("무게 초과")
 		// 수납 중단?
 	}
@@ -102,7 +102,7 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 			fmt.Println("가능한 슬롯들 정렬", slots)
 			fmt.Println("트레이 옮길 슬롯:", tray_lane, tray_floor)
 			fmt.Println("빈트레이 옮기기")
-			s.Robot.MoveTray(num.Lane, num.Floor, tray_lane, tray_floor)
+			s.RobotPlc.MoveTray(num.Lane, num.Floor, tray_lane, tray_floor)
 			// 슬롯 트레이 정보 update
 			s.SlotService.ChangeTrayInfo(num.Lane, num.Floor, 0)
 			s.SlotService.ChangeTrayInfo(tray_lane, tray_floor, num.TrayId)
@@ -110,9 +110,9 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	}
 
 	// 10. 뒷문 열림
-	s.Gate.SetUpDoor("뒷문", "열림")
+	s.GatePlc.SetUpDoor("뒷문", "열림")
 	// 11. 물품이 든 트레이 이동
-	s.Robot.MoveTray(0, 0, best_lane, best_floor)
+	s.RobotPlc.MoveTray(0, 0, best_lane, best_floor)
 
 	// 트레이 테이블 update
 	tray_id := 10 // 테이블에 놓인 트레이
@@ -129,7 +129,7 @@ func (s *InputItem) StartStorage(delivery request.DeliveryCreateRequest, item re
 	s.SlotService.SlotRepository.UpdateStorageSlotKeepCnt(best_lane, best_floor)
 
 	// 12. 뒷문 닫힘
-	s.Gate.SetUpDoor("뒷문", "닫힘")
+	s.GatePlc.SetUpDoor("뒷문", "닫힘")
 	// 13. 알림
 	s.Notification.PushNotification("수납완료")
 
