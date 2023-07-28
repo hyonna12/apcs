@@ -34,7 +34,7 @@ func (o *OutputItem) OutputItem(owner request.OwnerReadRequest) {
 
 	// 불출할 물품 선택(한 개인 경우/여러 개 중 하나만 꺼냄/여러 개 중 여러 개 꺼냄)
 	// 키오스크 - 물품 선택
-	OutputItem := response.ItemReadResponse{ItemId: 5, ItemName: "5", Lane: 3, Floor: 3, TrayId: 9}
+	OutputItem := response.ItemReadResponse{ItemId: 5, ItemName: "5", ItemHeight: 2, Lane: 3, Floor: 3, TrayId: 9}
 	fmt.Println(OutputItem)
 
 	// 2. 테이블에 빈 트레이 유무 감지
@@ -78,6 +78,15 @@ func (o *OutputItem) OutputItem(owner request.OwnerReadRequest) {
 	// 9. 앞문 닫힘
 	o.GatePlc.SetUpDoor("앞문", "닫힘")
 
-	// 10. 트레이 테이블, 슬롯 테이블, 물품 테이블 업데이트
+	// 10. 트레이 테이블, 슬롯 테이블, 물품 테이블 업데이트, 같은 행 keep_cnt
+	tray_info := request.TrayUpdateRequest{ItemId: 0, TrayOccupied: true}
+	o.TrayServie.UpdateTray(OutputItem.TrayId, tray_info)
+
+	o.SlotServie.ChangeTrayInfo(OutputItem.Lane, OutputItem.Floor, 0)
+
+	Req := request.SlotUpdateRequest{SlotEnabled: false, SlotKeepCnt: 0, Lane: 3, Floor: 3}
+	o.SlotServie.ChangeOutputSlotInfo(OutputItem.ItemHeight, Req)
+	o.SlotServie.SlotRepository.UpdateOutputSlotKeepCnt(OutputItem.Lane, OutputItem.Floor)
 	// 11. 불출 완료 알림
+	o.DeliveryService.Notification.PushNotification("불출 완료")
 }

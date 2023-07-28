@@ -5,6 +5,7 @@ import (
 	"APCS/data/response"
 	"database/sql"
 	"errors"
+	"fmt"
 )
 
 type TrayRepository struct {
@@ -73,6 +74,32 @@ func (t *TrayRepository) UpdateTray(trayId int, req request.TrayUpdateRequest) (
 			`
 	result, err := t.DB.Exec(query, req.TrayOccupied, req.ItemId, trayId)
 
+	if err != nil {
+		return nil, err
+	}
+
+	affected, err := result.RowsAffected()
+
+	if err != nil {
+		return nil, err
+	}
+
+	if affected == 0 {
+		return nil, errors.New("NOT FOUND")
+	}
+
+	return result, nil
+}
+
+func (t *TrayRepository) UpdateTrayEmpty(trayId int, req request.TrayUpdateRequest) (sql.Result, error) {
+
+	query := `
+			UPDATE TN_CTR_TRAY
+			SET tray_occupied = ?, item_id = null
+			WHERE tray_id = ?
+			`
+	result, err := t.DB.Exec(query, req.TrayOccupied, trayId)
+	fmt.Println("트레이업데이트:", result)
 	if err != nil {
 		return nil, err
 	}

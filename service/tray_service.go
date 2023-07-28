@@ -32,5 +32,9 @@ func (t *TrayService) ChoiceEmptyTray() (*[]response.TrayReadResponse, error) {
 }
 
 func (t *TrayService) UpdateTray(tray_id int, req request.TrayUpdateRequest) {
-	t.TrayRepository.UpdateTray(tray_id, req)
+	if req.ItemId == 0 {
+		t.TrayRepository.UpdateTrayEmpty(tray_id, req)
+	} else {
+		t.TrayRepository.UpdateTray(tray_id, req)
+	}
 }

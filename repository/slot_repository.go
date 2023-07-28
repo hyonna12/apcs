@@ -286,6 +286,31 @@ func (s *SlotRepository) UpdateStorageSlotList(itemHeight int, req request.SlotU
 	return result, nil
 }
 
+func (s *SlotRepository) UpdateOutputSlotList(itemHeight int, req request.SlotUpdateRequest) (sql.Result, error) {
+	var minStorageSlot = (req.Floor - itemHeight + 1)
+	query := `
+			UPDATE TN_CTR_SLOT
+			SET slot_enabled = ?, slot_keep_cnt = floor, item_id = null
+			WHERE (lane = ?) AND (floor >= ? AND floor <= ?) 
+			`
+	result, err := s.DB.Exec(query, req.SlotEnabled, req.Lane, minStorageSlot, req.Floor)
+	if err != nil {
+		return nil, err
+	}
+
+	affected, err := result.RowsAffected()
+
+	if err != nil {
+		return nil, err
+	}
+
+	if affected == 0 {
+		return nil, errors.New("NOT FOUND")
+	}
+
+	return result, nil
+}
+
 func (s *SlotRepository) SelectStorageSlotListWithTray(itemHeight, lane, floor int) ([]response.SlotReadResponse, error) {
 	var minStorageSlot = (floor - itemHeight + 1)
 	var Resps []response.SlotReadResponse
@@ -375,7 +400,7 @@ func (s *SlotRepository) UpdateStorageSlotKeepCnt(lane, floor int) (sql.Result, 
 	return result, nil
 }
 
-func (s *SlotRepository) UpdateReleaseSlotKeepCnt(lane, floor int) (sql.Result, error) {
+func (s *SlotRepository) UpdateOutputSlotKeepCnt(lane, floor int) (sql.Result, error) {
 
 	query := `
 			UPDATE TN_CTR_SLOT s 
@@ -401,6 +426,46 @@ func (s *SlotRepository) UpdateReleaseSlotKeepCnt(lane, floor int) (sql.Result, 
 			AND s.lane = ?
 			`
 	result, err := s.DB.Exec(query, floor, floor, lane, floor, lane, floor, lane)
+	if err != nil {
+		return nil, err
+	}
+
+	affected, err := result.RowsAffected()
+
+	if err != nil {
+		return nil, err
+	}
+
+	if affected == 0 {
+		return nil, errors.New("NOT FOUND")
+	}
+
+	return result, nil
+}
+
+func (s *SlotRepository) UpdateOutputSlotListKeepCnt(itemHeight, lane, floor int) (sql.Result, error) {
+	var minStorageSlot = (floor - itemHeight + 1)
+
+	query := `
+				UPDATE TN_CTR_SLOT s 
+				SET s.slot_keep_cnt = (s.slot_keep_cnt - 
+											(IFNULL( 
+														( 
+															SELECT * FROM ( 
+																SELECT MAX(floor)
+																FROM TN_CTR_SLOT 
+																WHERE (lane = ?) AND (FLOOR < ? AND slot_keep_cnt = 0) 
+															) a 
+														), 
+															0
+													) 
+											)
+										)				
+				WHERE (s.floor >= ? AND s.floor <= ?)
+				AND s.lane = ?
+			`
+
+	result, err := s.DB.Exec(query, lane, floor, minStorageSlot, floor, lane)
 	if err != nil {
 		return nil, err
 	}

@@ -43,7 +43,7 @@ func (i *ItemRepository) SelectItemLocationList() (*[]response.ItemReadResponse,
 func (i *ItemRepository) SelectItemListByOwnerId(ownerId int) ([]response.ItemReadResponse, error) {
 	var Resps []response.ItemReadResponse
 
-	query := `SELECT i.item_id, i.item_name, s.lane, s.floor, s.tray_id
+	query := `SELECT i.item_id, i.item_name, i.item_height, s.lane, s.floor, s.tray_id
 			FROM TN_CTR_ITEM i
 			JOIN TN_CTR_SLOT s
 			ON i.item_id = s.item_id
@@ -53,7 +53,7 @@ func (i *ItemRepository) SelectItemListByOwnerId(ownerId int) ([]response.ItemRe
 
 	for rows.Next() {
 		var Resp response.ItemReadResponse
-		rows.Scan(&Resp.ItemId, &Resp.ItemName, &Resp.Lane, &Resp.Floor, &Resp.TrayId)
+		rows.Scan(&Resp.ItemId, &Resp.ItemName, &Resp.ItemHeight, &Resp.Lane, &Resp.Floor, &Resp.TrayId)
 		Resps = append(Resps, Resp)
 	}
 
