@@ -108,12 +108,12 @@ func (i *ItemRepository) InsertItem(req request.ItemCreateRequest) (sql.Result, 
 	return result, nil
 }
 
-func (i *ItemRepository) UpdateOutputTime() (sql.Result, error) {
+func (i *ItemRepository) UpdateOutputTime(ItemId int) (sql.Result, error) {
 	query := `UPDATE TN_CTR_ITEM
-			SET output_time = NOW()
-			WHERE item_id
+			SET output_date = NOW()
+			WHERE item_id = ?
 			`
-	result, err := i.DB.Exec(query)
+	result, err := i.DB.Exec(query, ItemId)
 
 	if err != nil {
 		return nil, err

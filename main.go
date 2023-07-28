@@ -13,7 +13,8 @@ type New struct {
 
 func (n *New) Start() {
 	fmt.Println("server start")
-	/* item := request.ItemCreateRequest{ItemName: "6", TrackingNumber: 666, OwnerId: 1}
+
+	/* item := request.ItemCreateRequest{ItemName: "2", TrackingNumber: 2, OwnerId: 1}
 	// owner 정보와 item 정보 분리하기!!
 	delivery := request.DeliveryCreateRequest{DeliveryName: "1", PhoneNum: "01011111111", DeliveryCompany: "a"}
 

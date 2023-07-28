@@ -34,22 +34,27 @@ func (s *InputItem) InputItem(delivery request.DeliveryCreateRequest, item reque
 	// 2. 테이블에 빈 트레이 유무 감지
 	tableTray := s.SensorPlc.SenseTableForEmptyTray()
 	fmt.Println("테이블에 빈 트레이 유무:", tableTray)
+	var TrayId int
 	if !tableTray {
 		resp, _ := s.SlotService.FindSlotListForEmptyTray()
+		fmt.Println(resp)
 		// 슬롯 리스트 찾아서 정렬
 		sort.SliceStable(resp, func(i, j int) bool {
-			return resp[i].TransportDistance > resp[j].TransportDistance
+			return resp[i].TransportDistance < resp[j].TransportDistance
 		})
+		fmt.Println(resp)
 
 		tray_lane := resp[0].Lane
 		tray_floor := resp[0].Floor
-		fmt.Println(tray_lane, tray_floor)
+		fmt.Println("최적트레이:", tray_lane, tray_floor)
 		// 최적의 빈트레이 선정
 		s.GatePlc.SetUpDoor("뒷문", "열림")                  // 뒷문 열림
 		s.RobotPlc.MoveTray(tray_lane, tray_floor, 0, 0) // 슬롯에서 테이블로
 		s.SlotService.ChangeTrayInfo(tray_lane, tray_floor, 0)
 		s.GatePlc.SetUpDoor("뒷문", "닫힘") // 뒷문 닫힘
 		// 슬롯에 빈트레이가 없으면 셀프 트레일 수납
+		TrayId = resp[0].TrayId
+
 	}
 
 	// 3. 앞문 열림
@@ -115,14 +120,17 @@ func (s *InputItem) InputItem(delivery request.DeliveryCreateRequest, item reque
 	s.RobotPlc.MoveTray(0, 0, best_lane, best_floor)
 
 	// 트레이 테이블 update
-	tray_id := 10 // 테이블에 놓인 트레이
+	if TrayId == 0 {
+		TrayId = 7 // 테이블에 놓인 트레이
+	}
+
 	storage_item, _ := s.ItemService.ItemRepository.SelectItemIdByTrackingNum(item.TrackingNumber)
 	fmt.Println("수납할 물품", storage_item)
 	tray := request.TrayUpdateRequest{TrayOccupied: false, ItemId: storage_item.ItemId}
 	fmt.Println("수납트레이 정보:", tray)
-	s.TrayService.UpdateTray(tray_id, tray)
+	s.TrayService.UpdateTray(TrayId, tray)
 	// best_slot 슬롯 테이블 - 트레이
-	s.SlotService.ChangeTrayInfo(best_lane, best_floor, tray_id)
+	s.SlotService.ChangeTrayInfo(best_lane, best_floor, TrayId)
 	// storage_slot 슬롯 테이블 - 정보
 	s.SlotService.ChangeStorageSlotInfo(item.ItemHeight, best_lane, best_floor, storage_item.ItemId)
 	// 같은 행 keet_cnt

@@ -132,7 +132,7 @@ func (s *SlotRepository) SelectSlotListForEmptyTray() ([]response.SlotReadRespon
 	var Resps []response.SlotReadResponse
 
 	query := `
-			SELECT s.slot_id, s.lane, s.floor
+			SELECT s.slot_id, s.lane, s.floor, s.transport_distance, s.slot_keep_cnt, s.tray_id
 			FROM TN_CTR_SLOT s
 			JOIN TN_CTR_TRAY t
 			ON s.tray_id = t.tray_id
@@ -143,7 +143,7 @@ func (s *SlotRepository) SelectSlotListForEmptyTray() ([]response.SlotReadRespon
 
 	for rows.Next() {
 		var Resp response.SlotReadResponse
-		rows.Scan(&Resp.SlotId, &Resp.Lane, &Resp.Floor, &Resp.SlotKeepCnt, &Resp.TrayId)
+		rows.Scan(&Resp.SlotId, &Resp.Lane, &Resp.Floor, &Resp.TransportDistance, &Resp.SlotKeepCnt, &Resp.TrayId)
 		Resps = append(Resps, Resp)
 	}
 

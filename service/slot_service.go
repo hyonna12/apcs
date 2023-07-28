@@ -91,7 +91,7 @@ func (s *SlotService) ChangeSlotInfo(lane, floor, tray_id, item_id int) {
 func (s *SlotService) ChangeStorageSlotInfo(itemHeight, lane, floor, item_id int) {
 	resp, _ := s.SlotRepository.SelectSlotInfoByLocation(lane, floor)
 	fmt.Println(resp)
-	update := request.SlotUpdateRequest{SlotEnabled: false, SlotKeepCnt: 2, ItemId: item_id, Lane: lane, Floor: floor}
+	update := request.SlotUpdateRequest{SlotEnabled: false, SlotKeepCnt: 0, ItemId: item_id, Lane: lane, Floor: floor}
 	fmt.Println(update)
 	// 슬롯 정보 가져와서
 	s.SlotRepository.UpdateStorageSlotList(itemHeight, update)
