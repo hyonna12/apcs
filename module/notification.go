@@ -1,10 +1,10 @@
 package module
 
-import "fmt"
+import log "github.com/sirupsen/logrus"
 
 type Notification struct{}
 
 func (n *Notification) PushNotification(msg string) {
 	// 알림
-	fmt.Println(msg)
+	log.Info(msg)
 }

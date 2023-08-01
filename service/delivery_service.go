@@ -5,7 +5,7 @@ import (
 	"APCS/data/request"
 	"APCS/module"
 	"APCS/repository"
-	"fmt"
+	log "github.com/sirupsen/logrus"
 )
 
 type DeliveryService struct {
@@ -22,7 +22,7 @@ func (d *DeliveryService) InitService() error {
 
 func (d *DeliveryService) CheckDeliveryMatch(req request.DeliveryCreateRequest) (bool, error) {
 	resp, err := d.DeliveryRepository.SelectDeliveryByDeliveryInfo(req)
-	fmt.Println(resp)
+	log.Info(resp)
 	// if null 이면 재입력하라는 msg 보냄 - null이면 정보불일치 알림 전송
 	a := true
 	if a {

@@ -3,8 +3,18 @@ package main
 import (
 	"APCS/data/request"
 	"APCS/internal"
-	"fmt"
+	log "github.com/sirupsen/logrus"
 )
+
+func init() {
+
+	// logger 세팅
+	// 파일명/호출 라인 표시
+	log.SetReportCaller(true)
+	// JSON 출력
+	log.SetFormatter(&log.JSONFormatter{})
+
+}
 
 type New struct {
 	InputItem  internal.InputItem
@@ -12,7 +22,7 @@ type New struct {
 }
 
 func (n *New) Start() {
-	fmt.Println("server start")
+	log.Info("server start")
 
 	/* item := request.ItemCreateRequest{ItemName: "2", TrackingNumber: 2, OwnerId: 1}
 	// owner 정보와 item 정보 분리하기!!

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/rs/zerolog/log"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -29,7 +29,7 @@ func DBConnection() *sql.DB {
 		panic(err)
 	}
 
-	log.Info().Msg("Connected to database!!")
+	log.Info("Connected to database!!")
 
 	return db
 }

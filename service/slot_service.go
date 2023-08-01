@@ -5,7 +5,7 @@ import (
 	"APCS/data/request"
 	"APCS/data/response"
 	"APCS/repository"
-	"fmt"
+	log "github.com/sirupsen/logrus"
 	"sort"
 
 	"golang.org/x/exp/slices"
@@ -69,14 +69,14 @@ func (s *SlotService) FindEmptySlotList(best_lane, best_floor, item_height int) 
 		slot, _ := s.SlotRepository.SelectSlotInfoByLocation(best_lane, best_floor-z)
 		slots = append(slots, slot)
 	}
-	fmt.Println("수납슬롯들:", slots)
+	log.Info("수납슬롯들:", slots)
 
 	for _, i := range Resp {
 		if !slices.Contains(slots, i) {
 			list = append(list, i)
 		}
 	}
-	fmt.Println("트레이슬롯들", list)
+	log.Info("트레이슬롯들", list)
 
 	// empty 슬롯 리스트 뽑아서 available이 아닌거 for 로 담기
 	return list, nil
@@ -90,16 +90,16 @@ func (s *SlotService) ChangeSlotInfo(lane, floor, tray_id, item_id int) {
 
 func (s *SlotService) ChangeStorageSlotInfo(itemHeight, lane, floor, item_id int) {
 	resp, _ := s.SlotRepository.SelectSlotInfoByLocation(lane, floor)
-	fmt.Println(resp)
+	log.Info(resp)
 	update := request.SlotUpdateRequest{SlotEnabled: false, SlotKeepCnt: 0, ItemId: item_id, Lane: lane, Floor: floor}
-	fmt.Println(update)
+	log.Info(update)
 	// 슬롯 정보 가져와서
 	s.SlotRepository.UpdateStorageSlotList(itemHeight, update)
 }
 
 func (s *SlotService) ChangeOutputSlotInfo(itemHeight int, req request.SlotUpdateRequest) {
 	update := request.SlotUpdateRequest{SlotEnabled: true, Lane: req.Lane, Floor: req.Floor}
-	fmt.Println(update)
+	log.Info(update)
 	// 슬롯 정보 가져와서
 	s.SlotRepository.UpdateOutputSlotList(itemHeight, update)
 	s.SlotRepository.UpdateOutputSlotListKeepCnt(itemHeight, req.Lane, req.Floor)
@@ -108,7 +108,7 @@ func (s *SlotService) ChangeOutputSlotInfo(itemHeight int, req request.SlotUpdat
 func (s *SlotService) ChangeTrayInfo(lane, floor, tray_id int) {
 	// 슬롯 정보 가져와서
 	if tray_id == 0 {
-		fmt.Println(lane, floor, tray_id)
+		log.Info(lane, floor, tray_id)
 		s.SlotRepository.UpdateSlotToEmptyTray(lane, floor)
 	} else {
 		s.SlotRepository.UpdateSlotTrayInfo(lane, floor, tray_id)

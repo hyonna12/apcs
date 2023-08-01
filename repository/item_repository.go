@@ -5,7 +5,7 @@ import (
 	"APCS/data/response"
 	"database/sql"
 	"errors"
-	"fmt"
+	log "github.com/sirupsen/logrus"
 )
 
 type ItemRepository struct {
@@ -134,7 +134,7 @@ func (i *ItemRepository) UpdateOutputTime(ItemId int) (sql.Result, error) {
 
 func (i *ItemRepository) SelectItemIdByTrackingNum(tracking_number int) (response.ItemReadResponse, error) {
 	var Resp response.ItemReadResponse
-	fmt.Println(tracking_number)
+	log.Info(tracking_number)
 
 	query := `SELECT item_id
 			FROM TN_CTR_ITEM 

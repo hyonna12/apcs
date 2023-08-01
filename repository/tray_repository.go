@@ -5,7 +5,7 @@ import (
 	"APCS/data/response"
 	"database/sql"
 	"errors"
-	"fmt"
+	log "github.com/sirupsen/logrus"
 )
 
 type TrayRepository struct {
@@ -99,7 +99,7 @@ func (t *TrayRepository) UpdateTrayEmpty(trayId int, req request.TrayUpdateReque
 			WHERE tray_id = ?
 			`
 	result, err := t.DB.Exec(query, req.TrayOccupied, trayId)
-	fmt.Println("트레이업데이트:", result)
+	log.Info("트레이업데이트:", result)
 	if err != nil {
 		return nil, err
 	}
