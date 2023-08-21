@@ -15,4 +15,6 @@ const (
 	ErrRobotJobFail                CustomError = "Robot job failed"
 	ErrRobotJobRequestTimeout      CustomError = "No robot job result response during timeout limit"
 	ErrRobotJobDistributionTimeout CustomError = "Job is not distributed to any robot during the timeout limit."
+
+	ErrNoRowsAffected CustomError = "No rows affected by update query"
 )
