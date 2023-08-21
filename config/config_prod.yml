@@ -1,0 +1,19 @@
+database:
+  driver-name: mysql
+  username: apcs_dev
+  password: apcs@123
+  host: lineworldap.iptime.org
+  port: 33306
+  dbname: apcs_dev
+
+websocket:
+  server:
+    host: localhost
+    port: 3000
+
+messenger:
+  timeout:
+    # 메시지를 허브에 전파할 때 대기하는 시간 제한(초)
+    spread: 3
+    # 메시지 응답을 기다리는 시간 제한(초)
+    response: 3
