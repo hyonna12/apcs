@@ -1,0 +1,73 @@
+{{define "input/regist_owner"}}
+{{template "header" .}}
+
+<div class="sub-right">
+    <h2 class="sub-right-title">수령인 정보 입력</h2>
+    <div class="sub-right-con">
+        <div class="sub-con-sec join-sec">
+            <div class="form-wrap">
+                <div style="margin-bottom: 30px;">아래의 정보를 입력하세요</div>
+                <form action="">
+                    <div class="input-item">
+                        <label for="address">수령인 주소</label>
+                        <input type="text" id="address">
+                    </div>
+                    <div class="input-item">
+                        <label for="phone_num">수령인 전화번호</label>
+                        <input type="text" id="phone_num">
+                    </div>  
+                </form>
+            </div>
+            <div class="btn-wrap">
+                <button class="btn-normal" id="complete_btn"><a href="/input/complete_input_item">입력완료</a></button><br><br>
+                <button class="btn-small" id="before_btn"><a href="/input/regist_delivery">이전으로</a></button>
+                <button class="btn-small" id="home_btn"><a href="/">처음으로</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+
+    // 입주민 정보 전송
+     function owner_info() {
+ 
+         let eventData = JSON.stringify({
+            address: $('#address').val(),
+            phone_num: $('#phone_num').val(),
+         });
+ 
+         let request = {
+             targer: "event",
+             sender: "kiosk",
+             data: JSON.stringify({
+                 event_name: "OwnerIdSubmitted",
+                 event_data: eventData 
+             }),
+         };
+ 
+         if ($('#address').val() == '') {
+             alert('주소를 입력해주세요.');
+             return false;
+         }
+ 
+         axios.post('/input/get_owner_info', request).then(res => {
+            console.log(res.data)
+             alert('입력되었습니다.');
+             if(res.data == true){
+                 location.href='/input/complete_input_item'
+             } else{
+                 location.href='/input/regist_owner_error'
+ 
+             }
+             
+         }).catch(err => {
+             console.log(err);
+         });
+     }
+     
+ </script>
+ {{end}}

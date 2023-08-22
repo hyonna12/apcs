@@ -2,10 +2,11 @@ package websocketserver
 
 import (
 	"bytes"
-	"github.com/gorilla/websocket"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"time"
+
+	"github.com/gorilla/websocket"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
