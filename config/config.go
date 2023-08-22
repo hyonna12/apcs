@@ -7,6 +7,7 @@ import (
 	"gopkg.in/yaml.v3"
 	"os"
 	"path/filepath"
+	"runtime"
 )
 
 var (
@@ -63,13 +64,19 @@ func InitConfig() {
 	flag.Parse()
 	log.Infof("[Config] Run profile: %s", *profile)
 
-	configFilePath := fmt.Sprintf("./Config/config_%s.yml", *profile)
+	// config 파일 절대 경로 얻기
+	_, file, _, _ := runtime.Caller(0)
+	basePath := filepath.Dir(file)
+	log.Infof(basePath)
+
+	configFilePath := fmt.Sprintf("%s/config_%s.yml", basePath, *profile)
 
 	config := &Config{}
 	configFilename, err := filepath.Abs(configFilePath)
 	if err != nil {
 		log.Panic(err)
 	}
+
 	configFile, err := os.ReadFile(configFilename)
 	if err != nil {
 		log.Panic(err)
