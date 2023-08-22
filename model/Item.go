@@ -206,5 +206,5 @@ func SelectItemIdByTrackingNum(trackingNumber int) (ItemReadResponse, error) {
 		return ItemReadResponse{}, err
 	}
 
-	return itemReadResponse, err
+	return itemReadResponse, nil
 }
