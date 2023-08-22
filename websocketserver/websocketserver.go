@@ -47,10 +47,10 @@ func StartWebsocketServer(n *messenger.Node) {
 		},
 	)
 
-	http.HandleFunc("/", serveHome)
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(wsHub, w, r)
 	})
+	http.HandleFunc("/", serveHome)
 
 	address := wsConf.Server.Host + ":" + strconv.Itoa(wsConf.Server.Port)
 	err := http.ListenAndServe(address, nil)

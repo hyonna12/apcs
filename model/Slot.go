@@ -3,6 +3,7 @@ package model
 import (
 	"apcs_refactored/customerror"
 	"context"
+	"database/sql"
 	log "github.com/sirupsen/logrus"
 	"time"
 )
@@ -215,11 +216,18 @@ func SelectSlotListForEmptyTray() ([]Slot, error) {
 	return slots, nil
 }
 
+// TODO - context cancel 자동 롤백 확인
 func UpdateSlot(request SlotUpdateRequest) (int64, error) {
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
 		return 0, err
 	}
+	defer func(tx *sql.Tx) {
+		err := tx.Rollback()
+		if err != nil {
+			log.Error(err)
+		}
+	}(tx)
 
 	query := `
 			UPDATE TN_CTR_SLOT
@@ -244,6 +252,9 @@ func UpdateSlot(request SlotUpdateRequest) (int64, error) {
 	}
 
 	if affected == 0 {
+		if err != nil {
+			return 0, err
+		}
 		return 0, customerror.ErrNoRowsAffected
 	}
 
@@ -255,40 +266,47 @@ func UpdateSlot(request SlotUpdateRequest) (int64, error) {
 	return affected, nil
 }
 
-//func UpdateStorageSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) {
-//	tx, err := db.BeginTx(context.Background(), nil)
-//	if err != nil {
-//		return 0, err
-//	}
-//
-//	var minStorageSlot = req.Floor - itemHeight + 1
-//	query := `
-//			UPDATE TN_CTR_SLOT
-//			SET slot_enabled = ?, slot_keep_cnt = ?, item_id = ?
-//			WHERE (lane = ?) AND (floor >= ? AND floor <= ?)
-//			`
-//
-//	result, err := tx.Exec(query, req.SlotEnabled, req.SlotKeepCnt, req.ItemId, req.Lane, minStorageSlot, req.Floor)
-//	if err != nil {
-//		return 0, err
-//	}
-//
-//	affected, err := result.RowsAffected()
-//	if err != nil {
-//		return 0, err
-//	}
-//
-//	if affected == 0 {
-//		return 0, customerror.ErrNoRowsAffected
-//	}
-//
-//	err = tx.Commit()
-//	if err != nil {
-//		return 0, err
-//	}
-//
-//	return affected, nil
-//}
+func UpdateStorageSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) {
+	tx, err := db.BeginTx(context.Background(), nil)
+	if err != nil {
+		return 0, err
+	}
+	defer func(tx *sql.Tx) {
+		err := tx.Rollback()
+		if err != nil {
+			log.Error(err)
+		}
+	}(tx)
+
+	var minStorageSlot = req.Floor - itemHeight + 1
+	query := `
+			UPDATE TN_CTR_SLOT
+			SET slot_enabled = ?, slot_keep_cnt = ?, item_id = ?
+			WHERE lane = ? 
+				AND floor >= ? AND floor <= ?
+			`
+
+	result, err := tx.Exec(query, req.SlotEnabled, req.SlotKeepCnt, req.ItemId, req.Lane, minStorageSlot, req.Floor)
+	if err != nil {
+		return 0, err
+	}
+
+	affected, err := result.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	if affected == 0 {
+		return 0, customerror.ErrNoRowsAffected
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return 0, err
+	}
+
+	return affected, nil
+}
 
 //
 //func UpdateOutputSlotList(tx *sql.Tx, itemHeight int, req request.SlotUpdateRequest) (sql.Result, error) {
