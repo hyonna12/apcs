@@ -56,14 +56,14 @@ func main() {
 	// 각 메시지 노드 및 노드별 리프(끝단 노드) 등록
 	msgNodes := make(map[*messenger.Node]struct{})
 
-	eventMsgNode := messenger.NewNode(messenger.NODE_EVENT_SERVER)
-	eventMsgNode.Leaves[messenger.LEAF_EVENT] = struct{}{}
+	eventMsgNode := messenger.NewNode(messenger.NodeEventServer)
+	eventMsgNode.Leaves[messenger.LeafEvent] = struct{}{}
 
-	websocketserverMsgNode := messenger.NewNode(messenger.NODE_WEBSOCKET_SERVER)
-	websocketserverMsgNode.Leaves[messenger.LEAF_KIOSK] = struct{}{} // TODO - node kiosk 붙인 후 주석처리 필수 (kiosk 리프 충돌)
+	websocketserverMsgNode := messenger.NewNode(messenger.NodeWebsocketServer)
+	websocketserverMsgNode.Leaves[messenger.LeafKiosk] = struct{}{} // TODO - node kiosk 붙인 후 주석처리 필수 (kiosk 리프 충돌)
 
-	plcMsgNode := messenger.NewNode(messenger.NODE_PLC_CLIENT)
-	plcMsgNode.Leaves[messenger.LEAF_PLC] = struct{}{}
+	plcMsgNode := messenger.NewNode(messenger.NodePlcClient)
+	plcMsgNode.Leaves[messenger.LeafPlc] = struct{}{}
 
 	msgNodes[eventMsgNode] = struct{}{}
 	msgNodes[websocketserverMsgNode] = struct{}{}
@@ -71,7 +71,7 @@ func main() {
 
 	// 메신저 서버 시작
 	messenger.StartMessengerServer(msgNodes)
-	//LEAF_PLC 서버 시작
+	//LeafPlc 서버 시작
 	plc.StartPlcClient(plcMsgNode)
 	// 이벤트 서버 시작
 	event.StartEventServer(eventMsgNode)

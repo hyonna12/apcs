@@ -10,46 +10,48 @@ import (
 
 // 메시지 노드 이름
 const (
-	// NODE_EVENT_SERVER - 메시지 노드 이름
-	NODE_EVENT_SERVER = "event_server"
-	// NODE_PLC_CLIENT - 메시지 노드 이름
-	NODE_PLC_CLIENT = "plc_server"
-	// NODE_WEBSOCKET_SERVER - 메시지 노드 이름
-	NODE_WEBSOCKET_SERVER = "websocket_server"
+	// NodeEventServer - 메시지 노드 이름
+	NodeEventServer = NodeName("event_server")
+	// NodePlcClient - 메시지 노드 이름
+	NodePlcClient = NodeName("plc_server")
+	// NodeWebsocketServer - 메시지 노드 이름
+	NodeWebsocketServer = NodeName("websocket_server")
 )
 
 // 메시지 리프 이름
 const (
-	// LEAF_KIOSK - Target 또는 Sender에 들어가는 메시지 주체
-	LEAF_KIOSK = Leaf("kiosk")
-	// LEAF_EVENT - Target 또는 Sender에 들어가는 메시지 주체
-	LEAF_EVENT = Leaf("event")
-	// LEAF_PLC - Target 또는 Sender에 들어가는 메시지 주체
-	LEAF_PLC = Leaf("plc")
+	// LeafKiosk - Target 또는 Sender에 들어가는 메시지 주체
+	LeafKiosk = LeafName("kiosk")
+	// LeafEvent - Target 또는 Sender에 들어가는 메시지 주체
+	LeafEvent = LeafName("event")
+	// LeafPlc - Target 또는 Sender에 들어가는 메시지 주체
+	LeafPlc = LeafName("plc")
 )
 
-// Leaf - 메시지가 최종적으로 수신되는 말단 노드
-type Leaf string
+type NodeName string
 
-// Node - 메신저와 직접 연결된 노드로, Node 이면서 Leaf 일 수도 있음
+// LeafName - 메시지가 최종적으로 수신되는 말단 노드
+type LeafName string
+
+// Node - 메신저와 직접 연결된 노드로, Node 이면서 LeafName 일 수도 있음
 type Node struct {
-	Name   string
+	Name   NodeName
 	MsgHub *MsgHub
 	// Listen - 허브에서 보내는 메시지를 듣는 채널
 	Listen chan MessageWrapper
 	// Waiting - 메시지 응답을 기다릴 필요가 있는 경우 임시로 청취하는 채널
 	Waiting map[string]chan bool
 	// Leaves - 메시지가 전달되는 끝단 노드 목록
-	Leaves map[Leaf]struct{}
+	Leaves map[LeafName]struct{}
 }
 
-func NewNode(name string) *Node {
+func NewNode(name NodeName) *Node {
 	n := &Node{
 		Name:    name,
 		MsgHub:  nil,
 		Listen:  make(chan MessageWrapper),
 		Waiting: make(map[string]chan bool),
-		Leaves:  make(map[Leaf]struct{}),
+		Leaves:  make(map[LeafName]struct{}),
 	}
 
 	return n

@@ -128,7 +128,7 @@ func sendKioskMessage(msgType, msgData string) error {
 	}
 
 	// 메시지 생성
-	msg := messenger.NewMessage(messenger.LEAF_KIOSK, messenger.LEAF_EVENT, string(request))
+	msg := messenger.NewMessage(messenger.LeafKiosk, messenger.LeafEvent, string(request))
 	if err != nil {
 		return err
 	}

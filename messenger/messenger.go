@@ -23,8 +23,8 @@ type MessageWrapper struct {
 // Message 각 메시지 주체가 인식하는 메시지
 type Message struct {
 	Id        string    `json:"id"`     // Id - 메시지 식별자 (UUID 사용)
-	Target    Leaf      `json:"target"` // Target - 메시지를 전달받는 리프
-	Sender    Leaf      `json:"sender"` // Sender - 메시지를 보내는 리프
+	Target    LeafName  `json:"target"` // Target - 메시지를 전달받는 리프
+	Sender    LeafName  `json:"sender"` // Sender - 메시지를 보내는 리프
 	Timestamp time.Time `json:"timestamp"`
 	Data      string    `json:"data"` // Data - 메시지 내용
 }
@@ -39,7 +39,7 @@ type MsgHub struct {
 //	t: target. 메시지 받는 리프
 //	s: sender. 메시지를 보내는 리프
 //	d: data. 메시지 내용
-func NewMessage(t Leaf, s Leaf, d string) *Message {
+func NewMessage(t LeafName, s LeafName, d string) *Message {
 	u, _ := uuid.NewRandom()
 
 	m := &Message{
