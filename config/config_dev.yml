@@ -1,0 +1,33 @@
+database:
+  driver-name: mysql
+  username: apcs_dev
+  password: apcs@123
+  host: lineworldap.iptime.org
+  port: 33306
+  db-name: apcs_dev
+
+logging:
+  level: debug
+
+websocket:
+  server:
+    host: localhost
+    port: 3000
+
+messenger:
+  timeout:
+    # 메시지를 허브에 전파할 때 대기하는 시간 제한(초)
+    spread: 3
+    # 메시지 응답을 기다리는 시간 제한(초)
+    response: 3
+
+plc:
+  resource:
+    robot:
+      # 로봇 개수
+      number: 2
+      job:
+        # 로봇에게 job 배정 후 결과를 기다리는 제한시간(s)
+        timeout: 10
+        # 로봇 상태를 확인하고 job을 배정 하는 주기(ms)
+        polling-period: 333

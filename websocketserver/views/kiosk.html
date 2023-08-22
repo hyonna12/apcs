@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>키오스크</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- Bootstrap icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    <!-- Bootstrap JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+            integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+            crossorigin="anonymous"></script>
+
+</head>
+<body class="pt-5">
+
+<!-- 뷰 보이는 곳 -->
+<div id="$show" class="mb-5">
+    <section id="$view_home" class="container">
+        <button id="$item_input_button" class="btn btn-primary">택배 보관하기</button>
+        <button id="$item_output_button" class="btn btn-secondary">택배 찾아가기</button>
+    </section>
+
+    <script>
+        $item_input_button.onclick = () => {
+            setView($view_delivery_id_form);
+        };
+    </script>
+</div>
+
+
+<!-- 뷰 숨기는 곳 -->
+<div id="$hide" class="d-none">
+
+    <!-- 송장 번호 입력 화면 -->
+    <section id="$view_delivery_id_form" class="container">
+        <label for="$delivery_id" class="form-label">바코드를 스캔하거나 송장 번호를 입력하세요</label>
+        <input type="text" id="$delivery_id" class="form-control mb-3">
+        <button type="button" id="$delivery_id_submit_button" class="btn btn-primary">전송</button>
+    </section>
+
+    <script>
+        $delivery_id_submit_button.onclick = () => {
+            triggerEvent("DeliveryIdSubmittedEvent", $delivery_id.value);
+        };
+    </script>
+    <!--/-->
+
+    <!-- $view_validating_delivery_id -->
+    <section id="$view_validating_delivery_id" class="container">
+        <h3>배송 정보를 확인 중입니다.</h3>
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </section>
+    <!--/-->
+
+    <!-- $view_item_submit_request -->
+    <section id="$view_item_submit_request" class="container">
+        <h3>택배를 테이블에 올린 후 확인 버튼을 눌러주세요.</h3>
+        <button id="$item_submit_button" class="btn btn-primary">확인</button>
+    </section>
+
+    <script>
+        $item_submit_button.onclick = () => {
+            triggerEvent("ItemSubmittedEvent");
+        }
+    </script>
+    <!--/-->
+
+    <!-- $view_item_input_complete -->
+    <section id="$view_item_input_complete" class="container">
+        <h3>택배가 수납되었습니다.</h3>
+        <button id="$item_input_complete_confirm_button" class="btn btn-primary">홈으로</button>
+    </section>
+
+    <script>
+        $item_input_complete_confirm_button.onclick = () => {
+            setView($view_home)
+        }
+    </script>
+    <!--/-->
+
+</div>
+
+<section class="container">
+    <hr>
+    <h4>Socket Logs</h4>
+    <ul id="$log" class="list-group list-group-flush overflow-y-scroll" style="height: 60vh">
+
+    </ul>
+</section>
+
+<script>
+    let conn;
+
+    // 웹소켓 연결
+    window.onload = () => {
+        if (window['WebSocket']) {
+            conn = new WebSocket('ws://' + document.location.host + '/ws');
+
+            // 소켓 종료될 때
+            conn.onclose = evt => {
+                let log = document.createElement('div');
+                log.innerHTML = `<b>Connection closed.</b>`;
+                logMessage(log)
+            };
+
+            // 메시지 수신했을 때
+            conn.onmessage = evt => {
+                console.log(evt.data);
+                let message = evt.data;
+
+                logMessage(message)
+                processMessage(message)
+            };
+        } else {
+            let log = document.createElement('div');
+            log.innerHTML = `<b>Your browser does not support WebSockets.</b>`;
+            logMessage(log)
+        }
+
+    }
+
+    // 화면 교체
+    function setView(element) {
+        while($show.hasChildNodes()) {
+            $hide.appendChild($show.firstChild);
+        }
+        $show.append(element);
+    }
+
+    // 수신한 메시지 파싱 및 처리
+    function processMessage(message) {
+        message = JSON.parse(message)
+        if (message.target !== "kiosk") {
+            return false;
+        }
+
+        // 응답 메시지인 경우
+        if (message.data === "ok") {
+            return false;
+        }
+
+        // TODO - 임시 삭제
+        // respondMessage(message);
+
+        message.data = JSON.parse(message.data);
+        switch (message.data.type) {
+            case 'view':
+                let view = window[message.data.data];
+                if (!view) {
+                    console.error("Cannot find view with id: " + message.data.data);
+                    return false;
+                }
+                setView(view);
+                break
+            case 'alert':
+                alert(message.data.data);
+        }
+    }
+
+    // 응답 메시지 전송
+    function respondMessage(requestMessage) {
+        let responseMessage = {
+            id: requestMessage.id,
+            sender: requestMessage.target,
+            target: requestMessage.sender,
+            timestamp: new Date(),
+            data: "ok"
+        };
+        conn.send(JSON.stringify(responseMessage));
+    }
+
+    // 이벤트 트리거 메시지 전송
+    function triggerEvent(eventName, eventData = null) {
+        let requestMessage = {
+            id: crypto.randomUUID(),
+            sender: "kiosk",
+            target: "event",
+            timestamp: new Date(),
+            data: JSON.stringify({
+                event_name: eventName,
+                event_data: eventData
+            })
+        };
+        conn.send(JSON.stringify(requestMessage));
+    }
+
+    function createElementFromHtml(htmlString) {
+        const div = document.createElement('div');
+        div.innerHTML = htmlString.trim();
+        return div.firstElementChild;
+    }
+
+    function logMessage(message) {
+        message = JSON.parse(message)
+        let background = message.data === 'ok' ? '' :
+                        message.sender === 'kiosk' ? 'bg-primary-subtle' : 'bg-danger-subtle';
+        let log = createElementFromHtml(`
+                    <li class="list-group-item ${background}">
+                        <div><b>sender</b>: ${message.sender} -> <b>target</b>: ${message.target}</div>
+                        <div><b>id</b>: ${message.id}</div>
+                        <div><b>timestamp</b>: ${message.timestamp.replace('T', ' ').slice(0, -5)}</div>
+                        <div><b>data</b>: ${message.data}</div>
+                    </li>
+                `);
+
+        $log.appendChild(log)
+        $log.scrollTop = $log.scrollHeight - $log.clientHeight
+    }
+</script>
+
+
+</body>
+</html>
