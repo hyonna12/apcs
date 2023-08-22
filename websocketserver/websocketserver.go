@@ -4,13 +4,8 @@ import (
 	"apcs_refactored/config"
 	"apcs_refactored/messenger"
 	"encoding/json"
-	"fmt"
-	"html/template"
 	"net/http"
-	"os"
-	"path/filepath"
 	"strconv"
-	"strings"
 
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -21,52 +16,6 @@ var (
 	msgNode *messenger.Node
 )
 
-var templ = func() *template.Template {
-	t := template.New("")
-	err := filepath.Walk("websocketserver/views/", func(path string, info os.FileInfo, err error) error {
-		if strings.Contains(path, ".html") {
-			fmt.Println(path)
-			_, err = t.ParseFiles(path)
-			if err != nil {
-				fmt.Println(err)
-			}
-		}
-		return err
-	})
-
-	if err != nil {
-		panic(err)
-	}
-	return t
-}()
-
-type Page struct {
-	Title string
-}
-
-func serveHome(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
-	templ.ExecuteTemplate(w, "main", &Page{Title: "Home"})
-
-	//http.ServeFile(w, r, "websocketserver/views/main.html")
-}
-
-/*
-	 func serveHome(w http.ResponseWriter, r *http.Request) {
-		// /p := path.Dir("websocketserver/views/index.html")
-		// set header
-		w.Header().Set("Content-type", "text/html")
-		http.ServeFile(w, r, "websocketserver/views/main.html")
-	}
-*/
 func StartWebsocketServer(n *messenger.Node) {
 	msgNode = n
 
@@ -88,10 +37,19 @@ func StartWebsocketServer(n *messenger.Node) {
 	)
 
 	r := mux.NewRouter()
-	r.HandleFunc("/", serveHome)
+	r.HandleFunc("/", ServeHome)
+	r.HandleFunc("/input/regist_delivery", RegistDelivery)
+	r.HandleFunc("/input/input_item", InputItem)
+	r.HandleFunc("/input/input_item_error", InputItemError)
+	r.HandleFunc("/input/regist_owner", RegistOwner)
+	r.HandleFunc("/input/regist_owner_error", RegistOwnerError)
+	r.HandleFunc("/input/complete_input_item", CompleteInputItem)
+	r.HandleFunc("/input/cancel_input_item", CancelInputItem)
+
 	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(wsHub, w, r)
 	})
+
 	http.Handle("/", r)
 	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("/static/")))
 	r.Handle("/static/", staticHandler)
