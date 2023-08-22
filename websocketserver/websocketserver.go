@@ -4,15 +4,45 @@ import (
 	"apcs_refactored/config"
 	"apcs_refactored/messenger"
 	"encoding/json"
-	log "github.com/sirupsen/logrus"
+	"fmt"
+	"html/template"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strconv"
+	"strings"
+
+	"github.com/gorilla/mux"
+	log "github.com/sirupsen/logrus"
 )
 
 var (
 	wsHub   *WsHub
 	msgNode *messenger.Node
 )
+
+var templ = func() *template.Template {
+	t := template.New("")
+	err := filepath.Walk("websocketserver/views/", func(path string, info os.FileInfo, err error) error {
+		if strings.Contains(path, ".html") {
+			fmt.Println(path)
+			_, err = t.ParseFiles(path)
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+		return err
+	})
+
+	if err != nil {
+		panic(err)
+	}
+	return t
+}()
+
+type Page struct {
+	Title string
+}
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
@@ -24,9 +54,19 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
-	http.ServeFile(w, r, "websocketserver/kiosk.html")
+	templ.ExecuteTemplate(w, "main", &Page{Title: "Home"})
+
+	//http.ServeFile(w, r, "websocketserver/views/main.html")
 }
 
+/*
+	 func serveHome(w http.ResponseWriter, r *http.Request) {
+		// /p := path.Dir("websocketserver/views/index.html")
+		// set header
+		w.Header().Set("Content-type", "text/html")
+		http.ServeFile(w, r, "websocketserver/views/main.html")
+	}
+*/
 func StartWebsocketServer(n *messenger.Node) {
 	msgNode = n
 
@@ -47,10 +87,14 @@ func StartWebsocketServer(n *messenger.Node) {
 		},
 	)
 
-	http.HandleFunc("/", serveHome)
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+	r := mux.NewRouter()
+	r.HandleFunc("/", serveHome)
+	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(wsHub, w, r)
 	})
+	http.Handle("/", r)
+	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("/static/")))
+	r.Handle("/static/", staticHandler)
 
 	address := wsConf.Server.Host + ":" + strconv.Itoa(wsConf.Server.Port)
 	err := http.ListenAndServe(address, nil)

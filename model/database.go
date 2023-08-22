@@ -4,6 +4,7 @@ import (
 	"apcs_refactored/config"
 	"database/sql"
 	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 	log "github.com/sirupsen/logrus"
 )
