@@ -4,9 +4,9 @@ import (
 	"apcs_refactored/config"
 	"apcs_refactored/event"
 	"apcs_refactored/messenger"
+	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/websocketserver"
-
 	log "github.com/sirupsen/logrus"
 )
 
@@ -49,9 +49,9 @@ func main() {
 	}
 
 	// DB 초기화
-	//model.InitDB()
+	model.InitDB()
 	// DB connection close 지연 호출
-	//defer model.CloseDB()
+	defer model.CloseDB()
 
 	// 각 메시지 노드 및 노드별 리프(끝단 노드) 등록
 	msgNodes := make(map[*messenger.Node]struct{})
