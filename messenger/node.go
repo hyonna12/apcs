@@ -105,7 +105,7 @@ func (n *Node) SendResponseMessage(mw MessageWrapper) {
 	select {
 	case n.MsgHub.broadcast <- responseMw:
 		log.Debugf("[%v -> %v] Responded to message. MessageId=%v", m.Sender, m.Target, mw.Message.Id)
-	case <-time.After(time.Duration(config.Conf.Messenger.Timeout.Spread) * time.Second):
+	case <-time.After(time.Duration(config.Config.Messenger.Timeout.Spread) * time.Second):
 		log.Errorf("[%v -> %v] Cannot respond to message. MessageId=%v", m.Sender, m.Target, mw.Message.Id)
 	}
 }
@@ -128,7 +128,7 @@ func (n *Node) SpreadMessage(message []byte) error {
 	select {
 	case n.MsgHub.broadcast <- mw:
 		log.Debugf("[%v -> %v] Spread message. MessageId=%v", m.Sender, m.Target, mw.Message.Id)
-	case <-time.After(time.Duration(config.Conf.Messenger.Timeout.Spread) * time.Second):
+	case <-time.After(time.Duration(config.Config.Messenger.Timeout.Spread) * time.Second):
 		log.Errorf("[%v -> %v] Cannot spread message. MessageId=%v", m.Sender, m.Target, mw.Message.Id)
 	}
 
@@ -138,7 +138,7 @@ func (n *Node) SpreadMessage(message []byte) error {
 		delete(n.Waiting, m.Id)
 		return nil
 	// 일정 시간 응답 없으면 ErrMessageResponseTimeout 에러 반환
-	case <-time.After(time.Duration(config.Conf.Messenger.Timeout.Response) * time.Second):
+	case <-time.After(time.Duration(config.Config.Messenger.Timeout.Response) * time.Second):
 		log.Errorf("[%v -> %v] Message response timeout", m.Sender, m.Target)
 		return customerror.ErrMessageResponseTimeout
 	}

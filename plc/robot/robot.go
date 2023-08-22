@@ -26,7 +26,7 @@ var (
 )
 
 func InitRobots() {
-	robotNumber := config.Conf.Plc.Resource.Robot.Number
+	robotNumber := config.Config.Plc.Resource.Robot.Number
 	robots = make([]*robot, robotNumber)
 
 	// TODO - 각 로봇과 통신 후 로봇 인스턴스 생성 및 등록

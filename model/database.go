@@ -15,7 +15,7 @@ var (
 
 func InitDB() {
 	log.Info("Started initializing database connection")
-	dbConfig := config.Conf.Database
+	dbConfig := config.Config.Database
 	dbUrl := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", dbConfig.Username, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.DbName)
 
 	connection, err := sql.Open(dbConfig.DriverName, dbUrl)

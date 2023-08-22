@@ -19,7 +19,7 @@ var (
 func StartWebsocketServer(n *messenger.Node) {
 	msgNode = n
 
-	wsConf := config.Conf.Websocket
+	wsConf := config.Config.Websocket
 	wsHub = newWsHub()
 
 	go wsHub.run()

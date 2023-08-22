@@ -17,7 +17,7 @@ func main() {
 	// logger 세팅
 	log.SetReportCaller(true) // 파일명, 호출 라인 표시
 
-	if config.Conf.Profile == "prod" {
+	if config.Config.Profile == "prod" {
 		// JSON 출력 - 운영 단계에서 설정
 		log.SetFormatter(&log.JSONFormatter{})
 	} else {
@@ -34,7 +34,7 @@ func main() {
 
 	log.Info("Control server started")
 
-	loggingLevel := config.Conf.Logging.Level
+	loggingLevel := config.Config.Logging.Level
 	switch loggingLevel {
 	case "trace":
 		log.SetLevel(log.TraceLevel)

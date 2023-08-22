@@ -11,10 +11,10 @@ import (
 )
 
 var (
-	Conf *Config
+	Config *Configuration
 )
 
-type Config struct {
+type Configuration struct {
 	Profile string
 
 	Database struct {
@@ -62,16 +62,16 @@ type Config struct {
 func InitConfig() {
 	profile := flag.String("profile", "dev", "실행 Profile 지정. 개발환경:dev, 운영환경:prod")
 	flag.Parse()
-	log.Infof("[Config] Run profile: %s", *profile)
+	log.Infof("[Configuration] Run profile: %s", *profile)
 
-	// config 파일 절대 경로 얻기
+	// config.go 파일 절대 경로 얻기
 	_, file, _, _ := runtime.Caller(0)
 	basePath := filepath.Dir(file)
 	log.Infof(basePath)
 
 	configFilePath := fmt.Sprintf("%s/config_%s.yml", basePath, *profile)
 
-	config := &Config{}
+	config := &Configuration{}
 	configFilename, err := filepath.Abs(configFilePath)
 	if err != nil {
 		log.Panic(err)
@@ -86,6 +86,6 @@ func InitConfig() {
 		log.Panic(err)
 	}
 
-	Conf = config
-	Conf.Profile = *profile
+	Config = config
+	Config.Profile = *profile
 }

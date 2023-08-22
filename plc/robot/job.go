@@ -43,7 +43,7 @@ func newJob(robotStatus robotStatus) *job {
 }
 
 func DistributeJob() {
-	tick := time.Tick(time.Duration(config.Conf.Plc.Resource.Robot.Job.PollingPeriod) * time.Millisecond)
+	tick := time.Tick(time.Duration(config.Config.Plc.Resource.Robot.Job.PollingPeriod) * time.Millisecond)
 
 	// 일정 시간마다 원하는 status의 로봇 탐지 후 job 배정(polling 방식)
 	for {
@@ -83,7 +83,7 @@ func getRobot(robotStatus robotStatus) (*robot, error) {
 	case robot := <-job.robotWaiting:
 		return robot, nil
 	// TODO - config 패키지별 지역변수화
-	case <-time.After(time.Duration(config.Conf.Plc.Resource.Robot.Job.Timeout) * time.Second):
+	case <-time.After(time.Duration(config.Config.Plc.Resource.Robot.Job.Timeout) * time.Second):
 		log.Errorf("Failed to distribute job to robot ")
 		return nil, customerror.ErrRobotJobDistributionTimeout
 	}
