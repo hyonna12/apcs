@@ -117,9 +117,6 @@ func UpdateTray(trayId int, trayUpdateRequest TrayUpdateRequest) (int64, error) 
 	}
 
 	if affected == 0 {
-		if err != nil {
-			return 0, err
-		}
 		return 0, customerror.ErrNoRowsAffected
 	}
 
@@ -162,9 +159,6 @@ func UpdateTrayEmpty(trayId int, trayUpdateRequest TrayUpdateRequest) (int64, er
 	}
 
 	if affected == 0 {
-		if err != nil {
-			return 0, err
-		}
 		return 0, customerror.ErrNoRowsAffected
 	}
 

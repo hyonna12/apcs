@@ -250,9 +250,6 @@ func UpdateSlot(request SlotUpdateRequest) (int64, error) {
 	}
 
 	if affected == 0 {
-		if err != nil {
-			return 0, err
-		}
 		return 0, customerror.ErrNoRowsAffected
 	}
 
@@ -464,9 +461,6 @@ func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int) (int64, error) {
 	}
 
 	if affected == 0 {
-		if err != nil {
-			return 0, err
-		}
 		return 0, customerror.ErrNoRowsAffected
 	}
 
@@ -536,9 +530,6 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 	}
 
 	if affected == 0 {
-		if err != nil {
-			return 0, err
-		}
 		return 0, customerror.ErrNoRowsAffected
 	}
 
@@ -593,9 +584,6 @@ func UpdateOutputSlotListKeepCnt(itemHeight, lane, floor int) (int64, error) {
 	}
 
 	if affected == 0 {
-		if err != nil {
-			return 0, err
-		}
 		return 0, customerror.ErrNoRowsAffected
 	}
 
