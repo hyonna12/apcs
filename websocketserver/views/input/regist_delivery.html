@@ -11,6 +11,9 @@
                     <div class="input-item">
                         <label for="delivery_company">소속회사</label>
                         <select name="delivery_company" id="delivery_company">
+                            <option value="a">a</option> 
+                            <option value="b">b</option> 
+                            <option value="c">c</option> 
                         </select>
                     </div>
                     <div class="input-item">
@@ -24,7 +27,7 @@
                 </form>
             </div>
             <div class="btn-wrap">
-                <button class="btn-normal" id="user_regist_insert_btn"><a href="/input/input_item">입력완료</a></button><br><br>
+                <button class="btn-normal" id="delivery_regist_btn" onclick="delivery_info()">입력완료</button><br><br>
                 <button class="btn-small" id="home_btn"><a href="/">첫 화면으로</a></button>
             </div>
         </div>
@@ -35,17 +38,42 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
-    // 택배 회사 리스트 조회
-    let request = {
-        target: "event",
-        sender: "kiosk",
-        data: JSON.stringify({
-            event_name: "DeliveryInfoRequested",
-            event_data: "ok" 
-        }),
-    };
+    /* 택배기사, 물품 정보 전달 */
+    function delivery_info() {
+        let request = JSON.stringify({
+            delivery_company: $("select[name='delivery_company']").val(),
+            tracking_number: $('#tracking_number').val(),
+            phone_num: $('#phone_num').val(),
+        });
 
-    axios.post('/output/get_delivery_list', request).then(res => {
+        if ($('#delivery_company').val() == '') {
+            alert('소속회사를 입력해주세요.');
+            return false;
+        }
+        if ($('#tracking_number').val() == '') {
+            alert('운송장 번호를 입력해주세요.');
+            return false;
+        }
+
+        axios.post('/input/input_delivery_info', request).then(res => {
+            console.log(res.data)
+            alert('입력되었습니다.');
+            
+            if(res.data == true){
+                location.href='/input/input_item'
+            } else{
+                location.href='/input/regist_delivery_error'
+
+            }
+            
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+    
+    
+    // 택배 회사 리스트 조회
+    /*axios.post('/output/get_delivery_list', request).then(res => {
         console.log(res.data)
         let delivery_list = res.data.eventData;
         let list = '';
@@ -57,10 +85,10 @@
         
             $('#delivery_company').html(list);
         }
-    });
+    });*/
 
    // 물품기사 정보 전송 - 수정해야함(선택 박스)
-    function delivery_info() {
+    /*function delivery_info() {
         let eventData = JSON.stringify({
             delivery_company: $("select[name='delivery_company']").val(),
             tracking_number: $('#tracking_number').val(),
@@ -99,7 +127,7 @@
         }).catch(err => {
             console.log(err);
         });
-    }
+    }*/
     
 </script>
 {{end}}

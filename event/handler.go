@@ -5,11 +5,50 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"encoding/json"
-	log "github.com/sirupsen/logrus"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type Handler struct{}
+
+// DeliveryIdSubmittedEventHandler 송장 번호가 제출되었을 경우 처리하는 핸들러
+func (h Handler) DeliveryInfoRequested(event Event) error {
+	log.Info("배송 정보 확인 중")
+
+	// 키오스크에 "배송 정보를 확인 중입니다." 표시
+	if err := sendKioskMessage(
+		messenger.KIOSK_REQUEST_TYPE_VIEW,
+		"$view_validating_delivery_id",
+	); err != nil {
+		return err
+	}
+
+	// TODO - 배송 정보 확인 로직
+	isValidDeliveryId := event.EventData != "" // TODO - temp, 송장 번호가 없으면 오류
+	time.Sleep(500 * time.Millisecond)         // TODO - temp, 키오스크 화면 시연을 위해 딜레이
+	log.Info("배송 정보가 유효합니다.")
+
+	if isValidDeliveryId {
+		// 배송 정보가 유효할 경우
+		return DispatchEvent(Event{EventName: DeliveryIdValidatedEvent})
+	} else {
+		// 배송 정보가 유효하지 않을 경우
+		if err := sendKioskMessage(
+			messenger.KIOSK_REQUEST_TYPE_ALERT,
+			"배송 정보가 유효하지 않습니다. 다시 입력해주세요.",
+		); err != nil {
+			return nil
+		}
+		if err := sendKioskMessage(
+			messenger.KIOSK_REQUEST_TYPE_VIEW,
+			"$view_delivery_id_form",
+		); err != nil {
+			return nil
+		}
+		return DispatchEvent(Event{EventName: DeliveryIdRejectedEvent})
+	}
+}
 
 // DeliveryIdSubmittedEventHandler 송장 번호가 제출되었을 경우 처리하는 핸들러
 func (h Handler) DeliveryIdSubmittedEventHandler(event Event) error {
