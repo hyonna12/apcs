@@ -43,3 +43,29 @@ func SelectDeliveryByDeliveryInfo(deliveryReadRequest DeliveryReadRequest) (Deli
 
 	return delivery, nil
 }
+
+func SelectDeliveryCompanyList() ([]string, error) {
+
+	query := `
+			SELECT delivery_company 
+			FROM TN_INF_DELIVERY
+		`
+
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	var deliveryCompanys []string
+
+	for rows.Next() {
+		var deliveryCompany string
+		err := rows.Scan(&deliveryCompany)
+		if err != nil {
+			return nil, err
+		}
+		deliveryCompanys = append(deliveryCompanys, deliveryCompany)
+	}
+
+	return deliveryCompanys, nil
+}

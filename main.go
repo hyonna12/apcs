@@ -6,7 +6,7 @@ import (
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
-	"apcs_refactored/websocketserver"
+	"apcs_refactored/webserver/websocketserver"
 
 	log "github.com/sirupsen/logrus"
 )
