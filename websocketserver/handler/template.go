@@ -177,7 +177,10 @@ func ItemList(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
-	templ.ExecuteTemplate(w, "output/item_list", &Page{Title: "Home"})
+	err := templ.ExecuteTemplate(w, "output/item_list", &Page{Title: "Home"})
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
 }
 
 func ItemListError(w http.ResponseWriter, r *http.Request) {

@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"encoding/json"
-	"errors"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -28,28 +26,28 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/cancel_input_item", CancelInputItem)
 
 	r.HandleFunc("/input/input_delivery_info", func(w http.ResponseWriter, r *http.Request) {
-
-		deliveryCreateRequest := request.DeliveryCreateRequest{}
-
-		err := json.NewDecoder(r.Body).Decode(&deliveryCreateRequest)
-
-		if err != nil {
-			Response(w, nil, http.StatusInternalServerError, err)
-		}
-
-		if deliveryCreateRequest.DeliveryName == "" || deliveryCreateRequest.PhoneNum == "" || deliveryCreateRequest.DeliveryCompany == "" {
-			Response(w, nil, http.StatusBadRequest, errors.New("파라미터가 누락되었습니다"))
-			return
-		}
-
-		err = service.Service.InsertDelivery(deliveryCreateRequest)
-
-		if err != nil {
-			Response(w, nil, http.StatusInternalServerError, err)
-			return
-		}
-
-		Response(w, "OK", http.StatusOK, nil)
+		//
+		//deliveryCreateRequest := request.DeliveryCreateRequest{}
+		//
+		//err := json.NewDecoder(r.Body).Decode(&deliveryCreateRequest)
+		//
+		//if err != nil {
+		//	Response(w, nil, http.StatusInternalServerError, err)
+		//}
+		//
+		//if deliveryCreateRequest.DeliveryName == "" || deliveryCreateRequest.PhoneNum == "" || deliveryCreateRequest.DeliveryCompany == "" {
+		//	Response(w, nil, http.StatusBadRequest, errors.New("파라미터가 누락되었습니다"))
+		//	return
+		//}
+		//
+		//err = service.Service.InsertDelivery(deliveryCreateRequest)
+		//
+		//if err != nil {
+		//	Response(w, nil, http.StatusInternalServerError, err)
+		//	return
+		//}
+		//
+		//Response(w, "OK", http.StatusOK, nil)
 
 	}).Methods("POST")
 
