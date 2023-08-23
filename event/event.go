@@ -3,13 +3,19 @@ package event
 import (
 	"apcs_refactored/messenger"
 	"encoding/json"
-	log "github.com/sirupsen/logrus"
 	"reflect"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type eventName string
 
 const (
+	// DeliveryInfoRequested - 키오스크에서 택배기사가 입고 버튼을 누른 경우 발생
+	//
+	// Event.EventData: 없음
+	DeliveryInfoRequested eventName = "DeliveryInfoRequested"
+
 	// DeliveryIdSubmittedEvent - 키오스크에서 택배기사가 배송 번호를 입력하고 확인 버튼을 누른 경우 발생
 	//
 	// Event.EventData: 택배사 이름(string), 배송번호(int)

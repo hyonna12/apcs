@@ -54,7 +54,7 @@
                 conn.onclose = evt => {
                     let log = document.createElement('div');
                     log.innerHTML = `<b>Connection closed.</b>`;
-                    logMessage(log)
+                    //logMessage(log)
                 };
     
                 // 메시지 수신했을 때
@@ -62,13 +62,13 @@
                     console.log(evt.data);
                     let message = evt.data;
     
-                    logMessage(message)
+                    //logMessage(message)
                     processMessage(message)
                 };
             } else {
-                let log = document.createElement('div');
-                log.innerHTML = `<b>Your browser does not support WebSockets.</b>`;
-                logMessage(log)
+                //let log = document.createElement('div');
+                //log.innerHTML = `<b>Your browser does not support WebSockets.</b>`;
+                //logMessage(log)
             }
     
         }
