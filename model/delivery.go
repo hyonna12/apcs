@@ -13,35 +13,22 @@ type Delivery struct {
 	UDatetime       time.Time
 }
 
-type DeliveryReadRequest struct {
-	DeliveryName    string `json:"delivery_name"`
-	PhoneNum        string `json:"phone_num"`
-	DeliveryCompany string `json:"company"`
-}
-
-func SelectDeliveryByDeliveryInfo(deliveryReadRequest DeliveryReadRequest) (Delivery, error) {
+func SelectDeliveryIdByCompany(deliveryCompany string) (int64, error) {
 
 	query := `
-			SELECT 
-				delivery_id, 
-				delivery_name, 
-				phone_num, 
-				delivery_company
+			SELECT delivery_id
 			FROM TN_INF_DELIVERY
-			WHERE 
-			    delivery_name = ? 
-			  	AND phone_num = ?
-			  	AND delivery_company = ?
+			WHERE delivery_name = ? 
 			`
 
-	var delivery Delivery
-	row := db.QueryRow(query, deliveryReadRequest.DeliveryName, deliveryReadRequest.PhoneNum, deliveryReadRequest.DeliveryCompany)
-	err := row.Scan(&delivery.DeliveryId, &delivery.DeliveryName, &delivery.PhoneNum, &delivery.DeliveryCompany)
+	var deliveryId int64
+	row := db.QueryRow(query, deliveryCompany)
+	err := row.Scan(&deliveryId)
 	if err != nil {
-		return Delivery{}, err
+		return deliveryId, err
 	}
 
-	return delivery, nil
+	return deliveryId, nil
 }
 
 func SelectDeliveryCompanyList() ([]string, error) {

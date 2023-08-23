@@ -3,39 +3,29 @@ package model
 import log "github.com/sirupsen/logrus"
 
 type OwnerInfo struct {
-	OwnerName string
-	PhoneNum  string
-	Address   string
+	Address string
 }
 
 type Owner struct {
-	OwnerId   int64
-	OwnerName string
-	PhoneNum  string
-	Address   string
+	OwnerId  int64
+	PhoneNum string
+	Address  string
 }
 
-func SelectOwnerByOwnerInfo(info OwnerInfo) (Owner, error) {
-	query :=
-		`SELECT 
-    			owner_id, 
-    			owner_name, 
-    			phone_num, 
-    			address
+func SelectOwnerIdByAddress(address string) (int64, error) {
+	query := `
+		SELECT owner_id
 		FROM TN_INF_OWNER
-		WHERE owner_name = ? 
-			AND phone_num = ? 
-		  	AND address = ?
+		WHERE address = ?
 		`
 
-	var owner Owner
+	var ownerId int64
 
-	row := db.QueryRow(query, info.OwnerName, info.PhoneNum, info.Address)
-	err := row.Scan(&owner.OwnerId, &owner.OwnerName, &owner.PhoneNum, &owner.Address)
+	row := db.QueryRow(query, address)
+	err := row.Scan(&ownerId)
 	if err != nil {
 		log.Error(err)
-		return Owner{}, err
+		return ownerId, err
 	}
-
-	return owner, nil
+	return ownerId, nil
 }

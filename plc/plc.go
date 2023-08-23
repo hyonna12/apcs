@@ -4,8 +4,9 @@ import (
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc/robot"
-	log "github.com/sirupsen/logrus"
 	"math/rand"
+
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -21,9 +22,10 @@ var (
 )
 
 type ItemDimension struct {
-	height int
-	width  int
-	length int
+	Height      int
+	Width       int
+	Length      int
+	TrackingNum int
 }
 
 func StartPlcClient(n *messenger.Node) {
@@ -124,9 +126,10 @@ func SenseItemInfo() (ItemDimension, error) {
 
 	// TODO - temp
 	itemDimension := &ItemDimension{
-		height: rand.Intn(40),
-		width:  rand.Intn(40),
-		length: rand.Intn(40),
+		Height:      rand.Intn(40),
+		Width:       rand.Intn(40),
+		Length:      rand.Intn(40),
+		TrackingNum: rand.Intn(40),
 	}
 
 	return *itemDimension, nil

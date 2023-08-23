@@ -23,29 +23,24 @@ func TestSelectOwnerByOwnerInfo(t *testing.T) {
 		{"Test case 1: Find test owner Bob",
 			args{
 				OwnerInfo{
-					OwnerName: "Bob",
-					PhoneNum:  "01012345678",
-					Address:   "111-222",
+					Address: "111-222",
 				},
 			},
 			Owner{
-				OwnerId:   1,
-				OwnerName: "Bob",
-				PhoneNum:  "01012345678",
-				Address:   "111-222",
+				OwnerId: 1,
 			},
 			false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := SelectOwnerByOwnerInfo(tt.args.info)
+			got, err := SelectOwnerIdByAddress(tt.args.info.Address)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("SelectOwnerByOwnerInfo() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("SelectOwnerIdByAddress() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("SelectOwnerByOwnerInfo() got = %v, want %v", got, tt.want)
+				t.Errorf("SelectOwnerIdByAddress() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

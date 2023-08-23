@@ -7,11 +7,11 @@
 </div>
 
 <div class="sub-right" ;style="background-color: white; display: ">
-    <h2 class="sub-right-title">택배를 입고해주세요</h2>
+    <h2 class="sub-right-title">송장이 위로 향하게 투입해주세요!</h2>
     <div class="sub-right-con">
         <div class="sub-con-sec">
             <div class="board-top-search" style="float: left;">
-                <button class="btn-small" id="complete_btn"><a href="/input/regist_owner">입고 완료</a></button>
+                <!-- <button class="btn-small" id="complete_btn"><a href="/input/regist_owner">입고 완료</a></button> -->
 
                 <button class="btn-small" id="cancle_btn"><a href="/input/cancel_input_item">입고 취소</a></button>
                 <button class="btn-small" id="home_btn"><a href="/">처음으로</a></button>
@@ -24,6 +24,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
+    /* 택배 투입 */
+    axios.post('/input/submit_item').then(res => {
+        console.log(res.data);
+
+        if(res.data.status == 200){
+            location.href='/input/complete_input_item';
+        } else{
+            location.href='/input/input_item_error';
+        }
+        console.log("완료")
+         
+    }).catch(err => {
+        console.log(err);
+    });
+
     // 택배 입고 완료 요청
     function complete() {
 
@@ -40,7 +55,7 @@
             console.log(res.data)
             alert("입고 완료");
 
-            if(res.data == true){
+            if(res.data.status == 200){
                 location.href='/input/input_item_option';
             } else{
                 location.href='/input/input_item_error';
