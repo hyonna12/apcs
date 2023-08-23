@@ -192,9 +192,10 @@ func UpdateOutputTime(itemId int) (int64, error) {
 }
 
 func SelectItemIdByTrackingNum(trackingNumber int) (ItemReadResponse, error) {
-	query := `SELECT item_id
-			FROM TN_CTR_ITEM 
-			WHERE tracking_number = ?
+	query :=
+		`SELECT item_id
+				FROM TN_CTR_ITEM 
+				WHERE tracking_number = ?
 			`
 
 	var itemReadResponse ItemReadResponse
@@ -206,4 +207,23 @@ func SelectItemIdByTrackingNum(trackingNumber int) (ItemReadResponse, error) {
 	}
 
 	return itemReadResponse, nil
+}
+
+func SelectItemExistsByAddress(address string) (bool, error) {
+	query :=
+		`SELECT EXISTS(
+				SELECT 1
+				FROM TN_CTR_ITEM i
+					JOIN TN_INF_OWNER	o ON i.owner_id = o.owner_id
+				WHERE o.address = ?)
+			`
+
+	var exists bool
+	row := db.QueryRow(query, address)
+	err := row.Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+
+	return exists, err
 }

@@ -30,6 +30,7 @@ func Handler(r *mux.Router) {
 	/* output */
 	r.HandleFunc("/output/regist_address", RegistAddress)
 	r.HandleFunc("/output/regist_address_error", RegistAddressError)
+	r.HandleFunc("/output/check_item_exists", CheckItemExists)
 	r.HandleFunc("/output/item_list", ItemList)
 	r.HandleFunc("/output/item_list_error", ItemListError)
 	r.HandleFunc("/output/complete_output_item", CompleteOutputItem)
