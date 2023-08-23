@@ -25,6 +25,7 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/get_delivery_list", DeliveryCompanyList)
 	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods("POST")
 	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods("POST")
+	r.HandleFunc("/input/input", Input).Methods("POST")
 
 	/* output */
 	r.HandleFunc("/output/regist_address", RegistAddress)

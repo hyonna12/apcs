@@ -97,8 +97,8 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationOpen)
 	for {
 		// 센싱하고 있다가 물품 감지
-		item, _ := plc.SenseTableForItem()
-		item = true // **제거
+		item, _ := plc.SenseTableForItem() // 값 들어올때까지 대기
+		item = true                        // **제거
 		if item {
 			// 물품 크기, 무게, 송장번호 조회
 			itemDimension, _ = plc.SenseItemInfo()
@@ -114,8 +114,6 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationClose)
-
 	// 물품을 수납할 최적 슬롯 찾기
 	bestSlot = model.Slot{SlotId: 1, Lane: 1, Floor: 1}
 
@@ -126,11 +124,14 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationClose)
+
 	Response(w, "OK", http.StatusOK, nil)
 }
 
-func InputItemToSlot() {
+func Input(w http.ResponseWriter, r *http.Request) {
 	plc.InputItem(bestSlot)
+
 	// ownerId 조회, deliveryId 조회 - 키오스크 입력 시 id 값이 넘어오도록 **수정
 	deliveryId, _ := model.SelectDeliveryIdByCompany(inputInfoRequest.DeliveryCompany)
 	ownerId, _ := model.SelectOwnerIdByAddress(inputInfoRequest.Address)
@@ -139,4 +140,12 @@ func InputItemToSlot() {
 	model.InsertItem(itemCreateRequest)
 
 	// 슬롯, 트레이 db 업데이트
+	// 물품 id 조회
+	item, _ := model.SelectItemIdByTrackingNum(itemDimension.TrackingNum)
+	// 트레이 아이디 추가
+	slotUpdateRequest := model.SlotUpdateRequest{SlotEnabled: false, SlotKeepCnt: 0, ItemId: item.ItemId}
+	model.UpdateStorageSlotList(itemDimension.Height, slotUpdateRequest)
+	model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, itemDimension.Height)
+
+	plc.SetUpDoor(plc.DoorTypeBack, plc.DoorOperationClose)
 }
