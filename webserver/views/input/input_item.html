@@ -1,0 +1,45 @@
+{{define "input/input_item"}}
+{{template "header" .}}
+
+<div class="main-page" style="display: none;">
+    <!-- <div class="main-bg"></div>
+    <div class="main-con"></div> -->
+</div>
+
+<div class="sub-right" ;style="background-color: white; display: ">
+    <h2 class="sub-right-title">송장이 위로 향하게 투입해주세요!</h2>
+    <div class="sub-right-con">
+        <div class="sub-con-sec">
+            <div class="board-top-search" style="float: left;">
+                <!-- <button class="btn-small" id="complete_btn"><a href="/input/regist_owner">입고 완료</a></button> -->
+
+                <button class="btn-small" id="cancle_btn"><a href="/input/cancel_input_item">입고 취소</a></button>
+                <button class="btn-small" id="home_btn"><a href="/">처음으로</a></button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    /* 택배 투입 */
+    axios.post('/input/submit_item').then(res => {
+        console.log(res.data);
+
+        if(res.data.status == 200){
+            location.href='/input/complete_input_item';
+        } else{
+            location.href='/input/input_item_error';
+        }
+        console.log("완료")
+         
+    }).catch(err => {
+        console.log(err);
+    });
+
+/* 입고 취소 or 처음으로 선택한 경우 제어서버에 stop 메시지 보내줘야함 */
+
+</script>
+{{end}}

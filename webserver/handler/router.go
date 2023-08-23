@@ -1,0 +1,37 @@
+package handler
+
+import (
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
+
+func Handler(r *mux.Router) {
+	r.HandleFunc("/", Home)
+
+	http.Handle("/", r)
+	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("/static/")))
+	r.Handle("/static/", staticHandler)
+
+	/* input */
+	r.HandleFunc("/input/regist_delivery", RegistDelivery)
+	r.HandleFunc("/input/input_item", InputItem)
+	r.HandleFunc("/input/input_item_error", InputItemError)
+	r.HandleFunc("/input/regist_owner", RegistOwner)
+	r.HandleFunc("/input/regist_owner_error", RegistOwnerError)
+	r.HandleFunc("/input/complete_input_item", CompleteInputItem)
+	r.HandleFunc("/input/cancel_input_item", CancelInputItem)
+
+	r.HandleFunc("/input/get_delivery_list", DeliveryCompanyList)
+	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods("POST")
+	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods("POST")
+	r.HandleFunc("/input/input", Input).Methods("POST")
+
+	/* output */
+	r.HandleFunc("/output/regist_address", RegistAddress)
+	r.HandleFunc("/output/regist_address_error", RegistAddressError)
+	r.HandleFunc("/output/item_list", ItemList)
+	r.HandleFunc("/output/item_list_error", ItemListError)
+	r.HandleFunc("/output/complete_output_item", CompleteOutputItem)
+
+}

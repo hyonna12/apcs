@@ -1,0 +1,68 @@
+{{define "output/regist_address"}}
+{{template "header" .}}
+
+<div class="sub-right">
+    <h2 class="sub-right-title">수령인 정보 입력</h2>
+    <div class="sub-right-con">
+        <div class="sub-con-sec join-sec">
+            <div class="form-wrap">
+                <div style="margin-bottom: 30px;">아래의 정보를 입력 혹은 입주민 카드를 태그하세요</div>
+                <form action="">
+                    <div class="input-item">
+                        <label for="address">귀하의 호수</label>
+                        <input type="text" id="address">
+                    </div>
+                </form>
+            </div>
+            <div class="btn-wrap">
+                <button class="btn-normal" id="user_regist_insert_btn"><a href="/output/item_list">입력완료</a></button><br><br>
+                <button class="btn-small" id="qna_search_btn"><a href="/">처음으로</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+
+    // 입주민 정보 전송
+    function owner_info() {
+
+        let eventData = JSON.stringify({
+        address: $('#address').val(),
+        });
+
+        let request = {
+            targer: "event",
+            sender: "kiosk",
+            data: JSON.stringify({
+                event_name: "ItemInfoRequested",
+                event_data: eventData 
+            }),
+        };
+
+        if ($('#address').val() == '') {
+            alert('주소를 입력해주세요.');
+            return false;
+        }
+
+        axios.post('/output/get_owner_info', request).then(res => {
+            // 유저의 물품 리스트 리턴
+            console.log(res.data)
+            alert('입력되었습니다.');
+            if(res.data == true){
+                location.href='/output/item_list'
+            } else{
+                location.href='/output/item_list_error'
+
+            }
+            
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+     
+</script>
+{{end}}

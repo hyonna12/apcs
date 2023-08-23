@@ -4,8 +4,9 @@ import (
 	"apcs_refactored/customerror"
 	"context"
 	"database/sql"
-	log "github.com/sirupsen/logrus"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type Item struct {
@@ -31,7 +32,6 @@ type ItemReadResponse struct {
 }
 
 type ItemCreateRequest struct {
-	ItemName       string
 	ItemHeight     int
 	TrackingNumber int
 	DeliveryId     int64
@@ -135,7 +135,6 @@ func SelectItemBySlot(lane, floor int) (ItemReadResponse, error) {
 // InsertItem - DB에 물품 추가. 부여된 id 반환.
 func InsertItem(itemCreateRequest ItemCreateRequest) (int64, error) {
 	query := `INSERT INTO TN_CTR_ITEM(
-                        item_name, 
                         item_height, 
                         tracking_number, 
                         input_date, 
@@ -144,7 +143,7 @@ func InsertItem(itemCreateRequest ItemCreateRequest) (int64, error) {
 			VALUES(?, ?, ?, now(), ?, ?)
 			`
 
-	result, err := db.Exec(query, itemCreateRequest.ItemName, itemCreateRequest.ItemHeight, itemCreateRequest.TrackingNumber, itemCreateRequest.DeliveryId, itemCreateRequest.OwnerId)
+	result, err := db.Exec(query, itemCreateRequest.ItemHeight, itemCreateRequest.TrackingNumber, itemCreateRequest.DeliveryId, itemCreateRequest.OwnerId)
 	if err != nil {
 		return 0, err
 	}
