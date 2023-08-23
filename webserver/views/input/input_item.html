@@ -26,14 +26,11 @@
 <script>
     /* 택배 투입 */
     axios.post('/input/submit_item').then(res => {
-        console.log(res.data);
-
         if(res.data.status == 200){
             location.href='/input/complete_input_item';
         } else{
             location.href='/input/input_item_error';
         }
-        console.log("완료")
          
     }).catch(err => {
         console.log(err);

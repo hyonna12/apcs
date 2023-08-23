@@ -10,7 +10,7 @@
                 <form action="">
                     <div class="input-item">
                         <label for="delivery_company">택배 회사</label>
-                        <select name="delivery_company" id="delivery_company">
+                        <select id="delivery_company">
                         </select>
                     </div>
                     <div class="input-item">
@@ -37,13 +37,12 @@
 <script>
     /* 택배 회사 리스트 조회 */
     axios.get('/input/get_delivery_list').then(res => {
-        console.log(res.data.data)
         let delivery_list = res.data.data;
         let list = '';
         console.log(delivery_list)
         for(let i=0; i<delivery_list.length; i++){
             list += `
-                <option value="${delivery_list[i]}">${delivery_list[i]}</option> 
+                <option name="delivery_company" value="${delivery_list[i].delivery_id}">${delivery_list[i].delivery_company}</option> 
             `
         
             $('#delivery_company').html(list);
@@ -52,11 +51,13 @@
 
     /* 배송 정보 전달 */
     function send_delivery_info() {
+
         let request = JSON.stringify({
-            delivery_company: $("select[name='delivery_company']").val(),
+            delivery_id: $("#delivery_company :selected").val(),
             address: $('#address').val(),
             phone_num: $('#phone_num').val(),
         });
+        console.log(request)
 
         if ($('#delivery_company').val() == '') {
             alert('소속회사를 입력해주세요.');
@@ -76,7 +77,8 @@
             if(res.data.status == 200){
                 location.href='/input/input_item'
             } else{
-                alert("다시 입력하세요")
+                console.log(res.data.error)
+                alert(res.data.error)
                 //location.href='/input/regist_delivery_error'
 
             }

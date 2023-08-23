@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -23,14 +24,15 @@ type CommonResponse struct {
 } */
 
 type InputInfoRequest struct {
-	DeliveryCompany string `json:"delivery_company"`
-	Address         string `json:"address"`
-	PhoneNum        string `json:"phone_num"`
+	DeliveryId string `json:"delivery_id"`
+	Address    string `json:"address"`
+	PhoneNum   string `json:"phone_num"`
 }
 
 var inputInfoRequest InputInfoRequest
 var itemDimension plc.ItemDimension
 var bestSlot model.Slot
+var ownerId int64
 
 func Response(w http.ResponseWriter, data interface{}, status int, err error) {
 	var res CommonResponse
@@ -67,15 +69,24 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
-	if inputInfoRequest.Address == "" || inputInfoRequest.PhoneNum == "" || inputInfoRequest.DeliveryCompany == "" {
+	if inputInfoRequest.Address == "" || inputInfoRequest.DeliveryId == "" {
 		Response(w, nil, http.StatusBadRequest, errors.New("파라미터가 누락되었습니다"))
 		return
 	}
 
 	// address 가 존재하는 주소인지 확인하는 로직 필요! **수정 - id 값 받아오기
+	ownerId, err = model.SelectOwnerIdByAddress(inputInfoRequest.Address)
+	if ownerId == 0 {
+		Response(w, nil, http.StatusBadRequest, errors.New("입력하신 주소가 존재하지 않습니다"))
+		// 중단 프로세스 **수정
+		return
+	}
 
 	// 테이블에 빈 트레이 감지
 	emptyTray, _ := plc.SenseTableForEmptyTray()
+	if err != nil {
+		Response(w, nil, http.StatusInternalServerError, err)
+	}
 	emptyTray = true // **제거
 	// 빈 트레이가 있을 경우
 	if emptyTray {
@@ -132,11 +143,9 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 func Input(w http.ResponseWriter, r *http.Request) {
 	plc.InputItem(bestSlot)
 
-	// ownerId 조회, deliveryId 조회 - 키오스크 입력 시 id 값이 넘어오도록 **수정
-	deliveryId, _ := model.SelectDeliveryIdByCompany(inputInfoRequest.DeliveryCompany)
-	ownerId, _ := model.SelectOwnerIdByAddress(inputInfoRequest.Address)
 	// 송장번호 ,물품높이, 택배기사, 수령인 정보 itemCreateRequest 에 넣어서 물품 db업데이트
-	itemCreateRequest := model.ItemCreateRequest{ItemHeight: itemDimension.Height, TrackingNumber: itemDimension.TrackingNum, DeliveryId: deliveryId, OwnerId: ownerId}
+	delivery_id, _ := strconv.ParseInt(inputInfoRequest.DeliveryId, 10, 64)
+	itemCreateRequest := model.ItemCreateRequest{ItemHeight: itemDimension.Height, TrackingNumber: itemDimension.TrackingNum, DeliveryId: delivery_id, OwnerId: ownerId}
 	model.InsertItem(itemCreateRequest)
 
 	// 슬롯, 트레이 db 업데이트
@@ -148,4 +157,6 @@ func Input(w http.ResponseWriter, r *http.Request) {
 	model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, itemDimension.Height)
 
 	plc.SetUpDoor(plc.DoorTypeBack, plc.DoorOperationClose)
+
+	Response(w, "OK", http.StatusOK, nil)
 }

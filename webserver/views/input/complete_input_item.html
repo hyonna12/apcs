@@ -28,11 +28,10 @@
         console.log(res.data);
 
         if(res.data.status == 200){
-            location.href='/input/complete_input_item';
+            console.log("완료")
         } else{
-            location.href='/input/input_item_error';
+            console.log("입고 불가");
         }
-        console.log("완료")
          
     }).catch(err => {
         console.log(err);
