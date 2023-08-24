@@ -27,7 +27,10 @@
     /* 택배 투입 */
     axios.post('/input/submit_item').then(res => {
         if(res.data.status == 200){
-            location.href='/input/complete_input_item';
+            // ** 제거
+            setTimeout(function(){
+                location.href='/input/complete_input_item';
+            }, 2000);
         } else{
             location.href='/input/input_item_error';
         }

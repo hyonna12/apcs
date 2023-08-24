@@ -7,11 +7,12 @@ import (
 )
 
 func Handler(r *mux.Router) {
-	r.HandleFunc("/", Home)
-
 	http.Handle("/", r)
 	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("/static/")))
 	r.Handle("/static/", staticHandler)
+
+	/* main */
+	r.HandleFunc("/", Home)
 
 	/* input */
 	r.HandleFunc("/input/regist_delivery", RegistDelivery)
