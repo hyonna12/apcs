@@ -1,10 +1,13 @@
 package plc
 
 import (
+	"apcs_refactored/config"
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
+	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
 	"math/rand"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -18,7 +21,8 @@ const (
 )
 
 var (
-	msgNode *messenger.Node
+	msgNode        *messenger.Node
+	simulatorDelay time.Duration
 )
 
 type ItemDimension struct {
@@ -30,6 +34,9 @@ type ItemDimension struct {
 
 func StartPlcClient(n *messenger.Node) {
 	msgNode = n
+
+	// 시뮬레이터 딜레이 설정
+	simulatorDelay = time.Duration(config.Config.Plc.Simulation.Delay)
 
 	robot.InitRobots()
 
@@ -50,11 +57,13 @@ func StartPlcClient(n *messenger.Node) {
 //
 // 도어 조작.
 //
-// - doorType: 조작할 도어
-// - doorOperation: 조작 명령
-func SetUpDoor(doorType DoorType, doorOperation DoorOperation) error {
-	log.Infof("[PLC_Door] 도어 조작: %v, %v", doorType, doorOperation)
-	// TODO - PLC 도어 조작 로직
+// - door.DoorType: 조작할 도어
+// - door.DoorOperation: 조작 명령
+func SetUpDoor(doorType door.DoorType, doorOperation door.DoorOperation) error {
+	err := door.SetUpDoor(doorType, doorOperation)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -87,7 +96,7 @@ func SenseTableForItem() (bool, error) {
 func ServeEmptyTrayToTable(slot model.Slot) error {
 	log.Infof("[PLC] 테이블에 빈 트레이 서빙")
 
-	if err := SetUpDoor(DoorTypeBack, DoorOperationOpen); err != nil {
+	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
 
@@ -170,7 +179,7 @@ func RetrieveEmptyTrayFromTable(slot model.Slot) error {
 func InputItem(slot model.Slot) error {
 	log.Infof("[PLC] 물품 수납. 수납할 슬롯: %v", slot)
 
-	if err := SetUpDoor(DoorTypeBack, DoorOperationOpen); err != nil {
+	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
 
@@ -186,19 +195,22 @@ func InputItem(slot model.Slot) error {
 // 물품 불출.
 // - slot: 물품을 꺼내올 슬롯
 func OutputItem(slot model.Slot) error {
-	log.Infof("[PLC] 물품 불출. 꺼내올 슬롯: %v", slot)
+	log.Infof("[PLC] 물품 불출 시작. 꺼내올 슬롯 id=%v", slot.SlotId)
 
-	if err := SetUpDoor(DoorTypeBack, DoorOperationOpen); err != nil {
-		return err
-	}
+	// TODO - 도어 제어 JOB 안에 포함
+	//if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
+	//	return err
+	//}
 
 	if err := robot.JobOutputItem(slot); err != nil {
 		return err
 	}
 
-	if err := SetUpDoor(DoorTypeBack, DoorOperationClose); err != nil {
-		return err
-	}
+	// TODO - 도어 제어 JOB 안에 포함
+	//if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
+	//	return err
+	//}
 
+	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil
 }

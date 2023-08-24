@@ -29,10 +29,15 @@ func Handler(r *mux.Router) {
 
 	/* output */
 	r.HandleFunc("/output/regist_address", RegistAddress)
-	r.HandleFunc("/output/regist_address_error", RegistAddressError)
+	// 알림창으로 대체
+	//r.HandleFunc("/output/regist_address_error", RegistAddressError)
 	r.HandleFunc("/output/check_item_exists", CheckItemExists)
 	r.HandleFunc("/output/item_list", ItemList)
-	r.HandleFunc("/output/item_list_error", ItemListError)
+	r.HandleFunc("/output/get_item_list", GetItemList)
+	r.HandleFunc("/output/item_output_ongoing", ItemOutputOngoing)
+
+	// 알림창으로 대체
+	//r.HandleFunc("/output/item_list_error", ItemListError)
 	r.HandleFunc("/output/complete_output_item", CompleteOutputItem)
 
 }

@@ -23,6 +23,8 @@ func StartWebsocketServer(n *messenger.Node) {
 	wsConf := config.Config.Websocket
 	wsHub = newWsHub()
 
+	handler.InitHandler()
+
 	go wsHub.run()
 	go msgNode.ListenMessages(
 		func(m *messenger.Message) bool {

@@ -3,6 +3,8 @@ package handler
 import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
+	"apcs_refactored/plc/door"
+	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -28,9 +30,32 @@ type InputInfoRequest struct {
 	PhoneNum        string `json:"phone_num"`
 }
 
-var inputInfoRequest InputInfoRequest
-var itemDimension plc.ItemDimension
-var bestSlot model.Slot
+type RequestType string
+type RequestStatus string
+
+const (
+	requestTypeInput  = "requestTypeInput"
+	requestTypeOutput = "requestTypeOutput"
+	//requestStatusPending = "pending" // TODO - 삭제
+	//requestStatusOngoing = "ongoing" // TODO - 삭제
+)
+
+type request struct {
+	itemId      int64
+	requestType RequestType
+	//requestStatus RequestStatus // TODO - 삭제
+}
+
+var (
+	inputInfoRequest InputInfoRequest
+	itemDimension    plc.ItemDimension
+	bestSlot         model.Slot
+	requestList      map[int64]*request
+)
+
+func InitHandler() {
+	requestList = make(map[int64]*request)
+}
 
 func Response(w http.ResponseWriter, data interface{}, status int, err error) {
 	var res CommonResponse
@@ -87,14 +112,14 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		emptyTray := model.Slot{}
 		plc.ServeEmptyTrayToTable(emptyTray)
 		// 트레이 db 정보 변경 **수정
-		plc.SetUpDoor(plc.DoorTypeBack, plc.DoorOperationClose)
+		plc.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose)
 	}
 
 	Response(w, "OK", http.StatusOK, nil)
 }
 
 func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
-	plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationOpen)
+	plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
 	for {
 		// 센싱하고 있다가 물품 감지
 		item, _ := plc.SenseTableForItem() // 값 들어올때까지 대기
@@ -124,7 +149,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationClose)
+	plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
 
 	Response(w, "OK", http.StatusOK, nil)
 }
@@ -143,9 +168,16 @@ func Input(w http.ResponseWriter, r *http.Request) {
 	// 물품 id 조회
 	item, _ := model.SelectItemIdByTrackingNum(itemDimension.TrackingNum)
 	// 트레이 아이디 추가
-	slotUpdateRequest := model.SlotUpdateRequest{SlotEnabled: false, SlotKeepCnt: 0, ItemId: item.ItemId}
+	slotUpdateRequest := model.SlotUpdateRequest{
+		SlotEnabled: false,
+		SlotKeepCnt: 0,
+		ItemId: sql.NullInt64{
+			Int64: item.ItemId,
+			Valid: true,
+		},
+	}
 	model.UpdateStorageSlotList(itemDimension.Height, slotUpdateRequest)
 	model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, itemDimension.Height)
 
-	plc.SetUpDoor(plc.DoorTypeBack, plc.DoorOperationClose)
+	plc.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose)
 }

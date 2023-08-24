@@ -10,32 +10,39 @@ import (
 )
 
 type Item struct {
-	ItemId         int64
-	ItemName       string
-	ItemHeight     int
-	TrackingNumber int
-	InputDate      time.Time
-	OutputDate     time.Time
-	DeliveryId     int64
-	OwnerId        int64
-	CDatetime      time.Time
-	UDatetime      time.Time
+	ItemId         int64     `json:"item_id"`
+	ItemName       string    `json:"item_name"`
+	ItemHeight     int       `json:"item_height"`
+	TrackingNumber int       `json:"tracking_number"`
+	InputDate      time.Time `json:"input_date"`
+	OutputDate     time.Time `json:"output_date"`
+	DeliveryId     int64     `json:"delivery_id"`
+	OwnerId        int64     `json:"owner_id"`
+	CDatetime      time.Time `json:"c_datetime"`
+	UDatetime      time.Time `json:"u_datetime"`
 }
 
 type ItemReadResponse struct {
-	ItemId     int64
-	ItemName   string
-	ItemHeight int
-	Lane       int
-	Floor      int
-	TrayId     int
+	ItemId     int64  `json:"item_id"`
+	ItemName   string `json:"item_name"`
+	ItemHeight int    `json:"item_height"`
+	Lane       int    `json:"lane"`
+	Floor      int    `json:"floor"`
+	TrayId     int    `json:"tray_id"`
+}
+
+type ItemListResponse struct {
+	ItemId          int64     `json:"item_id"`
+	DeliveryCompany string    `json:"delivery_company"`
+	TrackingNumber  int64     `json:"tracking_number"`
+	InputDate       time.Time `json:"input_date"`
 }
 
 type ItemCreateRequest struct {
-	ItemHeight     int
-	TrackingNumber int
-	DeliveryId     int64
-	OwnerId        int64
+	ItemHeight     int   `json:"item_height"`
+	TrackingNumber int   `json:"tracking_number"`
+	DeliveryId     int64 `json:"delivery_id"`
+	OwnerId        int64 `json:"owner_id"`
 }
 
 func SelectItemLocationList() ([]ItemReadResponse, error) {
@@ -98,7 +105,14 @@ func SelectItemListByOwnerId(ownerId int) ([]ItemReadResponse, error) {
 
 	for rows.Next() {
 		var itemReadResponse ItemReadResponse
-		err := rows.Scan(&itemReadResponse.ItemId, &itemReadResponse.Lane, &itemReadResponse.Floor)
+		err := rows.Scan(
+			&itemReadResponse.ItemId,
+			&itemReadResponse.ItemName,
+			&itemReadResponse.ItemHeight,
+			&itemReadResponse.Lane,
+			&itemReadResponse.Floor,
+			&itemReadResponse.TrayId,
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -109,6 +123,48 @@ func SelectItemListByOwnerId(ownerId int) ([]ItemReadResponse, error) {
 		return nil, err
 	} else {
 		return itemReadResponses, nil
+	}
+}
+
+func SelectItemListByAddress(address string) ([]ItemListResponse, error) {
+
+	query := `
+			SELECT
+				i.item_id,
+				d.delivery_company,
+				i.tracking_number,
+				i.input_date
+			FROM TN_CTR_ITEM i
+				JOIN TN_INF_OWNER	o ON i.owner_id = o.owner_id
+				JOIN TN_INF_DELIVERY d ON i.delivery_id = d.delivery_id
+			WHERE o.address = ?
+			`
+
+	rows, err := db.Query(query, address)
+	if err != nil {
+		return nil, err
+	}
+
+	var itemListResponses []ItemListResponse
+
+	for rows.Next() {
+		var itemListResponse ItemListResponse
+		err := rows.Scan(
+			&itemListResponse.ItemId,
+			&itemListResponse.DeliveryCompany,
+			&itemListResponse.TrackingNumber,
+			&itemListResponse.InputDate,
+		)
+		if err != nil {
+			return nil, err
+		}
+		itemListResponses = append(itemListResponses, itemListResponse)
+	}
+
+	if err != nil {
+		return nil, err
+	} else {
+		return itemListResponses, nil
 	}
 }
 

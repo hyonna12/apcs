@@ -27,7 +27,9 @@ plc:
       # 로봇 개수
       number: 2
       job:
-        # 로봇에게 job 배정 후 결과를 기다리는 제한시간(s)
-        timeout: 10
         # 로봇 상태를 확인하고 job을 배정 하는 주기(ms)
-        polling-period: 333
+        polling-period: 100
+  simulation:
+    # 시뮬레이션 속도 배율
+    # 0일 경우 딜레이 없이 진행됨
+    delay: 1

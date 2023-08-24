@@ -2,8 +2,8 @@ package robot
 
 import (
 	"apcs_refactored/config"
-	"apcs_refactored/customerror"
 	"apcs_refactored/model"
+	"apcs_refactored/plc/door"
 	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
 	"time"
@@ -42,10 +42,15 @@ func newJob(robotStatus robotStatus) *job {
 	return job
 }
 
+func changeRobotStatus(robot robot, robotStatus robotStatus) {
+	robot.status = robotStatus
+	DistributeJob()
+}
+
 func DistributeJob() {
 	tick := time.Tick(time.Duration(config.Config.Plc.Resource.Robot.Job.PollingPeriod) * time.Millisecond)
 
-	// 일정 시간마다 원하는 status의 로봇 탐지 후 job 배정(polling 방식)
+	// 일정 시간마다 로봇 상태 스캔 후 알맞은 job에 배정(polling 방식)
 	for {
 		select {
 		case <-tick:
@@ -57,11 +62,11 @@ func DistributeJob() {
 
 			for _, robot := range robots {
 				if robot.status == job.requiredRobotStatus {
+					log.Infof("[PLC_Job] Job을 로봇에 배정했습니다. Job: %v, Robot: %v", *job, *robot)
+
 					job.robot = robot
 					job.robotWaiting <- robot
 					jobQueue = jobQueue[1:]
-
-					log.Infof("[PLC_Robot] Job을 로봇에 배정했습니다. Job: %v, Robot: %v", *job, *robot)
 
 					break
 				}
@@ -79,14 +84,9 @@ func getRobot(robotStatus robotStatus) (*robot, error) {
 	job := newJob(robotStatus)
 	jobQueue = append(jobQueue, job)
 
-	select {
-	case robot := <-job.robotWaiting:
-		return robot, nil
-	// TODO - config 패키지별 지역변수화
-	case <-time.After(time.Duration(config.Config.Plc.Resource.Robot.Job.Timeout) * time.Second):
-		log.Errorf("Failed to distribute job to robot ")
-		return nil, customerror.ErrRobotJobDistributionTimeout
-	}
+	// 로봇 - job 배정 대기
+	robot := <-job.robotWaiting
+	return robot, nil
 }
 
 // JobServeEmptyTrayToTable
@@ -110,6 +110,9 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 		return err
 	}
 	if err := robot.moveToTable(); err != nil {
+		return err
+	}
+	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
 	if err := robot.pushToTable(); err != nil {
@@ -157,6 +160,9 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
+	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
+		return err
+	}
 	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
@@ -184,20 +190,20 @@ func JobInputItem(slot model.Slot) error {
 
 	var robot *robot
 
+	// 대기 중인 로봇에게 job 우선 배정
 	waitingRobotExists := false
 	for _, r := range robots {
 		if r.status == waiting {
+			r, err := getRobot(waiting)
+			if err != nil {
+				return err
+			}
+			robot = r
 			waitingRobotExists = true
 		}
 	}
 
-	if waitingRobotExists {
-		r, err := getRobot(waiting)
-		if err != nil {
-			return err
-		}
-		robot = r
-	} else {
+	if !waitingRobotExists {
 		r, err := getRobot(available)
 		if err != nil {
 			return err
@@ -208,6 +214,9 @@ func JobInputItem(slot model.Slot) error {
 	robot.status = working
 
 	if err := robot.moveToTable(); err != nil {
+		return err
+	}
+	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
 	if err := robot.pullFromTable(); err != nil {
@@ -231,7 +240,7 @@ func JobInputItem(slot model.Slot) error {
 //
 // - slot: 물건을 꺼낼 슬롯
 func JobOutputItem(slot model.Slot) error {
-	log.Infof("[PLC_Robot_Job] 슬롯의 물건을 테이블로 서빙. slot: %v", slot)
+	log.Infof("[PLC_Robot_Job] 슬롯의 물건을 테이블로 서빙 시작. slot: %v", slot)
 	robot, err := getRobot(available)
 	if err != nil {
 		return err
@@ -248,11 +257,16 @@ func JobOutputItem(slot model.Slot) error {
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
+	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
+		return err
+	}
 	if err := robot.pushToTable(); err != nil {
 		return err
 	}
 
 	robot.status = available
+
+	log.Infof("[PLC_Robot_Job] 슬롯의 물건을 테이블로 서빙 완료. slot: %v", slot)
 
 	return nil
 }

@@ -140,48 +140,19 @@ func CancelInputItem(w http.ResponseWriter, r *http.Request) {
 	templ.ExecuteTemplate(w, "input/cancel_input_item", &Page{Title: "Home"})
 }
 
-/* Output_Item */
-func RegistAddress(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/regist_address" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
-	templ.ExecuteTemplate(w, "output/regist_address", &Page{Title: "Home"})
-}
-
-func RegistAddressError(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/regist_address_error" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
-	templ.ExecuteTemplate(w, "output/regist_address_error", &Page{Title: "Home"})
-}
-
-func ItemList(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/item_list" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
-	err := templ.ExecuteTemplate(w, "output/item_list", &Page{Title: "Home"})
-	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
-}
+//
+//func RegistAddressError(w http.ResponseWriter, r *http.Request) {
+//	log.Debugf("URL: %v", r.URL)
+//	if r.URL.Path != "/output/regist_address_error" {
+//		http.Error(w, "Not found", http.StatusNotFound)
+//		return
+//	}
+//
+//	if r.Method != http.MethodGet {
+//		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+//	}
+//	templ.ExecuteTemplate(w, "output/regist_address_error", &Page{Title: "Home"})
+//}
 
 func ItemListError(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)

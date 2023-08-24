@@ -56,6 +56,9 @@ type Configuration struct {
 				} `yaml:"job"`
 			} `yaml:"robot"`
 		} `yaml:"resource"`
+		Simulation struct {
+			Delay int `yaml:"delay"`
+		} `yaml:"simulation"`
 	} `yaml:"plc"`
 }
 

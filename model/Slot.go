@@ -5,14 +5,16 @@ import (
 	"context"
 	"database/sql"
 	log "github.com/sirupsen/logrus"
+	"strconv"
+	"strings"
 	"time"
 )
 
 type SlotUpdateRequest struct {
 	SlotEnabled bool
 	SlotKeepCnt int
-	TrayId      int64
-	ItemId      int64
+	TrayId      sql.NullInt64
+	ItemId      sql.NullInt64
 	Lane        int
 	Floor       int
 }
@@ -24,8 +26,8 @@ type Slot struct {
 	TransportDistance int
 	SlotEnabled       bool
 	SlotKeepCnt       int
-	TrayId            int64
-	ItemId            int64
+	TrayId            sql.NullInt64
+	ItemId            sql.NullInt64
 	CheckDatetime     time.Time
 	CDatetime         time.Time
 	UDatetime         time.Time
@@ -33,13 +35,7 @@ type Slot struct {
 
 func SelectSlotList() ([]Slot, error) {
 	query := `
-		SELECT slot_id, 
-		       lane, 
-		       floor, 
-		       slot_keep_cnt, 
-		       tray_id, 
-		       item_id
-			FROM TN_CTR_SLOT
+		SELECT * FROM TN_CTR_SLOT
 	`
 
 	rows, err := db.Query(query)
@@ -51,10 +47,75 @@ func SelectSlotList() ([]Slot, error) {
 
 	for rows.Next() {
 		var slot Slot
-		err := rows.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.SlotKeepCnt, &slot.TrayId, &slot.ItemId)
+		// &slot.SlotEnabled를 직접 스캔하면
+		// couldn't convert "\x01" into type bool, wantErr false 에러 발생함.
+		// 이를 우회하기 위해 임시 변수 사용
+		var slotEnabled bool
+		err := rows.Scan(
+			&slot.SlotId,
+			&slot.Lane,
+			&slot.Floor,
+			&slot.TransportDistance,
+			&slotEnabled,
+			&slot.SlotKeepCnt,
+			&slot.TrayId,
+			&slot.ItemId,
+			&slot.CheckDatetime,
+			&slot.CDatetime,
+			&slot.UDatetime,
+		)
 		if err != nil {
 			return nil, err
 		}
+		slot.SlotEnabled = slotEnabled
+		slots = append(slots, slot)
+	}
+
+	return slots, nil
+}
+
+func SelectSlotsByItemIds(itemIds []int64) ([]Slot, error) {
+	// WHERE IN 절에 들어갈 파라미터 제작
+	var itemIdsStr []string
+	for _, id := range itemIds {
+		itemIdsStr = append(itemIdsStr, strconv.FormatInt(id, 10))
+	}
+	params := strings.Join(itemIdsStr, ",")
+
+	query := `
+		SELECT
+			*
+		FROM TN_CTR_SLOT s
+		WHERE s.item_id IN (?)
+	`
+
+	rows, err := db.Query(query, params)
+	if err != nil {
+		return nil, err
+	}
+
+	var slots []Slot
+
+	for rows.Next() {
+		var slot Slot
+		var slotEnabled []uint8
+		err := rows.Scan(
+			&slot.SlotId,
+			&slot.Lane,
+			&slot.Floor,
+			&slot.TransportDistance,
+			&slotEnabled,
+			&slot.SlotKeepCnt,
+			&slot.TrayId,
+			&slot.ItemId,
+			&slot.CheckDatetime,
+			&slot.CDatetime,
+			&slot.UDatetime,
+		)
+		if err != nil {
+			return nil, err
+		}
+		slot.SlotEnabled = slotEnabled[0] == 1
 		slots = append(slots, slot)
 	}
 
