@@ -114,18 +114,17 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 
 func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationOpen)
-	for {
-		// 센싱하고 있다가 물품 감지
-		item, _ := plc.SenseTableForItem() // 값 들어올때까지 대기
-		item = true                        // **제거
-		if item {
-			// 물품 크기, 무게, 송장번호 조회
-			itemDimension, _ = plc.SenseItemInfo()
-			itemDimension = plc.ItemDimension{Height: 3, Width: 3, Length: 5, TrackingNum: 1010} // **제거
-			log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
-			break
-		}
+
+	// 센싱하고 있다가 물품 감지
+	item, _ := plc.SenseTableForItem() // 값 들어올때까지 대기
+	// **수정
+	if !item {
+		// 물품 크기, 무게, 송장번호 조회
+		itemDimension, _ = plc.SenseItemInfo()
+		itemDimension = plc.ItemDimension{Height: 3, Width: 3, Length: 5, TrackingNum: 1010} // **제거
+		log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 	}
+
 	// 물품의 크기, 무게가 기준 초과되면 입고 취소
 	if itemDimension.Height > 10 {
 		Response(w, nil, http.StatusBadRequest, errors.New("허용 무게를 초과하였습니다"))
@@ -135,7 +134,6 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 
 	// 물품을 수납할 최적 슬롯 찾기 // **제거
 	slotList, _ := model.SelectAvailableSlotList(itemDimension.Height)
-	fmt.Println(slotList)
 	if len(slotList) == 0 {
 		fmt.Println("수납가능한 슬롯 없음")
 	}
@@ -145,6 +143,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	bestSlot.Lane = slotList[0].Lane
 	bestSlot.Floor = slotList[0].Floor
 	fmt.Println("최적수납슬롯:", bestSlot)
+
 	plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationClose)
 
 	Response(w, "OK", http.StatusOK, nil)
@@ -169,4 +168,31 @@ func Input(w http.ResponseWriter, r *http.Request) {
 	plc.SetUpDoor(plc.DoorTypeBack, plc.DoorOperationClose)
 
 	Response(w, "OK", http.StatusOK, nil)
+}
+
+type StopRequest struct {
+	Step string `json:"step"`
+}
+
+func StopInput(w http.ResponseWriter, r *http.Request) {
+	stopRequest := StopRequest{}
+	fmt.Println(r.Body)
+	err := json.NewDecoder(r.Body).Decode(&stopRequest)
+	fmt.Println(inputInfoRequest)
+
+	if err != nil {
+		Response(w, nil, http.StatusInternalServerError, err)
+	}
+	fmt.Println("오류단계 :", stopRequest.Step) // 오류 단계
+
+	if stopRequest.Step >= "1" {
+		// 센싱하고 있다가 물품 감지
+		item, _ := plc.SenseTableForItem() // 값 들어올때까지 대기
+		// **수정
+		if item {
+			plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationClose)
+		}
+
+		Response(w, "OK", http.StatusOK, nil)
+	}
 }

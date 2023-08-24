@@ -4,7 +4,6 @@ import (
 	"apcs_refactored/customerror"
 	"context"
 	"database/sql"
-	"fmt"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -111,7 +110,6 @@ func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println("슬롯:", slot)
 		slots = append(slots, slot)
 	}
 
