@@ -32,12 +32,14 @@
                 location.href='/input/complete_input_item';
             }, 3000);
         } else{
-            location.href='/input/input_item_error';
+            console.log(err);
+            alert(err.response.data.error)
         }
-         
     }).catch(err => {
         console.log(err);
-        alert(err.response.data.error)
+        setTimeout(function(){
+            location.href='/input/input_item_error?error=' + err.response.data.error;
+        }, 3000);
     });
 
     /* 입고 취소 */

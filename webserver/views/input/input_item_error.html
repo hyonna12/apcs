@@ -11,13 +11,74 @@
     <div class="sub-right-con">
         <div class="sub-con-sec">
             <div class="board-top-search" style="float: left;">
-                <p>택배 투입구를 확인해주세요!</p>
-                <p>허용 무게 초과</p>
-                <button class="btn-small" id="cancle_btn"><a href="/input/cancle_input_item">입고 취소</a></button>
+                <h2>아래 사유로 입고에 실패했습니다.<h2>
+                <div id="put_error">
+                    <p></p>
+                </div>
+                <button class="btn-small" id="cancle_btn" onclick="send_stop_info()">입고 취소</button>
                 <button class="btn-small" id="home_btn"><a href="/">처음으로</a></button>
             </div>
 
         </div>
     </div>
 </div>
-{{end}}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    let getLink = window.location.search;
+    let getSplit = getLink.split('=');	//getLink를 '='를 기준으로 두 배열 요소로 분리
+    let getError = getSplit[1];	//분리한 배열 중 두번째 요소 변수에 넣기
+    let decodeError = decodeURI(getError)
+    console.log(decodeError);
+    getHtml(decodeError);
+
+    function getHtml(error){
+        let getHtml = `<p>${error}</p>`
+        $('#put_error').html(getHtml)
+    }
+
+    /* 물품 회수 시 이 전으로 */
+    setTimeout(function(){
+        axios.post('/input/senseItem').then(res => {
+            if(res.data.status == 200){
+                    location.href='/input/input_item'
+            } else{
+                console.log(res)
+                alert(res)
+                //console.log(res.data.error)
+                //alert(res.data.error)
+                //location.href='/input/regist_delivery_error'
+            }
+            
+        }).catch(err => {
+            console.log(err);
+            alert(err)
+        });
+    }, 3000);
+
+    /* 입고 취소 */
+    function send_stop_info() {
+        let request = JSON.stringify({
+            step: "1",
+        });
+
+        axios.post('/input/stop_input', request).then(res => {
+            if(res.data.status == 200){
+                alert('입고를 취소하셨습니다.');
+                location.href='/input/cancel_input_item'
+            } else{
+                console.log(res.data.error)
+                alert(res.data.error)
+                //location.href='/input/regist_delivery_error'
+            }
+            
+        }).catch(err => {
+            console.log(err);
+            alert(err.response.data.error)
+        });
+    }
+    
+</script>
+
+{{end}}1

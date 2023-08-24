@@ -127,8 +127,15 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 
 	// 물품의 크기, 무게가 기준 초과되면 입고 취소
 	if itemDimension.Height > 10 {
-		Response(w, nil, http.StatusBadRequest, errors.New("허용 무게를 초과하였습니다"))
-		// 중단 프로세스 **수정
+		Response(w, nil, http.StatusBadRequest, errors.New("허용 무게 초과"))
+		return
+	}
+	if itemDimension.Width > 10 {
+		Response(w, nil, http.StatusBadRequest, errors.New("허용 너비 초과"))
+		return
+	}
+	if itemDimension.Length > 10 {
+		Response(w, nil, http.StatusBadRequest, errors.New("허용 높이 초과"))
 		return
 	}
 
@@ -189,10 +196,19 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 		// 센싱하고 있다가 물품 감지
 		item, _ := plc.SenseTableForItem() // 값 들어올때까지 대기
 		// **수정
-		if item {
+		if !item {
 			plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationClose)
 		}
 
+		Response(w, "OK", http.StatusOK, nil)
+	}
+}
+
+func SenseItem(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("물품 감지")
+	item, _ := plc.SenseTableForItem() // 값 들어올때까지 대기
+	// **수정
+	if item == false {
 		Response(w, "OK", http.StatusOK, nil)
 	}
 }
