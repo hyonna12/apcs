@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"sort"
 	"strconv"
 
 	log "github.com/sirupsen/logrus"
@@ -102,7 +103,11 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 
 		plc.SetUpDoor(plc.DoorTypeBack, plc.DoorOperationClose)
 	}
-	trayId = 11
+	// **제거
+	trayId, _ = model.SelectEmptyTray()
+	if trayId == 0 {
+		fmt.Println("빈 트레이 없음")
+	}
 
 	Response(w, "OK", http.StatusOK, nil)
 }
@@ -116,7 +121,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		if item {
 			// 물품 크기, 무게, 송장번호 조회
 			itemDimension, _ = plc.SenseItemInfo()
-			itemDimension = plc.ItemDimension{Height: 3, Width: 1, Length: 3, TrackingNum: 1010} // **제거
+			itemDimension = plc.ItemDimension{Height: 3, Width: 3, Length: 5, TrackingNum: 1010} // **제거
 			log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 			break
 		}
@@ -128,16 +133,18 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 물품을 수납할 최적 슬롯 찾기
-	bestSlot = model.Slot{SlotId: 11, Lane: 3, Floor: 2}
-
-	// 수납할 수 있는 슬롯이 없을 때 입고 취소
-	if bestSlot == (model.Slot{}) {
-		Response(w, nil, http.StatusBadRequest, errors.New("수납 가능한 슬롯이 없습니다"))
-		// 중단 프로세스 **수정
-		return
+	// 물품을 수납할 최적 슬롯 찾기 // **제거
+	slotList, _ := model.SelectAvailableSlotList(itemDimension.Height)
+	fmt.Println(slotList)
+	if len(slotList) == 0 {
+		fmt.Println("수납가능한 슬롯 없음")
 	}
-
+	sort.SliceStable(slotList, func(i, j int) bool {
+		return slotList[i].TransportDistance < slotList[j].TransportDistance
+	})
+	bestSlot.Lane = slotList[0].Lane
+	bestSlot.Floor = slotList[0].Floor
+	fmt.Println("최적수납슬롯:", bestSlot)
 	plc.SetUpDoor(plc.DoorTypeFront, plc.DoorOperationClose)
 
 	Response(w, "OK", http.StatusOK, nil)

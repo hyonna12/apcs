@@ -1,0 +1,86 @@
+@charset "utf-8";
+
+.board-top-search {float: right; margin-bottom: 10px;}
+.board-top-search input {height: 25px; line-height: 25px; padding: 0 10px; border-radius: 2px; border: 1px solid #999; font-size: 14px; vertical-align: middle; margin-right: 3px; box-sizing: border-box;}
+
+.board-wrap, .board-detail-wrap {font-size: 14px;}
+.board-wrap .board-table-wrap .board-table {width: 100%; font-size: 14px; text-align: center; background-color: #fff; margin-bottom: 15px;}
+.board-table th {padding: 12px 5px; border-top: 1px solid #666; border-bottom: 1px solid #666; vertical-align: middle; white-space: normal; word-break: keep-all;}
+.board-table td {padding: 12px 5px; border-bottom: 1px solid #ccc; vertical-align: middle;}
+.reply svg {width: 13px; height: 13px; margin-right: 5px; fill: #ef4036;}
+.board-wrap .board-table-wrap .btn-wrap {display: flex; justify-content: flex-end;}
+
+.board-detail-wrap .view-wrap {position: relative; width: 100%; background-color: #fff; border: none;}
+.board-detail-wrap .view-wrap .view-title {display: flex; justify-content: space-between; align-items: center; padding: 20px 25px 18px; border-bottom: 1px solid #e1e1e1;}
+.board-detail-wrap .view-wrap .view-title div span {color: #787878;}
+.board-detail-wrap .view-wrap .view-title div .writer {margin-right: 10px;}
+.board-detail-wrap .view-wrap .view-con {padding: 50px 35px; border-bottom: 1px solid #e1e1e1; min-height: 200px;}
+.board-detail-wrap .view-wrap .view-con pre {line-height: 150%; font-family: 'Noto Sans KR', sans-serif; word-wrap: break-word; white-space: pre-wrap; word-break: break-all;}
+.board-detail-wrap .view-wrap .view-file {padding: 20px 27px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e1e1e1;}
+.board-detail-wrap .view-wrap .view-file .file-name {margin-left: 20px; display: inline-block; width: 70%;}
+
+.board-detail-wrap .answer-wrap {width: 100%; position: relative; margin-top: 30px; background-color: #fff;}
+.board-detail-wrap .answer-wrap .answer-line {width: 100%; background-color: #a1a1a1; height: 1px; margin-bottom: 30px;}
+.board-detail-wrap .answer-wrap .answer-title {display: block; margin-bottom: 15px;}
+.board-detail-wrap .answer-wrap .answer-con {padding: 0; min-height: auto;}
+.board-detail-wrap .answer-wrap .answer-con textarea {width: 100%; box-sizing: border-box; border: 1px solid #e1e1e1; resize: none; padding: 20px 27px;}
+
+.board-detail-wrap .btn-wrap {display: flex; justify-content: flex-end; margin-top: 20px;}
+.board-detail-wrap .btn-wrap button {margin-right: 5px;}
+.board-detail-wrap .btn-wrap button:last-child {margin-right: 0;}
+
+.form-wrap .board-input-item {width: 100%; margin-bottom: 10px; font-size: 14px;}
+.form-wrap .board-input-item label {display: inline-block; width: 10%; color: #333;}
+.form-wrap .board-input-item input {box-sizing: border-box; padding: 6px 10px; width: 89.5%; border: 1px solid #ccc; border-radius: 3px;}
+.form-wrap .board-input-item.textarea-type {display: flex; align-items: flex-start;}
+.form-wrap .board-input-item.textarea-type textarea {width: 89.5%; height: 280px; box-sizing: border-box; padding: 6px 10px; resize: none; border: 1px solid #ccc; border-radius: 3px;}
+.form-wrap .board-input-item.textarea-type textarea {margin-left: 3px;}
+.qna-sec .btn-wrap {margin-top: 15px; display: flex; justify-content: flex-end;}
+.qna-sec .btn-wrap button {margin-left: 5px;}
+
+.form-wrap .board-input-item.file-type {display: flex; align-items: center;}
+.form-wrap .board-input-item.file-type .file-name {width: 82.4%; line-height: 15px; margin-left: 3px; appearance: none; -webkit-appearance: none; -moz-appearance: none;}
+.form-wrap .board-input-item.file-type .file-input {position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;}
+.form-wrap .board-input-item.file-type label.btn-file {width: auto; margin-left: 10px; height: 29px; line-height: 26px;}
+.form-wrap .board-input-item.file-type div.btn-small {text-align: center; margin-left: 5px; height: 29px; line-height: 26px;}
+
+.answer-wrap {margin-top: 30px; width: 100%; position: relative; font-size: 14px; background-color: #fff;}
+.answer-wrap .answer-line {width: 100%; background-color: #a1a1a1; height: 2px; margin-bottom: 30px;}
+.answer-wrap .answer-title {width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;}
+.answer-wrap .answer-title label {width: 5%; font-size: 15px;}
+.answer-wrap .answer {padding: 0; min-height: auto;}
+.answer-wrap .answer textarea {width: 100%; box-sizing: border-box; border: 1px solid #e1e1e1; resize: none; padding: 20px 27px;}
+
+@media all and (max-width:1024px) {
+    .board-input-item.title-item .update-input {width: 89%;}
+    .board-input-item .update-textarea {width: 89%;}
+
+    .board-detail-wrap .view-wrap .view-file .file-name {width: 60%;}
+}
+
+@media all and (max-width:768px) {
+    .board-table th, .board-table td {padding: 10px 5px;}
+
+    .board-detail-wrap .view-wrap .view-title {padding: 15px 20px 13px;}
+    .board-detail-wrap .view-wrap .view-con {padding: 40px 30px;}
+    .board-detail-wrap .view-wrap .view-file {padding: 15px 20px;}
+}
+
+@media all and (max-width:568px) {
+    .board-top-search {float: none;}
+    .board-top-search input {border-radius: 3px;}
+
+    .board-wrap .board-table-wrap .board-table {font-size: 12px;}
+    .board-table th, .board-table td {padding: 8px 0;}
+
+    .board-detail-wrap .view-wrap {font-size: 13px;}
+    .board-detail-wrap .view-wrap .view-title {padding: 0 10px 13px; display: block;}
+    .board-detail-wrap .view-wrap .view-title div {margin-top: 10px;}
+    .board-detail-wrap .view-wrap .view-con {padding: 20px 15px;}
+    .board-detail-wrap .view-wrap .view-file {padding: 10px;}
+    .board-detail-wrap .view-wrap .view-file .file-name {margin-left: 10px; width: 50%;}
+    .down-ico {width: 13px; height: 13px;}
+    
+    .form-wrap .board-input-item {display: flex; justify-content: space-between;}
+    .form-wrap .board-input-item label {font-size: 13px;}
+}

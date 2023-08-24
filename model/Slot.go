@@ -4,8 +4,10 @@ import (
 	"apcs_refactored/customerror"
 	"context"
 	"database/sql"
-	log "github.com/sirupsen/logrus"
+	"fmt"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type SlotUpdateRequest struct {
@@ -18,17 +20,17 @@ type SlotUpdateRequest struct {
 }
 
 type Slot struct {
-	SlotId            int64
-	Lane              int
-	Floor             int
-	TransportDistance int
-	SlotEnabled       bool
-	SlotKeepCnt       int
-	TrayId            int64
-	ItemId            int64
-	CheckDatetime     time.Time
-	CDatetime         time.Time
-	UDatetime         time.Time
+	SlotId            int64     `json:"slot_id"`
+	Lane              int       `json:"lane"`
+	Floor             int       `json:"floor"`
+	TransportDistance int       `json:"transport_distance"`
+	SlotEnabled       bool      `json:"slot_enabled"`
+	SlotKeepCnt       int       `json:"slot_keep_cnt"`
+	TrayId            int64     `json:"tray_id"`
+	ItemId            int64     `json:"item_id"`
+	CheckDatetime     time.Time `json:"check_datetime"`
+	CDatetime         time.Time `json:"c_datetime"`
+	UDatetime         time.Time `json:"u_datetime"`
 }
 
 func SelectSlotList() ([]Slot, error) {
@@ -89,11 +91,10 @@ func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
 				slot_id, 
 				lane, 
 				floor, 
-				transport_distance, 
-				tray_id 
+				transport_distance
 			FROM TN_CTR_SLOT
 			WHERE 
-			    slot_enabled = 1 
+				slot_enabled = 1 
 			  	AND slot_keep_cnt >= ?
 			`
 
@@ -106,10 +107,11 @@ func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
 
 	for rows.Next() {
 		var slot Slot
-		err := rows.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.SlotKeepCnt, &slot.TrayId, &slot.ItemId)
+		err := rows.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.TransportDistance)
 		if err != nil {
 			return nil, err
 		}
+		fmt.Println("슬롯:", slot)
 		slots = append(slots, slot)
 	}
 
