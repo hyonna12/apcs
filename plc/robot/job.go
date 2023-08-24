@@ -1,7 +1,6 @@
 package robot
 
 import (
-	"apcs_refactored/config"
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
 	"github.com/google/uuid"
@@ -42,35 +41,32 @@ func newJob(robotStatus robotStatus) *job {
 	return job
 }
 
-func changeRobotStatus(robot robot, robotStatus robotStatus) {
+func changeRobotStatus(robot *robot, robotStatus robotStatus) {
 	robot.status = robotStatus
-	DistributeJob()
+	go DistributeJob()
 }
 
+// DistributeJob - 로봇에게 job을 배정함.
+//
+// 다음 두 경우에 실행됨.
+//
+// 1. 로봇의 상태가 변화했을 때(changeRobotStatus 함수)
+//
+// 2. 새로운 job이 추가되었을 때(getRobot 함수)
 func DistributeJob() {
-	tick := time.Tick(time.Duration(config.Config.Plc.Resource.Robot.Job.PollingPeriod) * time.Millisecond)
+	if len(jobQueue) == 0 {
+		return
+	}
 
-	// 일정 시간마다 로봇 상태 스캔 후 알맞은 job에 배정(polling 방식)
-	for {
-		select {
-		case <-tick:
-			if len(jobQueue) == 0 {
-				continue
-			}
+	job := jobQueue[0]
 
-			job := jobQueue[0]
-
-			for _, robot := range robots {
-				if robot.status == job.requiredRobotStatus {
-					log.Infof("[PLC_Job] Job을 로봇에 배정했습니다. Job: %v, Robot: %v", *job, *robot)
-
-					job.robot = robot
-					job.robotWaiting <- robot
-					jobQueue = jobQueue[1:]
-
-					break
-				}
-			}
+	for _, robot := range robots {
+		if robot.status == job.requiredRobotStatus && job.robot == nil {
+			job.robot = robot
+			job.robotWaiting <- robot
+			jobQueue = jobQueue[1:]
+			log.Infof("[PLC_Job] Job을 로봇에 배정했습니다. Job: %v, Robot: %v", *job, *robot)
+			break
 		}
 	}
 }
@@ -83,6 +79,7 @@ func DistributeJob() {
 func getRobot(robotStatus robotStatus) (*robot, error) {
 	job := newJob(robotStatus)
 	jobQueue = append(jobQueue, job)
+	go DistributeJob()
 
 	// 로봇 - job 배정 대기
 	robot := <-job.robotWaiting
@@ -101,7 +98,7 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 		return err
 	}
 
-	robot.status = working
+	changeRobotStatus(robot, working)
 
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
@@ -119,7 +116,7 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 		return err
 	}
 
-	robot.status = waiting
+	changeRobotStatus(robot, waiting)
 
 	return nil
 }
@@ -155,7 +152,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 		robot = r
 	}
 
-	robot.status = working
+	changeRobotStatus(robot, working)
 
 	if err := robot.moveToTable(); err != nil {
 		return err
@@ -173,7 +170,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 		return err
 	}
 
-	robot.status = available
+	changeRobotStatus(robot, waiting)
 
 	return nil
 }
@@ -211,7 +208,7 @@ func JobInputItem(slot model.Slot) error {
 		robot = r
 	}
 
-	robot.status = working
+	changeRobotStatus(robot, working)
 
 	if err := robot.moveToTable(); err != nil {
 		return err
@@ -229,7 +226,7 @@ func JobInputItem(slot model.Slot) error {
 		return err
 	}
 
-	robot.status = available
+	changeRobotStatus(robot, available)
 
 	return nil
 }
@@ -246,7 +243,7 @@ func JobOutputItem(slot model.Slot) error {
 		return err
 	}
 
-	robot.status = working
+	changeRobotStatus(robot, working)
 
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
@@ -264,7 +261,7 @@ func JobOutputItem(slot model.Slot) error {
 		return err
 	}
 
-	robot.status = available
+	changeRobotStatus(robot, available)
 
 	log.Infof("[PLC_Robot_Job] 슬롯의 물건을 테이블로 서빙 완료. slot: %v", slot)
 
@@ -284,7 +281,7 @@ func JobMoveTray(from, to model.Slot) error {
 		return err
 	}
 
-	robot.status = working
+	changeRobotStatus(robot, working)
 
 	if err := robot.moveToSlot(from); err != nil {
 		return err
@@ -299,7 +296,7 @@ func JobMoveTray(from, to model.Slot) error {
 		return err
 	}
 
-	robot.status = available
+	changeRobotStatus(robot, available)
 
 	return nil
 }
@@ -318,7 +315,7 @@ func JobWaitAtTable() error {
 		return err
 	}
 
-	robot.status = waiting
+	changeRobotStatus(robot, waiting)
 
 	return nil
 }
@@ -334,7 +331,7 @@ func JobDismiss() error {
 		return err
 	}
 
-	robot.status = available
+	changeRobotStatus(robot, available)
 
 	return nil
 }
