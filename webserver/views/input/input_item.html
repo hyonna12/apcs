@@ -34,6 +34,7 @@
          
     }).catch(err => {
         console.log(err);
+        alert(err.response.data.error)
     });
 
 /* 입고 취소 or 처음으로 선택한 경우 제어서버에 stop 메시지 보내줘야함 */
