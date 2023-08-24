@@ -33,6 +33,7 @@ var inputInfoRequest InputInfoRequest
 var itemDimension plc.ItemDimension
 var bestSlot model.Slot
 var ownerId int64
+var trayId int64
 
 func Response(w http.ResponseWriter, data interface{}, status int, err error) {
 	var res CommonResponse
@@ -83,7 +84,7 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 테이블에 빈 트레이 감지
-	emptyTray, _ := plc.SenseTableForEmptyTray()
+	emptyTray, _ := plc.SenseTableForEmptyTray() // 빈트레이의 아이디값
 	if err != nil {
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
@@ -98,8 +99,10 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		emptyTray := model.Slot{}
 		plc.ServeEmptyTrayToTable(emptyTray)
 		// 트레이 db 정보 변경 **수정
+
 		plc.SetUpDoor(plc.DoorTypeBack, plc.DoorOperationClose)
 	}
+	trayId = 11
 
 	Response(w, "OK", http.StatusOK, nil)
 }
@@ -126,7 +129,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 물품을 수납할 최적 슬롯 찾기
-	bestSlot = model.Slot{SlotId: 1, Lane: 1, Floor: 1}
+	bestSlot = model.Slot{SlotId: 11, Lane: 3, Floor: 2}
 
 	// 수납할 수 있는 슬롯이 없을 때 입고 취소
 	if bestSlot == (model.Slot{}) {
@@ -146,16 +149,16 @@ func Input(w http.ResponseWriter, r *http.Request) {
 	// 송장번호 ,물품높이, 택배기사, 수령인 정보 itemCreateRequest 에 넣어서 물품 db업데이트
 	delivery_id, _ := strconv.ParseInt(inputInfoRequest.DeliveryId, 10, 64)
 	itemCreateRequest := model.ItemCreateRequest{ItemHeight: itemDimension.Height, TrackingNumber: itemDimension.TrackingNum, DeliveryId: delivery_id, OwnerId: ownerId}
-	model.InsertItem(itemCreateRequest)
+	itemId, _ := model.InsertItem(itemCreateRequest)
 
 	// 슬롯, 트레이 db 업데이트
-	// 물품 id 조회
-	item, _ := model.SelectItemIdByTrackingNum(itemDimension.TrackingNum)
 	// 트레이 아이디 추가
-	slotUpdateRequest := model.SlotUpdateRequest{SlotEnabled: false, SlotKeepCnt: 0, ItemId: item.ItemId}
+	trayUpdateRequest := model.TrayUpdateRequest{TrayOccupied: false, ItemId: itemId}
+	model.UpdateTray(trayId, trayUpdateRequest)
+	slotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, SlotKeepCnt: 0, TrayId: trayId, ItemId: itemId}
 	model.UpdateStorageSlotList(itemDimension.Height, slotUpdateRequest)
 	model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, itemDimension.Height)
-
+	model.UpdateSlot(slotUpdateRequest)
 	plc.SetUpDoor(plc.DoorTypeBack, plc.DoorOperationClose)
 
 	Response(w, "OK", http.StatusOK, nil)

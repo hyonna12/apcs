@@ -4,14 +4,15 @@ import (
 	"apcs_refactored/customerror"
 	"context"
 	"database/sql"
-	log "github.com/sirupsen/logrus"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type Tray struct {
-	TrayId       int
+	TrayId       int64
 	TrayOccupied bool
-	ItemId       int
+	ItemId       int64
 	CDatetime    time.Time
 	UDatetime    time.Time
 }
@@ -25,7 +26,7 @@ type TrayReadResponse struct {
 
 type TrayUpdateRequest struct {
 	TrayOccupied bool
-	ItemId       int
+	ItemId       int64
 }
 
 func SelectTrayList() ([]TrayReadResponse, error) {
@@ -86,7 +87,7 @@ func SelectEmptyTrayList() ([]TrayReadResponse, error) {
 	return trayReadResponses, nil
 }
 
-func UpdateTray(trayId int, trayUpdateRequest TrayUpdateRequest) (int64, error) {
+func UpdateTray(trayId int64, trayUpdateRequest TrayUpdateRequest) (int64, error) {
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
 		return 0, err

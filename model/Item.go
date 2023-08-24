@@ -140,7 +140,7 @@ func InsertItem(itemCreateRequest ItemCreateRequest) (int64, error) {
                         input_date, 
                         delivery_id, 
                         owner_id)
-			VALUES(?, ?, ?, now(), ?, ?)
+			VALUES(?, ?, now(), ?, ?)
 			`
 
 	result, err := db.Exec(query, itemCreateRequest.ItemHeight, itemCreateRequest.TrackingNumber, itemCreateRequest.DeliveryId, itemCreateRequest.OwnerId)
