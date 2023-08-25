@@ -30,12 +30,12 @@ type Configuration struct {
 		Level string `yaml:"level"`
 	} `yaml:"logging"`
 
-	Websocket struct {
+	Webserver struct {
 		Server struct {
 			Host string `yaml:"host"`
 			Port int    `yaml:"port"`
 		} `yaml:"server"`
-	} `yaml:"websocket"`
+	} `yaml:"webserver"`
 
 	Messenger struct {
 		Timeout struct {

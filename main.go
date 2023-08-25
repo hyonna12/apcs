@@ -7,7 +7,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/resource"
-	"apcs_refactored/webserver/websocketserver"
+	"apcs_refactored/webserver"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -88,5 +88,5 @@ func main() {
 	// 이벤트 서버 시작
 	event.StartEventServer(eventMsgNode)
 	// 웹소켓 서버 시작
-	websocketserver.StartWebsocketServer(websocketserverMsgNode)
+	webserver.StartWebserver(websocketserverMsgNode)
 }

@@ -1,15 +1,13 @@
-package websocketserver
+package webserver
 
 import (
 	"apcs_refactored/config"
 	"apcs_refactored/messenger"
-	"apcs_refactored/webserver/handler"
 	"encoding/json"
-	"net/http"
-	"strconv"
-
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
+	"net/http"
+	"strconv"
 )
 
 var (
@@ -17,13 +15,13 @@ var (
 	msgNode *messenger.Node
 )
 
-func StartWebsocketServer(n *messenger.Node) {
+func StartWebserver(n *messenger.Node) {
 	msgNode = n
 
-	wsConf := config.Config.Websocket
+	webConfig := config.Config.Webserver
 	wsHub = newWsHub()
 
-	handler.InitHandler()
+	requestList = make(map[int64]*request)
 
 	go wsHub.run()
 	go msgNode.ListenMessages(
@@ -40,12 +38,10 @@ func StartWebsocketServer(n *messenger.Node) {
 	)
 
 	r := mux.NewRouter()
-	handler.Handler(r)
-	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		ServeWs(wsHub, w, r)
-	})
+	Handler(r)
+	http.Handle("/", r)
 
-	address := wsConf.Server.Host + ":" + strconv.Itoa(wsConf.Server.Port)
+	address := webConfig.Server.Host + ":" + strconv.Itoa(webConfig.Server.Port)
 	err := http.ListenAndServe(address, nil)
 	if err != nil {
 		log.Fatalf("Failed to start websocket server: %v", err)

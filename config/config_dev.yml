@@ -9,7 +9,7 @@ database:
 logging:
   level: debug
 
-websocket:
+webserver:
   server:
     host: localhost
     port: 3000

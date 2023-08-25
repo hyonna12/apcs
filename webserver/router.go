@@ -1,4 +1,4 @@
-package handler
+package webserver
 
 import (
 	"net/http"
@@ -7,11 +7,16 @@ import (
 )
 
 func Handler(r *mux.Router) {
+
 	r.HandleFunc("/", Home)
 
-	http.Handle("/", r)
 	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("/static/")))
 	r.Handle("/static/", staticHandler)
+
+	// 웹소켓
+	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		ServeWs(wsHub, w, r)
+	})
 
 	/* input */
 	r.HandleFunc("/input/regist_delivery", RegistDelivery)

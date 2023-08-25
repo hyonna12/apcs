@@ -1,4 +1,4 @@
-package websocketserver
+package webserver
 
 import (
 	log "github.com/sirupsen/logrus"

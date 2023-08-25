@@ -1,4 +1,4 @@
-package handler
+package webserver
 
 import (
 	"apcs_refactored/model"
@@ -57,10 +57,6 @@ var (
 	bestSlot         model.Slot
 	requestList      map[int64]*request
 )
-
-func InitHandler() {
-	requestList = make(map[int64]*request)
-}
 
 func Response(w http.ResponseWriter, data interface{}, status int, err error) {
 	var res CommonResponse
