@@ -212,3 +212,45 @@ func SenseItem(w http.ResponseWriter, r *http.Request) {
 		Response(w, "OK", http.StatusOK, nil)
 	}
 }
+
+func Sort(w http.ResponseWriter, r *http.Request) {
+	// 정리할 물품 선정 // **제거
+	item, _ := model.SelectSortItem()
+	fmt.Println("정리할 물품", item)
+	// 물품의 현재 슬롯
+	slot, _ := model.SelectSlotByItemId(item.ItemId)
+	currentSlot := model.Slot{}
+	currentSlot.Lane = slot.Lane
+	currentSlot.Floor = slot.Floor
+
+	// 이동할 슬롯 선정 // **제거
+	slotList, _ := model.SelectAvailableSlotList(item.ItemHeight)
+	if len(slotList) == 0 {
+		fmt.Println("수납가능한 슬롯 없음")
+	}
+	sort.SliceStable(slotList, func(i, j int) bool {
+		return slotList[i].TransportDistance < slotList[j].TransportDistance
+	})
+	bestSlot.Lane = slotList[0].Lane
+	bestSlot.Floor = slotList[0].Floor
+	fmt.Println("최적수납슬롯:", bestSlot)
+
+	// 트레이 이동
+	plc.MoveTray(slot, bestSlot)
+
+	// db 변경
+	outputSlotUpdateRequest := model.SlotUpdateRequest{Lane: slot.Lane, Floor: slot.Floor, SlotEnabled: true}
+	model.UpdateOutputSlotList(item.ItemHeight, outputSlotUpdateRequest)
+	model.UpdateOutputSlotListKeepCnt(item.ItemHeight, slot.Lane, slot.Floor)
+	model.UpdateOutputSlotKeepCnt(slot.Lane, slot.Floor)
+	model.UpdateSlotToEmptyTray(outputSlotUpdateRequest)
+
+	inputSlotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, TrayId: slot.TrayId, ItemId: slot.ItemId}
+	model.UpdateStorageSlotList(item.ItemHeight, inputSlotUpdateRequest)
+	model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, item.ItemHeight)
+	model.UpdateSlot(inputSlotUpdateRequest)
+
+	Response(w, "OK", http.StatusOK, nil)
+
+	// 모든 물품이 최적 상태일 때, 이동할 슬롯이 없을 때
+}

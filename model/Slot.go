@@ -594,3 +594,71 @@ func UpdateOutputSlotListKeepCnt(itemHeight, lane, floor int) (int64, error) {
 
 	return affected, nil
 }
+
+func SelectSlotByItemId(item_id int64) (Slot, error) {
+
+	query := `
+			SELECT 
+				slot_id, 
+				lane, 
+				floor, 
+				tray_id, 
+				item_id 
+			FROM TN_CTR_SLOT
+			WHERE 
+				item_id = ? 
+				AND tray_id is not null
+			`
+
+	var slot Slot
+
+	row := db.QueryRow(query, item_id)
+	err := row.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.TrayId, &slot.ItemId)
+	if err != nil {
+		return Slot{}, err
+	}
+
+	return slot, nil
+}
+
+func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
+	tx, err := db.BeginTx(context.Background(), nil)
+	if err != nil {
+		return 0, err
+	}
+	defer func(tx *sql.Tx) {
+		err := tx.Rollback()
+		if err != nil {
+			log.Error(err)
+		}
+	}(tx)
+
+	query := `
+			UPDATE TN_CTR_SLOT
+			SET tray_id = null
+			WHERE 
+				lane = ? 
+				AND floor = ?
+			`
+
+	result, err := tx.Exec(query, request.Lane, request.Floor)
+	if err != nil {
+		return 0, err
+	}
+
+	affected, err := result.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	if affected == 0 {
+		return 0, customerror.ErrNoRowsAffected
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return 0, err
+	}
+
+	return affected, nil
+}

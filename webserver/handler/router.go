@@ -37,4 +37,7 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/output/item_list_error", ItemListError)
 	r.HandleFunc("/output/complete_output_item", CompleteOutputItem)
 
+	/* sort */
+	r.HandleFunc("/sort", Sort).Methods("POST")
+
 }

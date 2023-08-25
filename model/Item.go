@@ -207,3 +207,22 @@ func SelectItemIdByTrackingNum(trackingNumber int) (ItemReadResponse, error) {
 
 	return itemReadResponse, nil
 }
+
+// **제거
+func SelectSortItem() (ItemReadResponse, error) {
+	query := `
+			SELECT MIN(item_id), item_height 
+			FROM TN_CTR_ITEM 
+			WHERE output_date is null
+			`
+
+	var itemReadResponse ItemReadResponse
+
+	row := db.QueryRow(query)
+	err := row.Scan(&itemReadResponse.ItemId, &itemReadResponse.ItemHeight)
+	if err != nil {
+		return ItemReadResponse{}, err
+	}
+
+	return itemReadResponse, nil
+}
