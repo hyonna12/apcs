@@ -43,17 +43,6 @@ func (h *WsHub) run() {
 				}
 			}
 
-			//TODO - 키오스크 자체에서 오는 응답메시지 로직 처리(없으면 KioskFailEvent 발생)
-			//temp := messenger.Message{}
-			//err := json.Unmarshal(message, temp)
-			//if err != nil {
-			//	log.Error(err)
-			//	continue
-			//}
-			//if temp.Data == "ok" {
-			//	continue
-			//}
-
 			//메시지를 래핑해서 메신저에 전달
 			err := msgNode.SpreadMessage(message)
 			if err != nil {

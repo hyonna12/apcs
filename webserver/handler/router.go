@@ -35,6 +35,7 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/output/item_list", ItemList)
 	r.HandleFunc("/output/get_item_list", GetItemList)
 	r.HandleFunc("/output/item_output_ongoing", ItemOutputOngoing)
+	r.HandleFunc("/output/item_output_confirm", ItemOutputConfirm)
 
 	// 알림창으로 대체
 	//r.HandleFunc("/output/item_list_error", ItemListError)

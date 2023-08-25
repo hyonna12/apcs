@@ -282,9 +282,9 @@ func JobOutputItem(slot model.Slot) error {
 	if err := robot.pushToTable(); err != nil {
 		return err
 	}
-	resource.ReleaseTable()
 
-	changeRobotStatus(robot, available)
+	// 불출작업 후 입주민이 수령/취소할 때까지 보류
+	changeRobotStatus(robot, waiting)
 
 	log.Infof("[PLC_Robot_Job] 슬롯의 물건을 테이블로 서빙 완료. slot: %v", slot)
 
@@ -361,6 +361,7 @@ func JobDismiss() error {
 	}
 
 	changeRobotStatus(robot, available)
+
 	resource.ReleaseTable()
 
 	return nil

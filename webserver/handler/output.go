@@ -172,17 +172,51 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			err := plc.OutputItem(s)
 			if err != nil {
 				log.Error(err)
+				// TODO - 불출 실패한 물품은 요청에서 삭제 및 알림 처리
+				return
 			}
 
 			// 택배가 테이블에 올라가면 요청 목록에서 제거
 			log.Debugf("[웹핸들러] 불출 완료. 슬롯 id=%v, 아이템 id=%v", s.SlotId, s.ItemId.Int64)
-			// TODO - 화면 전환, 비밀번호 입력, 수령/반품 로직
+			// TODO - 수령/반품 화면 전환
+			//KioskRequest := KioskRequest{
+			//	RequestType: "change_view",
+			//	Data: struct {
+			//		Url string `json:"url"`
+			//	}{
+			//		Url: "/output/item_output_confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10),
+			//	},
+			//}
+			//request, err := json.Marshal(KioskRequest)
+			//if err != nil {
+			//	log.Error(err)
+			//	return
+			//}
+			//websocketserver.BroadcastToPrivate(request)
 
+			// TODO - 수령/반납 화면으로 넘길 지 결정
 			delete(requestList, s.ItemId.Int64)
 		}(slot)
 	}
 
 	err = templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+}
+
+func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	if r.URL.Path != "/output/item_output_confirm" {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+
+	err := templ.ExecuteTemplate(w, "output/item_output_confirm", &Page{Title: "Home"})
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)

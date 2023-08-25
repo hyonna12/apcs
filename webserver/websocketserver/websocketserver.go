@@ -51,3 +51,7 @@ func StartWebsocketServer(n *messenger.Node) {
 		log.Fatalf("Failed to start websocket server: %v", err)
 	}
 }
+
+func BroadcastToPrivate(message []byte) {
+	wsHub.privateBroadcast <- message
+}

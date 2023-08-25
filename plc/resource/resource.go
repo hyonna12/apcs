@@ -64,13 +64,12 @@ func ReserveTable() {
 	for {
 		select {
 		case <-waiting:
-			break
+			continue
 		// 일정 시간마다 데드락 확인 및 해결
 		case <-time.After(deadlockCheckPeriod * time.Second):
-			log.Warn("[PLC_resource] 데드락 의심")
+			log.Warn("[PLC_resource] 데드락 확인 및 해결 요청")
 			go CheckResolveDeadlock()
 		}
-		break
 	}
 }
 
@@ -87,13 +86,12 @@ func ReserveSlot(slotId int64) {
 	for {
 		select {
 		case <-waiting:
-			break
+			return
 		// 일정 시간마다 데드락 확인 및 해결
 		case <-time.After(deadlockCheckPeriod * time.Second):
-			log.Warn("[PLC_resource] 데드락 의심")
+			log.Warn("[PLC_resource] 데드락 확인 및 해결 요청")
 			go CheckResolveDeadlock()
 		}
-		break
 	}
 }
 

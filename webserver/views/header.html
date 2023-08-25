@@ -61,9 +61,10 @@
                 conn.onmessage = evt => {
                     console.log(evt.data);
                     let message = evt.data;
-    
+
                     //logMessage(message)
-                    processMessage(message)
+					console.log('웹소켓 메시지 수신:', message);
+                    processMessage(message);
                 };
             } else {
                 //let log = document.createElement('div');

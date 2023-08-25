@@ -30,6 +30,11 @@ type InputInfoRequest struct {
 	PhoneNum        string `json:"phone_num"`
 }
 
+type KioskRequest struct {
+	RequestType string `json:"request_type"`
+	Data        any    `json:"data"`
+}
+
 type RequestType string
 type RequestStatus string
 
