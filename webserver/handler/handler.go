@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math/rand"
 	"net/http"
 	"sort"
 	"strconv"
@@ -121,7 +122,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	if !item {
 		// 물품 크기, 무게, 송장번호 조회
 		itemDimension, _ = plc.SenseItemInfo()
-		itemDimension = plc.ItemDimension{Height: 3, Width: 3, Length: 5, TrackingNum: 1010} // **제거
+		itemDimension = plc.ItemDimension{Height: rand.Intn(4) + 1, Width: 3, Length: 5, TrackingNum: 1010} // **제거
 		log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 	}
 
@@ -215,7 +216,9 @@ func SenseItem(w http.ResponseWriter, r *http.Request) {
 
 func Sort(w http.ResponseWriter, r *http.Request) {
 	// 정리할 물품 선정 // **제거
-	item, _ := model.SelectSortItem()
+	itemList, _ := model.SelectSortItemList()
+	rand.Intn(len(itemList) - 1)
+	item := itemList[rand.Intn(len(itemList)-1)]
 	fmt.Println("정리할 물품", item)
 	// 물품의 현재 슬롯
 	slot, _ := model.SelectSlotByItemId(item.ItemId)

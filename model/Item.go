@@ -208,21 +208,33 @@ func SelectItemIdByTrackingNum(trackingNumber int) (ItemReadResponse, error) {
 	return itemReadResponse, nil
 }
 
-// **제거
-func SelectSortItem() (ItemReadResponse, error) {
+func SelectSortItemList() ([]ItemReadResponse, error) {
 	query := `
-			SELECT MIN(item_id), item_height 
+			SELECT item_id, item_height 
 			FROM TN_CTR_ITEM 
 			WHERE output_date is null
 			`
 
-	var itemReadResponse ItemReadResponse
+	var itemReadResponses []ItemReadResponse
 
-	row := db.QueryRow(query)
-	err := row.Scan(&itemReadResponse.ItemId, &itemReadResponse.ItemHeight)
+	rows, err := db.Query(query)
 	if err != nil {
-		return ItemReadResponse{}, err
+		return nil, err
 	}
 
-	return itemReadResponse, nil
+	for rows.Next() {
+		var itemReadResponse ItemReadResponse
+		err := rows.Scan(&itemReadResponse.ItemId, &itemReadResponse.ItemHeight)
+		if err != nil {
+			return nil, err
+		}
+		itemReadResponses = append(itemReadResponses, itemReadResponse)
+	}
+
+	if err != nil {
+		return nil, err
+	} else {
+		return itemReadResponses, nil
+	}
+
 }
