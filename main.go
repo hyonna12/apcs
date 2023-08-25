@@ -6,6 +6,7 @@ import (
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
+	"apcs_refactored/plc/resource"
 	"apcs_refactored/webserver/websocketserver"
 
 	log "github.com/sirupsen/logrus"
@@ -72,8 +73,18 @@ func main() {
 
 	// 메신저 서버 시작
 	messenger.StartMessengerServer(msgNodes)
-	//LeafPlc 서버 시작
+	// PLC 클라이언트 시작
 	plc.StartPlcClient(plcMsgNode)
+	// PLC 리소스 초기화
+	slots, err := model.SelectSlotList()
+	if err != nil {
+		log.Panicf("Failed to initialize PLC resources. %v", err)
+	}
+	slotIds := make([]int64, 0)
+	for _, slot := range slots {
+		slotIds = append(slotIds, slot.SlotId)
+	}
+	resource.InitResources(slotIds)
 	// 이벤트 서버 시작
 	event.StartEventServer(eventMsgNode)
 	// 웹소켓 서버 시작

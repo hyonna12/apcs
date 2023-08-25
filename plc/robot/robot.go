@@ -46,6 +46,7 @@ func InitRobots() {
 
 func (r *robot) moveToSlot(slot model.Slot) error {
 	log.Infof("[PLC_로봇_Step] 슬롯으로 이동. robot: %v, slot: %v", r, slot)
+
 	// TODO - 슬롯으로 이동
 
 	// TODO - temp - 시뮬레이터
@@ -70,7 +71,6 @@ func (r *robot) pullFromSlot(slot model.Slot) error {
 
 	// TODO - temp - 시뮬레이터
 	time.Sleep(simulatorDelay * 1 * time.Second)
-
 	return nil
 }
 

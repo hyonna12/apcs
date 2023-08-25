@@ -50,7 +50,7 @@ func SelectSlotList() ([]Slot, error) {
 		// &slot.SlotEnabled를 직접 스캔하면
 		// couldn't convert "\x01" into type bool, wantErr false 에러 발생함.
 		// 이를 우회하기 위해 임시 변수 사용
-		var slotEnabled bool
+		var slotEnabled []uint8
 		err := rows.Scan(
 			&slot.SlotId,
 			&slot.Lane,
@@ -67,7 +67,7 @@ func SelectSlotList() ([]Slot, error) {
 		if err != nil {
 			return nil, err
 		}
-		slot.SlotEnabled = slotEnabled
+		slot.SlotEnabled = slotEnabled[0] == 1
 		slots = append(slots, slot)
 	}
 
@@ -86,14 +86,13 @@ func SelectSlotsByItemIds(itemIds []int64) ([]Slot, error) {
 		SELECT
 			*
 		FROM TN_CTR_SLOT s
-		WHERE s.item_id IN (?)
+		WHERE s.item_id IN ( ` + params + `)
 	`
 
-	rows, err := db.Query(query, params)
+	rows, err := db.Query(query)
 	if err != nil {
 		return nil, err
 	}
-
 	var slots []Slot
 
 	for rows.Next() {

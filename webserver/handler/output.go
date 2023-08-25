@@ -21,7 +21,11 @@ func RegistAddress(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
-	templ.ExecuteTemplate(w, "output/regist_address", &Page{Title: "Home"})
+	err := templ.ExecuteTemplate(w, "output/regist_address", &Page{Title: "Home"})
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
 }
 
 func CheckItemExists(w http.ResponseWriter, r *http.Request) {
@@ -146,15 +150,15 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 
 	if emptyTrayExistsOnTable {
 		// 빈 트레이를 넣을 슬롯 선정
-		slots, err = model.SelectEmptySlotList()
+		emptySlots, err := model.SelectEmptySlotList()
 		if err != nil {
 			log.Error(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
 		// TODO - 빈 트레이를 수납할 최적 슬롯 선정
-		slotForEmptyTray := slots[0]
+		slotForEmptyTray := emptySlots[0]
 
-		err := plc.RetrieveEmptyTrayFromTable(slotForEmptyTray)
+		err = plc.RetrieveEmptyTrayFromTable(slotForEmptyTray)
 		if err != nil {
 			log.Error(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -164,14 +168,16 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	// 슬롯 정보로 PLC에 불출 요청
 	for _, slot := range slots {
 		go func(s model.Slot) {
-			err = plc.OutputItem(s)
+			log.Debugf("[웹핸들러 -> PLC] 불출 요청. 슬롯 id=%v, 아이템 id=%v", s.SlotId, s.ItemId.Int64)
+			err := plc.OutputItem(s)
 			if err != nil {
-				if err != nil {
-					log.Error(err)
-				}
+				log.Error(err)
 			}
 
-			// 택배개 테이블에 올라가면 요청 목록에서 제거
+			// 택배가 테이블에 올라가면 요청 목록에서 제거
+			log.Debugf("[웹핸들러] 불출 완료. 슬롯 id=%v, 아이템 id=%v", s.SlotId, s.ItemId.Int64)
+			// TODO - 화면 전환, 비밀번호 입력, 수령/반품 로직
+
 			delete(requestList, s.ItemId.Int64)
 		}(slot)
 	}

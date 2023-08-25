@@ -3,6 +3,7 @@ package robot
 import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
+	"apcs_refactored/plc/resource"
 	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
 	"time"
@@ -100,12 +101,16 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 
 	changeRobotStatus(robot, working)
 
+	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
 	if err := robot.pullFromSlot(slot); err != nil {
 		return err
 	}
+	resource.ReleaseSlot(slot.SlotId)
+
+	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -115,6 +120,7 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 	if err := robot.pushToTable(); err != nil {
 		return err
 	}
+	resource.ReleaseTable()
 
 	changeRobotStatus(robot, waiting)
 
@@ -131,6 +137,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 
 	var robot *robot
 
+	// 대기 중인 로봇에게 job 우선 배정
 	waitingRobotExists := false
 	for _, r := range robots {
 		if r.status == waiting {
@@ -154,6 +161,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 
 	changeRobotStatus(robot, working)
 
+	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -163,14 +171,18 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
+	resource.ReleaseTable()
+
+	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
 	if err := robot.pushToSlot(slot); err != nil {
 		return err
 	}
+	resource.ReleaseSlot(slot.SlotId)
 
-	changeRobotStatus(robot, waiting)
+	changeRobotStatus(robot, available)
 
 	return nil
 }
@@ -191,16 +203,17 @@ func JobInputItem(slot model.Slot) error {
 	waitingRobotExists := false
 	for _, r := range robots {
 		if r.status == waiting {
-			r, err := getRobot(waiting)
-			if err != nil {
-				return err
-			}
-			robot = r
 			waitingRobotExists = true
 		}
 	}
 
-	if !waitingRobotExists {
+	if waitingRobotExists {
+		r, err := getRobot(waiting)
+		if err != nil {
+			return err
+		}
+		robot = r
+	} else {
 		r, err := getRobot(available)
 		if err != nil {
 			return err
@@ -210,6 +223,7 @@ func JobInputItem(slot model.Slot) error {
 
 	changeRobotStatus(robot, working)
 
+	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -219,12 +233,16 @@ func JobInputItem(slot model.Slot) error {
 	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
+	resource.ReleaseTable()
+
+	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
 	if err := robot.pushToSlot(slot); err != nil {
 		return err
 	}
+	resource.ReleaseSlot(slot.SlotId)
 
 	changeRobotStatus(robot, available)
 
@@ -245,12 +263,16 @@ func JobOutputItem(slot model.Slot) error {
 
 	changeRobotStatus(robot, working)
 
+	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
 	if err := robot.pullFromSlot(slot); err != nil {
 		return err
 	}
+	resource.ReleaseSlot(slot.SlotId)
+
+	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -260,6 +282,7 @@ func JobOutputItem(slot model.Slot) error {
 	if err := robot.pushToTable(); err != nil {
 		return err
 	}
+	resource.ReleaseTable()
 
 	changeRobotStatus(robot, available)
 
@@ -283,18 +306,23 @@ func JobMoveTray(from, to model.Slot) error {
 
 	changeRobotStatus(robot, working)
 
+	resource.ReserveSlot(from.SlotId)
 	if err := robot.moveToSlot(from); err != nil {
 		return err
 	}
 	if err := robot.pullFromSlot(from); err != nil {
 		return err
 	}
+	resource.ReleaseSlot(from.SlotId)
+
+	resource.ReserveSlot(to.SlotId)
 	if err := robot.moveToSlot(to); err != nil {
 		return err
 	}
 	if err := robot.pushToSlot(to); err != nil {
 		return err
 	}
+	resource.ReleaseSlot(to.SlotId)
 
 	changeRobotStatus(robot, available)
 
@@ -311,6 +339,7 @@ func JobWaitAtTable() error {
 		return err
 	}
 
+	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -332,6 +361,7 @@ func JobDismiss() error {
 	}
 
 	changeRobotStatus(robot, available)
+	resource.ReleaseTable()
 
 	return nil
 }

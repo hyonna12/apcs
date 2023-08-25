@@ -96,10 +96,6 @@ func SenseTableForItem() (bool, error) {
 func ServeEmptyTrayToTable(slot model.Slot) error {
 	log.Infof("[PLC] 테이블에 빈 트레이 서빙")
 
-	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
-		return err
-	}
-
 	if err := robot.JobServeEmptyTrayToTable(slot); err != nil {
 		return err
 	}
@@ -164,6 +160,7 @@ func MoveTray(from, to model.Slot) error {
 // - slot: 빈 트레이를 격납할 슬롯
 func RetrieveEmptyTrayFromTable(slot model.Slot) error {
 	log.Infof("[PLC] 테이블 빈 트레이 회수. slot: %v", slot)
+
 	if err := robot.JobRetrieveEmptyTrayFromTable(slot); err != nil {
 		return err
 	}
@@ -179,10 +176,6 @@ func RetrieveEmptyTrayFromTable(slot model.Slot) error {
 func InputItem(slot model.Slot) error {
 	log.Infof("[PLC] 물품 수납. 수납할 슬롯: %v", slot)
 
-	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
-		return err
-	}
-
 	if err := robot.JobInputItem(slot); err != nil {
 		return err
 	}
@@ -197,19 +190,9 @@ func InputItem(slot model.Slot) error {
 func OutputItem(slot model.Slot) error {
 	log.Infof("[PLC] 물품 불출 시작. 꺼내올 슬롯 id=%v", slot.SlotId)
 
-	// TODO - 도어 제어 JOB 안에 포함
-	//if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
-	//	return err
-	//}
-
 	if err := robot.JobOutputItem(slot); err != nil {
 		return err
 	}
-
-	// TODO - 도어 제어 JOB 안에 포함
-	//if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
-	//	return err
-	//}
 
 	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil

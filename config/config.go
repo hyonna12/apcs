@@ -55,6 +55,7 @@ type Configuration struct {
 					PollingPeriod int `yaml:"polling-period"`
 				} `yaml:"job"`
 			} `yaml:"robot"`
+			DeadLockCheckPeriod int `yaml:"deadlock-check-period"`
 		} `yaml:"resource"`
 		Simulation struct {
 			Delay int `yaml:"delay"`
