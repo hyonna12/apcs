@@ -108,6 +108,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 	trayId, _ = model.SelectEmptyTray()
 	if trayId == 0 {
 		fmt.Println("빈 트레이 없음")
+		Response(w, nil, http.StatusBadRequest, errors.New("빈 트레이가 존재하지 않습니다"))
+		return
 	}
 
 	Response(w, "OK", http.StatusOK, nil)
@@ -144,6 +146,8 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	slotList, _ := model.SelectAvailableSlotList(itemDimension.Height)
 	if len(slotList) == 0 {
 		fmt.Println("수납가능한 슬롯 없음")
+		Response(w, nil, http.StatusBadRequest, errors.New("수납가능한 슬롯이 존재하지 않습니다"))
+		return
 	}
 	sort.SliceStable(slotList, func(i, j int) bool {
 		return slotList[i].TransportDistance < slotList[j].TransportDistance
