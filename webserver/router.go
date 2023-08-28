@@ -10,8 +10,9 @@ func Handler(r *mux.Router) {
 
 	r.HandleFunc("/", Home)
 
-	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("/static/")))
-	r.Handle("/static/", staticHandler)
+	fileHandler := http.FileServer(http.Dir("./webserver/static"))
+	stripHandler := http.StripPrefix("/static/", fileHandler)
+	r.PathPrefix("/static/").Handler(stripHandler)
 
 	// 웹소켓
 	r.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
@@ -31,6 +32,8 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods("POST")
 	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods("POST")
 	r.HandleFunc("/input/input", Input).Methods("POST")
+	r.HandleFunc("/input/stop_input", StopInput).Methods("POST")
+	r.HandleFunc("/input/senseItem", SenseItem).Methods("POST")
 
 	/* output */
 	r.HandleFunc("/output/regist_address", RegistAddress)
@@ -46,5 +49,8 @@ func Handler(r *mux.Router) {
 	// 알림창으로 대체
 	//r.HandleFunc("/output/item_list_error", ItemListError)
 	r.HandleFunc("/output/complete_output_item", CompleteOutputItem)
+
+	/* sort */
+	r.HandleFunc("/sort", Sort).Methods("POST")
 
 }

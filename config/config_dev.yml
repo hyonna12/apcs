@@ -6,6 +6,14 @@ database:
   port: 33306
   db-name: apcs_dev
 
+#database:
+#  driver-name: mysql
+#  username: root
+#  password: line1234
+#  host: 127.0.0.1
+#  port: 3306
+#  db-name: test
+#
 logging:
   level: debug
 

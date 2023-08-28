@@ -253,7 +253,7 @@ func InsertItem(itemCreateRequest ItemCreateRequest) (int64, error) {
                         input_date, 
                         delivery_id, 
                         owner_id)
-			VALUES(?, ?, ?, now(), ?, ?)
+			VALUES(?, ?, now(), ?, ?)
 			`
 
 	result, err := db.Exec(query, itemCreateRequest.ItemHeight, itemCreateRequest.TrackingNumber, itemCreateRequest.DeliveryId, itemCreateRequest.OwnerId)
@@ -339,4 +339,35 @@ func SelectItemExistsByAddress(address string) (bool, error) {
 	}
 
 	return exists, err
+}
+
+func SelectSortItemList() ([]ItemReadResponse, error) {
+	query := `
+			SELECT item_id, item_height 
+			FROM TN_CTR_ITEM 
+			WHERE output_date is null
+			`
+
+	var itemReadResponses []ItemReadResponse
+
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var itemReadResponse ItemReadResponse
+		err := rows.Scan(&itemReadResponse.ItemId, &itemReadResponse.ItemHeight)
+		if err != nil {
+			return nil, err
+		}
+		itemReadResponses = append(itemReadResponses, itemReadResponse)
+	}
+
+	if err != nil {
+		return nil, err
+	} else {
+		return itemReadResponses, nil
+	}
+
 }

@@ -20,11 +20,11 @@ func InitDB() {
 
 	connection, err := sql.Open(dbConfig.DriverName, dbUrl)
 	if err != nil {
-		log.Panic("Failed to connect to database")
+		log.Panic("Failed to connect to database. Err:%v", err)
 	}
 
 	if err := connection.Ping(); err != nil {
-		log.Panic("Failed to connect to database")
+		log.Panicf("Failed to connect to database. Err:%v", err)
 	}
 
 	log.Info("Successfully initialized database connection")
