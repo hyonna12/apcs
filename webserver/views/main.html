@@ -53,15 +53,21 @@
 </html>
 
 <script>
+    const intervalId = 0
     setTimeout(function(){
-        sort()
-    }, 8000);
+        intervalId = setInterval(sort, 3000);
+        
+    }, 10000);
 
-    // n 분간 동작하지 않을때 /입고나 찾기 버튼을 누르면 stop
     function sort(){
         axios.post('/sort').then(res => {
             console.log(res.data)
-        })
+            
+        }).catch(err => {
+            console.log(err);
+            alert(err.response.data.error)
+            clearInterval(intervalId);
+        });
     }
 
     function modal(id) {
@@ -113,6 +119,9 @@
     };
 
     document.getElementById('popup_open_btn').addEventListener('click', function() {
+        // 정리 종료
+        clearInterval(intervalId);
+
         // 모달창 띄우기
         modal('my_modal');
         setTimeout(function(){

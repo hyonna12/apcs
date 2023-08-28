@@ -85,9 +85,10 @@
             
         }).catch(err => {
             console.log(err);
-            setTimeout(function(){
-                location.href='/input/input_item_error?error=' + err.response.data.error;
-            }, 5000);
+            alert(err.response.data.error)
+            //setTimeout(function(){
+            //    location.href='/input/input_item_error?error=' + err.response.data.error;
+            //}, 5000);
         });
     }
     

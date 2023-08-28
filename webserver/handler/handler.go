@@ -124,7 +124,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	if !item {
 		// 물품 크기, 무게, 송장번호 조회
 		itemDimension, _ = plc.SenseItemInfo()
-		itemDimension = plc.ItemDimension{Height: rand.Intn(4) + 1, Width: 3, Length: 5, TrackingNum: 1010} // **제거
+		itemDimension = plc.ItemDimension{Height: rand.Intn(4) + 1, Width: 5, Length: 5, TrackingNum: 1010} // **제거
 		log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 	}
 
@@ -221,6 +221,11 @@ func SenseItem(w http.ResponseWriter, r *http.Request) {
 func Sort(w http.ResponseWriter, r *http.Request) {
 	// 정리할 물품 선정 // **제거
 	itemList, _ := model.SelectSortItemList()
+	if len(itemList) == 0 {
+		fmt.Println("정리가능한 물품 없음")
+		Response(w, nil, http.StatusBadRequest, errors.New("정리가능한 물품이 존재하지 않습니다"))
+		return
+	}
 	rand.Intn(len(itemList) - 1)
 	item := itemList[rand.Intn(len(itemList)-1)]
 	fmt.Println("정리할 물품", item)
@@ -233,7 +238,9 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 	// 이동할 슬롯 선정 // **제거
 	slotList, _ := model.SelectAvailableSlotList(item.ItemHeight)
 	if len(slotList) == 0 {
-		fmt.Println("수납가능한 슬롯 없음")
+		fmt.Println("이동가능한 슬롯 없음")
+		Response(w, nil, http.StatusBadRequest, errors.New("이동가능한 슬롯이 존재하지 않습니다"))
+		return
 	}
 	sort.SliceStable(slotList, func(i, j int) bool {
 		return slotList[i].TransportDistance < slotList[j].TransportDistance
