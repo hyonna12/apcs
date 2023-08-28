@@ -179,20 +179,20 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			// 택배가 테이블에 올라가면 요청 목록에서 제거
 			log.Debugf("[웹핸들러] 불출 완료. 슬롯 id=%v, 아이템 id=%v", s.SlotId, s.ItemId.Int64)
 			// TODO - 수령/반품 화면 전환
-			//KioskRequest := KioskRequest{
-			//	RequestType: "change_view",
-			//	Data: struct {
-			//		Url string `json:"url"`
-			//	}{
-			//		Url: "/output/item_output_confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10),
-			//	},
-			//}
-			//request, err := json.Marshal(KioskRequest)
-			//if err != nil {
-			//	log.Error(err)
-			//	return
-			//}
-			//websocketserver.BroadcastToPrivate(request)
+			KioskRequest := KioskRequest{
+				RequestType: kioskRequestTypeChangeView,
+				Data: struct {
+					Url string `json:"url"`
+				}{
+					Url: "/output/item_output_confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10),
+				},
+			}
+			request, err := json.Marshal(KioskRequest)
+			if err != nil {
+				log.Error(err)
+				return
+			}
+			broadcastToPrivate(request)
 
 			// TODO - 수령/반납 화면으로 넘길 지 결정
 			delete(requestList, s.ItemId.Int64)
@@ -216,7 +216,104 @@ func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 
-	err := templ.ExecuteTemplate(w, "output/item_output_confirm", &Page{Title: "Home"})
+	itemIdStr := r.URL.Query().Get("itemId")
+	itemId, err := strconv.ParseInt(itemIdStr, 10, 64)
+	if err != nil {
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+	}
+
+	var itemInfo model.ItemListResponse
+	itemInfo, err = model.SelectItemInfoByItemId(itemId)
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
+	itemInfoData := ItemInfoData{
+		ItemId:          itemInfo.ItemId,
+		DeliveryCompany: itemInfo.DeliveryCompany,
+		TrackingNumber:  itemInfo.TrackingNumber,
+		InputDate:       itemInfo.InputDate,
+	}
+
+	pageData := struct {
+		Title        string
+		ItemInfoData ItemInfoData
+	}{
+		"수령 확인창",
+		itemInfoData,
+	}
+
+	err = templ.ExecuteTemplate(w, "output/item_output_confirm", pageData)
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+}
+
+func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	if r.URL.Path != "/output/item_output_accept" {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+
+	itemIdStr := r.URL.Query().Get("itemId")
+	itemId, err := strconv.ParseInt(itemIdStr, 10, 64)
+	if err != nil {
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+	}
+
+	// TODO - 수정
+	address, err := model.SelectAddressByItemId(itemId)
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
+	pageData := struct {
+		Title   string
+		Address string
+	}{
+		"수령 확인창",
+		address,
+	}
+
+	err = templ.ExecuteTemplate(w, "output/item_output_accept", pageData)
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+}
+
+func CheckPassword(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	if r.URL.Path != "/output/get_item_takeout" {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+
+	address := r.URL.Query().Get("address")
+	itemListResponses, err := model.SelectItemListByAddress(address)
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
+	response := CommonResponse{
+		Data:   itemListResponses,
+		Status: http.StatusOK,
+		Error:  nil,
+	}
+
+	data, _ := json.Marshal(response)
+	_, err = fmt.Fprint(w, string(data))
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)

@@ -1,0 +1,56 @@
+{{define "output/item_output_accept"}}
+{{template "header" .}}
+
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+
+<div class="main-page" style="display: none;">
+    <!-- <div class="main-bg"></div>
+    <div class="main-con"></div> -->
+</div>
+
+<div>
+    <label for="$password_input">
+        아래의 정보를 입력 혹은 입주민 카드를 태그하세요
+    </label>
+    <input id="$password_input" type="password" name="password">
+    <div>
+        귀하의 호수: {{.Address}}
+    </div>
+    <button id="$submit_btn" type="button">완료</button>
+    <button id="$cancel_btn" type="button">취소</button>
+</div>
+
+<script>
+    const url = new URL(window.location.href);
+    const itemId = url.searchParams.get("itemId");
+
+    $submit_btn.onclick = () => {
+        axios.post('/output/item_output_takeout?itemId', {
+            item_id: itemId,
+            password: $password_input.value
+        })
+        .then(axiosResult => {
+            let response = axiosResult.data;
+            console.log(response);
+        })
+        .catch(err => {
+            console.error(err);
+        })
+
+
+    }
+
+    $cancel_btn.onclick = () => {
+        axios.post('/output/item_output_return')
+            .then(axiosResult => {
+                let response = axiosResult.data;
+                console.log(response);
+            })
+            .cache(err => {
+                console.error(err);
+            })
+        window.location.replace('')
+    }
+</script>
+{{end}}

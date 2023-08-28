@@ -26,9 +26,6 @@ plc:
     robot:
       # 로봇 개수
       number: 2
-      job:
-        # 로봇 상태를 확인하고 job을 배정 하는 주기(ms) - TODO - 삭제 예정
-        polling-period: 100
     # 데드락 상태를 확인하는 주기
     deadlock-check-period: 10
   simulation:

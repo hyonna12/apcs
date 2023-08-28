@@ -1,7 +1,8 @@
 {{define "output/item_output_confirm"}}
 {{template "header" .}}
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
 
 <div class="main-page" style="display: none;">
     <!-- <div class="main-bg"></div>
@@ -10,12 +11,37 @@
 
 <div>
     택배를 확인해주세요
-    <button type="button">수령</button>
-    <button type="button">반납</button>
+    <div>
+        택배사: {{.ItemInfoData.DeliveryCompany}}
+    </div>
+    <div>
+        배송번호: {{.ItemInfoData.TrackingNumber}}
+    </div>
+    <div>
+        입고일자: {{.ItemInfoData.InputDate}}
+    </div>
+    <button id="$output_btn" type="button">수령</button>
+    <button id="$input_btn" type="button">반납</button>
 </div>
 
 <script>
+    const url = new URL(window.location.href);
+    const itemId = url.searchParams.get("itemId");
 
+    $output_btn.onclick = () => {
+        window.location.replace('/output/item_output_accept?itemId=' + itemId);
+    }
 
+    $input_btn.onclick = () => {
+        axios.post('/output/item_output_reject')
+            .then(axiosResult => {
+                let response = axiosResult.data;
+                console.log(response);
+            })
+            .cache(err => {
+                console.error(err);
+            })
+        window.location.replace('')
+    }
 </script>
 {{end}}

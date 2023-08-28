@@ -48,6 +48,6 @@ func StartWebserver(n *messenger.Node) {
 	}
 }
 
-func BroadcastToPrivate(message []byte) {
+func broadcastToPrivate(message []byte) {
 	wsHub.privateBroadcast <- message
 }

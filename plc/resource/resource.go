@@ -36,7 +36,7 @@ var (
 )
 
 func InitResources(slotIds []int64) {
-	deadlockCheckPeriod = time.Duration(config.Config.Plc.Resource.DeadLockCheckPeriod)
+	deadlockCheckPeriod = time.Duration(config.Config.Plc.Resource.DeadlockCheckPeriod)
 
 	for _, slotId := range slotIds {
 		slotWaitingQueueMap[slotId] = make([]chan struct{}, 0)

@@ -126,6 +126,57 @@ func SelectItemListByOwnerId(ownerId int) ([]ItemReadResponse, error) {
 	}
 }
 
+func SelectItemInfoByItemId(itemId int64) (ItemListResponse, error) {
+
+	query := `
+			SELECT
+				i.item_id,
+				d.delivery_company,
+				i.tracking_number,
+				i.input_date
+			FROM TN_CTR_ITEM i
+				JOIN TN_INF_OWNER	o ON i.owner_id = o.owner_id
+				JOIN TN_INF_DELIVERY d ON i.delivery_id = d.delivery_id
+			WHERE i.item_id = ?
+			`
+
+	var itemListResponse ItemListResponse
+	row := db.QueryRow(query, itemId)
+	err := row.Scan(
+		&itemListResponse.ItemId,
+		&itemListResponse.DeliveryCompany,
+		&itemListResponse.TrackingNumber,
+		&itemListResponse.InputDate,
+	)
+	if err != nil {
+		return ItemListResponse{}, err
+	}
+
+	return itemListResponse, nil
+}
+
+func SelectAddressByItemId(itemId int64) (string, error) {
+
+	query := `
+			SELECT
+				o.address
+			FROM TN_CTR_ITEM i
+				JOIN TN_INF_OWNER	o ON i.owner_id = o.owner_id
+			WHERE i.item_id = ?
+			`
+
+	var address string
+	row := db.QueryRow(query, itemId)
+	err := row.Scan(
+		&address,
+	)
+	if err != nil {
+		return "", err
+	}
+
+	return address, nil
+}
+
 func SelectItemListByAddress(address string) ([]ItemListResponse, error) {
 
 	query := `
@@ -170,17 +221,23 @@ func SelectItemListByAddress(address string) ([]ItemListResponse, error) {
 
 func SelectItemBySlot(lane, floor int) (ItemReadResponse, error) {
 
-	query := `SELECT i.item_id, i.item_name
-			FROM TN_CTR_ITEM i
-			JOIN TN_CTR_SLOT s
+	query :=
+		`SELECT 
+			i.item_id, 
+			i.item_name
+		FROM TN_CTR_ITEM i
+		JOIN TN_CTR_SLOT s
 			ON i.item_id = s.item_id
-			WHERE (s.lane = ? AND s.floor = ?)
-			`
+		WHERE (s.lane = ? AND s.floor = ?)
+		`
 
 	var itemReadResponse ItemReadResponse
 
 	row := db.QueryRow(query, lane, floor)
-	err := row.Scan(&itemReadResponse.ItemId, &itemReadResponse.ItemName)
+	err := row.Scan(
+		&itemReadResponse.ItemId,
+		&itemReadResponse.ItemName,
+	)
 	if err != nil {
 		return ItemReadResponse{}, err
 	}

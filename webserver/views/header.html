@@ -54,7 +54,6 @@
                 conn.onclose = evt => {
                     let log = document.createElement('div');
                     log.innerHTML = `<b>Connection closed.</b>`;
-                    //logMessage(log)
                 };
     
                 // 메시지 수신했을 때
@@ -62,14 +61,10 @@
                     console.log(evt.data);
                     let message = evt.data;
 
-                    //logMessage(message)
-					console.log('웹소켓 메시지 수신:', message);
                     processMessage(message);
                 };
             } else {
-                //let log = document.createElement('div');
-                //log.innerHTML = `<b>Your browser does not support WebSockets.</b>`;
-                //logMessage(log)
+				console.error('웹소켓을 지원하지 않는 브라우저입니다.')
             }
     
         }
@@ -85,81 +80,15 @@
         // 수신한 메시지 파싱 및 처리
         function processMessage(message) {
             message = JSON.parse(message)
-            if (message.target !== "kiosk") {
-                return false;
-            }
-    
-            // 응답 메시지인 경우
-            if (message.data === "ok") {
-                return false;
-            }
-    
-            // TODO - 임시 삭제
-            // respondMessage(message);
-    
-            message.data = JSON.parse(message.data);
-            switch (message.data.type) {
-                case 'view':
-                    let view = window[message.data.data];
-                    if (!view) {
-                        console.error("Cannot find view with id: " + message.data.data);
-                        return false;
-                    }
-                    setView(view);
-                    break
-                case 'alert':
-                    alert(message.data.data);
-            }
-        }
-    
-        // 응답 메시지 전송
-        function respondMessage(requestMessage) {
-            let responseMessage = {
-                id: requestMessage.id,
-                sender: requestMessage.target,
-                target: requestMessage.sender,
-                timestamp: new Date(),
-                data: "ok"
-            };
-            conn.send(JSON.stringify(responseMessage));
-        }
-    
-        // 이벤트 트리거 메시지 전송
-        function triggerEvent(eventName, eventData = null) {
-            let requestMessage = {
-                id: crypto.randomUUID(),
-                sender: "kiosk",
-                target: "event",
-                timestamp: new Date(),
-                data: JSON.stringify({
-                    event_name: eventName,
-                    event_data: eventData
-                })
-            };
-            conn.send(JSON.stringify(requestMessage));
+    		if (message.request_type === 'changeView') {
+				window.location.replace(message.data.url);
+			}
         }
     
         function createElementFromHtml(htmlString) {
             const div = document.createElement('div');
             div.innerHTML = htmlString.trim();
             return div.firstElementChild;
-        }
-    
-        function logMessage(message) {
-            message = JSON.parse(message)
-            let background = message.data === 'ok' ? '' :
-                            message.sender === 'kiosk' ? 'bg-primary-subtle' : 'bg-danger-subtle';
-            let log = createElementFromHtml(`
-                        <li class="list-group-item ${background}">
-                            <div><b>sender</b>: ${message.sender} -> <b>target</b>: ${message.target}</div>
-                            <div><b>id</b>: ${message.id}</div>
-                            <div><b>timestamp</b>: ${message.timestamp.replace('T', ' ').slice(0, -5)}</div>
-                            <div><b>data</b>: ${message.data}</div>
-                        </li>
-                    `);
-    
-            $log.appendChild(log)
-            $log.scrollTop = $log.scrollHeight - $log.clientHeight
         }
     </script>
 </head>

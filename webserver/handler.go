@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -31,9 +32,22 @@ type InputInfoRequest struct {
 }
 
 type KioskRequest struct {
-	RequestType string `json:"request_type"`
-	Data        any    `json:"data"`
+	RequestType KioskRequestType `json:"request_type"`
+	Data        any              `json:"data"`
 }
+
+type ItemInfoData struct {
+	ItemId          int64
+	DeliveryCompany string
+	TrackingNumber  int64
+	InputDate       time.Time
+}
+
+type KioskRequestType string
+
+const (
+	kioskRequestTypeChangeView = "changeView"
+)
 
 type RequestType string
 type RequestStatus string
