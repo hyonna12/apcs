@@ -93,7 +93,7 @@ func getRobot(robotStatus robotStatus) (*robot, error) {
 //
 // - slot: 빈 트레이가 있는 슬롯 정보
 func JobServeEmptyTrayToTable(slot model.Slot) error {
-	log.Infof("[PLC_Robot_Job] 빈 트레이 테이블로 서빙. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 빈 트레이 테이블로 서빙. slot: %v", slot)
 	robot, err := getRobot(available)
 	if err != nil {
 		return err
@@ -133,7 +133,7 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 //
 // - slot: 빈 트레이를 격납할 슬롯
 func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
-	log.Infof("[PLC_Robot_Job] 테이블의 빈 트레이를 회수. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 테이블의 빈 트레이를 회수. slot: %v", slot)
 
 	var robot *robot
 
@@ -195,7 +195,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 //
 // - slot: 물건을 수납할 슬롯
 func JobInputItem(slot model.Slot) error {
-	log.Infof("[PLC_Robot_Job] 테이블의 물건을 슬롯에 가져다 놓기. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slot: %v", slot)
 
 	var robot *robot
 
@@ -255,7 +255,7 @@ func JobInputItem(slot model.Slot) error {
 //
 // - slot: 물건을 꺼낼 슬롯
 func JobOutputItem(slot model.Slot) error {
-	log.Infof("[PLC_Robot_Job] 슬롯의 물건을 테이블로 서빙 시작. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 슬롯의 물건을 테이블로 서빙 시작. slot: %v", slot)
 	robot, err := getRobot(available)
 	if err != nil {
 		return err
@@ -286,7 +286,7 @@ func JobOutputItem(slot model.Slot) error {
 	// 불출작업 후 입주민이 수령/취소할 때까지 보류
 	changeRobotStatus(robot, waiting)
 
-	log.Infof("[PLC_Robot_Job] 슬롯의 물건을 테이블로 서빙 완료. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 슬롯의 물건을 테이블로 서빙 완료. slot: %v", slot)
 
 	return nil
 }
@@ -298,7 +298,7 @@ func JobOutputItem(slot model.Slot) error {
 // - from: 빈 트레이가 있는 슬롯
 // - to: 빈 트레이를 가져다 놓을 슬롯
 func JobMoveTray(from, to model.Slot) error {
-	log.Infof("[PLC_Robot_Job] 정리. slot_from: %v, slot_to: %v", from, to)
+	log.Infof("[PLC_로봇_Job] 정리. slot_from: %v, slot_to: %v", from, to)
 	robot, err := getRobot(available)
 	if err != nil {
 		return err
@@ -333,7 +333,7 @@ func JobMoveTray(from, to model.Slot) error {
 //
 // 로봇 하나를 테이블 앞에 대기
 func JobWaitAtTable() error {
-	log.Infof("[PLC_Robot_Job] 로봇 하나를 테이블 앞에 대기")
+	log.Infof("[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기")
 	robot, err := getRobot(available)
 	if err != nil {
 		return err

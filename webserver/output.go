@@ -4,10 +4,12 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"encoding/json"
+	"errors"
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 /* Output_Item */
@@ -165,9 +167,16 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	err = templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
 	// 슬롯 정보로 PLC에 불출 요청
 	for _, slot := range slots {
 		go func(s model.Slot) {
+			time.Sleep(1 * time.Second) // 키오스크 웹소켓 연결 대기
 			log.Debugf("[웹핸들러 -> PLC] 불출 요청. 슬롯 id=%v, 아이템 id=%v", s.SlotId, s.ItemId.Int64)
 			err := plc.OutputItem(s)
 			if err != nil {
@@ -197,12 +206,6 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			// TODO - 수령/반납 화면으로 넘길 지 결정
 			delete(requestList, s.ItemId.Int64)
 		}(slot)
-	}
-
-	err = templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
 
@@ -251,9 +254,9 @@ func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
+func ItemOutputSubmitPassword(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/item_output_accept" {
+	if r.URL.Path != "/output/item_output_submit_password" {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
@@ -282,16 +285,16 @@ func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
 		address,
 	}
 
-	err = templ.ExecuteTemplate(w, "output/item_output_accept", pageData)
+	err = templ.ExecuteTemplate(w, "output/item_output_submit_password", pageData)
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
 
-func CheckPassword(w http.ResponseWriter, r *http.Request) {
+func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/get_item_takeout" {
+	if r.URL.Path != "/output/item_output_check_password" {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
@@ -299,23 +302,38 @@ func CheckPassword(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 
-	address := r.URL.Query().Get("address")
-	itemListResponses, err := model.SelectItemListByAddress(address)
+	request := &struct {
+		ItemId   int64 `json:"item_id"`
+		Password int   `json:"password"`
+	}{}
+	err := json.NewDecoder(r.Body).Decode(request)
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 
-	response := CommonResponse{
-		Data:   itemListResponses,
-		Status: http.StatusOK,
-		Error:  nil,
-	}
-
-	data, _ := json.Marshal(response)
-	_, err = fmt.Fprint(w, string(data))
+	// TODO - 비밀번호 해싱
+	password, err := model.SelectPasswordByItemId(1)
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
+
+	if request.Password == password {
+		Response(w, nil, http.StatusOK, nil)
+	} else {
+		Response(w, nil, http.StatusBadRequest, errors.New("잘못된 비밀번호입니다"))
+	}
+}
+
+func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	if r.URL.Path != "/output/item_output_accept" {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+
 }

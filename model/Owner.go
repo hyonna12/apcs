@@ -1,6 +1,8 @@
 package model
 
-import log "github.com/sirupsen/logrus"
+import (
+	log "github.com/sirupsen/logrus"
+)
 
 type OwnerInfo struct {
 	Address string
@@ -28,4 +30,24 @@ func SelectOwnerIdByAddress(address string) (int64, error) {
 		return ownerId, err
 	}
 	return ownerId, nil
+}
+
+func SelectPasswordByItemId(itemId int64) (int, error) {
+	query := `
+		SELECT password
+		FROM TN_INF_OWNER o
+			JOIN TN_CTR_ITEM i 
+			    ON o.owner_id = i.owner_id 
+		WHERE i.item_id = ?
+		`
+
+	var password int
+
+	row := db.QueryRow(query, itemId)
+	err := row.Scan(&password)
+	if err != nil {
+		log.Error(err)
+		return password, err
+	}
+	return password, nil
 }

@@ -44,7 +44,9 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/output/get_item_list", GetItemList)
 	r.HandleFunc("/output/item_output_ongoing", ItemOutputOngoing)
 	r.HandleFunc("/output/item_output_confirm", ItemOutputConfirm)
-	r.HandleFunc("/output/item_output_accept", ItemOutputAccept)
+	r.HandleFunc("/output/item_output_submit_password", ItemOutputSubmitPassword)
+	r.HandleFunc("/output/item_output_check_password", ItemOutputCheckPassword) // API
+	r.HandleFunc("/output/item_output_accept", ItemOutputAccept)                // API
 
 	// 알림창으로 대체
 	//r.HandleFunc("/output/item_list_error", ItemListError)

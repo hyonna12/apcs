@@ -40,7 +40,8 @@ type ItemInfoData struct {
 type KioskRequestType string
 
 const (
-	kioskRequestTypeChangeView = "changeView"
+	kioskRequestTypeChangeView           = "changeView"
+	KioskRequestCheckWebsocketConnection = "checkWebsocketConnection"
 )
 
 type RequestType string
