@@ -10,9 +10,9 @@ import (
 type robotStatus string
 
 const (
-	waiting   robotStatus = "waiting"
-	available robotStatus = "available"
-	working   robotStatus = "working"
+	robotStatusWaiting   robotStatus = "robotStatusWaiting"
+	robotStatusAvailable robotStatus = "robotStatusAvailable"
+	robotStatusWorking   robotStatus = "robotStatusWorking"
 )
 
 type robot struct {
@@ -39,9 +39,14 @@ func InitRobots() {
 	for i, _ := range robots {
 		robots[i] = &robot{
 			id:     i, // TODO - temp robot id
-			status: available,
+			status: robotStatusAvailable,
 		}
 	}
+}
+
+func (r *robot) changeStatus(robotStatus robotStatus) {
+	r.status = robotStatus
+	go DistributeJob()
 }
 
 func (r *robot) moveToSlot(slot model.Slot) error {

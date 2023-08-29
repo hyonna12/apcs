@@ -4,6 +4,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"encoding/json"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"time"
 )
@@ -81,4 +82,23 @@ func Response(w http.ResponseWriter, data interface{}, status int, err error) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(res)
+}
+
+func ChangeKioskView(url string) error {
+	KioskRequest := KioskRequest{
+		RequestType: kioskRequestTypeChangeView,
+		Data: struct {
+			Url string `json:"url"`
+		}{
+			Url: url,
+		},
+	}
+	request, err := json.Marshal(KioskRequest)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	broadcastToPrivate(request)
+
+	return nil
 }

@@ -1,4 +1,4 @@
-{{define "output/item_output_submit_password"}}
+{{define "output/item_output_accept"}}
 {{template "header" .}}
 
 <link rel="stylesheet"
@@ -10,20 +10,45 @@
 </div>
 
 <div>
-    <label for="$password_input">
-        아래의 정보를 입력 혹은 입주민 카드를 태그하세요
-    </label>
-    <input id="$password_input" type="password" name="password">
     <div>
-        귀하의 호수: {{.Address}}
+        택배를 꺼내 주세요.
     </div>
-    <button id="$submit_btn" type="button">완료</button>
-    <button id="$cancel_btn" type="button">취소</button>
+    <div>
+        5초 뒤 자동으로 재입고 됩니다.
+    </div>
+    <div id="$counter">
+        5
+    </div>
 </div>
 
 <script>
     const url = new URL(window.location.href);
     const itemId = url.searchParams.get("itemId");
+    const timeLimit = 3;
+
+    let counter = 0;
+    let intervalId = setInterval(() => {
+        // TODO - 출고 확인
+        counter += 1;
+        $counter.innerText = timeLimit - counter;
+
+
+        console.log('hello');
+
+        if (counter === timeLimit) {
+            // TODO - 반환
+            clearInterval(intervalId);
+            axios.post('/output/return?itemId=' + itemId)
+                .then(axiosResult => {
+                    let response = axiosResult.data;
+                    console.log(response);
+                })
+                .catch(err => {
+                    alert('비밀번호가 올바르지 않습니다.');
+                    console.error(err);
+                })
+        }
+    }, 1000)
 
     $submit_btn.onclick = () => {
         axios.post('/output/password/check', {
@@ -33,7 +58,6 @@
         .then(axiosResult => {
             let response = axiosResult.data;
             console.log(response);
-            location.replace('/output/accept?itemId=' + itemId);
         })
         .catch(err => {
             alert('비밀번호가 올바르지 않습니다.');

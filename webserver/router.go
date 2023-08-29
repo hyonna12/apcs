@@ -39,14 +39,15 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/output/regist_address", RegistAddress)
 	// 알림창으로 대체
 	//r.HandleFunc("/output/regist_address_error", RegistAddressError)
-	r.HandleFunc("/output/check_item_exists", CheckItemExists)
+	r.HandleFunc("/output/check_item_exists", CheckItemExists) // API
 	r.HandleFunc("/output/item_list", ItemList)
-	r.HandleFunc("/output/get_item_list", GetItemList)
-	r.HandleFunc("/output/item_output_ongoing", ItemOutputOngoing)
-	r.HandleFunc("/output/item_output_confirm", ItemOutputConfirm)
-	r.HandleFunc("/output/item_output_submit_password", ItemOutputSubmitPassword)
-	r.HandleFunc("/output/item_output_check_password", ItemOutputCheckPassword) // API
-	r.HandleFunc("/output/item_output_accept", ItemOutputAccept)                // API
+	r.HandleFunc("/output/get_item_list", GetItemList) // API
+	r.HandleFunc("/output/ongoing", ItemOutputOngoing)
+	r.HandleFunc("/output/confirm", ItemOutputConfirm)
+	r.HandleFunc("/output/password/submit", ItemOutputSubmitPassword)
+	r.HandleFunc("/output/password/check", ItemOutputCheckPassword) // API
+	r.HandleFunc("/output/accept", ItemOutputAccept)                // API
+	r.HandleFunc("/output/return", ItemOutputReturn)                // API
 
 	// 알림창으로 대체
 	//r.HandleFunc("/output/item_list_error", ItemListError)

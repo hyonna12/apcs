@@ -3,6 +3,7 @@ package webserver
 import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
+	"apcs_refactored/plc/door"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -98,12 +99,18 @@ func GetItemList(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/item_output_ongoing" {
+	if r.URL.Path != "/output/ongoing" {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+
+	if r.Method == http.MethodGet {
+		err := templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
+		if err != nil {
+			log.Error(err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
+		return
 	}
 
 	err := r.ParseForm()
@@ -188,20 +195,10 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			// 택배가 테이블에 올라가면 요청 목록에서 제거
 			log.Debugf("[웹핸들러] 불출 완료. 슬롯 id=%v, 아이템 id=%v", s.SlotId, s.ItemId.Int64)
 			// TODO - 수령/반품 화면 전환
-			KioskRequest := KioskRequest{
-				RequestType: kioskRequestTypeChangeView,
-				Data: struct {
-					Url string `json:"url"`
-				}{
-					Url: "/output/item_output_confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10),
-				},
-			}
-			request, err := json.Marshal(KioskRequest)
+			err = ChangeKioskView("/output/confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10))
 			if err != nil {
-				log.Error(err)
-				return
+				// TODO - 에러처리
 			}
-			broadcastToPrivate(request)
 
 			// TODO - 수령/반납 화면으로 넘길 지 결정
 			delete(requestList, s.ItemId.Int64)
@@ -211,7 +208,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/item_output_confirm" {
+	if r.URL.Path != "/output/confirm" {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
@@ -256,7 +253,7 @@ func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputSubmitPassword(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/item_output_submit_password" {
+	if r.URL.Path != "/output/password/submit" {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
@@ -294,7 +291,7 @@ func ItemOutputSubmitPassword(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/item_output_check_password" {
+	if r.URL.Path != "/output/password/check" {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
@@ -328,12 +325,80 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/item_output_accept" {
+	if r.URL.Path != "/output/accept" {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+
+	err := templ.ExecuteTemplate(w, "output/item_output_accept", nil)
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+}
+
+func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	if r.URL.Path != "/output/return" {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+
+	itemId, err := strconv.ParseInt(r.URL.Query().Get("itemId"), 10, 64)
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusBadRequest)
+	}
+
+	if err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
+		// TODO - 앞문 닫힘 불가 시 에러처리
+	}
+	if err != nil {
+		// TODO - 앞문 고장 시 에러처리
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
+	delete(requestList, itemId)
+
+	// 택배 제자리로 반환
+	// TODO - 반환하는 김에 정리(최적 슬롯 알고리즘) - 꺼낸 슬롯의 원래 자리는 비어있다고 가정하고 선정
+	slot, err := model.SelectSlotByItemId(itemId)
+	if err != nil {
+		// TODO - 에러처리
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
+	go func() {
+		if err = plc.InputItem(slot); err != nil {
+			// TODO - 반환 불가 시 에러처리
+			log.Error(err)
+		}
+	}()
+
+	Response(w, nil, http.StatusOK, nil)
+
+	if len(requestList) > 0 {
+		// Request가 남아있는 경우- 택배가 나오고 있습니다 화면으로
+		err := ChangeKioskView("/output/ongoing")
+		if err != nil {
+			log.Error(err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
+	} else {
+		// Request가 남아있지 않은 경우 - 택배 찾기가 취소되었습니다 화면으로
+		err := ChangeKioskView("/output/canceled")
+		if err != nil {
+			log.Error(err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
 	}
 
 }
