@@ -56,6 +56,7 @@ func DistributeJob() {
 		return
 	}
 
+	// 로봇 상태를 구별하기 때문에 엄밀히는 queue가 아니지만, 상태에 따라 순서는 구분됨
 	for i, job := range jobQueue {
 		for _, robot := range robots {
 			if robot.status == job.requiredRobotStatus && job.robot == nil {

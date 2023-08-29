@@ -24,6 +24,7 @@ func RegistAddress(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// CheckItemExists - [API] 동호수 입력 시 호출
 func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 	address := r.URL.Query().Get("address")
 	log.Infof("[불출] 입주민 주소 입력: %v", address)
@@ -42,6 +43,7 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ItemList - [View] 아이템 목록 화면 출력
 func ItemList(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
@@ -52,6 +54,7 @@ func ItemList(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetItemList - [API] 아이템 목록 반환
 func GetItemList(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
@@ -76,6 +79,7 @@ func GetItemList(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ItemOutputOngoing - [View] "택배가 나오는 중입니다" 화면 출력
 func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
@@ -186,11 +190,13 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ItemOutputConfirm - [View] "택배를 확인해주세요" 화면 출력
 func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
 	itemIdStr := r.URL.Query().Get("itemId")
 	itemId, err := strconv.ParseInt(itemIdStr, 10, 64)
+	// TODO - 에러 처리
 	if err != nil {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 	}
@@ -198,6 +204,7 @@ func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 	var itemInfo model.ItemListResponse
 	itemInfo, err = model.SelectItemInfoByItemId(itemId)
 	if err != nil {
+		// TODO - DB 에러 발생 시 에러처리
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
@@ -224,18 +231,21 @@ func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ItemOutputSubmitPassword(w http.ResponseWriter, r *http.Request) {
+// ItemOutputPasswordForm - [View] 비밀번호 입력 화면 출력
+func ItemOutputPasswordForm(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
 	itemIdStr := r.URL.Query().Get("itemId")
 	itemId, err := strconv.ParseInt(itemIdStr, 10, 64)
 	if err != nil {
+		// TODO - 에러처리
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 	}
 
 	// TODO - 수정
 	address, err := model.SelectAddressByItemId(itemId)
 	if err != nil {
+		// TODO - DB 에러 발생 시 에러처리
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
@@ -248,13 +258,14 @@ func ItemOutputSubmitPassword(w http.ResponseWriter, r *http.Request) {
 		address,
 	}
 
-	err = templ.ExecuteTemplate(w, "output/item_output_submit_password", pageData)
+	err = templ.ExecuteTemplate(w, "output/item_output_password_form", pageData)
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
 
+// ItemOutputCheckPassword - [API] 비밀번호가 제출된 경우 호출
 func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
@@ -271,6 +282,7 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	// TODO - 비밀번호 해싱
 	password, err := model.SelectPasswordByItemId(1)
 	if err != nil {
+		// TODO - DB 에러 발생 시 에러처리
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
@@ -282,6 +294,7 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ItemOutputAccept - [VIEW] "택배를 꺼내 주세요" 화면 출력
 func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
@@ -292,6 +305,11 @@ func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ItemOutputReturn
+//
+// [API] "택배를 확인해 주세요" 화면에서 "반납" 버튼을 누른 경우 호출
+// 비밀번호 입력 화면에서 "취소" 버튼을 누른 경우 호출
+// "택배를 꺼내 주세요" 화면에서 5초 경과 후 호출
 func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
@@ -310,8 +328,6 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 
-	delete(requestList, itemId)
-
 	// 택배 반환
 	// TODO - 반환하는 김에 정리(최적 슬롯 알고리즘) - 꺼낸 슬롯의 원래 자리는 비어있다고 가정하고 선정
 	slot, err := model.SelectSlotByItemId(itemId)
@@ -328,10 +344,12 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
+	delete(requestList, itemId)
+
 	Response(w, nil, http.StatusOK, nil)
 
 	if len(requestList) > 0 {
-		// Request가 남아있는 경우- 택배가 나오고 있습니다 화면으로
+		// Request가 남아 있는 경우- 택배가 나오고 있습니다 화면으로
 		err := ChangeKioskView("/output/ongoing")
 		if err != nil {
 			log.Error(err)
@@ -348,10 +366,92 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// ItemOutputCancel
+//
+// [VIEW] "택배 찾기가 취소되었습니다" 화면 출력
+// '/output/return' 호출 후 requestList에 요청이 남아 있지 않은 경우
 func ItemOutputCancel(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
 	err := templ.ExecuteTemplate(w, "output/item_output_canceled", nil)
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+}
+
+// ItemOutputTakeout
+//
+// TODO - temp - [API] 키오스크 물건 꺼내기 버튼 (시뮬레이션 용)
+func ItemOutputTakeout(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+
+	plc.IsItemOnTable = false
+	Response(w, nil, http.StatusOK, nil)
+}
+
+// SenseTableForItem - [API] "택배를 꺼내주세요" 화면에서 매 초마다 호출
+func SenseTableForItem(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+
+	isItemOnTable, err := plc.SenseTableForItem()
+	if err != nil {
+		log.Error(err)
+		// TODO - 에러처리
+		Response(w, nil, http.StatusInternalServerError, nil)
+	}
+	boolStr := strconv.FormatBool(isItemOnTable)
+
+	Response(w, boolStr, http.StatusOK, nil)
+}
+
+// ItemOutputComplete - [API] 입주민이 택배를 수령해 테이블에 물건이 없을 경우 호출
+func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+
+	if err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
+		// TODO - 앞문 안 닫힘 에러 처리
+		log.Error(err)
+		Response(w, nil, http.StatusInternalServerError, nil)
+	}
+
+	r.URL.Query().Get("itemId")
+	itemIdStr := r.URL.Query().Get("itemId")
+	itemId, err := strconv.ParseInt(itemIdStr, 10, 64)
+	if err != nil {
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+	}
+
+	// TODO - DB 갱신
+
+	delete(requestList, itemId)
+
+	// 로봇 대기 해제
+	if err := plc.DismissRobotAtTable(); err != nil {
+		// TODO - plc fail 에러처리
+	}
+
+	if len(requestList) > 0 {
+		// Request가 남아있는 경우- 택배가 나오고 있습니다 화면으로
+		err := ChangeKioskView("/output/ongoing")
+		if err != nil {
+			log.Error(err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
+	} else {
+		err := ChangeKioskView("/output/thankyou")
+		if err != nil {
+			log.Error(err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
+	}
+}
+
+// ItemOutputThankyou - [VIEW] "감사합니다" 화면 출력
+func ItemOutputThankyou(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+
+	err := templ.ExecuteTemplate(w, "output/item_output_thankyou", nil)
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)

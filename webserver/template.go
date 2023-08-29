@@ -166,16 +166,3 @@ func ItemListError(w http.ResponseWriter, r *http.Request) {
 	}
 	templ.ExecuteTemplate(w, "output/item_list_error", &Page{Title: "Home"})
 }
-
-func CompleteOutputItem(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/complete_output_item" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
-	templ.ExecuteTemplate(w, "output/complete_output_item", &Page{Title: "Home"})
-}

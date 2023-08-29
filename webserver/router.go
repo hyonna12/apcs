@@ -37,22 +37,51 @@ func Handler(r *mux.Router) {
 
 	/* output */
 	r.HandleFunc("/output/regist_address", RegistAddress)
-	// 알림창으로 대체
-	//r.HandleFunc("/output/regist_address_error", RegistAddressError)
-	r.HandleFunc("/output/check_item_exists", CheckItemExists).Methods(http.MethodGet) // API
-	r.HandleFunc("/output/item_list", ItemList).Methods(http.MethodGet)
-	r.HandleFunc("/output/get_item_list", GetItemList).Methods(http.MethodGet) // API
-	r.HandleFunc("/output/ongoing", ItemOutputOngoing)
-	r.HandleFunc("/output/confirm", ItemOutputConfirm).Methods(http.MethodGet)
-	r.HandleFunc("/output/password/submit", ItemOutputSubmitPassword).Methods(http.MethodGet)
-	r.HandleFunc("/output/password/check", ItemOutputCheckPassword).Methods(http.MethodPost) // API
-	r.HandleFunc("/output/accept", ItemOutputAccept).Methods(http.MethodGet)                 // API
-	r.HandleFunc("/output/return", ItemOutputReturn).Methods(http.MethodPost)                // API
-	r.HandleFunc("/output/cancel", ItemOutputCancel).Methods(http.MethodGet)                 // API
 
-	// 알림창으로 대체
-	//r.HandleFunc("/output/item_list_error", ItemListError)
-	r.HandleFunc("/output/complete_output_item", CompleteOutputItem)
+	// [API] 동호수 입력 시 호출
+	r.HandleFunc("/output/check_item_exists", CheckItemExists).Methods(http.MethodGet)
+
+	// [View] 아이템 목록 화면 출력
+	r.HandleFunc("/output/item_list", ItemList).Methods(http.MethodGet)
+
+	// [API] 아이템 목록 반환
+	r.HandleFunc("/output/get_item_list", GetItemList).Methods(http.MethodGet)
+
+	// [View] "택배가 나오는 중입니다" 화면 출력
+	r.HandleFunc("/output/ongoing", ItemOutputOngoing)
+
+	// [View] "택배를 확인해주세요" 화면 출력
+	r.HandleFunc("/output/confirm", ItemOutputConfirm).Methods(http.MethodGet)
+
+	// [View] 비밀번호 입력 화면 출력
+	r.HandleFunc("/output/password/form", ItemOutputPasswordForm).Methods(http.MethodGet)
+
+	// [API] 비밀번호가 제출된 경우 호출
+	r.HandleFunc("/output/password/check", ItemOutputCheckPassword).Methods(http.MethodPost)
+
+	// [VIEW] "택배를 꺼내 주세요" 화면 출력
+	r.HandleFunc("/output/accept", ItemOutputAccept).Methods(http.MethodGet)
+
+	// [API] "택배를 확인해 주세요" 화면에서 "반납" 버튼을 누른 경우 호출
+	// 비밀번호 입력 화면에서 "취소" 버튼을 누른 경우 호출
+	// "택배를 꺼내 주세요" 화면에서 5초 경과 후 호출
+	r.HandleFunc("/output/return", ItemOutputReturn).Methods(http.MethodPost)
+
+	// [API] "택배를 꺼내주세요" 화면에서 매 초마다 호출
+	r.HandleFunc("/output/sense_table_for_item", SenseTableForItem).Methods(http.MethodGet)
+
+	// [VIEW] "택배 찾기가 취소되었습니다" 화면 출력
+	// '/output/return' 호출 후 requestList에 요청이 남아 있지 않은 경우
+	r.HandleFunc("/output/cancel", ItemOutputCancel).Methods(http.MethodGet)
+
+	// [API] 입주민이 택배를 수령해 테이블에 물건이 없을 경우 호출
+	r.HandleFunc("/output/complete", ItemOutputComplete).Methods(http.MethodPost)
+
+	// [VIEW] "감사합니다" 화면 출력
+	r.HandleFunc("/output/thankyou", ItemOutputThankyou).Methods(http.MethodGet)
+
+	// TODO - temp - [API] 키오스크 물건 꺼내기 버튼 (시뮬레이션 용)
+	r.HandleFunc("/output/takeout", ItemOutputTakeout).Methods(http.MethodPost)
 
 	/* sort */
 	r.HandleFunc("/sort", Sort).Methods(http.MethodPost)

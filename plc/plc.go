@@ -23,6 +23,8 @@ const (
 var (
 	msgNode        *messenger.Node
 	simulatorDelay time.Duration
+	// TODO - temp - 키오스크 임시 물건 꺼내기 버튼 시뮬레이션 용
+	IsItemOnTable = false
 )
 
 type ItemDimension struct {
@@ -84,7 +86,10 @@ func SenseTableForEmptyTray() (bool, error) {
 func SenseTableForItem() (bool, error) {
 	log.Infof("[PLC_Sensor] 테이블 물품 존재 여부 감지")
 	// TODO - PLC 센서 물품 존재 여부 감지
-	return false, nil
+	// TODO - temp - 물건 꺼내기 버튼
+	return IsItemOnTable, nil
+
+	//return false, nil
 }
 
 // ServeEmptyTrayToTable
@@ -180,6 +185,9 @@ func InputItem(slot model.Slot) error {
 		return err
 	}
 
+	// TODO - temp - 시뮬레이션 용
+	IsItemOnTable = false
+
 	return nil
 }
 
@@ -193,6 +201,9 @@ func OutputItem(slot model.Slot) error {
 	if err := robot.JobOutputItem(slot); err != nil {
 		return err
 	}
+
+	// TODO - temp - 시뮬레이션용
+	IsItemOnTable = true
 
 	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil

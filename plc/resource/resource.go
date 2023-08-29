@@ -48,8 +48,9 @@ func InitResources(slotIds []int64) {
 //
 // TODO - 로봇 데드락 해결 로직
 // 두 개의 로봇이 서로 점유하고 있는 자원을 기다릴 때 발생하는 데드락 감시 및 해결.
+// 슬롯에서 물건을 꺼낸 후 점유를 해제하기 때문에 이론 상 데드락이 발생할 경우는 없을 것으로 보이긴 함.
 func CheckResolveDeadlock() {
-	log.Infof("Checking Deadlock condition")
+	log.Infof("CheckResolveDeadlock()")
 }
 
 func ReserveTable() {
@@ -68,7 +69,7 @@ func ReserveTable() {
 			return
 		// 일정 시간마다 데드락 확인 및 해결
 		case <-time.After(deadlockCheckPeriod * time.Second):
-			log.Warn("[PLC_resource] 데드락 확인 및 해결 요청")
+			log.Warn("[PLC_resource] (table) 데드락 확인 및 해결 요청")
 			go CheckResolveDeadlock()
 		}
 	}
@@ -89,9 +90,9 @@ func ReserveSlot(slotId int64) {
 		case <-waiting:
 			slotReservationMap[slotId] = true
 			return
-		// 일정 시간마다 데드락 확인 및 해결
+		// 일정 시간 마다 데드락 확인 및 해결
 		case <-time.After(deadlockCheckPeriod * time.Second):
-			log.Warn("[PLC_resource] 데드락 확인 및 해결 요청")
+			log.Warn("[PLC_resource] (slot) 데드락 확인 및 해결 요청")
 			go CheckResolveDeadlock()
 		}
 	}
@@ -99,7 +100,6 @@ func ReserveSlot(slotId int64) {
 
 func ReleaseTable() {
 	tableReserved = false
-	// TODO - temp
 	if len(tableWaitingQueue) > 0 {
 		tableWaitingQueue[0] <- struct{}{}
 		tableWaitingQueue = tableWaitingQueue[1:]

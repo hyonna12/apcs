@@ -80,7 +80,7 @@ func (r *robot) pullFromSlot(slot model.Slot) error {
 }
 
 func (r *robot) pushToSlot(slot model.Slot) error {
-	log.Infof("[PLC_로봇_Step] 슬롯으로 트레이 올리기. robotId=%v, slotId=%v", r.id, slot.SlotId)
+	log.Infof("[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=%v, slotId=%v", r.id, slot.SlotId)
 	// TODO - 슬롯으로 트레이 넣기
 
 	// TODO - temp - 시뮬레이터

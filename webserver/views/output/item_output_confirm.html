@@ -21,7 +21,7 @@
         입고일자: {{.ItemInfoData.InputDate}}
     </div>
     <button id="$output_btn" type="button">수령</button>
-    <button id="$input_btn" type="button">반납</button>
+    <button id="$return_btn" type="button">반납</button>
 </div>
 
 <script>
@@ -29,19 +29,18 @@
     const itemId = url.searchParams.get("itemId");
 
     $output_btn.onclick = () => {
-        window.location.replace('/output/password/submit?itemId=' + itemId);
+        window.location.replace('/output/password/form?itemId=' + itemId);
     }
 
-    $input_btn.onclick = () => {
-        axios.post('/output/item_output_reject')
+    $return_btn.onclick = () => {
+        axios.post('/output/return?itemId=' + itemId)
             .then(axiosResult => {
                 let response = axiosResult.data;
                 console.log(response);
             })
-            .cache(err => {
+            .catch(err => {
                 console.error(err);
-            })
-        window.location.replace('')
+            });
     }
 </script>
 {{end}}

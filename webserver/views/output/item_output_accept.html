@@ -19,25 +19,62 @@
     <div id="$counter">
         5
     </div>
+    <button id="$takeout_btn">(임시) 물건 꺼내기</button>
 </div>
 
 <script>
     const url = new URL(window.location.href);
     const itemId = url.searchParams.get("itemId");
-    const timeLimit = 3;
+    const timeLimit = 5;
 
     let counter = 0;
-    let intervalId = setInterval(() => {
-        // TODO - 출고 확인
+
+    let intervalId = setInterval(senseTableForItem, 1000)
+
+    async function senseTableForItem() {
         counter += 1;
         $counter.innerText = timeLimit - counter;
 
+        let axiosResult = await axios.get('/output/sense_table_for_item')
+            .catch(err => {
+                console.error(err);
+            });
 
-        console.log('hello');
+        let response = axiosResult.data;
+        console.log(response);
+        // true or false
+        let isItemOnTable = JSON.parse(response.data);
 
-        if (counter === timeLimit) {
-            // TODO - 반환
+        // 입주민이 택배를 수령해 테이블에 물건이 없을 경우
+        if (!isItemOnTable) {
+            let axiosResult = await axios.post('/output/complete?itemId=' + itemId)
+                .catch(err => {
+                    console.error(err);
+                });
+            console.debug(axiosResult);
             clearInterval(intervalId);
+            return false;
+        }
+
+        if (counter !== timeLimit) {
+            return false;
+        }
+
+        clearInterval(intervalId);
+
+        // 테이블 위 물건 확인
+        axiosResult = await axios.get('/output/sense_table_for_item')
+            .catch(err => {
+                console.error(err);
+            });
+
+        response = axiosResult.data;
+        console.log(response);
+        // true or false
+        isItemOnTable = JSON.parse(response.data);
+
+        // 입주민이 택배를 수령하지 않은 경우
+        if (isItemOnTable) {
             axios.post('/output/return?itemId=' + itemId)
                 .then(axiosResult => {
                     let response = axiosResult.data;
@@ -46,34 +83,32 @@
                 .catch(err => {
                     console.error(err);
                 });
+            return false;
         }
-    }, 1000)
 
-    $submit_btn.onclick = () => {
-        axios.post('/output/password/check', {
-            item_id: parseInt(itemId),
-            password: parseInt($password_input.value),
-        })
-        .then(axiosResult => {
-            let response = axiosResult.data;
-            console.log(response);
-        })
-        .catch(err => {
-            alert('비밀번호가 올바르지 않습니다.');
-            console.error(err);
-        })
-    }
-
-    $cancel_btn.onclick = () => {
-        axios.post('/output/item_output_return')
+        // 입주민이 택배를 수령해 테이블에 물건이 없을 경우
+        axios.post('/output/complete?itemId=' + itemId)
             .then(axiosResult => {
                 let response = axiosResult.data;
                 console.log(response);
             })
-            .cache(err => {
+            .catch(err => {
                 console.error(err);
-            })
-        window.location.replace('')
+            });
+        clearInterval(intervalId);
     }
+
+    // TODO - temp - 수령 버튼 (시뮬레이션 용)
+    $takeout_btn.onclick = () => {
+        axios.post('/output/takeout')
+            .then(axiosResult => {
+                let response = axiosResult.data;
+                console.log(response);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+
 </script>
 {{end}}
