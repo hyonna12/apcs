@@ -109,7 +109,7 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 	}
 	resource.ReleaseSlot(slot.SlotId)
 
-	resource.ReserveTable(robot.id)
+	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -136,7 +136,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 	var robot *robot
 
 	// 대기 중인 로봇에게 job 우선 배정
-	// waiting 로봇은 테이블을 점유하고 있으므로 resource.ReserveTable(robot.id) 생략
+	// waiting 로봇은 테이블을 점유하고 있으므로 resource.ReserveTable() 생략
 	for _, r := range robots {
 		if r.status == robotStatusWaiting {
 			r, err := getRobot(robotStatusWaiting, "빈 트레이 회수")
@@ -154,7 +154,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 			return err
 		}
 		robot = r
-		resource.ReserveTable(robot.id)
+		resource.ReserveTable()
 	}
 
 	robot.changeStatus(robotStatusWorking)
@@ -197,7 +197,7 @@ func JobInputItem(slot model.Slot) error {
 	var robot *robot
 
 	// 대기 중인 로봇에게 job 우선 배정
-	// waiting 로봇은 테이블을 점유하고 있으므로 resource.ReserveTable(robot.id) 생략
+	// waiting 로봇은 테이블을 점유하고 있으므로 resource.ReserveTable() 생략
 	for _, r := range robots {
 		if r.status == robotStatusWaiting {
 			r, err := getRobot(robotStatusWaiting, "물건 수납")
@@ -215,7 +215,7 @@ func JobInputItem(slot model.Slot) error {
 			return err
 		}
 		robot = r
-		resource.ReserveTable(robot.id)
+		resource.ReserveTable()
 	}
 
 	robot.changeStatus(robotStatusWorking)
@@ -268,7 +268,7 @@ func JobOutputItem(slot model.Slot) error {
 	}
 	resource.ReleaseSlot(slot.SlotId)
 
-	resource.ReserveTable(robot.id)
+	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -335,7 +335,7 @@ func JobWaitAtTable() error {
 		return err
 	}
 
-	resource.ReserveTable(robot.id)
+	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}

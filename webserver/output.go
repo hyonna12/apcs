@@ -16,14 +16,7 @@ import (
 /* Output_Item */
 func RegistAddress(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/regist_address" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
 
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 	err := templ.ExecuteTemplate(w, "output/regist_address", &Page{Title: "Home"})
 	if err != nil {
 		log.Error(err)
@@ -51,13 +44,6 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 
 func ItemList(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/item_list" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 
 	err := templ.ExecuteTemplate(w, "output/item_list", &Page{Title: "Home"})
 	if err != nil {
@@ -68,13 +54,6 @@ func ItemList(w http.ResponseWriter, r *http.Request) {
 
 func GetItemList(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/get_item_list" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 
 	address := r.URL.Query().Get("address")
 	itemListResponses, err := model.SelectItemListByAddress(address)
@@ -99,10 +78,6 @@ func GetItemList(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/ongoing" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
 
 	// Get 요청인 경우 화면만 출력
 	if r.Method == http.MethodGet {
@@ -213,13 +188,6 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/confirm" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 
 	itemIdStr := r.URL.Query().Get("itemId")
 	itemId, err := strconv.ParseInt(itemIdStr, 10, 64)
@@ -258,13 +226,6 @@ func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputSubmitPassword(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/password/submit" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 
 	itemIdStr := r.URL.Query().Get("itemId")
 	itemId, err := strconv.ParseInt(itemIdStr, 10, 64)
@@ -296,13 +257,6 @@ func ItemOutputSubmitPassword(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/password/check" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 
 	request := &struct {
 		ItemId   int64 `json:"item_id"`
@@ -330,13 +284,6 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/accept" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 
 	err := templ.ExecuteTemplate(w, "output/item_output_accept", nil)
 	if err != nil {
@@ -347,13 +294,6 @@ func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
 
 func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/output/return" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 
 	itemId, err := strconv.ParseInt(r.URL.Query().Get("itemId"), 10, 64)
 	if err != nil {
@@ -399,11 +339,21 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		// Request가 남아있지 않은 경우 - 택배 찾기가 취소되었습니다 화면으로
-		err := ChangeKioskView("/output/canceled")
+		err := ChangeKioskView("/output/cancel")
 		if err != nil {
 			log.Error(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
 	}
 
+}
+
+func ItemOutputCancel(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+
+	err := templ.ExecuteTemplate(w, "output/item_output_canceled", nil)
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
 }

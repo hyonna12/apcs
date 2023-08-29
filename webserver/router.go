@@ -29,31 +29,32 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/cancel_input_item", CancelInputItem)
 
 	r.HandleFunc("/input/get_delivery_list", DeliveryCompanyList)
-	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods("POST")
-	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods("POST")
-	r.HandleFunc("/input/input", Input).Methods("POST")
-	r.HandleFunc("/input/stop_input", StopInput).Methods("POST")
-	r.HandleFunc("/input/senseItem", SenseItem).Methods("POST")
+	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods(http.MethodPost)
+	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods(http.MethodPost)
+	r.HandleFunc("/input/input", Input).Methods(http.MethodPost)
+	r.HandleFunc("/input/stop_input", StopInput).Methods(http.MethodPost)
+	r.HandleFunc("/input/senseItem", SenseItem).Methods(http.MethodPost)
 
 	/* output */
 	r.HandleFunc("/output/regist_address", RegistAddress)
 	// 알림창으로 대체
 	//r.HandleFunc("/output/regist_address_error", RegistAddressError)
-	r.HandleFunc("/output/check_item_exists", CheckItemExists) // API
-	r.HandleFunc("/output/item_list", ItemList)
-	r.HandleFunc("/output/get_item_list", GetItemList) // API
+	r.HandleFunc("/output/check_item_exists", CheckItemExists).Methods(http.MethodGet) // API
+	r.HandleFunc("/output/item_list", ItemList).Methods(http.MethodGet)
+	r.HandleFunc("/output/get_item_list", GetItemList).Methods(http.MethodGet) // API
 	r.HandleFunc("/output/ongoing", ItemOutputOngoing)
-	r.HandleFunc("/output/confirm", ItemOutputConfirm)
-	r.HandleFunc("/output/password/submit", ItemOutputSubmitPassword)
-	r.HandleFunc("/output/password/check", ItemOutputCheckPassword) // API
-	r.HandleFunc("/output/accept", ItemOutputAccept)                // API
-	r.HandleFunc("/output/return", ItemOutputReturn)                // API
+	r.HandleFunc("/output/confirm", ItemOutputConfirm).Methods(http.MethodGet)
+	r.HandleFunc("/output/password/submit", ItemOutputSubmitPassword).Methods(http.MethodGet)
+	r.HandleFunc("/output/password/check", ItemOutputCheckPassword).Methods(http.MethodPost) // API
+	r.HandleFunc("/output/accept", ItemOutputAccept).Methods(http.MethodGet)                 // API
+	r.HandleFunc("/output/return", ItemOutputReturn).Methods(http.MethodPost)                // API
+	r.HandleFunc("/output/cancel", ItemOutputCancel).Methods(http.MethodGet)                 // API
 
 	// 알림창으로 대체
 	//r.HandleFunc("/output/item_list_error", ItemListError)
 	r.HandleFunc("/output/complete_output_item", CompleteOutputItem)
 
 	/* sort */
-	r.HandleFunc("/sort", Sort).Methods("POST")
+	r.HandleFunc("/sort", Sort).Methods(http.MethodPost)
 
 }
