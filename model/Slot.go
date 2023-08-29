@@ -4,10 +4,11 @@ import (
 	"apcs_refactored/customerror"
 	"context"
 	"database/sql"
-	log "github.com/sirupsen/logrus"
 	"strconv"
 	"strings"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type SlotUpdateRequest struct {
@@ -166,7 +167,7 @@ func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
 
 	for rows.Next() {
 		var slot Slot
-		err := rows.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.SlotKeepCnt, &slot.TrayId, &slot.ItemId)
+		err := rows.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.TransportDistance, &slot.TrayId)
 		if err != nil {
 			return nil, err
 		}
@@ -380,17 +381,28 @@ func UpdateOutputSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) 
 
 	var minStorageSlot = req.Floor - itemHeight + 1
 	query := `
-			UPDATE TN_CTR_SLOT
+			UPDATE TN_CTR_SLOT s
 			SET 
-			    slot_enabled = ?, 
-			    slot_keep_cnt = floor, 
-			    item_id = null
+			    s.slot_enabled = ?, 
+			    s.slot_keep_cnt = (s.floor -
+					(IFNULL(
+								(
+									SELECT * FROM (
+										SELECT MAX(floor)
+										FROM TN_CTR_SLOT
+										WHERE (lane = ?) AND (FLOOR < ? AND slot_keep_cnt = 0)
+									) a
+								), 0
+							)
+					)
+				), 
+			    s.item_id = null
 			WHERE 
-			    lane = ?
-			  	AND floor BETWEEN ? AND ?
+			    s.lane = ?
+			  	AND s.floor BETWEEN ? AND ?
 			`
 
-	result, err := tx.Exec(query, req.SlotEnabled, req.Lane, minStorageSlot, req.Floor)
+	result, err := tx.Exec(query, req.SlotEnabled, req.Lane, minStorageSlot, req.Lane, minStorageSlot, req.Floor)
 	if err != nil {
 		return 0, err
 	}
@@ -601,7 +613,7 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 	return affected, nil
 }
 
-func UpdateOutputSlotListKeepCnt(itemHeight, lane, floor int) (int64, error) {
+/* func UpdateOutputSlotListKeepCnt(itemHeight, lane, floor int) (int64, error) {
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
 		return 0, err
@@ -617,7 +629,7 @@ func UpdateOutputSlotListKeepCnt(itemHeight, lane, floor int) (int64, error) {
 
 	query := `
 				UPDATE TN_CTR_SLOT s
-				SET s.slot_keep_cnt = (s.slot_keep_cnt -
+				SET s.slot_keep_cnt = (s.floor -
 											(IFNULL(
 														(
 															SELECT * FROM (
@@ -653,7 +665,7 @@ func UpdateOutputSlotListKeepCnt(itemHeight, lane, floor int) (int64, error) {
 	}
 
 	return affected, nil
-}
+} */
 
 func SelectSlotByItemId(item_id int64) (Slot, error) {
 
@@ -721,4 +733,25 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 	}
 
 	return affected, nil
+}
+
+func SelectEmptyTray() (Slot, error) {
+	query := `
+			SELECT lane, FLOOR, min(tray_id) 
+			FROM tn_ctr_slot
+			WHERE slot_enabled = 1 
+			AND tray_id IS NOT null
+			`
+
+	var slot Slot
+
+	row := db.QueryRow(query)
+
+	err := row.Scan(&slot.Lane, &slot.Floor, &slot.TrayId)
+	if err != nil {
+		log.Error(err)
+		return slot, err
+	}
+
+	return slot, nil
 }

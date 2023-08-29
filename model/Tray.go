@@ -170,24 +170,3 @@ func UpdateTrayEmpty(trayId int, trayUpdateRequest TrayUpdateRequest) (int64, er
 
 	return affected, nil
 }
-
-// **제거
-func SelectEmptyTray() (int64, error) {
-	query := `
-			SELECT MIN(tray_id)
-			FROM TN_CTR_TRAY
-			WHERE tray_occupied = 1
-			`
-
-	var trayId int64
-
-	row := db.QueryRow(query)
-
-	err := row.Scan(&trayId)
-	if err != nil {
-		log.Error(err)
-		return trayId, err
-	}
-
-	return trayId, nil
-}
