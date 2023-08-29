@@ -50,61 +50,61 @@ func (r *robot) changeStatus(robotStatus robotStatus) {
 }
 
 func (r *robot) moveToSlot(slot model.Slot) error {
-	log.Infof("[PLC_로봇_Step] 슬롯으로 이동. robot: %v, slot: %v", r, slot)
+	log.Infof("[PLC_로봇_Step] 슬롯으로 이동. robotId=%v, slotId=%v", r.id, slot.SlotId)
 
 	// TODO - 슬롯으로 이동
 
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 1 * time.Second)
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return nil
 }
 
 func (r *robot) moveToTable() error {
-	log.Infof("[PLC_로봇_Step] 테이블로 이동. robot: %v", *r)
+	log.Infof("[PLC_로봇_Step] 테이블로 이동. robotId=%v", r.id)
 	// TODO - 테이블로 이동
 
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 1 * time.Second)
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return nil
 }
 
 func (r *robot) pullFromSlot(slot model.Slot) error {
-	log.Infof("[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robot: %v, slot: %v", *r, slot)
+	log.Infof("[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=%v, slotId=%v", r.id, slot.SlotId)
 	// TODO - 슬롯에서 트레이 꺼내기
 
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 1 * time.Second)
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 	return nil
 }
 
 func (r *robot) pushToSlot(slot model.Slot) error {
-	log.Infof("[PLC_로봇_Step] 슬롯으로 트레이 넣기. robot: %v, slot: %v", *r, slot)
+	log.Infof("[PLC_로봇_Step] 슬롯으로 트레이 올리기. robotId=%v, slotId=%v", r.id, slot.SlotId)
 	// TODO - 슬롯으로 트레이 넣기
 
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 1 * time.Second)
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return nil
 }
 
 func (r *robot) pullFromTable() error {
-	log.Infof("[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robot: %v", *r)
+	log.Infof("[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=%v", r.id)
 	// TODO - 테이블에서 트레이 꺼내기
 
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 1 * time.Second)
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return nil
 }
 
 func (r *robot) pushToTable() error {
-	log.Infof("[PLC_로봇_Step] 테이블에 트레이 올리기. robot: %v", *r)
+	log.Infof("[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=%v", r.id)
 	// TODO - 테이블에 트레이 올리기
 
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 1 * time.Second)
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return nil
 }

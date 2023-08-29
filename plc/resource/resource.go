@@ -7,12 +7,12 @@ import (
 )
 
 var (
-	// tableReservation
+	// tableReserved
 	//
 	// 테이블 점유 여부를 표시
 	//   - true: 점유 중
 	//   - false: 사용 가능
-	tableReservation = false
+	tableReserved = false
 
 	// tableWaitingQueue
 	//
@@ -53,8 +53,8 @@ func CheckResolveDeadlock() {
 }
 
 func ReserveTable() {
-	if !tableReservation {
-		tableReservation = true
+	if !tableReserved {
+		tableReserved = true
 		return
 	}
 
@@ -64,7 +64,8 @@ func ReserveTable() {
 	for {
 		select {
 		case <-waiting:
-			continue
+			tableReserved = true
+			return
 		// 일정 시간마다 데드락 확인 및 해결
 		case <-time.After(deadlockCheckPeriod * time.Second):
 			log.Warn("[PLC_resource] 데드락 확인 및 해결 요청")
@@ -86,6 +87,7 @@ func ReserveSlot(slotId int64) {
 	for {
 		select {
 		case <-waiting:
+			slotReservationMap[slotId] = true
 			return
 		// 일정 시간마다 데드락 확인 및 해결
 		case <-time.After(deadlockCheckPeriod * time.Second):
@@ -96,7 +98,8 @@ func ReserveSlot(slotId int64) {
 }
 
 func ReleaseTable() {
-	tableReservation = false
+	tableReserved = false
+	// TODO - temp
 	if len(tableWaitingQueue) > 0 {
 		tableWaitingQueue[0] <- struct{}{}
 		tableWaitingQueue = tableWaitingQueue[1:]

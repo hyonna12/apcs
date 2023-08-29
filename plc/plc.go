@@ -174,7 +174,7 @@ func RetrieveEmptyTrayFromTable(slot model.Slot) error {
 //
 // - slot: 물품을 수납할 슬롯
 func InputItem(slot model.Slot) error {
-	log.Infof("[PLC] 물품 수납. 수납할 슬롯: %v", slot)
+	log.Infof("[PLC] 물품 수납. slotId=%v", slot.SlotId)
 
 	if err := robot.JobInputItem(slot); err != nil {
 		return err

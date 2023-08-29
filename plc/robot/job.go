@@ -63,7 +63,7 @@ func DistributeJob() {
 				job.robotWaiting <- robot
 				// 로봇이 배정된 Job 삭제
 				jobQueue = append(jobQueue[:i], jobQueue[i+1:]...)
-				log.Infof("[PLC_Job] Job을 로봇에 배정했습니다. Job: %v, Robot: %v", job.description, robot.id)
+				log.Infof("[PLC_Job] Job을 로봇에 배정했습니다. Job=%v, RobotId=%v", job.description, robot.id)
 				break
 			}
 		}
@@ -92,7 +92,7 @@ func getRobot(robotStatus robotStatus, jobDescription string) (*robot, error) {
 //
 // - slot: 빈 트레이가 있는 슬롯 정보
 func JobServeEmptyTrayToTable(slot model.Slot) error {
-	log.Infof("[PLC_로봇_Job] 빈 트레이 테이블로 서빙. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 빈 트레이 테이블로 서빙. slotId=%v", slot.SlotId)
 	robot, err := getRobot(robotStatusAvailable, "빈 트레이 서빙")
 	if err != nil {
 		return err
@@ -109,7 +109,7 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 	}
 	resource.ReleaseSlot(slot.SlotId)
 
-	resource.ReserveTable()
+	resource.ReserveTable(robot.id)
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -131,12 +131,12 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 //
 // - slot: 빈 트레이를 격납할 슬롯
 func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
-	log.Infof("[PLC_로봇_Job] 테이블의 빈 트레이를 회수. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 테이블의 빈 트레이를 회수. slotId=%v", slot.SlotId)
 
 	var robot *robot
 
 	// 대기 중인 로봇에게 job 우선 배정
-	// waiting 로봇은 테이블을 점유하고 있으므로 resource.ReserveTable() 생략
+	// waiting 로봇은 테이블을 점유하고 있으므로 resource.ReserveTable(robot.id) 생략
 	for _, r := range robots {
 		if r.status == robotStatusWaiting {
 			r, err := getRobot(robotStatusWaiting, "빈 트레이 회수")
@@ -154,7 +154,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 			return err
 		}
 		robot = r
-		resource.ReserveTable()
+		resource.ReserveTable(robot.id)
 	}
 
 	robot.changeStatus(robotStatusWorking)
@@ -192,12 +192,12 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 //
 // - slot: 물건을 수납할 슬롯
 func JobInputItem(slot model.Slot) error {
-	log.Infof("[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=%v", slot.SlotId)
 
 	var robot *robot
 
 	// 대기 중인 로봇에게 job 우선 배정
-	// waiting 로봇은 테이블을 점유하고 있으므로 resource.ReserveTable() 생략
+	// waiting 로봇은 테이블을 점유하고 있으므로 resource.ReserveTable(robot.id) 생략
 	for _, r := range robots {
 		if r.status == robotStatusWaiting {
 			r, err := getRobot(robotStatusWaiting, "물건 수납")
@@ -215,7 +215,7 @@ func JobInputItem(slot model.Slot) error {
 			return err
 		}
 		robot = r
-		resource.ReserveTable()
+		resource.ReserveTable(robot.id)
 	}
 
 	robot.changeStatus(robotStatusWorking)
@@ -251,7 +251,7 @@ func JobInputItem(slot model.Slot) error {
 //
 // - slot: 물건을 꺼낼 슬롯
 func JobOutputItem(slot model.Slot) error {
-	log.Infof("[PLC_로봇_Job] 불출 Job 시작. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 불출 Job 시작. slotId=%v", slot.SlotId)
 	robot, err := getRobot(robotStatusAvailable, "물건 불출")
 	if err != nil {
 		return err
@@ -268,7 +268,7 @@ func JobOutputItem(slot model.Slot) error {
 	}
 	resource.ReleaseSlot(slot.SlotId)
 
-	resource.ReserveTable()
+	resource.ReserveTable(robot.id)
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -282,7 +282,7 @@ func JobOutputItem(slot model.Slot) error {
 	// 불출작업 후 입주민이 수령 또는 취소할 때까지 테이블 점유 및 대기
 	robot.changeStatus(robotStatusWaiting)
 
-	log.Infof("[PLC_로봇_Job] 불출 Job 완료. slot: %v", slot)
+	log.Infof("[PLC_로봇_Job] 불출 Job 완료. slotId=%v", slot.SlotId)
 
 	return nil
 }
@@ -294,7 +294,7 @@ func JobOutputItem(slot model.Slot) error {
 // - from: 빈 트레이가 있는 슬롯
 // - to: 빈 트레이를 가져다 놓을 슬롯
 func JobMoveTray(from, to model.Slot) error {
-	log.Infof("[PLC_로봇_Job] 정리. slot_from: %v, slot_to: %v", from, to)
+	log.Infof("[PLC_로봇_Job] 정리. from_slotId=%v, to_slotId=%v", from.SlotId, to.SlotId)
 	robot, err := getRobot(robotStatusAvailable, "정리")
 	if err != nil {
 		return err
@@ -335,7 +335,7 @@ func JobWaitAtTable() error {
 		return err
 	}
 
-	resource.ReserveTable()
+	resource.ReserveTable(robot.id)
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}

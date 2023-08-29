@@ -104,6 +104,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Get 요청인 경우 화면만 출력
 	if r.Method == http.MethodGet {
 		err := templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
 		if err != nil {
@@ -148,7 +149,11 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 	}
 
-	log.Infof("[웹핸들러] 아이템을 불출할 슬롯:%v", slots)
+	var slotIds []int64
+	for _, slot := range slots {
+		slotIds = append(slotIds, slot.SlotId)
+	}
+	log.Infof("[웹핸들러] 아이템을 불출할 슬롯: %v", slotIds)
 
 	// 테이블에 빈 트레이가 있는 경우 회수 요청
 	emptyTrayExistsOnTable, err := plc.SenseTableForEmptyTray()
@@ -193,7 +198,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			}
 
 			// 택배가 테이블에 올라가면 요청 목록에서 제거
-			log.Debugf("[웹핸들러] 불출 완료. 슬롯 id=%v, 아이템 id=%v", s.SlotId, s.ItemId.Int64)
+			log.Debugf("[웹핸들러] 불출 완료. slotId=%v, itemId=%v", s.SlotId, s.ItemId.Int64)
 			// TODO - 수령/반품 화면 전환
 			err = ChangeKioskView("/output/confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10))
 			if err != nil {
@@ -367,7 +372,7 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 
 	delete(requestList, itemId)
 
-	// 택배 제자리로 반환
+	// 택배 반환
 	// TODO - 반환하는 김에 정리(최적 슬롯 알고리즘) - 꺼낸 슬롯의 원래 자리는 비어있다고 가정하고 선정
 	slot, err := model.SelectSlotByItemId(itemId)
 	if err != nil {
