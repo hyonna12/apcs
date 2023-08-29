@@ -53,10 +53,9 @@
 </html>
 
 <script>
-    const intervalId = 0
+    let intervalId;
     setTimeout(function(){
-        intervalId = setInterval(sort, 3000);
-        
+        intervalId = setInterval(sort, 4000);
     }, 10000);
 
     function sort(){
@@ -65,8 +64,8 @@
             
         }).catch(err => {
             console.log(err);
-            alert(err.response.data.error)
             clearInterval(intervalId);
+            alert(err.response.data.error);
         });
     }
 
@@ -74,7 +73,7 @@
         var zIndex = 9999;
         var modal = document.getElementById(id);
 
-        // 모달 div 뒤에 희끄무레한 레이어
+        // 모달 div 뒤에 레이어
         var bg = document.createElement('div');
         bg.setStyle({
             position: 'fixed',
@@ -84,12 +83,12 @@
             width: '100%',
             height: '100%',
             overflow: 'auto',
-            // 레이어 색갈은 여기서 바꾸면 됨
+            // 레이어 색깔
             backgroundColor: 'rgba(0,0,0,0.4)'
         });
         document.body.append(bg);
 
-        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+        // 닫기 버튼 처리, 레이어와 모달 div 지우기
         modal.querySelector('.modal_close_btn').addEventListener('click', function() {
             bg.remove();
             modal.style.display = 'none';
@@ -118,15 +117,19 @@
         return this;
     };
 
-    document.getElementById('popup_open_btn').addEventListener('click', function() {
+    popup_open_btn.onclick = () => {
         // 정리 종료
-        clearInterval(intervalId);
+        //clearInterval(intervalId);
 
         // 모달창 띄우기
         modal('my_modal');
         setTimeout(function(){
             location.href="input/regist_delivery"
         }, 2000);
-    });
+    };
+
+    output_item_btn.onclick = () => {
+        //clearInterval(intervalId);
+    };
 </script>
 {{end}}

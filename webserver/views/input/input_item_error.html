@@ -38,17 +38,14 @@
         $('#put_error').html(getHtml)
     }
 
-    /* 물품 회수 시 이 전으로 */
+    /* 물품 회수 시 이 전으로 */ 
     setTimeout(function(){
         axios.post('/input/senseItem').then(res => {
             if(res.data.status == 200){
-                    location.href='/input/input_item'
+                    location.replace(res.data.data)
             } else{
                 console.log(res)
                 alert(res)
-                //console.log(res.data.error)
-                //alert(res.data.error)
-                //location.href='/input/regist_delivery_error'
             }
             
         }).catch(err => {
@@ -60,7 +57,7 @@
     /* 입고 취소 */
     function send_stop_info() {
         let request = JSON.stringify({
-            step: "1",
+            step: "2",
         });
 
         axios.post('/input/stop_input', request).then(res => {
@@ -70,7 +67,6 @@
             } else{
                 console.log(res.data.error)
                 alert(res.data.error)
-                //location.href='/input/regist_delivery_error'
             }
             
         }).catch(err => {

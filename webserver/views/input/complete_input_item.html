@@ -29,6 +29,9 @@
 
         if(res.data.status == 200){
             console.log("완료")
+            setTimeout(function(){
+                location.href='/';
+            }, 8000);
         } else{
             console.log("입고 불가");
         }

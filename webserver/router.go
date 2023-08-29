@@ -32,7 +32,7 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods("POST")
 	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods("POST")
 	r.HandleFunc("/input/input", Input).Methods("POST")
-	r.HandleFunc("/input/stop_input", StopInput).Methods("POST")
+	r.HandleFunc("/input/stop_input", StopInput)
 	r.HandleFunc("/input/senseItem", SenseItem).Methods("POST")
 
 	/* output */

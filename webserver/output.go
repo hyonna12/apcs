@@ -5,9 +5,10 @@ import (
 	"apcs_refactored/plc"
 	"encoding/json"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
+
+	log "github.com/sirupsen/logrus"
 )
 
 /* Output_Item */
