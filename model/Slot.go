@@ -276,16 +276,120 @@ func SelectSlotListForEmptyTray() ([]Slot, error) {
 	return slots, nil
 }
 
+func SelectSlotsInLaneByItemId(itemId int64) ([]Slot, error) {
+	query :=
+		`
+			SELECT
+				*
+			FROM TN_CTR_SLOT
+			WHERE lane = (
+				SELECT
+					lane
+				FROM TN_CTR_SLOT
+				WHERE item_id = ?
+			)
+			ORDER BY FLOOR
+		`
+
+	rows, err := db.Query(query, itemId)
+	if err != nil {
+		return nil, err
+	}
+
+	var slots []Slot
+
+	for rows.Next() {
+		var slot Slot
+		var slotEnabled []uint8
+		err := rows.Scan(
+			&slot.SlotId,
+			&slot.Lane,
+			&slot.Floor,
+			&slot.TransportDistance,
+			&slotEnabled,
+			&slot.SlotKeepCnt,
+			&slot.TrayId,
+			&slot.ItemId,
+			&slot.CheckDatetime,
+			&slot.CDatetime,
+			&slot.UDatetime,
+		)
+		if err != nil {
+			return nil, err
+		}
+		slot.SlotEnabled = slotEnabled[0] == 1
+		slots = append(slots, slot)
+	}
+
+	return slots, nil
+}
+
+func UpdateSlots(slots []Slot) (int64, error) {
+	tx, err := db.BeginTx(context.Background(), nil)
+	if err != nil {
+		return 0, err
+	}
+	defer func(tx *sql.Tx) {
+		_ = tx.Rollback()
+	}(tx)
+
+	var totalAffected int64
+
+	for _, slot := range slots {
+		query := `
+			UPDATE TN_CTR_SLOT
+			SET
+				lane = ?,
+				floor = ?,
+				transport_distance = ?,
+				slot_enabled = ?,
+				slot_keep_cnt = ?,
+				tray_id = ?,
+				item_id = ?,
+				check_datetime = ?, 
+				u_datetime = ?
+			WHERE slot_id = ?
+		`
+
+		result, err := tx.Exec(query,
+			slot.Lane,
+			slot.Floor,
+			slot.TransportDistance,
+			slot.SlotEnabled,
+			slot.SlotKeepCnt,
+			slot.TrayId,
+			slot.ItemId,
+			slot.CheckDatetime,
+			slot.UDatetime,
+			slot.SlotId,
+		)
+		if err != nil {
+			return 0, err
+		}
+
+		affected, err := result.RowsAffected()
+		if err != nil {
+			return 0, err
+		}
+
+		totalAffected += affected
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return 0, err
+	}
+
+	return totalAffected, nil
+}
+
 func UpdateSlot(request SlotUpdateRequest) (int64, error) {
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	query := `
@@ -328,10 +432,7 @@ func UpdateStorageSlotList(itemHeight int, req SlotUpdateRequest) (int64, error)
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	var minStorageSlot = req.Floor - itemHeight + 1
@@ -373,10 +474,7 @@ func UpdateOutputSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) 
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	var minStorageSlot = req.Floor - itemHeight + 1
@@ -390,7 +488,7 @@ func UpdateOutputSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) 
 									SELECT * FROM (
 										SELECT MAX(floor)
 										FROM TN_CTR_SLOT
-										WHERE (lane = ?) AND (FLOOR < ? AND slot_keep_cnt = 0)
+										WHERE (lane = ?) AND (floor < ? AND slot_keep_cnt = 0)
 									) a
 								), 0
 							)
@@ -492,10 +590,7 @@ func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	query := `
@@ -550,48 +645,53 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
+	// TODO - 쿼리 분리
 	query := `
+			SET @LANE = ?;
+			SET @FLOOR = ?;
+			SET @UNDER_LIMIT = 
+				IFNULL(
+					(
+						SELECT MIN(floor) - 1
+						FROM TN_CTR_SLOT
+						WHERE 
+							lane = @LANE 
+							AND floor > @FLOOR 
+							AND slot_keep_cnt = 0
+					),
+					(
+						SELECT MAX(FLOOR)
+						FROM TN_CTR_SLOT
+						WHERE 
+							lane = @LANE 
+							AND floor > @FLOOR
+					)
+				);
+			    
 			UPDATE TN_CTR_SLOT s
-			SET s.slot_keep_cnt = (s.slot_keep_cnt +
+			SET s.slot_keep_cnt = s.slot_keep_cnt +
 				IFNULL(
 						(
-							SELECT * FROM (
-								SELECT ? - MAX(FLOOR)
+							SELECT * FROM(
+								SELECT @FLOOR - MAX(floor)
 								FROM TN_CTR_SLOT
-								WHERE (lane = ?) AND (FLOOR < ? AND slot_keep_cnt = 0)
-							) i
+								WHERE 
+									lane = @LANE
+									AND floor < @FLOOR
+									AND slot_keep_cnt = 0
+							) a
 						),
-							?
+							@FLOOR
 						)
-					)
-			WHERE (s.floor > ? AND s.floor <=
-				IFNULL(
-						(
-							SELECT * FROM (
-								SELECT MIN(floor) - 1
-								FROM TN_CTR_SLOT
-								WHERE (lane = ?) AND (floor > ? AND slot_keep_cnt = 0)
-								) a
-							),
-							(
-								SELECT * FROM (
-									SELECT MAX(floor)
-									FROM TN_CTR_SLOT
-									WHERE (lane = ? AND floor > ?)
-								) b
-							)
-						)
-					)
-			AND s.lane = ?
+			WHERE 
+				s.floor BETWEEN (@FLOOR + 1) AND @UNDER_LIMIT
+				AND s.lane = @LANE;
 			`
 
-	result, err := tx.Exec(query, floor, lane, floor, floor, floor, lane, floor, lane, floor, lane)
+	result, err := tx.Exec(query, lane, floor)
 	if err != nil {
 		return 0, err
 	}
@@ -619,10 +719,7 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	var minStorageSlot = floor - itemHeight + 1
@@ -635,7 +732,7 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 															SELECT * FROM (
 																SELECT MAX(floor)
 																FROM TN_CTR_SLOT
-																WHERE (lane = ?) AND (FLOOR < ? AND slot_keep_cnt = 0)
+																WHERE (lane = ?) AND (floor < ? AND slot_keep_cnt = 0)
 															) a
 														), 0
 													)
@@ -699,10 +796,7 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	query := `
@@ -737,10 +831,14 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 
 func SelectEmptyTray() (Slot, error) {
 	query := `
-			SELECT lane, FLOOR, min(tray_id) 
-			FROM tn_ctr_slot
-			WHERE slot_enabled = 1 
-			AND tray_id IS NOT null
+			SELECT 
+			    lane, 
+			    floor, 
+			    min(tray_id) 
+			FROM TN_CTR_SLOT
+			WHERE 
+			    slot_enabled = 1 
+				AND tray_id IS NOT null
 			`
 
 	var slot Slot
