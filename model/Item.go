@@ -5,6 +5,7 @@ import (
 	"context"
 	"database/sql"
 	log "github.com/sirupsen/logrus"
+	"time"
 )
 
 type Item struct {
@@ -28,10 +29,10 @@ type ItemReadResponse struct {
 }
 
 type ItemListResponse struct {
-	ItemId          int64        `json:"item_id"`
-	DeliveryCompany string       `json:"delivery_company"`
-	TrackingNumber  int64        `json:"tracking_number"`
-	InputDate       sql.NullTime `json:"input_date"`
+	ItemId          int64     `json:"item_id"`
+	DeliveryCompany string    `json:"delivery_company"`
+	TrackingNumber  int64     `json:"tracking_number"`
+	InputDate       time.Time `json:"input_date"`
 }
 
 type ItemCreateRequest struct {
@@ -220,7 +221,10 @@ func SelectItemListByAddress(address string) ([]ItemListResponse, error) {
 			FROM TN_CTR_ITEM i
 				JOIN TN_INF_OWNER	o ON i.owner_id = o.owner_id
 				JOIN TN_INF_DELIVERY d ON i.delivery_id = d.delivery_id
-			WHERE o.address = ?
+			WHERE 
+			    o.address = ?
+				AND
+				i.output_date IS NULL
 			`
 
 	rows, err := db.Query(query, address)
@@ -299,7 +303,7 @@ func InsertItem(itemCreateRequest ItemCreateRequest) (int64, error) {
 	return id, nil
 }
 
-func UpdateOutputTime(itemId int) (int64, error) {
+func UpdateOutputTime(itemId int64) (int64, error) {
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
 		return 0, err
@@ -331,6 +335,11 @@ func UpdateOutputTime(itemId int) (int64, error) {
 		return 0, customerror.ErrNoRowsAffected
 	}
 
+	err = tx.Commit()
+	if err != nil {
+		return 0, err
+	}
+
 	return affected, nil
 }
 
@@ -358,7 +367,11 @@ func SelectItemExistsByAddress(address string) (bool, error) {
 				SELECT 1
 				FROM TN_CTR_ITEM i
 					JOIN TN_INF_OWNER	o ON i.owner_id = o.owner_id
-				WHERE o.address = ?)
+				WHERE 
+				    o.address = ?
+					AND
+				    i.output_date IS NULL
+				)
 			`
 
 	var exists bool

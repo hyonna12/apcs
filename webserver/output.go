@@ -102,7 +102,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 
 	itemIdsStr := r.PostForm["item_id"]
 	var itemIds []int64
-	log.Infof("[웹핸들러] 아이템 불출 요청 접수. Item ids=%v", itemIdsStr)
+	log.Infof("[웹핸들러] 아이템 불출 요청 접수. itemIds=%v", itemIdsStr)
 
 	// 접수 요청된 택배 물품을 요청 리스트에 추가
 	for _, idStr := range itemIdsStr {
@@ -214,7 +214,7 @@ func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 		ItemId:          itemInfo.ItemId,
 		DeliveryCompany: itemInfo.DeliveryCompany,
 		TrackingNumber:  itemInfo.TrackingNumber,
-		InputDate:       itemInfo.InputDate.Time,
+		InputDate:       itemInfo.InputDate,
 	}
 
 	pageData := struct {
@@ -320,7 +320,10 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusBadRequest)
 	}
 
+	log.Infof("[웹핸들러] 물건 반납 요청 접수. itemId=%v", itemId)
+
 	if err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
+		log.Error(err)
 		// TODO - 앞문 닫힘 불가 시 에러처리
 	}
 	if err != nil {
@@ -333,14 +336,14 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 	// TODO - 반환하는 김에 정리(최적 슬롯 알고리즘) - 꺼낸 슬롯의 원래 자리는 비어있다고 가정하고 선정
 	slot, err := model.SelectSlotByItemId(itemId)
 	if err != nil {
-		// TODO - 에러처리
+		// TODO - DB 에러처리
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 
 	go func() {
 		if err = plc.InputItem(slot); err != nil {
-			// TODO - 반환 불가 시 에러처리
+			// TODO - PLC 에러처리
 			log.Error(err)
 		}
 	}()
@@ -351,6 +354,8 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 
 	if len(requestList) > 0 {
 		// Request가 남아 있는 경우- 택배가 나오고 있습니다 화면으로
+		log.Info("[웹핸들러] 불출 요청이 남아 있어 택배 나오는 중 화면 출력")
+
 		err := ChangeKioskView("/output/ongoing")
 		if err != nil {
 			log.Error(err)
@@ -358,6 +363,8 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		// Request가 남아있지 않은 경우 - 택배 찾기가 취소되었습니다 화면으로
+		log.Info("[웹핸들러] 불출 요청이 남아 있지 않아 감사합니다 화면 출력")
+
 		err := ChangeKioskView("/output/cancel")
 		if err != nil {
 			log.Error(err)
@@ -411,7 +418,7 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
 	if err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
-		// TODO - 앞문 안 닫힘 에러 처리
+		// TODO - PLC 에러 처리
 		log.Error(err)
 		Response(w, nil, http.StatusInternalServerError, nil)
 	}
@@ -442,10 +449,11 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 물건이 차지하던 슬롯 초기화
-	for i := itemBottomSlot.Floor - item.ItemHeight; i <= itemBottomSlot.Floor; i += 1 {
-		slots[i].SlotEnabled = true
-		slots[i].ItemId = sql.NullInt64{Int64: 0, Valid: false} // null
-		slots[i].TrayId = sql.NullInt64{Int64: 0, Valid: false} // null
+	for floor := itemBottomSlot.Floor - item.ItemHeight - 1; floor <= itemBottomSlot.Floor; floor += 1 {
+		idx := floor - 1
+		slots[idx].SlotEnabled = true
+		slots[idx].ItemId = sql.NullInt64{Int64: 0, Valid: false} // null
+		slots[idx].TrayId = sql.NullInt64{Int64: 0, Valid: false} // null
 	}
 
 	// slot-keep-cnt 갱신
@@ -470,12 +478,29 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		// TODO - DB 에러 처리
 	}
 
-	// TODO - item output_date 처리
+	// 택배 불출 시간 업데이트
+	_, err = model.UpdateOutputTime(item.ItemId)
+	if err != nil {
+		log.Error()
+		// TODO - DB 에러 처리
+	}
+
+	// TODO - tray 처리
+	trayUpdateRequest := model.TrayUpdateRequest{
+		TrayOccupied: false,
+	}
+	_, err = model.UpdateTrayEmpty(itemBottomSlot.TrayId.Int64, trayUpdateRequest)
+	if err != nil {
+		log.Error(err)
+		// TODO - DB 에러 처리
+	}
 
 	delete(requestList, itemId)
 
 	if len(requestList) > 0 {
 		// Request가 남아있는 경우- 택배가 나오고 있습니다 화면으로
+		log.Info("[웹핸들러] 불출 요청이 남아 있어 택배 나오는 중 화면 출력")
+
 		err := ChangeKioskView("/output/ongoing")
 		if err != nil {
 			log.Error(err)
@@ -489,13 +514,21 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 			// TODO - PLC 에러 처리
 		}
 
-		// TODO - 트레이 DB 업데이트
 	} else {
 		// Request가 남아있지 않은 경우
+		log.Info("[웹핸들러] 불출 요청이 남아 있지 않아 감사합니다 화면 출력")
+
 		err := ChangeKioskView("/output/thankyou")
 		if err != nil {
 			log.Error(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
+
+		// TODO - output이 종료되면 대기상태 - 데드락 해결
+		err = plc.DismissRobotAtTable()
+		if err != nil {
+			log.Error(err)
+			// TODO - PLC 에러 처리
 		}
 	}
 
