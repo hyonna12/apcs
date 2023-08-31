@@ -30,7 +30,7 @@ var (
 type ItemDimension struct {
 	Height      int
 	Width       int
-	Length      int
+	Weigth      int
 	TrackingNum int
 }
 
@@ -138,7 +138,7 @@ func SenseItemInfo() (ItemDimension, error) {
 	itemDimension := &ItemDimension{
 		Height:      rand.Intn(40),
 		Width:       rand.Intn(40),
-		Length:      rand.Intn(40),
+		Weigth:      rand.Intn(40),
 		TrackingNum: rand.Intn(40),
 	}
 

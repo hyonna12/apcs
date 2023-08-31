@@ -595,7 +595,7 @@ func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_SLOT s
-			SET s.slot_keep_cnt = (s.slot_keep_cnt - IF((s.floor=s.slot_keep_cnt), ?, ?))
+			SET s.slot_keep_cnt = (s.slot_keep_cnt - IF((s.floor=s.slot_keep_cnt), ?, (SELECT slot_keep_cnt FROM tn_ctr_slot WHERE (lane = ? AND FLOOR = ?))))
 			WHERE (s.floor > ? AND s.floor <=
 				IFNULL(
 						(
@@ -617,7 +617,7 @@ func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int) (int64, error) {
 			AND s.lane = ?
 			`
 
-	result, err := tx.Exec(query, floor, itemHeight, floor, lane, floor, lane, floor, lane)
+	result, err := tx.Exec(query, floor, lane, floor, floor, lane, floor, lane, floor, lane)
 	if err != nil {
 		return 0, err
 	}
@@ -831,10 +831,14 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 
 func SelectEmptyTray() (Slot, error) {
 	query := `
-			SELECT lane, floor, min(tray_id) 
-			FROM tn_ctr_slot
-			WHERE slot_enabled = 1 
-			AND tray_id IS NOT null
+			SELECT 
+			    lane, 
+			    floor, 
+			    min(tray_id) 
+			FROM TN_CTR_SLOT
+			WHERE 
+			    slot_enabled = 1 
+				AND tray_id IS NOT null
 			`
 
 	var slot Slot
