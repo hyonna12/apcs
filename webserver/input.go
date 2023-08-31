@@ -32,8 +32,8 @@ type Robot struct {
 	Z string `json:"z"`
 }
 type Item struct {
-	Height string `json:"height"`
-	Weight string `json:"weight"`
+	Heigth string `json:"heigth"`
+	Weigth string `json:"weigth"`
 }
 
 func DeliveryCompanyList(w http.ResponseWriter, r *http.Request) {
