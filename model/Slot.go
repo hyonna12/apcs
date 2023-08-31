@@ -330,10 +330,7 @@ func UpdateSlots(slots []Slot) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	var totalAffected int64
@@ -392,10 +389,7 @@ func UpdateSlot(request SlotUpdateRequest) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	query := `
@@ -438,10 +432,7 @@ func UpdateStorageSlotList(itemHeight int, req SlotUpdateRequest) (int64, error)
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	var minStorageSlot = req.Floor - itemHeight + 1
@@ -483,10 +474,7 @@ func UpdateOutputSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) 
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	var minStorageSlot = req.Floor - itemHeight + 1
@@ -602,10 +590,7 @@ func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	query := `
@@ -660,10 +645,7 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	// TODO - 쿼리 분리
@@ -737,10 +719,7 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	var minStorageSlot = floor - itemHeight + 1
@@ -817,10 +796,7 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	query := `

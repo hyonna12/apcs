@@ -5,8 +5,6 @@ import (
 	"context"
 	"database/sql"
 	"time"
-
-	log "github.com/sirupsen/logrus"
 )
 
 type Tray struct {
@@ -93,10 +91,7 @@ func UpdateTray(trayId int64, trayUpdateRequest TrayUpdateRequest) (int64, error
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	query := `
@@ -135,10 +130,7 @@ func UpdateTrayEmpty(trayId int64, trayUpdateRequest TrayUpdateRequest) (int64, 
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	query := `

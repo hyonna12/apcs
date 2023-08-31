@@ -4,7 +4,6 @@ import (
 	"apcs_refactored/customerror"
 	"context"
 	"database/sql"
-	log "github.com/sirupsen/logrus"
 	"time"
 )
 
@@ -309,10 +308,7 @@ func UpdateOutputTime(itemId int64) (int64, error) {
 		return 0, err
 	}
 	defer func(tx *sql.Tx) {
-		err := tx.Rollback()
-		if err != nil {
-			log.Error(err)
-		}
+		_ = tx.Rollback()
 	}(tx)
 
 	query := `
