@@ -123,6 +123,9 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	// 센싱하고 있다가 물품 감지
 	/* for {
 		IsItemOnTable, err := plc.SenseTableForItem() // 값 들어올때까지 대기
+		time.Sleep(1 * time.Second)
+
+
 		if err != nil {
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
@@ -162,10 +165,9 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 
 	// 물품을 수납할 최적 슬롯 찾기 **수정
 	data := Data{Robot: Robot{X: "10", Z: "1"}, Item: Item{Heigth: strconv.Itoa(itemDimension.Height), Weigth: strconv.Itoa(itemDimension.Weigth)}}
-	fmt.Println("물품데이터:", data)
 	pbytes, _ := json.Marshal(data)
 	buff := bytes.NewBuffer(pbytes)
-	resp, err := http.Post("http://localhost:8080/find", "application/json", buff)
+	resp, err := http.Post("http://localhost:8080/get/best_slot", "application/json", buff)
 
 	if err != nil {
 		// 에러나면 직접 수납슬롯 구하기
