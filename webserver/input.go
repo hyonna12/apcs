@@ -142,7 +142,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		itemDimension = plc.ItemDimension{Height: rand.Intn(6) + 1, Width: 5, Weigth: 4, TrackingNum: 1010} // **제거
+		itemDimension = plc.ItemDimension{Height: rand.Intn(6) + 1, Width: 5, Weigth: 8, TrackingNum: 1010} // **제거
 		log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 	}
 
@@ -162,6 +162,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 
 	// 물품을 수납할 최적 슬롯 찾기 **수정
 	data := Data{Robot: Robot{X: "10", Z: "1"}, Item: Item{Heigth: strconv.Itoa(itemDimension.Height), Weigth: strconv.Itoa(itemDimension.Weigth)}}
+	fmt.Println("물품데이터:", data)
 	pbytes, _ := json.Marshal(data)
 	buff := bytes.NewBuffer(pbytes)
 	resp, err := http.Post("http://localhost:8080/find", "application/json", buff)
@@ -231,16 +232,16 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("1", err)
 		//Response(w, nil, http.StatusInternalServerError, err)
 	}
+	_, err = model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, itemDimension.Height)
+	if err != nil {
+		fmt.Println("2")
+		fmt.Println("밑에 빈 슬롯없음", err)
+		//Response(w, nil, http.StatusInternalServerError, err)
+	}
 	slotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, SlotKeepCnt: 0, TrayId: sql.NullInt64{Int64: trayId, Valid: true}, ItemId: sql.NullInt64{Int64: itemId, Valid: true}}
 	_, err = model.UpdateStorageSlotList(itemDimension.Height, slotUpdateRequest)
 	if err != nil {
-		fmt.Println("2", err)
-		//Response(w, nil, http.StatusInternalServerError, err)
-	}
-	_, err = model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, itemDimension.Height)
-	if err != nil {
-		fmt.Println("3")
-		fmt.Println("밑에 빈 슬롯없음", err)
+		fmt.Println("3", err)
 		//Response(w, nil, http.StatusInternalServerError, err)
 	}
 	_, err = model.UpdateSlot(slotUpdateRequest)
@@ -384,17 +385,17 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 	}
 
 	inputSlotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, TrayId: currentSlot.TrayId, ItemId: currentSlot.ItemId}
-	_, err = model.UpdateStorageSlotList(item.ItemHeight, inputSlotUpdateRequest)
-	if err != nil {
-		fmt.Println("4", err)
-
-		//Response(w, nil, http.StatusInternalServerError, err)
-	}
 	_, err = model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, item.ItemHeight)
 	if err != nil {
-		fmt.Println("5")
+		fmt.Println("4")
 
 		fmt.Println("밑에 빈 슬롯없음", err)
+	}
+	_, err = model.UpdateStorageSlotList(item.ItemHeight, inputSlotUpdateRequest)
+	if err != nil {
+		fmt.Println("5", err)
+
+		//Response(w, nil, http.StatusInternalServerError, err)
 	}
 	_, err = model.UpdateSlot(inputSlotUpdateRequest)
 	if err != nil {
