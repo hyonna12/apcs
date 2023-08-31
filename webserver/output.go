@@ -188,8 +188,6 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			delete(requestList, s.ItemId.Int64)
 		}(slot)
 	}
-
-	Response(w, nil, http.StatusOK, nil)
 }
 
 // ItemOutputConfirm - [View] "택배를 확인해주세요" 화면 출력
@@ -488,7 +486,7 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 물건이 차지하던 슬롯 초기화
-	for floor := itemBottomSlot.Floor - item.ItemHeight - 1; floor <= itemBottomSlot.Floor; floor += 1 {
+	for floor := itemBottomSlot.Floor - item.ItemHeight + 1; floor <= itemBottomSlot.Floor; floor += 1 {
 		idx := floor - 1
 		slots[idx].SlotEnabled = true
 		slots[idx].ItemId = sql.NullInt64{Int64: 0, Valid: false} // null
