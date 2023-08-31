@@ -4,9 +4,10 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"encoding/json"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type CommonResponse struct {

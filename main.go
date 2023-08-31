@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+
 	// 설정 변수 초기화
 	config.InitConfig()
 
