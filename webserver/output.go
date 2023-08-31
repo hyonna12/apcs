@@ -4,6 +4,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
+	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -213,7 +214,7 @@ func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
 		ItemId:          itemInfo.ItemId,
 		DeliveryCompany: itemInfo.DeliveryCompany,
 		TrackingNumber:  itemInfo.TrackingNumber,
-		InputDate:       itemInfo.InputDate,
+		InputDate:       itemInfo.InputDate.Time,
 	}
 
 	pageData := struct {
@@ -422,14 +423,56 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 	}
 
-	// TODO - DB 갱신
+	item, err := model.SelectItemById(itemId)
+	if err != nil {
+		log.Error(err)
+		// TODO - DB 에러 처리
+	}
+
+	itemBottomSlot, err := model.SelectSlotByItemId(itemId)
+	if err != nil {
+		log.Error(err)
+		// TODO - DB 에러 처리
+	}
+
+	slots, err := model.SelectSlotsInLaneByItemId(itemId)
+	if err != nil {
+		log.Error(err)
+		// TODO - DB 에러 처리
+	}
+
+	// 물건이 차지하던 슬롯 초기화
+	for i := itemBottomSlot.Floor - item.ItemHeight; i <= itemBottomSlot.Floor; i += 1 {
+		slots[i].SlotEnabled = true
+		slots[i].ItemId = sql.NullInt64{Int64: 0, Valid: false} // null
+		slots[i].TrayId = sql.NullInt64{Int64: 0, Valid: false} // null
+	}
+
+	// slot-keep-cnt 갱신
+	for idx := range slots {
+		// 비어있는 슬롯에 대해서만 진행
+		if !slots[idx].SlotEnabled {
+			continue
+		}
+
+		if idx == 0 { // 맨 위쪽 빈 슬롯 경우
+			slots[idx].SlotKeepCnt = 1
+		} else {
+			slots[idx].SlotKeepCnt = slots[idx-1].SlotKeepCnt + 1
+		}
+
+		slots[idx].UDatetime = time.Now()
+	}
+
+	_, err = model.UpdateSlots(slots)
+	if err != nil {
+		log.Error(err)
+		// TODO - DB 에러 처리
+	}
+
+	// TODO - item output_date 처리
 
 	delete(requestList, itemId)
-
-	// 로봇 대기 해제
-	if err := plc.DismissRobotAtTable(); err != nil {
-		// TODO - plc fail 에러처리
-	}
 
 	if len(requestList) > 0 {
 		// Request가 남아있는 경우- 택배가 나오고 있습니다 화면으로
@@ -438,13 +481,24 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 			log.Error(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
+
+		// TODO - 빈 트레이 회수하면서 로봇 대기 해제 - 빈 트레이는 일단 원래 아이템이 있던 곳으로
+		// TODO - 빈 트레이 격납 위치 선정 로직 추가
+		if err = plc.RetrieveEmptyTrayFromTable(itemBottomSlot); err != nil {
+			log.Error(err)
+			// TODO - PLC 에러 처리
+		}
+
+		// TODO - 트레이 DB 업데이트
 	} else {
+		// Request가 남아있지 않은 경우
 		err := ChangeKioskView("/output/thankyou")
 		if err != nil {
 			log.Error(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
 	}
+
 }
 
 // ItemOutputThankyou - [VIEW] "감사합니다" 화면 출력

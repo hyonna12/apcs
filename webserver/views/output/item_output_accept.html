@@ -29,12 +29,19 @@
 
     let counter = 0;
 
-    let intervalId = setInterval(senseTableForItem, 1000)
+    let intervalId = setInterval(senseTableForItem, 1000);
 
     async function senseTableForItem() {
         counter += 1;
+
+        if (counter > timeLimit) {
+            clearInterval(intervalId);
+            return false;
+        }
+
         $counter.innerText = timeLimit - counter;
 
+        // 테이블에 택배 있는 지 확인
         let axiosResult = await axios.get('/output/sense_table_for_item')
             .catch(err => {
                 console.error(err);
@@ -47,47 +54,22 @@
 
         // 입주민이 택배를 수령해 테이블에 물건이 없을 경우
         if (!isItemOnTable) {
+            clearInterval(intervalId);
             let axiosResult = await axios.post('/output/complete?itemId=' + itemId)
                 .catch(err => {
                     console.error(err);
                 });
             console.debug(axiosResult);
-            clearInterval(intervalId);
             return false;
         }
 
         if (counter !== timeLimit) {
-            return false;
+            return false
         }
-
         clearInterval(intervalId);
 
-        // 테이블 위 물건 확인
-        axiosResult = await axios.get('/output/sense_table_for_item')
-            .catch(err => {
-                console.error(err);
-            });
-
-        response = axiosResult.data;
-        console.log(response);
-        // true or false
-        isItemOnTable = JSON.parse(response.data);
-
-        // 입주민이 택배를 수령하지 않은 경우
-        if (isItemOnTable) {
-            axios.post('/output/return?itemId=' + itemId)
-                .then(axiosResult => {
-                    let response = axiosResult.data;
-                    console.log(response);
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-            return false;
-        }
-
-        // 입주민이 택배를 수령해 테이블에 물건이 없을 경우
-        axios.post('/output/complete?itemId=' + itemId)
+        // 5초 경과 후에도 입주민이 택배를 수령하지 않은 경우
+        await axios.post('/output/return?itemId=' + itemId)
             .then(axiosResult => {
                 let response = axiosResult.data;
                 console.log(response);
@@ -95,7 +77,6 @@
             .catch(err => {
                 console.error(err);
             });
-        clearInterval(intervalId);
     }
 
     // TODO - temp - 수령 버튼 (시뮬레이션 용)

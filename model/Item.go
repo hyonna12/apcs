@@ -4,38 +4,34 @@ import (
 	"apcs_refactored/customerror"
 	"context"
 	"database/sql"
-	"time"
-
 	log "github.com/sirupsen/logrus"
 )
 
 type Item struct {
-	ItemId         int64     `json:"item_id"`
-	ItemName       string    `json:"item_name"`
-	ItemHeight     int       `json:"item_height"`
-	TrackingNumber int       `json:"tracking_number"`
-	InputDate      time.Time `json:"input_date"`
-	OutputDate     time.Time `json:"output_date"`
-	DeliveryId     int64     `json:"delivery_id"`
-	OwnerId        int64     `json:"owner_id"`
-	CDatetime      time.Time `json:"c_datetime"`
-	UDatetime      time.Time `json:"u_datetime"`
+	ItemId         int64        `json:"item_id"`
+	ItemHeight     int          `json:"item_height"`
+	TrackingNumber int          `json:"tracking_number"`
+	InputDate      sql.NullTime `json:"input_date"`
+	OutputDate     sql.NullTime `json:"output_date"`
+	DeliveryId     int64        `json:"delivery_id"`
+	OwnerId        int64        `json:"owner_id"`
+	CDatetime      sql.NullTime `json:"c_datetime"`
+	UDatetime      sql.NullTime `json:"u_datetime"`
 }
 
 type ItemReadResponse struct {
-	ItemId     int64  `json:"item_id"`
-	ItemName   string `json:"item_name"`
-	ItemHeight int    `json:"item_height"`
-	Lane       int    `json:"lane"`
-	Floor      int    `json:"floor"`
-	TrayId     int    `json:"tray_id"`
+	ItemId     int64 `json:"item_id"`
+	ItemHeight int   `json:"item_height"`
+	Lane       int   `json:"lane"`
+	Floor      int   `json:"floor"`
+	TrayId     int   `json:"tray_id"`
 }
 
 type ItemListResponse struct {
-	ItemId          int64     `json:"item_id"`
-	DeliveryCompany string    `json:"delivery_company"`
-	TrackingNumber  int64     `json:"tracking_number"`
-	InputDate       time.Time `json:"input_date"`
+	ItemId          int64        `json:"item_id"`
+	DeliveryCompany string       `json:"delivery_company"`
+	TrackingNumber  int64        `json:"tracking_number"`
+	InputDate       sql.NullTime `json:"input_date"`
 }
 
 type ItemCreateRequest struct {
@@ -43,6 +39,44 @@ type ItemCreateRequest struct {
 	TrackingNumber int   `json:"tracking_number"`
 	DeliveryId     int64 `json:"delivery_id"`
 	OwnerId        int64 `json:"owner_id"`
+}
+
+func SelectItemById(itemId int64) (Item, error) {
+
+	query :=
+		`
+				SELECT 
+					item_id,
+					item_height,
+					tracking_number,
+					input_date,
+					output_date,
+					delivery_id,
+					owner_id,
+					c_datetime,
+					u_datetime
+				FROM TN_CTR_ITEM
+				WHERE item_id = ?
+			`
+
+	var item Item
+	row := db.QueryRow(query, itemId)
+	err := row.Scan(
+		&item.ItemId,
+		&item.ItemHeight,
+		&item.TrackingNumber,
+		&item.InputDate,
+		&item.OutputDate,
+		&item.DeliveryId,
+		&item.OwnerId,
+		&item.CDatetime,
+		&item.UDatetime,
+	)
+	if err != nil {
+		return Item{}, err
+	}
+
+	return item, nil
 }
 
 func SelectItemLocationList() ([]ItemReadResponse, error) {
@@ -83,7 +117,6 @@ func SelectItemListByOwnerId(ownerId int) ([]ItemReadResponse, error) {
 
 	query := `SELECT 
 				i.item_id, 
-				i.item_name, 
 				i.item_height, 
 				s.lane, 
 				s.floor, 
@@ -107,7 +140,6 @@ func SelectItemListByOwnerId(ownerId int) ([]ItemReadResponse, error) {
 		var itemReadResponse ItemReadResponse
 		err := rows.Scan(
 			&itemReadResponse.ItemId,
-			&itemReadResponse.ItemName,
 			&itemReadResponse.ItemHeight,
 			&itemReadResponse.Lane,
 			&itemReadResponse.Floor,
@@ -223,8 +255,7 @@ func SelectItemBySlot(lane, floor int) (ItemReadResponse, error) {
 
 	query :=
 		`SELECT 
-			i.item_id, 
-			i.item_name
+			i.item_id
 		FROM TN_CTR_ITEM i
 		JOIN TN_CTR_SLOT s
 			ON i.item_id = s.item_id
@@ -236,7 +267,6 @@ func SelectItemBySlot(lane, floor int) (ItemReadResponse, error) {
 	row := db.QueryRow(query, lane, floor)
 	err := row.Scan(
 		&itemReadResponse.ItemId,
-		&itemReadResponse.ItemName,
 	)
 	if err != nil {
 		return ItemReadResponse{}, err
