@@ -120,7 +120,7 @@
 
             console.log(res.data)
             
-            if(res.data.status == 200){
+            if(res.data.status === 200){
                 location.replace(res.data.data)
             } else{
                 console.log(res.data.error)
@@ -142,7 +142,7 @@
         });
 
         axios.post('/input/stop_input', request).then(res => {
-            if(res.data.status == 200){
+            if(res.data.status === 200){
                 alert('입고를 취소하셨습니다.');
                 location.href='/'
             } else{
