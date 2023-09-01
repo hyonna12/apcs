@@ -475,24 +475,28 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		// TODO - DB 에러 처리
 	}
 
-	itemBottomSlot, err := model.SelectSlotByItemId(itemId)
+	// TODO - 삭제
+	//itemBottomSlot, err := model.SelectSlotByItemId(itemId)
+	//if err != nil {
+	//	log.Error(err)
+	//	// TODO - DB 에러 처리
+	//}
+
+	slots, err := model.SelectSlotsByItemId(itemId)
 	if err != nil {
 		log.Error(err)
 		// TODO - DB 에러 처리
 	}
 
-	slots, err := model.SelectSlotsInLaneByItemId(itemId)
-	if err != nil {
-		log.Error(err)
-		// TODO - DB 에러 처리
-	}
+	itemTopSlot := slots[0]
+	itemBottomSlot := slots[len(slots)]
 
 	// 물건이 차지하던 슬롯 초기화
-	for floor := itemBottomSlot.Floor - item.ItemHeight + 1; floor <= itemBottomSlot.Floor; floor += 1 {
+	for floor := itemTopSlot.Floor; floor <= itemBottomSlot.Floor; floor += 1 {
 		idx := floor - 1
 		slots[idx].SlotEnabled = true
-		slots[idx].ItemId = sql.NullInt64{Int64: 0, Valid: false} // null
-		slots[idx].TrayId = sql.NullInt64{Int64: 0, Valid: false} // null
+		slots[idx].ItemId = sql.NullInt64{Valid: false} // set null
+		slots[idx].TrayId = sql.NullInt64{Valid: false} // set null
 	}
 
 	// slot-keep-cnt 갱신

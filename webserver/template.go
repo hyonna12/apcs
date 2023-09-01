@@ -1,7 +1,7 @@
 package webserver
 
 import (
-	"fmt"
+	"apcs_refactored/plc"
 	"html/template"
 	"net/http"
 	"os"
@@ -15,10 +15,10 @@ var templ = func() *template.Template {
 	t := template.New("")
 	err := filepath.Walk("webserver/views/", func(path string, info os.FileInfo, err error) error {
 		if strings.Contains(path, ".html") {
-			fmt.Println(path)
+			log.Debug(path)
 			_, err = t.ParseFiles(path)
 			if err != nil {
-				fmt.Println(err)
+				log.Error(err)
 			}
 		}
 		return err
@@ -56,9 +56,6 @@ func RegistDelivery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 	templ.ExecuteTemplate(w, "input/regist_delivery", &Page{Title: "Home"})
 }
 
@@ -69,9 +66,6 @@ func InputItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 	templ.ExecuteTemplate(w, "input/input_item", &Page{Title: "Home"})
 }
 
@@ -82,9 +76,6 @@ func RegistOwner(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 	templ.ExecuteTemplate(w, "input/regist_owner", &Page{Title: "Home"})
 }
 
@@ -95,9 +86,6 @@ func InputItemError(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 	templ.ExecuteTemplate(w, "input/input_item_error", &Page{Title: "Home"})
 }
 
@@ -108,9 +96,6 @@ func RegistOwnerError(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 	templ.ExecuteTemplate(w, "input/regist_owner_error", &Page{Title: "Home"})
 }
 
@@ -121,9 +106,6 @@ func CompleteInputItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
 	templ.ExecuteTemplate(w, "input/complete_input_item", &Page{Title: "Home"})
 }
 
@@ -134,9 +116,12 @@ func CancelInputItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	err := plc.DismissRobotAtTable()
+	if err != nil {
+		// TODO - PLC 에러처리
+		log.Error(err)
 	}
+
 	templ.ExecuteTemplate(w, "input/cancel_input_item", &Page{Title: "Home"})
 }
 

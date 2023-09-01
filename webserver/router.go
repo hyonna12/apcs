@@ -20,15 +20,15 @@ func Handler(r *mux.Router) {
 	})
 
 	/* input */
-	r.HandleFunc("/input/regist_delivery", RegistDelivery)
-	r.HandleFunc("/input/input_item", InputItem)
-	r.HandleFunc("/input/input_item_error", InputItemError)
-	r.HandleFunc("/input/regist_owner", RegistOwner)
-	r.HandleFunc("/input/regist_owner_error", RegistOwnerError)
-	r.HandleFunc("/input/complete_input_item", CompleteInputItem)
-	r.HandleFunc("/input/cancel_input_item", CancelInputItem)
+	r.HandleFunc("/input/regist_delivery", RegistDelivery).Methods(http.MethodGet)
+	r.HandleFunc("/input/input_item", InputItem).Methods(http.MethodGet)
+	r.HandleFunc("/input/input_item_error", InputItemError).Methods(http.MethodGet)
+	r.HandleFunc("/input/regist_owner", RegistOwner).Methods(http.MethodGet)
+	r.HandleFunc("/input/regist_owner_error", RegistOwnerError).Methods(http.MethodGet)
+	r.HandleFunc("/input/complete_input_item", CompleteInputItem).Methods(http.MethodGet)
+	r.HandleFunc("/input/cancel_input_item", CancelInputItem).Methods(http.MethodGet)
 
-	r.HandleFunc("/input/get_delivery_list", DeliveryCompanyList)
+	r.HandleFunc("/input/get_delivery_list", DeliveryCompanyList).Methods(http.MethodGet)
 	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods(http.MethodPost)
 	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods(http.MethodPost)
 	r.HandleFunc("/input/input", Input).Methods(http.MethodPost)
