@@ -256,7 +256,7 @@ func SelectSlotListForEmptyTray() ([]Slot, error) {
 			FROM TN_CTR_SLOT s
 			JOIN TN_CTR_TRAY t
 				ON s.tray_id = t.tray_id
-			WHERE t.tray_occupied = 1
+			WHERE t.tray_occupied = 0
 			`
 
 	rows, err := db.Query(query)
@@ -843,7 +843,7 @@ func SelectEmptyTray() (Slot, error) {
 			    min(tray_id) 
 			FROM TN_CTR_SLOT
 			WHERE 
-			    slot_enabled = 1 
+			    slot_enabled = 0
 				AND tray_id IS NOT null
 			`
 
