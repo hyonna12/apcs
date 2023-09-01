@@ -662,50 +662,42 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 		_ = tx.Rollback()
 	}(tx)
 
-	// TODO - 쿼리 분리
 	query := `
-			SET @LANE = ?;
-			SET @FLOOR = ?;
-			SET @UNDER_LIMIT = 
-				IFNULL(
-					(
-						SELECT MIN(floor) - 1
-						FROM TN_CTR_SLOT
-						WHERE 
-							lane = @LANE 
-							AND floor > @FLOOR 
-							AND slot_keep_cnt = 0
-					),
-					(
-						SELECT MAX(FLOOR)
-						FROM TN_CTR_SLOT
-						WHERE 
-							lane = @LANE 
-							AND floor > @FLOOR
-					)
-				);
-			    
 			UPDATE TN_CTR_SLOT s
-			SET s.slot_keep_cnt = s.slot_keep_cnt +
+			SET s.slot_keep_cnt = (s.slot_keep_cnt +
 				IFNULL(
 						(
-							SELECT * FROM(
-								SELECT @FLOOR - MAX(floor)
+							SELECT * FROM (
+								SELECT ? - MAX(FLOOR)
 								FROM TN_CTR_SLOT
-								WHERE 
-									lane = @LANE
-									AND floor < @FLOOR
-									AND slot_keep_cnt = 0
-							) a
+								WHERE (lane = ?) AND (FLOOR < ? AND slot_keep_cnt = 0)
+							) i
 						),
-							@FLOOR
+							?
 						)
-			WHERE 
-				s.floor BETWEEN (@FLOOR + 1) AND @UNDER_LIMIT
-				AND s.lane = @LANE;
-			`
+					)
+			WHERE (s.floor > ? AND s.floor <=
+				IFNULL(
+						(
+							SELECT * FROM (
+								SELECT MIN(floor) - 1
+								FROM TN_CTR_SLOT
+								WHERE (lane = ?) AND (floor > ? AND slot_keep_cnt = 0)
+								) a
+							),
+							(
+								SELECT * FROM (
+									SELECT MAX(floor)
+									FROM TN_CTR_SLOT
+									WHERE (lane = ? AND floor > ?)
+								) b
+							)
+						)
+					)
+			AND s.lane = ?
+		`
 
-	result, err := tx.Exec(query, lane, floor)
+	result, err := tx.Exec(query, floor, lane, floor, floor, floor, lane, floor, lane, floor, lane)
 	if err != nil {
 		return 0, err
 	}
