@@ -93,6 +93,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Post 요청인 경우
 	err := r.ParseForm()
 	if err != nil {
 		log.Error(err)
@@ -182,6 +183,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			err = ChangeKioskView("/output/confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10))
 			if err != nil {
 				// TODO - 에러처리
+				log.Error(err)
 			}
 
 			// TODO - 수령/반납 화면으로 넘길 지 결정
