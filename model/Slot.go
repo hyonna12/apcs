@@ -156,6 +156,8 @@ func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
 			WHERE 
 			    slot_enabled = 1 
 			  	AND slot_keep_cnt >= ?
+				AND lane != 1 
+				AND lane != 2
 			`
 
 	rows, err := db.Query(query, itemHeight)
@@ -595,7 +597,19 @@ func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_SLOT s
-			SET s.slot_keep_cnt = (s.slot_keep_cnt - IF((s.floor=s.slot_keep_cnt), ?, (SELECT slot_keep_cnt FROM TN_CTR_SLOT WHERE (lane = ? AND FLOOR = ?))))
+			SET s.slot_keep_cnt = (s.slot_keep_cnt - 
+				IF((s.floor=s.slot_keep_cnt), 
+					?, 
+					(
+						SELECT * FROM 
+						(
+							SELECT slot_keep_cnt 
+							FROM TN_CTR_SLOT 
+							WHERE (lane = ? AND FLOOR = ?)
+						) c 
+					)
+				) 
+			)
 			WHERE (s.floor > ? AND s.floor <=
 				IFNULL(
 						(
