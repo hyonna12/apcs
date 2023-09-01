@@ -138,6 +138,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	// 테이블에 빈 트레이가 있는 경우 회수 요청
 	emptyTrayExistsOnTable, err := plc.SenseTableForEmptyTray()
 	if err != nil {
+		// TODO - PLC 에러 처리
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
@@ -282,7 +283,7 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO - 비밀번호 해싱
-	password, err := model.SelectPasswordByItemId(1)
+	password, err := model.SelectPasswordByItemId(request.ItemId)
 	if err != nil {
 		// TODO - DB 에러 발생 시 에러처리
 		log.Error(err)
@@ -482,37 +483,39 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	//	// TODO - DB 에러 처리
 	//}
 
-	slots, err := model.SelectSlotsByItemId(itemId)
+	slots, err := model.SelectSlotsInLaneByItemId(itemId)
 	if err != nil {
 		log.Error(err)
 		// TODO - DB 에러 처리
 	}
 
-	itemTopSlot := slots[0]
-	itemBottomSlot := slots[len(slots)]
-
 	// 물건이 차지하던 슬롯 초기화
-	for floor := itemTopSlot.Floor; floor <= itemBottomSlot.Floor; floor += 1 {
-		idx := floor - 1
-		slots[idx].SlotEnabled = true
-		slots[idx].ItemId = sql.NullInt64{Valid: false} // set null
-		slots[idx].TrayId = sql.NullInt64{Valid: false} // set null
+	for idx, _ := range slots {
+		slot := &slots[idx]
+
+		if slot.ItemId.Int64 == itemId {
+			slot.SlotEnabled = true
+			slot.ItemId = sql.NullInt64{Valid: false} // set null
+			slot.TrayId = sql.NullInt64{Valid: false} // set null
+		}
 	}
 
 	// slot-keep-cnt 갱신
 	for idx := range slots {
+		slot := &slots[idx]
+
 		// 비어있는 슬롯에 대해서만 진행
-		if !slots[idx].SlotEnabled {
+		if !slot.SlotEnabled {
 			continue
 		}
 
-		if idx == 0 { // 맨 위쪽 빈 슬롯 경우
-			slots[idx].SlotKeepCnt = 1
+		if idx == 0 { // 맨 위쪽 빈 슬롯인 경우
+			slot.SlotKeepCnt = 1
 		} else {
-			slots[idx].SlotKeepCnt = slots[idx-1].SlotKeepCnt + 1
+			slot.SlotKeepCnt = slots[idx-1].SlotKeepCnt + 1
 		}
 
-		slots[idx].UDatetime = time.Now()
+		slot.UDatetime = time.Now()
 	}
 
 	_, err = model.UpdateSlots(slots)
@@ -531,6 +534,10 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	// TODO - tray 처리
 	trayUpdateRequest := model.TrayUpdateRequest{
 		TrayOccupied: false,
+	}
+	itemBottomSlot, err := model.SelectSlotByItemId(itemId)
+	if err != nil {
+		// TODO - DB 에러 처리
 	}
 	_, err = model.UpdateTrayEmpty(itemBottomSlot.TrayId.Int64, trayUpdateRequest)
 	if err != nil {

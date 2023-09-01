@@ -87,7 +87,9 @@ func SelectSlotsByItemIds(itemIds []int64) ([]Slot, error) {
 		SELECT
 			*
 		FROM TN_CTR_SLOT s
-		WHERE s.item_id IN ( ` + params + `)
+		WHERE 
+		    s.item_id IN ( ` + params + `)
+			AND s.tray_id IS NOT NULL
 	`
 
 	rows, err := db.Query(query)
@@ -256,7 +258,7 @@ func SelectSlotListForEmptyTray() ([]Slot, error) {
 			FROM TN_CTR_SLOT s
 			JOIN TN_CTR_TRAY t
 				ON s.tray_id = t.tray_id
-			WHERE t.tray_occupied = 1
+			WHERE t.tray_occupied = 0
 			`
 
 	rows, err := db.Query(query)
@@ -278,14 +280,20 @@ func SelectSlotListForEmptyTray() ([]Slot, error) {
 	return slots, nil
 }
 
-func SelectSlotsByItemId(itemId int64) ([]Slot, error) {
+func SelectSlotsInLaneByItemId(itemId int64) ([]Slot, error) {
 	query :=
 		`
 			SELECT
 				*
 			FROM TN_CTR_SLOT
-			WHERE item_id = ?
+			WHERE lane = (
+				SELECT
+					lane
+				FROM TN_CTR_SLOT
+				WHERE item_id = ?
+			)
 			ORDER BY FLOOR
+
 		`
 
 	rows, err := db.Query(query, itemId)
@@ -833,13 +841,15 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 
 func SelectEmptyTray() (Slot, error) {
 	query := `
-			SELECT 
+			SELECT
+			    slot_id,
+			    slot_keep_cnt,
 			    lane, 
 			    floor, 
 			    min(tray_id) 
 			FROM TN_CTR_SLOT
 			WHERE 
-			    slot_enabled = 1 
+			    slot_enabled = 1
 				AND tray_id IS NOT null
 			`
 
@@ -847,7 +857,12 @@ func SelectEmptyTray() (Slot, error) {
 
 	row := db.QueryRow(query)
 
-	err := row.Scan(&slot.Lane, &slot.Floor, &slot.TrayId)
+	err := row.Scan(
+		&slot.SlotId,
+		&slot.SlotKeepCnt,
+		&slot.Lane,
+		&slot.Floor,
+		&slot.TrayId)
 	if err != nil {
 		log.Error(err)
 		return slot, err
