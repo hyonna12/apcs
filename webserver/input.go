@@ -35,6 +35,8 @@ func DeliveryCompanyList(w http.ResponseWriter, r *http.Request) {
 	// 택배회사 리스트 조회
 	deliveryList, err := model.SelectDeliveryCompanyList()
 	if err != nil {
+		// changeKioskView
+		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
@@ -68,6 +70,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if err != nil {
+		// changeKioskView
+		// return
 		log.Error(err)
 		Response(w, nil, http.StatusInternalServerError, err)
 		return
@@ -76,6 +80,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 	// 테이블에 빈 트레이 감지
 	emptyTray, err := plc.SenseTableForEmptyTray()
 	if err != nil {
+		// changeKioskView
+		// return
 		log.Error(err)
 		Response(w, nil, http.StatusInternalServerError, err)
 		return
@@ -95,6 +101,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 
 		err = plc.StandbyRobotAtTable()
 		if err != nil {
+			// changeKioskView
+			// return
 			log.Error(err)
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
@@ -112,6 +120,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		}
 		if err != nil {
 			log.Error(err)
+			// changeKioskView
+			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 			return
 		}
@@ -119,6 +129,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		err = plc.ServeEmptyTrayToTable(slotWithEmptyTray)
 		if err != nil {
 			log.Error(err)
+			// changeKioskView
+			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 			return
 		}
@@ -130,6 +142,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		_, err = model.UpdateSlotToEmptyTray(slotUpdateRequest)
 		if err != nil {
 			log.Error(err)
+			// changeKioskView
+			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 			return
 		}
@@ -137,6 +151,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		err = plc.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose)
 		if err != nil {
 			log.Error(err)
+			// changeKioskView
+			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 			return
 		}
@@ -154,6 +170,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
 	if err != nil {
+		// changeKioskView
+		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
@@ -167,6 +185,8 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 
 
 		if err != nil {
+			// changeKioskView
+			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
 		if IsItemOnTable {
@@ -176,6 +196,8 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 
 	isItemOnTable, err := plc.SenseTableForItem() // 값 들어올때까지 대기
 	if err != nil {
+		// changeKioskView
+		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
@@ -186,9 +208,11 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		// 물품 크기, 무게, 송장번호 조회
 		itemDimension, err = plc.SenseItemInfo()
 		if err != nil {
+			// changeKioskView
+			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		itemDimension = plc.ItemDimension{Height: rand.Intn(6) + 1, Width: 5, Weight: 8, TrackingNum: 1010} // **제거
+		itemDimension = plc.ItemDimension{Height: rand.Intn(6) + 1, Width: 5, Weight: 3, TrackingNum: 1010} // **제거
 		log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 	}
 
@@ -223,6 +247,8 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if err != nil {
+			// changeKioskView
+			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
 
@@ -237,8 +263,14 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		defer resp.Body.Close()
 
 		respData, err := io.ReadAll(resp.Body)
-		json.Unmarshal(respData, &bestSlot)
 		if err != nil {
+			// changeKioskView
+			// return
+			Response(w, nil, http.StatusInternalServerError, err)
+		}
+		err = json.Unmarshal(respData, &bestSlot)
+		log.Infof("[웹핸들러] 최적 슬롯: slotId=%v", bestSlot.SlotId)
+		if bestSlot.Lane == 0 {
 			Response(w, nil, http.StatusBadRequest, errors.New("수납가능한 슬롯이 없습니다"))
 			return
 		}
@@ -255,6 +287,8 @@ func inputItem(bestSlot model.Slot, deliveryIdStr string, ownerIdStr string, ite
 	err := plc.InputItem(bestSlot)
 	if err != nil {
 		log.Error(err)
+		// changeKioskView
+		// return
 	}
 
 	// 송장번호, 물품높이, 택배기사, 수령인 정보 itemCreateRequest 에 넣어서 물품 db업데이트
@@ -274,6 +308,8 @@ func inputItem(bestSlot model.Slot, deliveryIdStr string, ownerIdStr string, ite
 	}
 	itemId, err := model.InsertItem(itemCreateRequest)
 	if err != nil {
+		// changeKioskView
+		// return
 		// TODO - 에러처리
 		log.Error(err)
 		return
@@ -291,20 +327,6 @@ func inputItem(bestSlot model.Slot, deliveryIdStr string, ownerIdStr string, ite
 		log.Error(err)
 		return
 	}
-
-	//_, err = model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, itemDimension.Height)
-	//if err != nil {
-	//	log.Errorf("[웹핸들러] 밑에 빈 슬롯없음. error=%v", err)
-	//	return
-	//}
-	//slotUpdateRequest := model.SlotUpdateRequest{
-	//	Lane:        bestSlot.Lane,
-	//	Floor:       bestSlot.Floor,
-	//	SlotEnabled: false,
-	//	SlotKeepCnt: 0,
-	//	TrayId:      plc.GetTrayIdOnTable(),
-	//	ItemId:      sql.NullInt64{Int64: itemId, Valid: true},
-	//}
 
 	// 아이템이 수납된 lane 슬롯 업데이트
 	slots, err := model.SelectSlotsInLane(bestSlot.Lane)
@@ -337,18 +359,6 @@ func inputItem(bestSlot model.Slot, deliveryIdStr string, ownerIdStr string, ite
 		}
 	}
 
-	// TODO - 삭제
-	//for idx := range slots {
-	//	slot := &slots[idx]
-	//
-	//	if slot.ItemId.Int64 == itemId {
-	//		slot.SlotEnabled = false
-	//		slot.SlotKeepCnt = 0
-	//		slot.ItemId = sql.NullInt64{Int64: itemId, Valid: true} // set null
-	//		slot.TrayId = sql.NullInt64{Valid: false} // set null
-	//	}
-	//}
-
 	// slot-keep-cnt 갱신
 	for idx := range slots {
 		slot := &slots[idx]
@@ -370,75 +380,9 @@ func inputItem(bestSlot model.Slot, deliveryIdStr string, ownerIdStr string, ite
 		log.Error(err)
 		// TODO - DB 에러 처리
 	}
-	//
-	//_, err = model.UpdateStorageSlotList(itemDimension.Height, slotUpdateRequest)
-	//if err != nil {
-	//	// TODO - 에러처리
-	//	log.Error(err)
-	//	return
-	//}
-	//_, err = model.UpdateSlot(slotUpdateRequest)
-	//if err != nil {
-	//	// TODO - 에러처리
-	//	log.Error(err)
-	//	return
-	//}
 
 	plc.SetTrayIdOnTable(sql.NullInt64{Valid: false}) // set null
 }
-
-// Input
-// TODO - 삭제
-//
-// [API] 물품 계측 후 수납 가능 시 호출 (입고가 완료되었습니다 화면에서 호출)
-//func Input(w http.ResponseWriter, r *http.Request) {
-//	err := plc.InputItem(bestSlot)
-//	if err != nil {
-//		Response(w, nil, http.StatusInternalServerError, err)
-//	}
-//
-//	// 송장번호 ,물품높이, 택배기사, 수령인 정보 itemCreateRequest 에 넣어서 물품 db업데이트
-//	delivery_id, err := strconv.ParseInt(inputInfoRequest.DeliveryId, 10, 64)
-//	if err != nil {
-//		Response(w, nil, http.StatusInternalServerError, err)
-//	}
-//	itemCreateRequest := model.ItemCreateRequest{ItemHeight: itemDimension.Height, TrackingNumber: itemDimension.TrackingNum, DeliveryId: delivery_id, OwnerId: ownerId}
-//	itemId, err := model.InsertItem(itemCreateRequest)
-//	if err != nil {
-//		Response(w, nil, http.StatusInternalServerError, err)
-//	}
-//
-//	// 슬롯, 트레이 db 업데이트
-//	// 트레이 아이디 추가
-//	trayUpdateRequest := model.TrayUpdateRequest{TrayOccupied: true, ItemId: itemId}
-//	_, err = model.UpdateTray(trayId, trayUpdateRequest)
-//	if err != nil {
-//		log.Error(err)
-//		//Response(w, nil, http.StatusInternalServerError, err)
-//	}
-//	_, err = model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, itemDimension.Height)
-//	if err != nil {
-//		log.Errorf("밑에 빈 슬롯없음. error=%v", err)
-//		//Response(w, nil, http.StatusInternalServerError, err)
-//	}
-//	slotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, SlotKeepCnt: 0, TrayId: sql.NullInt64{Int64: trayId, Valid: true}, ItemId: sql.NullInt64{Int64: itemId, Valid: true}}
-//	_, err = model.UpdateStorageSlotList(itemDimension.Height, slotUpdateRequest)
-//	if err != nil {
-//		log.Error(err)
-//		//Response(w, nil, http.StatusInternalServerError, err)
-//	}
-//	_, err = model.UpdateSlot(slotUpdateRequest)
-//	if err != nil {
-//		log.Error(err)
-//		//Response(w, nil, http.StatusInternalServerError, err)
-//	}
-//	err = plc.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose)
-//	if err != nil {
-//		Response(w, nil, http.StatusInternalServerError, err)
-//	}
-//
-//	Response(w, "OK", http.StatusOK, nil)
-//}
 
 type StopRequest struct {
 	Step string `json:"step"`
@@ -464,12 +408,16 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 		// 센싱하고 있다가 물품 감지
 		item, err := plc.SenseTableForItem() // 값 들어올때까지 대기
 		if err != nil {
+			// changeKioskView
+			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
 		// **수정
 		if !item {
 			err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
 			if err != nil {
+				// changeKioskView
+				// return
 				Response(w, nil, http.StatusInternalServerError, err)
 			}
 		}
@@ -492,6 +440,8 @@ func SenseItem(w http.ResponseWriter, r *http.Request) {
 	} */
 	item, err := plc.SenseTableForItem() // 값 들어올때까지 대기
 	if err != nil {
+		// changeKioskView
+		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 	// **수정
@@ -522,6 +472,8 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if err != nil {
+		// changeKioskView
+		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
@@ -532,6 +484,8 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if err != nil {
+		// changeKioskView
+		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
@@ -544,6 +498,8 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 	// 트레이 이동
 	err = plc.MoveTray(currentSlot, bestSlot)
 	if err != nil {
+		// changeKioskView
+		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
@@ -552,7 +508,8 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 	_, err = model.UpdateOutputSlotList(item.ItemHeight, outputSlotUpdateRequest)
 	if err != nil {
 		log.Error(err)
-		//Response(w, nil, http.StatusInternalServerError, err)
+		// changeKioskView
+		// return
 	}
 	_, err = model.UpdateOutputSlotKeepCnt(currentSlot.Lane, currentSlot.Floor)
 	if err != nil {
@@ -561,8 +518,8 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 	_, err = model.UpdateSlotToEmptyTray(outputSlotUpdateRequest)
 	if err != nil {
 		log.Error(err)
-
-		//Response(w, nil, http.StatusInternalServerError, err)
+		// changeKioskView
+		// return
 	}
 
 	inputSlotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, TrayId: currentSlot.TrayId, ItemId: currentSlot.ItemId}
@@ -573,14 +530,14 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 	_, err = model.UpdateStorageSlotList(item.ItemHeight, inputSlotUpdateRequest)
 	if err != nil {
 		log.Error(err)
-
-		//Response(w, nil, http.StatusInternalServerError, err)
+		// changeKioskView
+		// return
 	}
 	_, err = model.UpdateSlot(inputSlotUpdateRequest)
 	if err != nil {
 		log.Error(err)
-
-		//Response(w, nil, http.StatusInternalServerError, err)
+		// changeKioskView
+		// return
 	}
 
 	Response(w, "OK", http.StatusOK, nil)

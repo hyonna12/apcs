@@ -297,7 +297,6 @@ func SelectSlotsInLaneByItemId(itemId int64) ([]Slot, error) {
 				LIMIT 1
 			)
 			ORDER BY FLOOR
-
 		`
 
 	rows, err := db.Query(query, itemId)
@@ -712,7 +711,6 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 		_ = tx.Rollback()
 	}(tx)
 
-	// TODO - 쿼리 분리
 	query := `
 			UPDATE TN_CTR_SLOT s
 			SET s.slot_keep_cnt = (s.slot_keep_cnt +
@@ -746,9 +744,9 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 						)
 					)
 			AND s.lane = ?
-			`
+		`
 
-	result, err := tx.Exec(query, floor, lane, floor, floor, floor, lane, floor, lane, floor, lane)
+	result, err := tx.Exec(query, lane, floor)
 	if err != nil {
 		return 0, err
 	}
