@@ -2,7 +2,6 @@ package plc
 
 import (
 	"apcs_refactored/config"
-	"apcs_refactored/customerror"
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
@@ -28,7 +27,7 @@ var (
 	// TODO - temp - 키오스크 임시 물건 꺼내기 버튼 시뮬레이션 용
 	IsItemOnTable = false
 	// TODO - temp - 빈 트레이 감지 시뮬레이션 용
-	TrayIdOnTable sql.NullInt64
+	trayIdOnTable sql.NullInt64
 )
 
 type ItemDimension struct {
@@ -59,6 +58,14 @@ func StartPlcClient(n *messenger.Node) {
 
 }
 
+func GetTrayIdOnTable() sql.NullInt64 {
+	return trayIdOnTable
+}
+
+func SetTrayIdOnTable(trayId sql.NullInt64) {
+	trayIdOnTable = trayId
+}
+
 // SetUpDoor
 //
 // 도어 조작.
@@ -84,7 +91,7 @@ func SenseTableForEmptyTray() (bool, error) {
 		return false, nil
 	}
 
-	return TrayIdOnTable.Valid, nil
+	return trayIdOnTable.Valid, nil
 }
 
 // SenseTableForItem
@@ -112,7 +119,7 @@ func ServeEmptyTrayToTable(slot model.Slot) error {
 	if err := robot.JobServeEmptyTrayToTable(slot); err != nil {
 		return err
 	}
-	TrayIdOnTable = slot.TrayId
+	trayIdOnTable = slot.TrayId
 
 	return nil
 }
@@ -180,8 +187,8 @@ func RetrieveEmptyTrayFromTable(slot model.Slot) (int64, error) {
 		return 0, err
 	}
 
-	trayId := TrayIdOnTable.Int64
-	TrayIdOnTable = sql.NullInt64{Valid: false} // set null
+	trayId := trayIdOnTable.Int64
+	trayIdOnTable = sql.NullInt64{Valid: false} // set null
 
 	return trayId, nil
 }
@@ -220,12 +227,4 @@ func OutputItem(slot model.Slot) error {
 
 	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil
-}
-
-func GetTrayIdOnTable() (int64, error) {
-	if !TrayIdOnTable.Valid {
-		return 0, customerror.ErrNoRowsAffected
-	}
-
-	return TrayIdOnTable.Int64, nil
 }

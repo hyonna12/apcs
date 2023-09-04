@@ -23,7 +23,7 @@ type CommonResponse struct {
 } */
 
 type InputInfoRequest struct {
-	DeliveryId int64  `json:"delivery_id"`
+	DeliveryId string `json:"delivery_id"`
 	Address    string `json:"address"`
 	PhoneNum   string `json:"phone_num"`
 }

@@ -333,6 +333,49 @@ func SelectSlotsInLaneByItemId(itemId int64) ([]Slot, error) {
 	return slots, nil
 }
 
+func SelectSlotsInLane(lane int) ([]Slot, error) {
+	query :=
+		`
+			SELECT
+				*
+			FROM TN_CTR_SLOT
+			WHERE lane = ?
+			ORDER BY FLOOR
+		`
+
+	rows, err := db.Query(query, lane)
+	if err != nil {
+		return nil, err
+	}
+
+	var slots []Slot
+
+	for rows.Next() {
+		var slot Slot
+		var slotEnabled []uint8
+		err := rows.Scan(
+			&slot.SlotId,
+			&slot.Lane,
+			&slot.Floor,
+			&slot.TransportDistance,
+			&slotEnabled,
+			&slot.SlotKeepCnt,
+			&slot.TrayId,
+			&slot.ItemId,
+			&slot.CheckDatetime,
+			&slot.CDatetime,
+			&slot.UDatetime,
+		)
+		if err != nil {
+			return nil, err
+		}
+		slot.SlotEnabled = slotEnabled[0] == 1
+		slots = append(slots, slot)
+	}
+
+	return slots, nil
+}
+
 func UpdateSlots(slots []Slot) (int64, error) {
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
@@ -843,22 +886,24 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 	return affected, nil
 }
 
-// SelectEmptyTray
+// SelectSlotWithEmptyTray
 //
-// 빈 트레이 선정
+// 빈 트레이가 있는 슬롯 선정
 // TODO - 최적화 필요
-func SelectEmptyTray() (Slot, error) {
+func SelectSlotWithEmptyTray() (Slot, error) {
 	query := `
-			SELECT
-			    slot_id,
-			    slot_keep_cnt,
-			    lane, 
-			    floor, 
-			    min(tray_id)
-			FROM TN_CTR_SLOT
-			WHERE 
-			    slot_enabled = 1
-				AND tray_id IS NOT null
+			SELECT                    
+			   slot_id,              
+			   slot_keep_cnt,        
+			   lane,
+			   FLOOR,
+				tray_id          
+			FROM TN_CTR_SLOT          
+			WHERE                     
+			   slot_enabled = 1      
+				AND tray_id IS NOT NULL
+			ORDER BY tray_id
+			LIMIT 1
 			`
 
 	var slot Slot

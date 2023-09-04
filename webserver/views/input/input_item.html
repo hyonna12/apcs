@@ -29,14 +29,11 @@
     let ownerId = url.searchParams.get("ownerId");
 
     /* 택배 투입 */
-    axios.post('/input/submit_item').then(axiosResult => {
+    axios.post(`/input/submit_item?deliveryId=${deliveryId}&ownerId=${ownerId}`).then(axiosResult => {
         let response = axiosResult.data;
         if(response.status === 200){
-            // **제거
-            setTimeout(function(){
-                let redirectUrl = response.data + "?deliveryId=" + deliveryId + "&ownerId=" + ownerId;
-                location.replace(redirectUrl);
-            }, 5000)
+            let redirectUrl = `${response.data}?deliveryId=${deliveryId}&ownerId=${ownerId}`;
+            location.replace(redirectUrl);
         } else{
             console.log(response.error);
             alert(response.error)

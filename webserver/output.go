@@ -135,12 +135,19 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Infof("[웹핸들러] 아이템을 불출할 슬롯: %v", slotIds)
 
+	if len(slotIds) == 0 {
+		// 에러처리
+		log.Error()
+		return
+	}
+
 	// 테이블에 빈 트레이가 있는 경우 회수 요청
 	emptyTrayExistsOnTable, err := plc.SenseTableForEmptyTray()
 	if err != nil {
 		// TODO - PLC 에러 처리
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
 	}
 
 	if emptyTrayExistsOnTable {
@@ -160,6 +167,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
 	}
 
 	// 슬롯 정보로 PLC에 불출 요청
@@ -181,6 +189,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				// TODO - 에러처리
 				log.Error(err)
+				return
 			}
 
 			// TODO - 수령/반납 화면으로 넘길 지 결정
