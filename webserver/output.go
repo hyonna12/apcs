@@ -144,20 +144,16 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if emptyTrayExistsOnTable {
-		// 빈 트레이를 넣을 슬롯 선정
-		emptySlots, err := model.SelectEmptySlotList()
-		if err != nil {
-			log.Error(err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		}
-		// TODO - 빈 트레이를 수납할 최적 슬롯 선정
-		slotForEmptyTray := emptySlots[0]
+		go func() {
+			err := RetrieveEmptyTrayFromTable()
+			if err != nil {
+				log.Error(err)
+				// TODO - 에러 처리
+			}
+		}()
 
-		err = plc.RetrieveEmptyTrayFromTable(slotForEmptyTray)
-		if err != nil {
-			log.Error(err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		}
+		// Output 요청이 먼저 테이블을 점유하는 것을 방지
+		time.Sleep(1 * time.Second)
 	}
 
 	err = templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
@@ -476,13 +472,6 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		// TODO - DB 에러 처리
 	}
 
-	// TODO - 삭제
-	//itemBottomSlot, err := model.SelectSlotByItemId(itemId)
-	//if err != nil {
-	//	log.Error(err)
-	//	// TODO - DB 에러 처리
-	//}
-
 	slots, err := model.SelectSlotsInLaneByItemId(itemId)
 	if err != nil {
 		log.Error(err)
@@ -514,8 +503,6 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		} else {
 			slot.SlotKeepCnt = slots[idx-1].SlotKeepCnt + 1
 		}
-
-		slot.UDatetime = time.Now()
 	}
 
 	_, err = model.UpdateSlots(slots)
@@ -556,9 +543,8 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 			log.Error(err)
 		}
 
-		// TODO - 빈 트레이 회수하면서 로봇 대기 해제 - 빈 트레이는 일단 원래 아이템이 있던 곳으로
-		// TODO - 빈 트레이 격납 위치 선정 로직 추가
-		if err = plc.RetrieveEmptyTrayFromTable(itemBottomSlot); err != nil {
+		err = plc.DismissRobotAtTable()
+		if err != nil {
 			log.Error(err)
 			// TODO - PLC 에러 처리
 		}

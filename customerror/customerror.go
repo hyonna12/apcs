@@ -17,4 +17,6 @@ const (
 	ErrRobotJobDistributionTimeout CustomError = "Job is not distributed to any robot during the timeout limit."
 
 	ErrNoRowsAffected CustomError = "No rows affected by update query"
+
+	ErrNoEmptyTrayOnTable = "No empty tray on table"
 )

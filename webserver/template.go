@@ -1,7 +1,6 @@
 package webserver
 
 import (
-	"apcs_refactored/plc"
 	"html/template"
 	"net/http"
 	"os"
@@ -51,76 +50,47 @@ func Home(w http.ResponseWriter, r *http.Request) {
 /* Input_Item */
 func RegistDelivery(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/input/regist_delivery" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
 	templ.ExecuteTemplate(w, "input/regist_delivery", &Page{Title: "Home"})
 }
 
 func InputItem(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/input/input_item" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
 	templ.ExecuteTemplate(w, "input/input_item", &Page{Title: "Home"})
 }
 
 func RegistOwner(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/input/regist_owner" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
 	templ.ExecuteTemplate(w, "input/regist_owner", &Page{Title: "Home"})
 }
 
 func InputItemError(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/input/input_item_error" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
 	templ.ExecuteTemplate(w, "input/input_item_error", &Page{Title: "Home"})
 }
 
 func RegistOwnerError(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/input/regist_owner_error" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
 	templ.ExecuteTemplate(w, "input/regist_owner_error", &Page{Title: "Home"})
 }
 
 func CompleteInputItem(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/input/complete_input_item" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-
 	templ.ExecuteTemplate(w, "input/complete_input_item", &Page{Title: "Home"})
 }
 
 func CancelInputItem(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	if r.URL.Path != "/input/cancel_input_item" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
 
-	err := plc.DismissRobotAtTable()
-	if err != nil {
-		// TODO - PLC 에러처리
-		log.Error(err)
-	}
+	log.Infof("[웹핸들러] 수납 취소")
+
+	// 빈 트레이 회수 및 DB 업데이트
+	go func() {
+		err := RetrieveEmptyTrayFromTable()
+		if err != nil {
+			log.Error(err)
+			// TODO - 에러 처리
+		}
+	}()
 
 	templ.ExecuteTemplate(w, "input/cancel_input_item", &Page{Title: "Home"})
 }

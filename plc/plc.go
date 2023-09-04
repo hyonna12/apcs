@@ -2,10 +2,12 @@ package plc
 
 import (
 	"apcs_refactored/config"
+	"apcs_refactored/customerror"
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
+	"database/sql"
 	"math/rand"
 	"time"
 
@@ -25,6 +27,8 @@ var (
 	simulatorDelay time.Duration
 	// TODO - temp - 키오스크 임시 물건 꺼내기 버튼 시뮬레이션 용
 	IsItemOnTable = false
+	// TODO - temp - 빈 트레이 감지 시뮬레이션 용
+	TrayIdOnTable sql.NullInt64
 )
 
 type ItemDimension struct {
@@ -76,7 +80,11 @@ func SetUpDoor(doorType door.DoorType, doorOperation door.DoorOperation) error {
 func SenseTableForEmptyTray() (bool, error) {
 	log.Infof("[PLC_Sensor] 테이블 빈 트레이 감지")
 	// TODO - PLC 센서 빈 트레이 감지 로직
-	return false, nil
+	if IsItemOnTable {
+		return false, nil
+	}
+
+	return TrayIdOnTable.Valid, nil
 }
 
 // SenseTableForItem
@@ -104,6 +112,7 @@ func ServeEmptyTrayToTable(slot model.Slot) error {
 	if err := robot.JobServeEmptyTrayToTable(slot); err != nil {
 		return err
 	}
+	TrayIdOnTable = slot.TrayId
 
 	return nil
 }
@@ -152,7 +161,7 @@ func SenseItemInfo() (ItemDimension, error) {
 // - from: 트레이를 꺼낼 슬롯
 // - to: 트레이를 넣을 슬롯
 func MoveTray(from, to model.Slot) error {
-	log.Infof("[PLC] 트레이 이동: %v -> %v", from, to)
+	log.Infof("[PLC] 트레이 이동: fromSlotId=%v -> toSlotId=%v", from.SlotId, to.SlotId)
 	// TODO -
 
 	return nil
@@ -161,16 +170,20 @@ func MoveTray(from, to model.Slot) error {
 // RetrieveEmptyTrayFromTable
 //
 // 테이블의 빈 트레이 회수.
+// 회수한 트레이의 id를 반환
 //
 // - slot: 빈 트레이를 격납할 슬롯
-func RetrieveEmptyTrayFromTable(slot model.Slot) error {
-	log.Infof("[PLC] 테이블 빈 트레이 회수. slot: %v", slot)
+func RetrieveEmptyTrayFromTable(slot model.Slot) (int64, error) {
+	log.Infof("[PLC] 테이블 빈 트레이 회수. slotId=%v", slot.SlotId)
 
 	if err := robot.JobRetrieveEmptyTrayFromTable(slot); err != nil {
-		return err
+		return 0, err
 	}
 
-	return nil
+	trayId := TrayIdOnTable.Int64
+	TrayIdOnTable = sql.NullInt64{Valid: false} // set null
+
+	return trayId, nil
 }
 
 // InputItem
@@ -207,4 +220,12 @@ func OutputItem(slot model.Slot) error {
 
 	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil
+}
+
+func GetTrayIdOnTable() (int64, error) {
+	if !TrayIdOnTable.Valid {
+		return 0, customerror.ErrNoRowsAffected
+	}
+
+	return TrayIdOnTable.Int64, nil
 }

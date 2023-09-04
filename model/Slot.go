@@ -246,6 +246,9 @@ func SelectEmptySlotList() ([]Slot, error) {
 	return slots, nil
 }
 
+// SelectSlotListForEmptyTray
+//
+// 빈 트레이를 수납할 슬롯 선정
 func SelectSlotListForEmptyTray() ([]Slot, error) {
 	query := `
 			SELECT 
@@ -291,6 +294,7 @@ func SelectSlotsInLaneByItemId(itemId int64) ([]Slot, error) {
 					lane
 				FROM TN_CTR_SLOT
 				WHERE item_id = ?
+				LIMIT 1
 			)
 			ORDER BY FLOOR
 
@@ -352,7 +356,7 @@ func UpdateSlots(slots []Slot) (int64, error) {
 				tray_id = ?,
 				item_id = ?,
 				check_datetime = ?, 
-				u_datetime = ?
+				u_datetime = NOW()
 			WHERE slot_id = ?
 		`
 
@@ -365,7 +369,6 @@ func UpdateSlots(slots []Slot) (int64, error) {
 			slot.TrayId,
 			slot.ItemId,
 			slot.CheckDatetime,
-			slot.UDatetime,
 			slot.SlotId,
 		)
 		if err != nil {
@@ -403,7 +406,8 @@ func UpdateSlot(request SlotUpdateRequest) (int64, error) {
 			    slot_enabled = ?, 
 			    slot_keep_cnt = ?, 
 			    tray_id = ?, 
-			    item_id = ?
+			    item_id = ?,
+			    u_datetime = NOW()
 			WHERE 
 				lane = ? 
 				AND floor = ?
@@ -839,6 +843,10 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 	return affected, nil
 }
 
+// SelectEmptyTray
+//
+// 빈 트레이 선정
+// TODO - 최적화 필요
 func SelectEmptyTray() (Slot, error) {
 	query := `
 			SELECT
@@ -846,7 +854,7 @@ func SelectEmptyTray() (Slot, error) {
 			    slot_keep_cnt,
 			    lane, 
 			    floor, 
-			    min(tray_id) 
+			    min(tray_id)
 			FROM TN_CTR_SLOT
 			WHERE 
 			    slot_enabled = 1

@@ -353,13 +353,17 @@ func JobWaitAtTable() error {
 func JobDismiss() error {
 	log.Infof("[PLC_로봇] 대기 상태 해제")
 
-	robot, err := getRobot(robotStatusWaiting, "대기 해제")
-	if err != nil {
-		return err
-	}
+	for _, robot := range robots {
+		if robot.status == robotStatusWaiting {
+			robot, err := getRobot(robotStatusWaiting, "대기 해제")
+			if err != nil {
+				return err
+			}
 
-	resource.ReleaseTable()
-	robot.changeStatus(robotStatusAvailable)
+			resource.ReleaseTable()
+			robot.changeStatus(robotStatusAvailable)
+		}
+	}
 
 	return nil
 }

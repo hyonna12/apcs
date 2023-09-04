@@ -20,7 +20,9 @@ func Handler(r *mux.Router) {
 	})
 
 	/* input */
+	// [View] 택배 입고 버튼을 누른 경우 호출
 	r.HandleFunc("/input/regist_delivery", RegistDelivery).Methods(http.MethodGet)
+	// [View] 테이블에 빈 트레이가 서빙된 후 호출
 	r.HandleFunc("/input/input_item", InputItem).Methods(http.MethodGet)
 	r.HandleFunc("/input/input_item_error", InputItemError).Methods(http.MethodGet)
 	r.HandleFunc("/input/regist_owner", RegistOwner).Methods(http.MethodGet)
@@ -29,9 +31,14 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/cancel_input_item", CancelInputItem).Methods(http.MethodGet)
 
 	r.HandleFunc("/input/get_delivery_list", DeliveryCompanyList).Methods(http.MethodGet)
+	// [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출
+	//
+	// 성공 시 /input/input_item 호출
 	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods(http.MethodPost)
+	// [API] 택배기사가 물건을 테이블에 올려놓은 경우 호출
 	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods(http.MethodPost)
-	r.HandleFunc("/input/input", Input).Methods(http.MethodPost)
+	// [API] 물품 계측 후 수납 가능 시 호출 (입고가 완료되었습니다 화면에서 호출)
+	//r.HandleFunc("/input/input", Input).Methods(http.MethodPost)
 	r.HandleFunc("/input/stop_input", StopInput).Methods(http.MethodPost)
 	r.HandleFunc("/input/senseItem", SenseItem).Methods(http.MethodPost)
 

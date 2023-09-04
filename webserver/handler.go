@@ -3,6 +3,7 @@ package webserver
 import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
+	"database/sql"
 	"encoding/json"
 	"net/http"
 	"time"
@@ -22,7 +23,7 @@ type CommonResponse struct {
 } */
 
 type InputInfoRequest struct {
-	DeliveryId string `json:"delivery_id"`
+	DeliveryId int64  `json:"delivery_id"`
 	Address    string `json:"address"`
 	PhoneNum   string `json:"phone_num"`
 }
@@ -63,10 +64,7 @@ type request struct {
 }
 
 var (
-	inputInfoRequest InputInfoRequest
-	itemDimension    plc.ItemDimension
-	bestSlot         model.Slot
-	requestList      map[int64]*request
+	requestList map[int64]*request
 )
 
 func Response(w http.ResponseWriter, data interface{}, status int, err error) {
@@ -100,6 +98,35 @@ func ChangeKioskView(url string) error {
 		return err
 	}
 	broadcastToPrivate(request)
+
+	return nil
+}
+
+func RetrieveEmptyTrayFromTable() error {
+	log.Info("[웹핸들러] 입고 취소 후 빈 트레이 회수")
+	slots, err := model.SelectSlotListForEmptyTray()
+	if err != nil {
+		return err
+	}
+	slotForEmptyTray := slots[0]
+
+	retrievedEmptyTrayId, err := plc.RetrieveEmptyTrayFromTable(slotForEmptyTray)
+	if err != nil {
+		return err
+	}
+
+	updateRequest := model.SlotUpdateRequest{
+		SlotEnabled: true,
+		SlotKeepCnt: slotForEmptyTray.SlotKeepCnt,
+		TrayId:      sql.NullInt64{Int64: retrievedEmptyTrayId, Valid: true},
+		ItemId:      sql.NullInt64{Valid: false},
+		Lane:        slotForEmptyTray.Lane,
+		Floor:       slotForEmptyTray.Floor,
+	}
+	_, err = model.UpdateSlot(updateRequest)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

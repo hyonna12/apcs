@@ -23,23 +23,24 @@
 </div>
 
 <script>
+    // TODO - 삭제
     /* 입고 */
-    axios.post('/input/input').then(res => {
-        console.log(res.data);
-
-        if(res.data.status === 200){
-            console.log("완료")
-            setTimeout(function(){
-                location.href='/';
-            }, 8000);
-        } else{
-            console.log("입고 불가");
-        }
-         
-    }).catch(err => {
-        console.log(err);
-        alert(err.response.data.error);
-    });
+    // axios.post('/input/input').then(res => {
+    //     console.log(res.data);
+    //
+    //     if(res.data.status === 200){
+    //         console.log("완료")
+    //         setTimeout(function(){
+    //             location.href='/';
+    //         }, 8000);
+    //     } else{
+    //         console.log("입고 불가");
+    //     }
+    //
+    // }).catch(err => {
+    //     console.log(err);
+    //     alert(err.response.data.error);
+    // });
 
 </script>
 {{end}}
