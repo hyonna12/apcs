@@ -24,7 +24,7 @@ type TrayReadResponse struct {
 
 type TrayUpdateRequest struct {
 	TrayOccupied bool
-	ItemId       int64
+	ItemId       sql.NullInt64
 }
 
 func SelectTrayList() ([]TrayReadResponse, error) {

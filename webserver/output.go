@@ -157,6 +157,16 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 				log.Error(err)
 				// TODO - 에러 처리
 			}
+
+			trayUpdateRequest := model.TrayUpdateRequest{TrayOccupied: true, ItemId: sql.NullInt64{Valid: false}}
+			_, err = model.UpdateTray(plc.GetTrayIdOnTable().Int64, trayUpdateRequest)
+			if err != nil {
+				// TODO - 에러처리
+				log.Error(err)
+				return
+			}
+
+			plc.SetTrayIdOnTable(sql.NullInt64{Valid: false})
 		}()
 
 		// Output 요청이 먼저 테이블을 점유하는 것을 방지

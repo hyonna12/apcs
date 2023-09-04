@@ -281,7 +281,10 @@ func inputItem(bestSlot model.Slot, deliveryIdStr string, ownerIdStr string, ite
 
 	// 슬롯, 트레이 db 업데이트
 	// 트레이 아이디 추가
-	trayUpdateRequest := model.TrayUpdateRequest{TrayOccupied: true, ItemId: itemId}
+	trayUpdateRequest := model.TrayUpdateRequest{
+		TrayOccupied: true,
+		ItemId:       sql.NullInt64{Int64: itemId, Valid: true},
+	}
 	_, err = model.UpdateTray(plc.GetTrayIdOnTable().Int64, trayUpdateRequest)
 	if err != nil {
 		// TODO - 에러처리
