@@ -218,13 +218,24 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		defer resp.Body.Close()
 
 		respData, err := io.ReadAll(resp.Body)
-		json.Unmarshal(respData, &bestSlot)
 		if err != nil {
+			// changeKioskView
+			// return
+			Response(w, nil, http.StatusInternalServerError, err)
+		}
+		err = json.Unmarshal(respData, &bestSlot)
+		fmt.Println("슬롯", bestSlot)
+		if bestSlot.Lane == 0 {
 			Response(w, nil, http.StatusBadRequest, errors.New("수납가능한 슬롯이 없습니다"))
 			return
 		}
 
-		fmt.Println(bestSlot)
+		if err != nil {
+			// changeKioskView
+			// return
+			Response(w, nil, http.StatusInternalServerError, err)
+		}
+
 	}
 	err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
 	if err != nil {
