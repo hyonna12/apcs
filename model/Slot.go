@@ -843,7 +843,7 @@ func SelectEmptyTray() (Slot, error) {
 			    min(tray_id) 
 			FROM TN_CTR_SLOT
 			WHERE 
-			    slot_enabled = 0
+			    slot_enabled = 1
 				AND tray_id IS NOT null
 			`
 
