@@ -9,7 +9,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"math/rand"
 	"net/http"
@@ -638,16 +637,12 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 	for idx := range slots {
 		slot := &slots[idx]
 
-		fmt.Println(idx)
-		fmt.Println(slot)
-		fmt.Println(bestSlot.SlotId, slot.SlotId)
 		// 물건 가장 아랫부분 슬롯 갱신
 		if slot.SlotId == bestSlot.SlotId {
 			slot.SlotEnabled = false
 			slot.SlotKeepCnt = 0
 			slot.ItemId = sql.NullInt64{Int64: item.ItemId, Valid: true}
 			slot.TrayId = currentSlot.TrayId
-			fmt.Println(slot.TrayId)
 			continue
 		}
 

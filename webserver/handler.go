@@ -6,7 +6,6 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -111,7 +110,6 @@ func RetrieveEmptyTrayFromTable() error {
 		return err
 	}
 	slotForEmptyTray := slots[0]
-	fmt.Println(slotForEmptyTray)
 	retrievedEmptyTrayId, err := plc.RetrieveEmptyTrayFromTable(slotForEmptyTray)
 	if err != nil {
 		return err
