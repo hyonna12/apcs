@@ -1,5 +1,6 @@
 {{define "input/regist_delivery"}}
 {{template "header" .}}
+
 <style>
     #modal {
         position: fixed;
@@ -36,44 +37,79 @@
         cursor: pointer;
       }
 </style>
-<div class="sub-right">
-    <h2 class="sub-right-title">물품기사 정보 입력</h2>
-    <div class="sub-right-con">
-        <div class="sub-con-sec join-sec">
-            <div class="form-wrap">
-                <div style="margin-bottom: 30px;">아래의 정보를 입력하세요</div>
-                <form action="">
-                    <div class="input-item">
-                        <label for="delivery_company">택배 회사</label>
-                        <select id="delivery_company">
-                        </select>
-                    </div>
-                    <div class="input-item">
-                        <label for="address">수령인 주소</label>
-                        <input type="text" id="address">
-                    </div>
-                    <div class="input-item">
-                        <label for="phone_num">수령인 연락처</label>
-                        <input type="text" id="phone_num">
-                    </div>
-                </form>
+
+<body>
+    <div id="modal">
+        <div class="modal-content">
+          <p>입고 준비중입니다. <br/> 잠시만 기다려주세요</p>
+        </div>
+    </div>
+
+    <div class="popup-layer" style="display: none;" id="popup_company">
+        <div class="popup-box">
+            <div class="popup-body">
+                <p class="company-title">택배 회사 선택</p>
+                <ul class="company-list" id="delivery_company">
+                </ul>
             </div>
-            <div class="btn-wrap">
-                <button class="btn-normal" id="delivery_regist_btn" onclick="send_delivery_info()">입력완료</button><br><br>
-                <button class="btn-small" id="home_btn" onclick="send_stop_info()">첫 화면으로</button>
+            <div class="popup-footer">
+                <div class="btn-wrap">
+                    <button class="btn-normal" id="choice_company">선택 완료</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div id="modal">
-    <div class="modal-content">
-      <p>입고 준비중입니다. <br/> 잠시만 기다려주세요</p>
+    <div class="wrap">
+        <header id="header">
+            <div class="header-wrap">
+                <p class="greeting">안녕하세요</p>
+                <p class="address">대전 OO아파트 2차 101동 1-4 라인</p>
+                <p class="datetime">2023년 9월 13일 16:12</p>
+            </div>
+        </header>
+        <main id="main">
+            <div class="content-wrap">
+                <div class="fixed-btn">
+                    <button class="btn-normal" id="home_btn">첫 화면으로</button>
+                </div>
+                <div class="list-box">
+                    <div class="list-title">아래의 정보를 입력해 주세요</div>
+                    <div class="list-top company">
+                        <p class="title">택배 회사</p>
+                        <p class="value" ><input type="text" id="select_company"></p>
+                    </div>
+                    <div class="list-top">
+                        <p class="title">수령인 주소</p>
+                        <p class="value" ><input type="number" id="select_address">호</p>
+                    </div>
+                    <div class="list-top">
+                        <p class="title">수령인 연락처</p>
+                        <p class="value" ><input type="number" id="select_num"></p>
+                    </div>
+                    <div class="number-input" id="number_keypad">
+                        <button class="number" value="1">1</button>
+                        <button class="number" value="2">2</button>
+                        <button class="number" value="3">3</button>
+                        <button class="number" value="4">4</button>
+                        <button class="number" value="5">5</button>
+                        <button class="number" value="6">6</button>
+                        <button class="number" value="7">7</button>
+                        <button class="number" value="8">8</button>
+                        <button class="number" value="9">9</button>
+                        <button></button>
+                        <button class="number" value="0">0</button>
+                        <button id="backspace"><img src="/static/images/backspace.png" alt=""></button>
+                    </div>
+                    <div class="btn-wrap">
+                        <button class="btn-normal">입력 완료</button>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-  </div>
+</body>
+</html>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
     /* 택배 회사 리스트 조회 */
@@ -83,9 +119,14 @@
         console.log(delivery_list)
         for(let i=0; i<delivery_list.length; i++){
             list += `
-                <option name="delivery_company" value="${delivery_list[i].delivery_id}">${delivery_list[i].delivery_company}</option> 
+                <li>
+                    <div class="radio-item">
+                        <input type="radio" id="radio${delivery_list[i].delivery_id}" name="radio" value="${delivery_list[i].delivery_id}">
+                        <label for="radio${delivery_list[i].delivery_id}" class="company-name">${delivery_list[i].delivery_company}</label>
+                    </div>
+                </li>            
             `
-        
+
             $('#delivery_company').html(list);
         }
     }).catch(err => {
@@ -94,12 +135,13 @@
     });
 
     const modal = document.getElementById("modal");
-
+    let company_id;
+    
     /* 배송 정보 전달 */
     function send_delivery_info() {
 
         let request = JSON.stringify({
-            delivery_id: $("#delivery_company :selected").val(),
+            delivery_id: company_id,
             address: $('#address').val(),
             phone_num: $('#phone_num').val(),
         });
@@ -157,5 +199,50 @@
         });
     }
     
+    select_company.onclick = () => {
+        document.getElementById("popup_company").style.display = 'block'
+       
+    };
+
+    choice_company.onclick = () => {
+        company_id = $("input[name='radio']:checked").val();
+        company_name = $("input[name=radio]:checked").next().text();
+    
+        document.getElementById('select_company').value = company_name;
+        document.getElementById("popup_company").style.display = 'none'
+    };
+
+    home_btn.onclick = () => {
+        send_stop_info();
+    };
+
+    let input;
+    select_address.onclick  = () => {
+        $('#select_address').focus();
+        input = $(":focus").attr('id')
+        console.log(input)
+    };
+    select_num.onclick  = () => {
+        $('#select_num').focus();
+        input = $(":focus").attr('id')
+        console.log(input)
+    };
+
+    $('.number').click(function(){
+        number = $(this).attr('value');
+        console.log(input)
+        document.getElementById("select_num").value = number;   // input 값으로 바꿔야함**********
+    });
+
+    backspace.onclick = () => {
+        console.log(input)
+        // input 에 있는 값 하나 지우기
+    };
+
+
+    // 숫자 클릭하면 list에 숫자 담고
+    // 현재 focus 되어있는 input 에 입력해줌
+ 
+
 </script>
 {{end}}

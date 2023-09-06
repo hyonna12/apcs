@@ -1,0 +1,134 @@
+@charset "utf-8";
+/* 공통 */
+.btn-wrap {width: 100%; text-align: center; margin: 0 auto; display: flex; justify-content: center; margin-top: 20px;}
+.btn-wrap button {margin-right: 10px;}
+.btn-wrap button:last-child {margin-right: 0;}
+.btn-normal {background-color: #fed154; border-radius: 10px; color: #333; width: 250px; height: 75px; line-height: 70px; vertical-align: middle; box-sizing: border-box; border: 4px solid #fed154; padding: 0 15px; cursor: pointer; font-size: 2rem; font-weight: 800;}
+.btn-white {background-color: #fff!important; border: 4px solid #1b4b43!important; color: #1b4b43!important;}
+.btn-grey {background-color: #fff!important; border: 1px solid #c1c1c1!important; color: #666!important; cursor: pointer;}
+.fixed-btn {position: fixed; bottom: 50px; right: 50px; display: flex; gap: 20px;}
+.fixed-btn button {background-color: #1b4b43; border: 4px solid #1b4b43; color: #fff;}
+
+.chk-item label {font-size: 13px;}
+.chk-item .label-cb {width: 25px; height: 25px;}
+.chk-item input[type=checkbox] {width: 0; height: 0; display: none;}
+.chk-item input[type=checkbox] + label.label-cb {display: inline-block; border: 1px solid #bcbcbc; cursor: pointer; margin-right: 5px; vertical-align: sub; border-radius: 3px;}
+.chk-item input[type="checkbox"]:checked + label.label-cb {position: relative;}
+.chk-item input[type="checkbox"]:checked + label.label-cb::after {content: url('../images/input_check.png'); position: absolute; top: 0; left: 0.5px; transform: scale(0.9);}
+
+[type="radio"]:checked, [type="radio"]:not(:checked) {position: absolute;left: -9999px;}
+[type="radio"]:checked + label, [type="radio"]:not(:checked) + label {position: relative; padding-left: 43px; cursor: pointer; line-height: 24px; display: inline-block;}
+[type="radio"]:checked + label:before, [type="radio"]:not(:checked) + label:before {content: ''; position: absolute; left: 0; top: 0; width: 24px; height: 24px; border: 1px solid #d9d9d9; border-radius: 100%; background: #fff; line-height: 24px;}
+[type="radio"]:checked + label:before {border: 1px solid #1ab269;}
+[type="radio"]:checked + label:after, [type="radio"]:not(:checked) + label:after {content: ''; width: 15.5px; height: 15.5px; background: #1ab269; position: absolute; top: 5px; left: 5px; border-radius: 100%; -webkit-transition: all 0.2s ease; transition: all 0.2s ease;}
+[type="radio"]:not(:checked) + label:after {opacity: 0; -webkit-transform: scale(0); transform: scale(0);}
+[type="radio"]:checked + label:after {opacity: 1; -webkit-transform: scale(1); transform: scale(1);}
+
+.green {color: #1b4b43;}
+
+/* 테이블 */
+.tbl {width: 100%; font-size: 2rem; text-align: center;}
+.tbl th, .tbl td, .tbl thead tr th, .tbl tbody tr td {vertical-align: middle; border: 3px solid #ccc;}
+.tbl tbody tr td {padding: 25px;}
+
+/* 팝업 */
+.popup-layer {display: block; position: absolute; width: 100%; height: 100%; overflow: hidden; background-color: rgba(0,0,0,0.4); top: 0; left: 0; z-index: 9998;}
+.popup-box {width: 55%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff; box-sizing: border-box; padding: 40px; border-radius: 22px;}
+.popup-box.msg-box {width: 60%;}
+
+.popup-header {display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ccc; font-size: 3rem;}
+.popup-header .close {position: relative; width: 16px; height: 16px;}
+.popup-header .close .bar {width: 16px; height: 1.5px; background-color: #000; display: inline-block; position: absolute; top: 4px; left: 0; cursor: pointer;}
+.popup-header .close .bar:nth-child(1) {transform: rotate(45deg);}
+.popup-header .close .bar:nth-child(2) {transform: rotate(-45deg);}
+
+.popup-body {overflow-y: hidden; position: relative}
+.popup-body .msg {font-size: 2.8rem; font-weight: 700; word-break: keep-all; text-align: center; line-height: 140%; width: 80%; margin: 0 auto; padding: 30px 0;}
+.popup-body .time-msg {font-size: 2.2rem; font-weight: 600; word-break: keep-all; text-align: center; line-height: 135%; width: 90%; margin: 0 auto; padding: 20px 0;}
+
+.popup-footer {margin-top: 60px; margin-bottom: 20px; position: sticky;}
+.popup-footer .btn-wrap {display: flex; justify-content: center; gap: 15px;}
+.popup-footer .btn-wrap button {margin-right: 5px;}
+.popup-footer .btn-wrap button:last-child {margin-right: 0;}
+
+/* 메인 */
+.wrap {overflow: hidden;}
+.banner {position: relative; height: 420px;}
+.banner .title-wrap {position: absolute; top: 50%; transform: translateY(-50%); padding-left: 40px;}
+.banner .title {font-size: 7rem; color: #000; margin-bottom: 20px; font-weight: 900;}
+.banner .sub-title {font-size: 4rem; color: #000; font-weight: 800;}
+.banner .ad {width: 100%; background-color: #fff; height: 100%;}
+
+.btn-wrap {display: flex; gap: 30px; height: calc(100% - 420px); align-items: center;}
+.btn-wrap .btn {border-radius: 30px; padding: 30px; box-sizing: border-box;}
+.btn-wrap .btn:nth-child(1) {background-color: #fed154; color: #000;}
+.btn-wrap .btn:nth-child(2) {background-color: #1b4b43; color: #fff;}
+.btn-wrap .btn {width: 45%; height: 600px; display: flex; flex-direction: column; justify-content: center; align-items: center;}
+.btn-wrap .btn img {width: fit-content; height: 250px; margin-bottom: 40px;}
+.btn-wrap .btn .btn-title {font-size: 4rem; line-height: 125%; font-weight: 700;}
+
+/* 메시지 */
+.msg-wrap {border-radius: 24px; background-color: #fff; width: 60%; margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 40px; box-sizing: border-box;}
+.msg-wrap .img-wrap {margin: 50px auto 30px; text-align: center;;}
+.msg-wrap .img-wrap img {height: 220px;}
+.msg-wrap .msg {font-size: 2.8rem; font-weight: 700; word-break: keep-all; text-align: center; line-height: 140%; width: 80%; margin: 0 auto; padding: 30px 0;}
+.msg-wrap .time-msg {font-size: 2.2rem; font-weight: 600; word-break: keep-all; text-align: center; line-height: 135%; width: 90%; margin: 0 auto; padding: 20px 0;}
+.msg-wrap .time-count {text-align: center; display: flex; justify-content: center; margin: 40px auto 30px;}
+.msg-wrap .time-count span {display: flex; justify-content: center; align-items: center; width: 190px; height: 190px; border-radius: 100%; background-color: #fed154; color: #333; font-weight: 600; font-size: 5.5rem;}
+.msg-wrap .msg-footer {margin-top: 50px; margin-bottom: 20px; position: sticky;}
+.msg-wrap .msg-footer .btn-wrap {display: flex; justify-content: center; gap: 15px;}
+
+.info-tbl {width: 90%; margin: 10px  auto;}
+.info-tbl td {text-align: left;}
+
+.fail-msg {text-align: center; width: 80%; margin: 0 auto; word-break: keep-all;}
+.fail-msg p {margin-bottom: 30px; font-weight: 700; font-size: 2.8rem; line-height: 140%;}
+.fail-msg span {color: #f24949; font-weight: 800; font-size: 3.2rem;}
+
+/* 택배 입고 */
+.company-title {font-size: 2.2rem; margin-bottom: 25px; font-weight: 600;}
+.company-list {height: 500px; overflow-y: auto;}
+.company-list li {margin-bottom: 10px; border: 4px solid #ddd; border-radius: 15px;}
+.company-list li:last-child {margin-bottom: 0;}
+.company-list li .radio-item label {padding: 20px 20px 20px 63px; width: 100%; box-sizing: border-box;}
+.company-list li .radio-item input[type="radio"]:checked + label:before, .company-list li .radio-item input[type="radio"]:not(:checked) + label:before {top: 50%; left: 20px; transform: translateY(-50%);}
+.company-list li .radio-item input[type="radio"]:checked + label:after, .company-list li .radio-item input[type="radio"]:not(:checked) + label:after {top: 50%; transform: translateY(-50%); left: 25.2px;}
+.company-list .company-name {font-size: 1.8rem; font-weight: 500;}
+
+/* 택배 찾기 */
+.number-input {display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; background-color: #ced0d4; padding: 10px; box-sizing: border-box; margin-bottom: 45px;}
+.number-input button {width: 100%; height: 90px; font-size: 2.6rem; font-weight: 700; padding: 10px 0; background-color: #fff; border: none; border-radius: 10px; display: flex; align-items: center; justify-content: center;}
+.number-input button img {width: 50px;}
+
+.list-box {min-width: 80%; min-height: 50%; background-color: #fff; padding: 30px; box-sizing: border-box; border-radius: 25px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+.list-box .list-title {font-size: 2.8rem; font-weight: 700; text-align: center; margin: 0 auto 60px; background-color: #1b4b43; color: #fff; padding: 18px 30px; box-sizing: border-box; width: fit-content; border-radius: 15px; word-break: keep-all; line-height: 135%;}
+.list-box .list-top {text-align: center; margin-bottom: 40px; display: flex; gap: 40px; align-items: center; justify-content: center;}
+.list-box .list-top .title {font-size: 2.8rem; font-weight: 600; width: 300px;}
+.list-box .list-top .value {font-size: 3rem; font-weight: 700; background-color: #efefef; padding: 15px 50px; display: flex; align-items: center; justify-content: center; width: 350px;}
+.list-box .list-top.company .value input {background-image: url(/images/ico_search.png); background-repeat: no-repeat; background-size: 10%; background-position: 100% 50%;}
+.list-box .list-top input {width: 100%; height: 48px; border: none; margin-right: 10px; background-color: transparent; font-size: 3rem; font-weight: 700; text-align: center;}
+.list-box .list-tbl-wrap {overflow: auto; height: 445px; z-index: 9;}
+.list-box .list-tbl-wrap .list-tbl {width: 100%; text-align: center; border-top: 1px solid #ddd; border-collapse: collapse;}
+.list-box .list-tbl-wrap .list-tbl tr th {font-size: 2rem; background-color: #efefef; position: sticky; top: 0;}
+.list-box .list-tbl-wrap .list-tbl tr td {font-size: 1.6rem;}
+.list-box .list-tbl-wrap .list-tbl tr th, .list-box .list-tbl-wrap .list-tbl tr td {padding: 20px 15px; border: 1px solid #ddd;}
+.list-count {margin: 50px auto; text-align: center; font-size: 2.5rem; font-weight: 600;}
+.list-count span {color: #2f8375; font-weight: 700;}
+
+@media all and (max-width:1024px) {
+    /* 메인 */
+
+}
+
+@media all and (max-width:768px) {
+    /* 메인 */   
+}
+
+@media all and (max-width:568px) {
+
+}
+
+
+@media all and (max-width:320px) {
+    
+}

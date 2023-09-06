@@ -1,0 +1,8 @@
+.header-wrap {width: 100%; height: 191px; color: #fff; background-color: #1b4b43; padding: 25px; box-sizing: border-box;}
+.header-wrap p {line-height: 140%; text-align: right; }
+.header-wrap .greeting {font-size: 2.2rem; font-weight: 600;}
+.header-wrap .address {font-size: 2.3rem; font-weight: 700;}
+.header-wrap .datetime {font-size: 1.8rem; font-weight: 500;}
+
+.content-wrap {height: calc(100vh - 191px); box-sizing: border-box; background-color: #faf0d7;} /* cbb99d */
+
