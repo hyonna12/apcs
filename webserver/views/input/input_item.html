@@ -6,7 +6,7 @@
     <div class="main-con"></div> -->
 </div>
 
-<div class="sub-right" style="background-color: white; display: ">
+<div class="sub-right" style="background-color: white; ">
     <h2 class="sub-right-title">송장이 위로 향하게 투입해주세요!</h2>
     <div class="sub-right-con">
         <div class="sub-con-sec">
@@ -23,7 +23,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script>
+<script>    
     let url = new URL(window.location.href);
     let deliveryId = url.searchParams.get("deliveryId");
     let ownerId = url.searchParams.get("ownerId");
@@ -53,8 +53,8 @@
 
         axios.post('/input/stop_input', request).then(res => {
             if(res.data.status === 200){
-                alert('입고를 취소하셨습니다.');
                 location.href='/input/cancel_input_item'
+                alert('입고를 취소하셨습니다.');
             } else{
                 console.log(res.data.error)
                 alert(res.data.error)

@@ -22,7 +22,7 @@ func SelectDeliveryIdByCompany(deliveryCompany string) (int64, error) {
 			`
 
 	var deliveryId int64
-	row := db.QueryRow(query, deliveryCompany)
+	row := DB.QueryRow(query, deliveryCompany)
 	err := row.Scan(&deliveryId)
 	if err != nil {
 		return deliveryId, err
@@ -40,7 +40,7 @@ func SelectDeliveryCompanyList() ([]Delivery, error) {
 			FROM TN_INF_DELIVERY
 		`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}

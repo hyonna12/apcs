@@ -2,7 +2,6 @@ package model
 
 import (
 	"apcs_refactored/customerror"
-	"context"
 	"database/sql"
 	"strconv"
 	"strings"
@@ -39,7 +38,7 @@ func SelectSlotList() ([]Slot, error) {
 		SELECT * FROM TN_CTR_SLOT
 	`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +91,7 @@ func SelectSlotsByItemIds(itemIds []int64) ([]Slot, error) {
 			AND s.tray_id IS NOT NULL
 	`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +136,7 @@ func SelectItemLocationByItemId(itemId int64) (Slot, error) {
 
 	var slot Slot
 
-	row := db.QueryRow(query, itemId)
+	row := DB.QueryRow(query, itemId)
 	err := row.Scan(&slot.ItemId, &slot.SlotId, &slot.Lane, &slot.Floor)
 	if err != nil {
 		return Slot{}, err
@@ -162,7 +161,7 @@ func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
 				AND lane != 2
 			`
 
-	rows, err := db.Query(query, itemHeight)
+	rows, err := DB.Query(query, itemHeight)
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +191,7 @@ func SelectSlotListWithoutItem() ([]Slot, error) {
 			WHERE slot_enabled = 1
 			`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -227,7 +226,7 @@ func SelectEmptySlotList() ([]Slot, error) {
 				AND tray_id is null
 			`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -252,19 +251,19 @@ func SelectEmptySlotList() ([]Slot, error) {
 func SelectSlotListForEmptyTray() ([]Slot, error) {
 	query := `
 			SELECT 
-			    s.slot_id, 
-			    s.lane, 
-			    s.floor, 
-			    s.transport_distance, 
-			    s.slot_keep_cnt, 
-			    s.tray_id
-			FROM TN_CTR_SLOT s
-			JOIN TN_CTR_TRAY t
-				ON s.tray_id = t.tray_id
-			WHERE t.tray_occupied = 0
+			    slot_id, 
+			    lane, 
+			    floor, 
+			    transport_distance, 
+			    slot_keep_cnt, 
+			    tray_id
+			FROM TN_CTR_SLOT 
+			WHERE slot_enabled = 1
+			AND tray_id is NULL
+			AND (lane = 1 OR lane = 2)
 			`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -273,7 +272,7 @@ func SelectSlotListForEmptyTray() ([]Slot, error) {
 
 	for rows.Next() {
 		var slot Slot
-		err := rows.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.SlotKeepCnt, &slot.TrayId, &slot.ItemId)
+		err := rows.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.TransportDistance, &slot.SlotKeepCnt, &slot.TrayId)
 		if err != nil {
 			return nil, err
 		}
@@ -299,7 +298,7 @@ func SelectSlotsInLaneByItemId(itemId int64) ([]Slot, error) {
 			ORDER BY FLOOR
 		`
 
-	rows, err := db.Query(query, itemId)
+	rows, err := DB.Query(query, itemId)
 	if err != nil {
 		return nil, err
 	}
@@ -342,7 +341,7 @@ func SelectSlotsInLane(lane int) ([]Slot, error) {
 			ORDER BY FLOOR
 		`
 
-	rows, err := db.Query(query, lane)
+	rows, err := DB.Query(query, lane)
 	if err != nil {
 		return nil, err
 	}
@@ -375,14 +374,7 @@ func SelectSlotsInLane(lane int) ([]Slot, error) {
 	return slots, nil
 }
 
-func UpdateSlots(slots []Slot) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateSlots(slots []Slot, tx *sql.Tx) (int64, error) {
 
 	var totalAffected int64
 
@@ -425,22 +417,10 @@ func UpdateSlots(slots []Slot) (int64, error) {
 		totalAffected += affected
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
 	return totalAffected, nil
 }
 
-func UpdateSlot(request SlotUpdateRequest) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateSlot(request SlotUpdateRequest, tx *sql.Tx) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_SLOT
@@ -469,22 +449,10 @@ func UpdateSlot(request SlotUpdateRequest) (int64, error) {
 		return 0, customerror.ErrNoRowsAffected
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
 	return affected, nil
 }
 
-func UpdateStorageSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateStorageSlotList(itemHeight int, req SlotUpdateRequest, tx *sql.Tx) (int64, error) {
 
 	var minStorageSlot = req.Floor - itemHeight + 1
 	query := `
@@ -511,22 +479,10 @@ func UpdateStorageSlotList(itemHeight int, req SlotUpdateRequest) (int64, error)
 		return 0, customerror.ErrNoRowsAffected
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
 	return affected, nil
 }
 
-func UpdateOutputSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateOutputSlotList(itemHeight int, req SlotUpdateRequest, tx *sql.Tx) (int64, error) {
 
 	var minStorageSlot = req.Floor - itemHeight + 1
 	query := `
@@ -565,11 +521,6 @@ func UpdateOutputSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) 
 		return 0, customerror.ErrNoRowsAffected
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
 	return affected, nil
 }
 
@@ -587,7 +538,7 @@ func SelectStorageSlotListWithTray(itemHeight, lane, floor int) ([]Slot, error) 
 			  	AND floor BETWEEN ? AND ?
 			  	AND tray_id IS NOT NULL
 			`
-	rows, err := db.Query(query, lane, minStorageSlot, floor)
+	rows, err := DB.Query(query, lane, minStorageSlot, floor)
 	if err != nil {
 		return nil, err
 	}
@@ -626,7 +577,7 @@ func SelectSlotInfoByLocation(lane, floor int) (Slot, error) {
 
 	var slot Slot
 
-	row := db.QueryRow(query, lane, floor)
+	row := DB.QueryRow(query, lane, floor)
 	err := row.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.TransportDistance, &slot.SlotEnabled, &slot.SlotKeepCnt, &slot.TrayId, &slot.ItemId)
 	if err != nil {
 		return Slot{}, err
@@ -635,14 +586,7 @@ func SelectSlotInfoByLocation(lane, floor int) (Slot, error) {
 	return slot, nil
 }
 
-func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int, tx *sql.Tx) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_SLOT s
@@ -694,22 +638,10 @@ func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int) (int64, error) {
 		return 0, customerror.ErrNoRowsAffected
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
 	return affected, nil
 }
 
-func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateOutputSlotKeepCnt(lane, floor int, tx *sql.Tx) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_SLOT s
@@ -758,11 +690,6 @@ func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
 
 	if affected == 0 {
 		return 0, customerror.ErrNoRowsAffected
-	}
-
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
 	}
 
 	return affected, nil
@@ -836,7 +763,7 @@ func SelectSlotByItemId(item_id int64) (Slot, error) {
 
 	var slot Slot
 
-	row := db.QueryRow(query, item_id)
+	row := DB.QueryRow(query, item_id)
 	err := row.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.TrayId, &slot.ItemId)
 	if err != nil {
 		return Slot{}, err
@@ -845,14 +772,7 @@ func SelectSlotByItemId(item_id int64) (Slot, error) {
 	return slot, nil
 }
 
-func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateSlotToEmptyTray(request SlotUpdateRequest, tx *sql.Tx) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_SLOT
@@ -874,11 +794,6 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 
 	if affected == 0 {
 		return 0, customerror.ErrNoRowsAffected
-	}
-
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
 	}
 
 	return affected, nil
@@ -906,7 +821,7 @@ func SelectSlotWithEmptyTray() (Slot, error) {
 
 	var slot Slot
 
-	row := db.QueryRow(query)
+	row := DB.QueryRow(query)
 
 	err := row.Scan(
 		&slot.SlotId,

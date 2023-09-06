@@ -4,14 +4,16 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
+	"context"
 	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func RegistAddress(w http.ResponseWriter, r *http.Request) {
@@ -158,11 +160,24 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 				// TODO - 에러 처리
 			}
 
+			tx, err := model.DB.BeginTx(context.Background(), nil)
+			if err != nil {
+				return
+			}
+			defer func(tx *sql.Tx) {
+				_ = tx.Rollback()
+			}(tx)
+
 			trayUpdateRequest := model.TrayUpdateRequest{TrayOccupied: true, ItemId: sql.NullInt64{Valid: false}}
-			_, err = model.UpdateTray(plc.GetTrayIdOnTable().Int64, trayUpdateRequest)
+			_, err = model.UpdateTray(plc.GetTrayIdOnTable().Int64, trayUpdateRequest, tx)
 			if err != nil {
 				// TODO - 에러처리
 				log.Error(err)
+				return
+			}
+
+			err = tx.Commit()
+			if err != nil {
 				return
 			}
 
@@ -511,7 +526,8 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	// slot-keep-cnt 갱신
 	for idx := range slots {
 		slot := &slots[idx]
-
+		fmt.Println(idx)
+		fmt.Println(slot)
 		// 비어있는 슬롯에 대해서만 진행
 		if !slot.SlotEnabled {
 			continue
@@ -521,17 +537,27 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 			slot.SlotKeepCnt = 1
 		} else {
 			slot.SlotKeepCnt = slots[idx-1].SlotKeepCnt + 1
+			fmt.Println(slot.SlotKeepCnt)
 		}
 	}
 
-	_, err = model.UpdateSlots(slots)
+	// 트랜잭션
+	tx, err := model.DB.BeginTx(context.Background(), nil)
+	if err != nil {
+		return
+	}
+	defer func(tx *sql.Tx) {
+		_ = tx.Rollback()
+	}(tx)
+
+	_, err = model.UpdateSlots(slots, tx)
 	if err != nil {
 		log.Error(err)
 		// TODO - DB 에러 처리
 	}
 
 	// 택배 불출 시간 업데이트
-	_, err = model.UpdateOutputTime(item.ItemId)
+	_, err = model.UpdateOutputTime(item.ItemId, tx)
 	if err != nil {
 		log.Error()
 		// TODO - DB 에러 처리
@@ -545,10 +571,15 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// TODO - DB 에러 처리
 	}
-	_, err = model.UpdateTrayEmpty(itemBottomSlot.TrayId.Int64, trayUpdateRequest)
+	_, err = model.UpdateTrayEmpty(itemBottomSlot.TrayId.Int64, trayUpdateRequest, tx)
 	if err != nil {
 		log.Error(err)
 		// TODO - DB 에러 처리
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return
 	}
 
 	delete(requestList, itemId)

@@ -2,7 +2,6 @@ package model
 
 import (
 	"apcs_refactored/customerror"
-	"context"
 	"database/sql"
 	"time"
 )
@@ -38,7 +37,7 @@ func SelectTrayList() ([]TrayReadResponse, error) {
 			JOIN TN_CTR_SLOT s
 				ON t.tray_id = s.tray_id
 			`
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +65,7 @@ func SelectEmptyTrayList() ([]TrayReadResponse, error) {
 			WHERE tray_occupied = 0
 			`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -85,14 +84,7 @@ func SelectEmptyTrayList() ([]TrayReadResponse, error) {
 	return trayReadResponses, nil
 }
 
-func UpdateTray(trayId int64, trayUpdateRequest TrayUpdateRequest) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateTray(trayId int64, trayUpdateRequest TrayUpdateRequest, tx *sql.Tx) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_TRAY
@@ -102,7 +94,7 @@ func UpdateTray(trayId int64, trayUpdateRequest TrayUpdateRequest) (int64, error
 			WHERE tray_id = ?
 			`
 
-	result, err := db.Exec(query, trayUpdateRequest.TrayOccupied, trayUpdateRequest.ItemId, trayId)
+	result, err := tx.Exec(query, trayUpdateRequest.TrayOccupied, trayUpdateRequest.ItemId, trayId)
 	if err != nil {
 		return 0, err
 	}
@@ -116,22 +108,10 @@ func UpdateTray(trayId int64, trayUpdateRequest TrayUpdateRequest) (int64, error
 		return 0, customerror.ErrNoRowsAffected
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
 	return affected, nil
 }
 
-func UpdateTrayEmpty(trayId int64, trayUpdateRequest TrayUpdateRequest) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateTrayEmpty(trayId int64, trayUpdateRequest TrayUpdateRequest, tx *sql.Tx) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_TRAY
@@ -141,7 +121,7 @@ func UpdateTrayEmpty(trayId int64, trayUpdateRequest TrayUpdateRequest) (int64, 
 			WHERE tray_id = ?
 			`
 
-	result, err := db.Exec(query, trayUpdateRequest.TrayOccupied, trayId)
+	result, err := DB.Exec(query, trayUpdateRequest.TrayOccupied, trayId)
 	if err != nil {
 		return 0, err
 	}
@@ -153,11 +133,6 @@ func UpdateTrayEmpty(trayId int64, trayUpdateRequest TrayUpdateRequest) (int64, 
 
 	if affected == 0 {
 		return 0, customerror.ErrNoRowsAffected
-	}
-
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
 	}
 
 	return affected, nil

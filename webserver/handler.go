@@ -3,8 +3,10 @@ package webserver
 import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
+	"context"
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -109,7 +111,7 @@ func RetrieveEmptyTrayFromTable() error {
 		return err
 	}
 	slotForEmptyTray := slots[0]
-
+	fmt.Println(slotForEmptyTray)
 	retrievedEmptyTrayId, err := plc.RetrieveEmptyTrayFromTable(slotForEmptyTray)
 	if err != nil {
 		return err
@@ -123,7 +125,21 @@ func RetrieveEmptyTrayFromTable() error {
 		Lane:        slotForEmptyTray.Lane,
 		Floor:       slotForEmptyTray.Floor,
 	}
-	_, err = model.UpdateSlot(updateRequest)
+
+	tx, err := model.DB.BeginTx(context.Background(), nil)
+	if err != nil {
+		return err
+	}
+	defer func(tx *sql.Tx) {
+		_ = tx.Rollback()
+	}(tx)
+
+	_, err = model.UpdateSlot(updateRequest, tx)
+	if err != nil {
+		return err
+	}
+
+	err = tx.Commit()
 	if err != nil {
 		return err
 	}

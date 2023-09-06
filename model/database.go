@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	db *sql.DB
+	DB *sql.DB
 )
 
 func InitDB() {
@@ -29,11 +29,11 @@ func InitDB() {
 
 	log.Info("Successfully initialized database connection")
 
-	db = connection
+	DB = connection
 }
 
 func CloseDB() {
-	err := db.Close()
+	err := DB.Close()
 	if err != nil {
 		log.Panicf("Failed to close database")
 	}
