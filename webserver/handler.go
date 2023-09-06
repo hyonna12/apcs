@@ -17,11 +17,6 @@ type CommonResponse struct {
 	Error  interface{} `json:"error"`
 }
 
-/* type Data struct {
-	Url          string      `json:"url"`
-	ResponseData interface{} `json:"responseData"`
-} */
-
 type InputInfoRequest struct {
 	DeliveryId string `json:"delivery_id"`
 	Address    string `json:"address"`
@@ -53,14 +48,11 @@ type RequestStatus string
 const (
 	requestTypeInput  = "requestTypeInput"
 	requestTypeOutput = "requestTypeOutput"
-	//requestStatusPending = "pending" // TODO - 삭제
-	//requestStatusOngoing = "ongoing" // TODO - 삭제
 )
 
 type request struct {
 	itemId      int64
 	requestType RequestType
-	//requestStatus RequestStatus // TODO - 삭제
 }
 
 var (
@@ -102,12 +94,17 @@ func ChangeKioskView(url string) error {
 	return nil
 }
 
-func RetrieveEmptyTrayFromTable() error {
+// RetrieveEmptyTrayFromTableAndUpdateDb
+//
+// 테이블의 빈 트레이를 회수.
+// 빈 트레이를 격납할 위치를 선정하여 격납 후 DB 업데이트.
+func RetrieveEmptyTrayFromTableAndUpdateDb() error {
 	log.Info("[웹핸들러] 입고 취소 후 빈 트레이 회수")
 	slots, err := model.SelectSlotListForEmptyTray()
 	if err != nil {
 		return err
 	}
+	// TODO - 빈 트레이 격납 위치 최적화
 	slotForEmptyTray := slots[0]
 
 	retrievedEmptyTrayId, err := plc.RetrieveEmptyTrayFromTable(slotForEmptyTray)

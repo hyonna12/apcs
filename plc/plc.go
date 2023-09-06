@@ -58,14 +58,6 @@ func StartPlcClient(n *messenger.Node) {
 
 }
 
-func GetTrayIdOnTable() sql.NullInt64 {
-	return trayIdOnTable
-}
-
-func SetTrayIdOnTable(trayId sql.NullInt64) {
-	trayIdOnTable = trayId
-}
-
 // SetUpDoor
 //
 // 도어 조작.
@@ -152,10 +144,10 @@ func SenseItemInfo() (ItemDimension, error) {
 
 	// TODO - temp
 	itemDimension := &ItemDimension{
-		Height:      rand.Intn(40),
-		Width:       rand.Intn(40),
-		Weight:      rand.Intn(40),
-		TrackingNum: rand.Intn(40),
+		Height:      rand.Intn(10),
+		Width:       rand.Intn(10),
+		Weight:      rand.Intn(10),
+		TrackingNum: rand.Intn(10000),
 	}
 
 	return *itemDimension, nil
@@ -195,25 +187,29 @@ func RetrieveEmptyTrayFromTable(slot model.Slot) (int64, error) {
 
 // InputItem
 //
-// 물품 수납.
+// 물품 수납. 트레이 id 반환
 //
 // - slot: 물품을 수납할 슬롯
-func InputItem(slot model.Slot) error {
+func InputItem(slot model.Slot) (int64, error) {
 	log.Infof("[PLC] 물품 수납. slotId=%v", slot.SlotId)
 
 	if err := robot.JobInputItem(slot); err != nil {
-		return err
+		return 0, err
 	}
 
 	// TODO - temp - 시뮬레이션 용
 	IsItemOnTable = false
 
-	return nil
+	trayId := trayIdOnTable.Int64
+	trayIdOnTable = sql.NullInt64{Valid: false} // set null
+
+	return trayId, nil
 }
 
 // OutputItem
 //
 // 물품 불출.
+//
 // - slot: 물품을 꺼내올 슬롯
 func OutputItem(slot model.Slot) error {
 	log.Infof("[PLC] 물품 불출 시작. 꺼내올 슬롯 id=%v", slot.SlotId)
@@ -224,6 +220,8 @@ func OutputItem(slot model.Slot) error {
 
 	// TODO - temp - 시뮬레이션용
 	IsItemOnTable = true
+
+	trayIdOnTable = slot.TrayId
 
 	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil

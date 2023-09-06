@@ -85,7 +85,7 @@ func CancelInputItem(w http.ResponseWriter, r *http.Request) {
 
 	// 빈 트레이 회수 및 DB 업데이트
 	go func() {
-		err := RetrieveEmptyTrayFromTable()
+		err := RetrieveEmptyTrayFromTableAndUpdateDb()
 		if err != nil {
 			log.Error(err)
 			// TODO - 에러 처리

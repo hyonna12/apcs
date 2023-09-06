@@ -123,7 +123,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// item id로 물품이 보관된 슬롯 얻어오기
-	slots, err := model.SelectSlotsByItemIds(itemIds)
+	slots, err := model.SelectSlotListByItemIds(itemIds)
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Bad Request", http.StatusBadRequest)
@@ -152,21 +152,11 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 
 	if emptyTrayExistsOnTable {
 		go func() {
-			err := RetrieveEmptyTrayFromTable()
+			err := RetrieveEmptyTrayFromTableAndUpdateDb()
 			if err != nil {
 				log.Error(err)
 				// TODO - 에러 처리
 			}
-
-			trayUpdateRequest := model.TrayUpdateRequest{TrayOccupied: true, ItemId: sql.NullInt64{Valid: false}}
-			_, err = model.UpdateTray(plc.GetTrayIdOnTable().Int64, trayUpdateRequest)
-			if err != nil {
-				// TODO - 에러처리
-				log.Error(err)
-				return
-			}
-
-			plc.SetTrayIdOnTable(sql.NullInt64{Valid: false})
 		}()
 
 		// Output 요청이 먼저 테이블을 점유하는 것을 방지
@@ -355,7 +345,7 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 	}
 
 	go func() {
-		if err = plc.InputItem(slot); err != nil {
+		if _, err = plc.InputItem(slot); err != nil {
 			// TODO - PLC 에러처리
 			log.Error(err)
 		}
@@ -412,7 +402,7 @@ func ItemOutputReturnByTimeout(w http.ResponseWriter, r *http.Request) {
 		}
 
 		go func() {
-			if err = plc.InputItem(slot); err != nil {
+			if _, err = plc.InputItem(slot); err != nil {
 				// TODO - PLC 에러처리
 				log.Error(err)
 			}
@@ -485,20 +475,41 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 	}
 
+	// TODO - 아래 쿼리들 모두 한 트랜잭션으로 묶기
 	item, err := model.SelectItemById(itemId)
 	if err != nil {
 		log.Error(err)
+		return
 		// TODO - DB 에러 처리
 	}
 
-	slots, err := model.SelectSlotsInLaneByItemId(itemId)
+	// 트레이 업데이트
+	trayUpdateRequest := model.TrayUpdateRequest{
+		TrayOccupied: false,
+		ItemId:       sql.NullInt64{Valid: false},
+	}
+	itemBottomSlot, err := model.SelectSlotByItemId(itemId)
 	if err != nil {
 		log.Error(err)
+		return
+		// TODO - DB 에러 처리
+	}
+	_, err = model.UpdateTrayEmpty(itemBottomSlot.TrayId.Int64, trayUpdateRequest)
+	if err != nil {
+		log.Error(err)
+		return
+		// TODO - DB 에러 처리
+	}
+
+	slots, err := model.SelectSlotListByLaneAndItemId(itemId)
+	if err != nil {
+		log.Error(err)
+		return
 		// TODO - DB 에러 처리
 	}
 
 	// 물건이 차지하던 슬롯 초기화
-	for idx, _ := range slots {
+	for idx := range slots {
 		slot := &slots[idx]
 
 		if slot.ItemId.Int64 == itemId {
@@ -527,6 +538,7 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	_, err = model.UpdateSlots(slots)
 	if err != nil {
 		log.Error(err)
+		return
 		// TODO - DB 에러 처리
 	}
 
@@ -534,20 +546,7 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	_, err = model.UpdateOutputTime(item.ItemId)
 	if err != nil {
 		log.Error()
-		// TODO - DB 에러 처리
-	}
-
-	// TODO - tray 처리
-	trayUpdateRequest := model.TrayUpdateRequest{
-		TrayOccupied: false,
-	}
-	itemBottomSlot, err := model.SelectSlotByItemId(itemId)
-	if err != nil {
-		// TODO - DB 에러 처리
-	}
-	_, err = model.UpdateTrayEmpty(itemBottomSlot.TrayId.Int64, trayUpdateRequest)
-	if err != nil {
-		log.Error(err)
+		return
 		// TODO - DB 에러 처리
 	}
 
@@ -560,12 +559,15 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		err := ChangeKioskView("/output/ongoing")
 		if err != nil {
 			log.Error(err)
+			return
+			// TODO - 에러 처리
 		}
 
-		err = plc.DismissRobotAtTable()
+		err = RetrieveEmptyTrayFromTableAndUpdateDb()
 		if err != nil {
 			log.Error(err)
-			// TODO - PLC 에러 처리
+			return
+			// TODO - 에러처리
 		}
 
 	} else {
@@ -575,14 +577,17 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		err := ChangeKioskView("/output/thankyou")
 		if err != nil {
 			log.Error(err)
+			// TODO - 에러 처리
+			return
 		}
 
-		// TODO - output이 종료되면 대기상태 - 데드락 해결
 		err = plc.DismissRobotAtTable()
 		if err != nil {
 			log.Error(err)
+			return
 			// TODO - PLC 에러 처리
 		}
+
 	}
 
 	Response(w, nil, http.StatusOK, nil)
