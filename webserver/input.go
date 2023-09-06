@@ -9,6 +9,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"math/rand"
 	"net/http"
@@ -608,11 +609,6 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 		// TODO - DB 에러 처리
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return
-	}
-
 	/* outputSlotUpdateRequest := model.SlotUpdateRequest{Lane: currentSlot.Lane, Floor: currentSlot.Floor, SlotEnabled: true}
 	_, err = model.UpdateOutputSlotList(item.ItemHeight, outputSlotUpdateRequest, tx)
 	if err != nil {
@@ -631,28 +627,6 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 		// return
 	} */
 
-	// 트랜잭션
-	tx, err = model.DB.BeginTx(context.Background(), nil)
-	if err != nil {
-		return
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
-
-	// 슬롯, 트레이 db 업데이트
-	// 트레이 아이디 추가
-	trayUpdateRequest = model.TrayUpdateRequest{
-		TrayOccupied: true,
-		ItemId:       sql.NullInt64{Int64: item.ItemId, Valid: true},
-	}
-	_, err = model.UpdateTray(plc.GetTrayIdOnTable().Int64, trayUpdateRequest, tx)
-	if err != nil {
-		// TODO - 에러처리
-		log.Error(err)
-		return
-	}
-
 	// 아이템이 수납된 lane 슬롯 업데이트
 	slots, err = model.SelectSlotsInLane(bestSlot.Lane)
 	if err != nil {
@@ -664,12 +638,16 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 	for idx := range slots {
 		slot := &slots[idx]
 
+		fmt.Println(idx)
+		fmt.Println(slot)
+		fmt.Println(bestSlot.SlotId, slot.SlotId)
 		// 물건 가장 아랫부분 슬롯 갱신
 		if slot.SlotId == bestSlot.SlotId {
 			slot.SlotEnabled = false
 			slot.SlotKeepCnt = 0
 			slot.ItemId = sql.NullInt64{Int64: item.ItemId, Valid: true}
-			slot.TrayId = plc.GetTrayIdOnTable()
+			slot.TrayId = currentSlot.TrayId
+			fmt.Println(slot.TrayId)
 			continue
 		}
 
@@ -706,12 +684,7 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 		// TODO - DB 에러 처리
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return
-	}
-
-	inputSlotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, TrayId: currentSlot.TrayId, ItemId: currentSlot.ItemId}
+	/* inputSlotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, TrayId: currentSlot.TrayId, ItemId: currentSlot.ItemId}
 	_, err = model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, item.ItemHeight, tx)
 	if err != nil {
 		log.Errorf("[웹핸들러] 밑에 빈 슬롯없음. error=%v", err)
@@ -727,7 +700,7 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		// changeKioskView
 		// return
-	}
+	} */
 
 	err = tx.Commit()
 	if err != nil {

@@ -526,8 +526,7 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	// slot-keep-cnt 갱신
 	for idx := range slots {
 		slot := &slots[idx]
-		fmt.Println(idx)
-		fmt.Println(slot)
+
 		// 비어있는 슬롯에 대해서만 진행
 		if !slot.SlotEnabled {
 			continue
@@ -537,7 +536,6 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 			slot.SlotKeepCnt = 1
 		} else {
 			slot.SlotKeepCnt = slots[idx-1].SlotKeepCnt + 1
-			fmt.Println(slot.SlotKeepCnt)
 		}
 	}
 
