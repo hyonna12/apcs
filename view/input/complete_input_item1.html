@@ -1,0 +1,50 @@
+{{define "input/complete_input_item"}}
+{{template "header" .}}
+
+<div class="main-page" style="display: none;">
+    <!-- <div class="main-bg"></div>
+    <div class="main-con"></div> -->
+</div>
+
+<div class="sub-right" style="background-color: white; ">
+    <h2 class="sub-right-title">아이콘</h2>
+    <div class="sub-right-con">
+        <div class="sub-con-sec">
+            <div class="board-top-search" style="float: left;">
+                <p>택배 입고가 완료되었습니다.</p>
+                <p>추가 입고 하시겠습니까?</p>
+                <button class="btn-small" style="margin-top: 30px;"><a href="/input/regist_delivery">예</a></button>
+                <button class="btn-small" style="margin-top: 30px;"><a href="/">아니요</a></button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    setTimeout(function(){
+        location.href='/';
+    }, 8000);
+        
+    // TODO - 삭제
+    /* 입고 */
+    // axios.post('/input/input').then(res => {
+    //     console.log(res.data);
+    //
+    //     if(res.data.status === 200){
+    //         console.log("완료")
+    //         setTimeout(function(){
+    //             location.href='/';
+    //         }, 8000);
+    //     } else{
+    //         console.log("입고 불가");
+    //     }
+    //
+    // }).catch(err => {
+    //     console.log(err);
+    //     alert(err.response.data.error);
+    // });
+
+</script>
+{{end}}

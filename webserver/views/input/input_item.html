@@ -1,29 +1,28 @@
 {{define "input/input_item"}}
 {{template "header" .}}
 
-<div class="main-page" style="display: none;">
-    <!-- <div class="main-bg"></div>
-    <div class="main-con"></div> -->
-</div>
-
-<div class="sub-right" style="background-color: white; ">
-    <h2 class="sub-right-title">송장이 위로 향하게 투입해주세요!</h2>
-    <div class="sub-right-con">
-        <div class="sub-con-sec">
-            <div class="board-top-search" style="float: left;">
-                <!-- <button class="btn-small" id="complete_btn"><a href="/input/regist_owner">입고 완료</a></button> -->
-
-                <button class="btn-small" id="cancle_btn" onclick="send_stop_info()">입고 취소</button>
-                <button class="btn-small" id="home_btn" onclick="send_stop_info()">처음으로</button>
+        <main id="main">
+            <div class="content-wrap">
+                <div class="fixed-btn">
+                    <button class="btn-normal home_btn">첫 화면으로</button>
+                </div>
+                <!-- 택배 투입 -->
+                <div class="msg-wrap">
+                    <div class="msg-body">
+                        <div class="img-wrap">
+                            <img src="/static/images/parcel.png" alt="">
+                        </div>
+                        <p class="msg">송장이 위로 향하게 투입해 주세요!</p>
+                    </div>
+                </div>
             </div>
-
-        </div>
+        </main>
     </div>
-</div>
+</body>
+</html>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script>    
+<script>
     let url = new URL(window.location.href);
     let deliveryId = url.searchParams.get("deliveryId");
     let ownerId = url.searchParams.get("ownerId");
@@ -65,6 +64,9 @@
             alert(err.response.data.error)
         });
     }
-    </script>
 
+    $('.home_btn').click(function(){
+        send_stop_info();
+    });
+</script>
 {{end}}

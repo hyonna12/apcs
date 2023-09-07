@@ -233,7 +233,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		itemDimension = plc.ItemDimension{Height: rand.Intn(6) + 1, Width: 5, Weight: 3, TrackingNum: 1010} // **제거
+		itemDimension = plc.ItemDimension{Height: rand.Intn(6) + 1, Width: 5, Weight: 8, TrackingNum: 1010} // **제거
 		log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 	}
 

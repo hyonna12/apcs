@@ -1,31 +1,44 @@
 {{define "input/complete_input_item"}}
 {{template "header" .}}
 
-<div class="main-page" style="display: none;">
-    <!-- <div class="main-bg"></div>
-    <div class="main-con"></div> -->
-</div>
-
-<div class="sub-right" style="background-color: white; ">
-    <h2 class="sub-right-title">아이콘</h2>
-    <div class="sub-right-con">
-        <div class="sub-con-sec">
-            <div class="board-top-search" style="float: left;">
-                <p>택배 입고가 완료되었습니다.</p>
-                <p>추가 입고 하시겠습니까?</p>
-                <button class="btn-small" style="margin-top: 30px;"><a href="/input/regist_delivery">예</a></button>
-                <button class="btn-small" style="margin-top: 30px;"><a href="/">아니요</a></button>
-
+        <main id="main">
+            <div class="content-wrap">
+                <div class="fixed-btn">
+                    <button class="btn-normal home_btn">첫 화면으로</button>
+                </div>
+                <!-- 입고 완료 -->
+                <div class="msg-wrap">
+                    <div class="msg-body">
+                        <div class="img-wrap">
+                            <img src="/static/images/ico_check.png" alt="">
+                        </div>
+                        <p class="msg">택배 입고가 완료되었습니다. <br><br>추가 입고 하시겠습니까?</p>
+                    </div>
+                    <div class="msg-footer">
+                        <div class="btn-wrap">
+                            <button class="btn-normal" id="ok_btn">예</button>
+                            <button class="btn-normal btn-white" id="no_btn">아니오</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-        </div>
+        </main>
     </div>
-</div>
+</body>
+</html>
 
 <script>
     setTimeout(function(){
         location.href='/';
     }, 8000);
+
+    ok_btn.onclick = () => {
+        location.href="/input/regist_delivery"
+    };
+
+    no_btn.onclick = () => {
+        location.href="/"
+    };
         
     // TODO - 삭제
     /* 입고 */
