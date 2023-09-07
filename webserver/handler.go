@@ -3,6 +3,7 @@ package webserver
 import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
+	"context"
 	"database/sql"
 	"encoding/json"
 	"net/http"
@@ -106,7 +107,6 @@ func RetrieveEmptyTrayFromTableAndUpdateDb() error {
 	}
 	// TODO - 빈 트레이 격납 위치 최적화
 	slotForEmptyTray := slots[0]
-
 	retrievedEmptyTrayId, err := plc.RetrieveEmptyTrayFromTable(slotForEmptyTray)
 	if err != nil {
 		return err
@@ -120,7 +120,21 @@ func RetrieveEmptyTrayFromTableAndUpdateDb() error {
 		Lane:        slotForEmptyTray.Lane,
 		Floor:       slotForEmptyTray.Floor,
 	}
-	_, err = model.UpdateSlot(updateRequest)
+
+	tx, err := model.DB.BeginTx(context.Background(), nil)
+	if err != nil {
+		return err
+	}
+	defer func(tx *sql.Tx) {
+		_ = tx.Rollback()
+	}(tx)
+
+	_, err = model.UpdateSlot(updateRequest, tx)
+	if err != nil {
+		return err
+	}
+
+	err = tx.Commit()
 	if err != nil {
 		return err
 	}

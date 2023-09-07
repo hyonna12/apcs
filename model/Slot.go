@@ -2,7 +2,6 @@ package model
 
 import (
 	"apcs_refactored/customerror"
-	"context"
 	"database/sql"
 	"strconv"
 	"strings"
@@ -37,7 +36,7 @@ func SelectSlotList() ([]Slot, error) {
 		SELECT * FROM TN_CTR_SLOT
 	`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +89,7 @@ func SelectSlotListByItemIds(itemIds []int64) ([]Slot, error) {
 			AND s.tray_id IS NOT NULL
 	`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +137,7 @@ func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
 				AND lane != 2
 			`
 
-	rows, err := db.Query(query, itemHeight)
+	rows, err := DB.Query(query, itemHeight)
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +176,7 @@ func SelectSlotListForEmptyTray() ([]Slot, error) {
 				AND lane BETWEEN 1 AND 2
 			`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -226,7 +225,7 @@ func SelectSlotListWithEmptyTray() ([]Slot, error) {
 			    t.tray_occupied = 0
 			`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -268,7 +267,7 @@ func SelectSlotListByLaneAndItemId(itemId int64) ([]Slot, error) {
 			ORDER BY FLOOR
 		`
 
-	rows, err := db.Query(query, itemId)
+	rows, err := DB.Query(query, itemId)
 	if err != nil {
 		return nil, err
 	}
@@ -311,7 +310,7 @@ func SelectSlotListByLane(lane int) ([]Slot, error) {
 			ORDER BY FLOOR
 		`
 
-	rows, err := db.Query(query, lane)
+	rows, err := DB.Query(query, lane)
 	if err != nil {
 		return nil, err
 	}
@@ -361,7 +360,7 @@ func SelectSlotByItemId(itemId int64) (Slot, error) {
 
 	var slot Slot
 
-	row := db.QueryRow(query, itemId)
+	row := DB.QueryRow(query, itemId)
 	err := row.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.TrayId, &slot.ItemId)
 	if err != nil {
 		return Slot{}, err
@@ -370,14 +369,7 @@ func SelectSlotByItemId(itemId int64) (Slot, error) {
 	return slot, nil
 }
 
-func UpdateSlots(slots []Slot) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateSlots(slots []Slot, tx *sql.Tx) (int64, error) {
 
 	var totalAffected int64
 
@@ -420,23 +412,11 @@ func UpdateSlots(slots []Slot) (int64, error) {
 		totalAffected += affected
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
 	return totalAffected, nil
 }
 
 // TODO - id 기준으로 업데이트
-func UpdateSlot(request SlotUpdateRequest) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateSlot(request SlotUpdateRequest, tx *sql.Tx) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_SLOT
@@ -465,252 +445,10 @@ func UpdateSlot(request SlotUpdateRequest) (int64, error) {
 		return 0, customerror.ErrNoRowsAffected
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
 	return affected, nil
 }
 
-func UpdateStorageSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
-
-	var minStorageSlot = req.Floor - itemHeight + 1
-	query := `
-			UPDATE TN_CTR_SLOT
-			SET 
-			    slot_enabled = ?, 
-			    slot_keep_cnt = ?, 
-			    item_id = ?
-			WHERE lane = ? 
-				AND floor BETWEEN ? AND ?
-			`
-
-	result, err := tx.Exec(query, req.SlotEnabled, req.SlotKeepCnt, req.ItemId, req.Lane, minStorageSlot, req.Floor)
-	if err != nil {
-		return 0, err
-	}
-
-	affected, err := result.RowsAffected()
-	if err != nil {
-		return 0, err
-	}
-
-	if affected == 0 {
-		return 0, customerror.ErrNoRowsAffected
-	}
-
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
-	return affected, nil
-}
-
-func UpdateOutputSlotList(itemHeight int, req SlotUpdateRequest) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
-
-	var minStorageSlot = req.Floor - itemHeight + 1
-	query := `
-			UPDATE TN_CTR_SLOT s
-			SET 
-			    s.slot_enabled = ?, 
-			    s.slot_keep_cnt = (s.floor -
-					(IFNULL(
-								(
-									SELECT * FROM (
-										SELECT MAX(floor)
-										FROM TN_CTR_SLOT
-										WHERE (lane = ?) AND (floor < ? AND slot_keep_cnt = 0)
-									) a
-								), 0
-							)
-					)
-				), 
-			    s.item_id = null
-			WHERE 
-			    s.lane = ?
-			  	AND s.floor BETWEEN ? AND ?
-			`
-
-	result, err := tx.Exec(query, req.SlotEnabled, req.Lane, minStorageSlot, req.Lane, minStorageSlot, req.Floor)
-	if err != nil {
-		return 0, err
-	}
-
-	affected, err := result.RowsAffected()
-	if err != nil {
-		return 0, err
-	}
-
-	if affected == 0 {
-		return 0, customerror.ErrNoRowsAffected
-	}
-
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
-	return affected, nil
-}
-
-func UpdateStorageSlotKeepCnt(lane, floor, itemHeight int) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
-
-	query := `
-			UPDATE TN_CTR_SLOT s
-			SET s.slot_keep_cnt = (s.slot_keep_cnt - 
-				IF((s.floor=s.slot_keep_cnt), 
-					?, 
-					(
-						SELECT * FROM 
-						(
-							SELECT slot_keep_cnt 
-							FROM TN_CTR_SLOT 
-							WHERE (lane = ? AND FLOOR = ?)
-						) c 
-					)
-				) 
-			)
-			WHERE (s.floor > ? AND s.floor <=
-				IFNULL(
-						(
-							SELECT * FROM (
-								SELECT MIN(floor) - 1
-								FROM TN_CTR_SLOT
-								WHERE (lane = ?) AND (floor > ? AND slot_keep_cnt = 0)
-							) a
-						),
-						(
-							SELECT * FROM (
-								SELECT MAX(floor)
-								FROM TN_CTR_SLOT
-								WHERE (lane = ? AND floor > ?)
-							) b
-						)
-					)
-				)
-			AND s.lane = ?
-			`
-
-	result, err := tx.Exec(query, floor, lane, floor, floor, lane, floor, lane, floor, lane)
-	if err != nil {
-		return 0, err
-	}
-
-	affected, err := result.RowsAffected()
-	if err != nil {
-		return 0, err
-	}
-
-	if affected == 0 {
-		return 0, customerror.ErrNoRowsAffected
-	}
-
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
-	return affected, nil
-}
-
-func UpdateOutputSlotKeepCnt(lane, floor int) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
-
-	query := `
-			UPDATE TN_CTR_SLOT s
-			SET s.slot_keep_cnt = (s.slot_keep_cnt +
-				IFNULL(
-						(
-							SELECT * FROM (
-								SELECT ? - MAX(FLOOR)
-								FROM TN_CTR_SLOT
-								WHERE (lane = ?) AND (FLOOR < ? AND slot_keep_cnt = 0)
-							) i
-						),
-							?
-						)
-					)
-			WHERE (s.floor > ? AND s.floor <=
-				IFNULL(
-						(
-							SELECT * FROM (
-								SELECT MIN(floor) - 1
-								FROM TN_CTR_SLOT
-								WHERE (lane = ?) AND (floor > ? AND slot_keep_cnt = 0)
-								) a
-							),
-							(
-								SELECT * FROM (
-									SELECT MAX(floor)
-									FROM TN_CTR_SLOT
-									WHERE (lane = ? AND floor > ?)
-								) b
-							)
-						)
-					)
-			AND s.lane = ?
-		`
-
-	result, err := tx.Exec(query, lane, floor)
-	if err != nil {
-		return 0, err
-	}
-
-	affected, err := result.RowsAffected()
-	if err != nil {
-		return 0, err
-	}
-
-	if affected == 0 {
-		return 0, customerror.ErrNoRowsAffected
-	}
-
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
-	return affected, nil
-}
-
-func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
-
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateSlotToEmptyTray(request SlotUpdateRequest, tx *sql.Tx) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_SLOT
@@ -732,11 +470,6 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest) (int64, error) {
 
 	if affected == 0 {
 		return 0, customerror.ErrNoRowsAffected
-	}
-
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
 	}
 
 	return affected, nil

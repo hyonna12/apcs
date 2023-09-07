@@ -2,7 +2,6 @@ package model
 
 import (
 	"apcs_refactored/customerror"
-	"context"
 	"database/sql"
 	"time"
 )
@@ -60,7 +59,7 @@ func SelectItemById(itemId int64) (Item, error) {
 			`
 
 	var item Item
-	row := db.QueryRow(query, itemId)
+	row := DB.QueryRow(query, itemId)
 	err := row.Scan(
 		&item.ItemId,
 		&item.ItemHeight,
@@ -90,7 +89,7 @@ func SelectItemLocationList() ([]ItemReadResponse, error) {
 				ON i.item_id = s.item_id
 			`
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -129,7 +128,7 @@ func SelectItemListByOwnerId(ownerId int) ([]ItemReadResponse, error) {
 			  	AND tray_id is not null
 			`
 
-	rows, err := db.Query(query, ownerId)
+	rows, err := DB.Query(query, ownerId)
 	if err != nil {
 		return nil, err
 	}
@@ -173,7 +172,7 @@ func SelectItemInfoByItemId(itemId int64) (ItemListResponse, error) {
 			`
 
 	var itemListResponse ItemListResponse
-	row := db.QueryRow(query, itemId)
+	row := DB.QueryRow(query, itemId)
 	err := row.Scan(
 		&itemListResponse.ItemId,
 		&itemListResponse.DeliveryCompany,
@@ -198,7 +197,7 @@ func SelectAddressByItemId(itemId int64) (string, error) {
 			`
 
 	var address string
-	row := db.QueryRow(query, itemId)
+	row := DB.QueryRow(query, itemId)
 	err := row.Scan(
 		&address,
 	)
@@ -226,7 +225,7 @@ func SelectItemListByAddress(address string) ([]ItemListResponse, error) {
 				i.output_date IS NULL
 			`
 
-	rows, err := db.Query(query, address)
+	rows, err := DB.Query(query, address)
 	if err != nil {
 		return nil, err
 	}
@@ -267,7 +266,7 @@ func SelectItemBySlot(lane, floor int) (ItemReadResponse, error) {
 
 	var itemReadResponse ItemReadResponse
 
-	row := db.QueryRow(query, lane, floor)
+	row := DB.QueryRow(query, lane, floor)
 	err := row.Scan(
 		&itemReadResponse.ItemId,
 	)
@@ -279,7 +278,7 @@ func SelectItemBySlot(lane, floor int) (ItemReadResponse, error) {
 }
 
 // InsertItem - DB에 물품 추가. 부여된 id 반환.
-func InsertItem(itemCreateRequest ItemCreateRequest) (int64, error) {
+func InsertItem(itemCreateRequest ItemCreateRequest, tx *sql.Tx) (int64, error) {
 	query := `INSERT INTO TN_CTR_ITEM(
                         item_height, 
                         tracking_number, 
@@ -289,7 +288,7 @@ func InsertItem(itemCreateRequest ItemCreateRequest) (int64, error) {
 			VALUES(?, ?, now(), ?, ?)
 			`
 
-	result, err := db.Exec(query, itemCreateRequest.ItemHeight, itemCreateRequest.TrackingNumber, itemCreateRequest.DeliveryId, itemCreateRequest.OwnerId)
+	result, err := tx.Exec(query, itemCreateRequest.ItemHeight, itemCreateRequest.TrackingNumber, itemCreateRequest.DeliveryId, itemCreateRequest.OwnerId)
 	if err != nil {
 		return 0, err
 	}
@@ -302,14 +301,7 @@ func InsertItem(itemCreateRequest ItemCreateRequest) (int64, error) {
 	return id, nil
 }
 
-func UpdateOutputTime(itemId int64) (int64, error) {
-	tx, err := db.BeginTx(context.Background(), nil)
-	if err != nil {
-		return 0, err
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
+func UpdateOutputTime(itemId int64, tx *sql.Tx) (int64, error) {
 
 	query := `
 			UPDATE TN_CTR_ITEM
@@ -331,11 +323,6 @@ func UpdateOutputTime(itemId int64) (int64, error) {
 		return 0, customerror.ErrNoRowsAffected
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return 0, err
-	}
-
 	return affected, nil
 }
 
@@ -348,7 +335,7 @@ func SelectItemIdByTrackingNum(trackingNumber int) (ItemReadResponse, error) {
 
 	var itemReadResponse ItemReadResponse
 
-	row := db.QueryRow(query, trackingNumber)
+	row := DB.QueryRow(query, trackingNumber)
 	err := row.Scan(&itemReadResponse.ItemId)
 	if err != nil {
 		return ItemReadResponse{}, err
@@ -371,7 +358,7 @@ func SelectItemExistsByAddress(address string) (bool, error) {
 			`
 
 	var exists bool
-	row := db.QueryRow(query, address)
+	row := DB.QueryRow(query, address)
 	err := row.Scan(&exists)
 	if err != nil {
 		return false, err
@@ -389,7 +376,7 @@ func SelectSortItemList() ([]ItemReadResponse, error) {
 
 	var itemReadResponses []ItemReadResponse
 
-	rows, err := db.Query(query)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}

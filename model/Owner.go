@@ -23,7 +23,7 @@ func SelectOwnerIdByAddress(address string) (int64, error) {
 
 	var ownerId int64
 
-	row := db.QueryRow(query, address)
+	row := DB.QueryRow(query, address)
 	err := row.Scan(&ownerId)
 	if err != nil {
 		log.Error(err)
@@ -43,7 +43,7 @@ func SelectPasswordByItemId(itemId int64) (int, error) {
 
 	var password int
 
-	row := db.QueryRow(query, itemId)
+	row := DB.QueryRow(query, itemId)
 	err := row.Scan(&password)
 	if err != nil {
 		log.Error(err)

@@ -4,14 +4,16 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
+	"context"
 	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func RegistAddress(w http.ResponseWriter, r *http.Request) {
@@ -475,7 +477,15 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 	}
 
-	// TODO - 아래 쿼리들 모두 한 트랜잭션으로 묶기
+	// 트랜잭션
+	tx, err := model.DB.BeginTx(context.Background(), nil)
+	if err != nil {
+		return
+	}
+	defer func(tx *sql.Tx) {
+		_ = tx.Rollback()
+	}(tx)
+
 	item, err := model.SelectItemById(itemId)
 	if err != nil {
 		log.Error(err)
@@ -494,7 +504,7 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		return
 		// TODO - DB 에러 처리
 	}
-	_, err = model.UpdateTrayEmpty(itemBottomSlot.TrayId.Int64, trayUpdateRequest)
+	_, err = model.UpdateTrayEmpty(itemBottomSlot.TrayId.Int64, trayUpdateRequest, tx)
 	if err != nil {
 		log.Error(err)
 		return
@@ -535,7 +545,7 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	_, err = model.UpdateSlots(slots)
+	_, err = model.UpdateSlots(slots, tx)
 	if err != nil {
 		log.Error(err)
 		return
@@ -543,11 +553,16 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 택배 불출 시간 업데이트
-	_, err = model.UpdateOutputTime(item.ItemId)
+	_, err = model.UpdateOutputTime(item.ItemId, tx)
 	if err != nil {
 		log.Error()
 		return
 		// TODO - DB 에러 처리
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return
 	}
 
 	delete(requestList, itemId)
@@ -587,7 +602,6 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 			return
 			// TODO - PLC 에러 처리
 		}
-
 	}
 
 	Response(w, nil, http.StatusOK, nil)
