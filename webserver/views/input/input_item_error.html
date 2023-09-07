@@ -1,30 +1,37 @@
 {{define "input/input_item_error"}}
 {{template "header" .}}
 
-<div class="main-page" style="display: none;">
-    <!-- <div class="main-bg"></div>
-    <div class="main-con"></div> -->
-</div>
-
-<div class="sub-right" style="background-color: white;">
-    <h2 class="sub-right-title">아이콘</h2>
-    <div class="sub-right-con">
-        <div class="sub-con-sec">
-            <div class="board-top-search" style="float: left;">
-                <h2>아래 사유로 입고에 실패했습니다.<h2>
-                <div id="put_error">
-                    <p></p>
+<main id="main">
+    <div class="content-wrap">
+        <div class="fixed-btn">
+            <button class="btn-normal home_btn">첫 화면으로</button>
+        </div>
+        <!-- 입고 실패 -->
+        <div class="msg-wrap home_btn">
+            <div class="msg-body">
+                <div class="img-wrap">
+                    <img src="/static/images/ico_report_red.png" alt="">
                 </div>
-                <h2>택배를 다시 입고해주세요<h2>
-                <button class="btn-small" id="cancle_btn" onclick="send_stop_info()">입고 취소</button>
-                <button class="btn-small" id="home_btn"><a href="/">처음으로</a></button>
+                <div class="fail-msg">
+                    <p>아래 사유로 입고에 실패했습니다.</p>
+                    <div id="error_msg">
+                        <span></span>
+                    </div>
+                    
+                </div>
+                <p class="msg">택배를 다시 입고해주세요.</p>
             </div>
-
+            <div class="msg-footer">
+                <div class="btn-wrap">
+                    <button class="btn-normal cancel_btn">입고 취소</button>
+                </div>
+            </div>
         </div>
     </div>
+</main>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
 
 <script>
     let getLink = window.location.search;
@@ -35,8 +42,8 @@
     getHtml(decodeError);
 
     function getHtml(error){
-        let getHtml = `<p>${error}</p>`
-        $('#put_error').html(getHtml)
+        let getHtml = `<span>${error}</span>`
+        $('#error_msg').html(getHtml)
     }
 
     /* 물품 회수 시 이 전으로 */ 
@@ -53,7 +60,7 @@
             console.log(err);
             alert(err)
         });
-    }, 3000);
+    }, 5000);
 
     /* 입고 취소 */
     function send_stop_info() {
@@ -75,6 +82,14 @@
             alert(err.response.data.error)
         });
     }
+
+    $('.home_btn').click(function(){
+        send_stop_info();
+    });
+
+    $('.cancel_btn').click(function(){
+        send_stop_info();
+    });
     
 </script>
 

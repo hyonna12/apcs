@@ -1,79 +1,107 @@
 {{define "input/regist_delivery"}}
 {{template "header" .}}
+
 <style>
     #modal {
-        position: fixed;
-        z-index: 1;
+        position: absolute;
+        z-index: 9998;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
         overflow: auto;
         background-color: rgba(0, 0, 0, 0.4);
-        display: none;
+        display: block;
       }
       .modal-content {
         background-color: rgb(2, 26, 2);
+        position: absolute;
+        top: 35%; 
+        left: 50%;
         margin: 15% auto;
-        padding: 100px 5px;
+        padding: 40px;
         border: 1px solid #888;
-        width: 50%;
-        font-size: xx-large;
-        font-weight: bold;
+        width: 55%;
+        transform: translate(-50%, -50%);
+      }
+      .modal-msg {
+        
         text-align: center;
         color: rgb(255, 174, 0);
-      }
-      .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-      }
-      .close:hover,
-      .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
+        font-size: 2.8rem; 
+        font-weight: 700;
+        word-break: keep-all;
+        line-height: 140%;
+        width: 80%; 
+        margin: 0 auto; 
+        padding: 30px 0;
       }
 </style>
-<div class="sub-right">
-    <h2 class="sub-right-title">물품기사 정보 입력</h2>
-    <div class="sub-right-con">
-        <div class="sub-con-sec join-sec">
-            <div class="form-wrap">
-                <div style="margin-bottom: 30px;">아래의 정보를 입력하세요</div>
-                <form action="">
-                    <div class="input-item">
-                        <label for="delivery_company">택배 회사</label>
-                        <select id="delivery_company">
-                        </select>
+
+        <main id="main">
+            <div class="content-wrap">
+                <div class="fixed-btn">
+                    <button class="btn-normal home_btn">첫 화면으로</button>
+                </div>
+                <div class="list-box">
+                    <div class="list-title">아래의 정보를 입력해 주세요</div>
+                    <div class="list-top company">
+                        <p class="title">택배 회사</p>
+                        <p class="value" ><input type="text" id="select_company" value=""></p>
                     </div>
-                    <div class="input-item">
-                        <label for="address">수령인 주소</label>
-                        <input type="text" id="address">
+                    <div class="list-top">
+                        <p class="title">수령인 주소</p>
+                        <p class="value" ><input type="number" id="select_address" value="">호</p>
                     </div>
-                    <div class="input-item">
-                        <label for="phone_num">수령인 연락처</label>
-                        <input type="text" id="phone_num">
+                    <div class="list-top">
+                        <p class="title">수령인 연락처</p>
+                        <p class="value" ><input type="number" id="select_num" value=""></p>
                     </div>
-                </form>
+                    <div class="number-input" id="number_keypad">
+                        <button class="number" value="1">1</button>
+                        <button class="number" value="2">2</button>
+                        <button class="number" value="3">3</button>
+                        <button class="number" value="4">4</button>
+                        <button class="number" value="5">5</button>
+                        <button class="number" value="6">6</button>
+                        <button class="number" value="7">7</button>
+                        <button class="number" value="8">8</button>
+                        <button class="number" value="9">9</button>
+                        <button></button>
+                        <button class="number" value="0">0</button>
+                        <button id="backspace"><img src="/static/images/backspace.png" alt=""></button>
+                    </div>
+                    <div class="btn-wrap">
+                        <button class="btn-normal" id="delivery_regist_btn">입력 완료</button>
+                    </div>
+                </div>
             </div>
-            <div class="btn-wrap">
-                <button class="btn-normal" id="delivery_regist_btn" onclick="send_delivery_info()">입력완료</button><br><br>
-                <button class="btn-small" id="home_btn" onclick="send_stop_info()">첫 화면으로</button>
+        </main>
+    </div>
+    <div class="popup-layer" style="display: none;" id="modal">
+        <div class="popup-box msg-box">
+            <div class="popup-body">
+                <p class="msg">입고 준비중입니다<br>잠시만 기다려주세요</p>
             </div>
         </div>
     </div>
-</div>
-
-<div id="modal">
-    <div class="modal-content">
-      <p>입고 준비중입니다. <br/> 잠시만 기다려주세요</p>
+    <div class="popup-layer" style="display: none;" id="popup_company">
+        <div class="popup-box">
+            <div class="popup-body">
+                <p class="company-title">택배 회사 선택</p>
+                <ul class="company-list" id="delivery_company">
+                </ul>
+            </div>
+            <div class="popup-footer">
+                <div class="btn-wrap">
+                    <button class="btn-normal" id="choice_company">선택 완료</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</body>
+</html>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
     /* 택배 회사 리스트 조회 */
@@ -83,9 +111,14 @@
         console.log(delivery_list)
         for(let i=0; i<delivery_list.length; i++){
             list += `
-                <option name="delivery_company" value="${delivery_list[i].delivery_id}">${delivery_list[i].delivery_company}</option> 
+                <li>
+                    <div class="radio-item">
+                        <input type="radio" id="radio${delivery_list[i].delivery_id}" checked name="radio" value="${delivery_list[i].delivery_id}">
+                        <label for="radio${delivery_list[i].delivery_id}" class="company-name">${delivery_list[i].delivery_company}</label>
+                    </div>
+                </li>            
             `
-        
+
             $('#delivery_company').html(list);
         }
     }).catch(err => {
@@ -94,21 +127,21 @@
     });
 
     const modal = document.getElementById("modal");
-
+    let company_id = '';
+    
     /* 배송 정보 전달 */
     function send_delivery_info() {
-
         let request = JSON.stringify({
-            delivery_id: $("#delivery_company :selected").val(),
-            address: $('#address').val(),
-            phone_num: $('#phone_num').val(),
+            delivery_id: company_id,
+            address: $('#select_address').val(),
+            phone_num: $('#select_num').val(),
         });
 
-        if ($('#delivery_company').val() == '') {
-            alert('소속회사를 입력해주세요.');
+        if (company_id == '') {
+            alert('택배 회사를 입력해주세요.');
             return false;
         }
-        if ($('#address').val() == '') {
+        if ($('#select_address').val() == '') {
             alert('수령인 주소를 입력해주세요.');
             return false;
         }
@@ -117,10 +150,11 @@
         document.body.style.overflow = "hidden";
 
         axios.post('/input/input_delivery_info', request).then(res => {
-
             console.log(res.data)
-            
             if(res.data.status === 200){
+                input = ''
+                address_list = []
+                number_list = []
                 location.replace(res.data.data)
             } else{
                 console.log(res.data.error)
@@ -157,5 +191,68 @@
         });
     }
     
+    select_company.onclick = () => {
+        document.getElementById("popup_company").style.display = 'block'
+       
+    };
+
+    choice_company.onclick = () => {
+        company_id = $("input[name='radio']:checked").val();
+        company_name = $("input[name=radio]:checked").next().text();
+    
+        document.getElementById('select_company').value = company_name;
+        document.getElementById("popup_company").style.display = 'none'
+    };
+
+    $('.home_btn').click(function(){
+        send_stop_info();
+    });
+   
+
+    let input;
+    let address_list = [];
+    let number_list = [];
+
+    select_address.onclick  = () => {
+        $('#select_address').focus();
+        input = $(":focus").attr('id')
+    };
+
+    select_num.onclick  = () => {
+        $('#select_num').focus();
+        input = $(":focus").attr('id')
+    };
+
+    $('.number').click(function(){
+        number = $(this).attr('value');
+        if (input == 'select_address') {
+            address_list.push(number)
+            address = address_list.join('');
+            document.getElementById("select_address").value = address;
+        } else{
+            number_list.push(number)
+            phone_num = number_list.join('');
+            document.getElementById("select_num").value = phone_num;
+        }
+    });
+
+    backspace.onclick = () => {
+        console.log(input)
+        if (input == 'select_address') {
+            address_list.shift()
+            address = address_list.join('');
+            document.getElementById("select_address").value = address;
+        } else{
+            number_list.shift()
+            phone_num = number_list.join('');
+            document.getElementById("select_num").value = phone_num;
+        }
+            };
+
+    delivery_regist_btn.onclick  = () => {
+        send_delivery_info()
+    };
+
+
 </script>
 {{end}}
