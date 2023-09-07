@@ -121,6 +121,7 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 		return err
 	}
 
+	// 테이블 점유를 해제하지 않고 대기상태 진입
 	robot.changeStatus(robotStatusWaiting)
 
 	return nil
