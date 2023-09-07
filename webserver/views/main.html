@@ -35,10 +35,10 @@
 </html>
 
 <script>
-    /*let intervalId;
+    let intervalId;
     setTimeout(function(){
         intervalId = setInterval(sort, 4000);
-    }, 10000); */
+    }, 10000); 
 
     function sort(){
         axios.post('/sort').then(res => {
@@ -47,7 +47,7 @@
         }).catch(err => {
             console.log(err);
             clearInterval(intervalId);
-            alert(err.response.data.error);
+            console.log(err.response.data.error);
         });
     }
 

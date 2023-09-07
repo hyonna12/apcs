@@ -587,38 +587,6 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 		// TODO - DB 에러 처리
 	}
 
-	// TODO - tray 처리
-	trayUpdateRequest := model.TrayUpdateRequest{
-		TrayOccupied: false,
-	}
-	itemBottomSlot, err := model.SelectSlotByItemId(item.ItemId)
-	if err != nil {
-		// TODO - DB 에러 처리
-	}
-	_, err = model.UpdateTrayEmpty(itemBottomSlot.TrayId.Int64, trayUpdateRequest, tx)
-	if err != nil {
-		log.Error(err)
-		// TODO - DB 에러 처리
-	}
-
-	/* outputSlotUpdateRequest := model.SlotUpdateRequest{Lane: currentSlot.Lane, Floor: currentSlot.Floor, SlotEnabled: true}
-	_, err = model.UpdateOutputSlotList(item.ItemHeight, outputSlotUpdateRequest, tx)
-	if err != nil {
-		log.Error(err)
-		// changeKioskView
-		// return
-	}
-	_, err = model.UpdateOutputSlotKeepCnt(currentSlot.Lane, currentSlot.Floor, tx)
-	if err != nil {
-		log.Errorf("[웹핸들러] 밑에 빈 슬롯없음. error=%v", err)
-	}
-	_, err = model.UpdateSlotToEmptyTray(outputSlotUpdateRequest, tx)
-	if err != nil {
-		log.Error(err)
-		// changeKioskView
-		// return
-	} */
-
 	// 아이템이 수납된 lane 슬롯 업데이트
 	slots, err = model.SelectSlotListByLane(bestSlot.Lane)
 	if err != nil {
