@@ -1,21 +1,24 @@
 {{define "output/item_list_error"}}
 {{template "header" .}}
 
-<div class="main-page" style="display: none;">
-    <!-- <div class="main-bg"></div>
-    <div class="main-con"></div> -->
-</div>
-
-<div class="sub-right" style="background-color: white; display: ">
-    <h2 class="sub-right-title">수령할 물품이 없습니다.</h2>
-    <div class="sub-right-con">
-        <div class="sub-con-sec">
-            <div class="board-top-search" style="float: left;">
-                <button class="btn-small" id="home_btn"><a href="/">처음으로</a></button>
-
+        <main id="main">
+            <div class="content-wrap">
+                <div class="fixed-btn">
+                    <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+                </div>
+                <!-- 메시지 -->
+                <div class="msg-wrap">
+                    <div class="msg-body">
+                        <div class="img-wrap">
+                            <img src="/static/images/warning.png" alt="">
+                        </div>
+                        <p class="msg">수령할 물품이 없습니다.</p>
+                    </div>
+                </div>
             </div>
-
-        </div>
+        </main>
     </div>
-</div>
+</body>
+</html>
+
 {{end}}

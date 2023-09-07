@@ -89,6 +89,9 @@ func Handler(r *mux.Router) {
 	// TODO - temp - [API] 키오스크 물건 꺼내기 버튼 (시뮬레이션 용)
 	r.HandleFunc("/output/takeout", ItemOutputTakeout).Methods(http.MethodPost)
 
+	// [VIEW] "불출 물품 없습니다" 화면 출력
+	r.HandleFunc("/output/item_list_error", ItemListError).Methods(http.MethodGet)
+
 	/* sort */
 	r.HandleFunc("/sort", Sort).Methods(http.MethodPost)
 

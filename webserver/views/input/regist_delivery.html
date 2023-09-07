@@ -209,7 +209,7 @@
     });
    
 
-    let input;
+    let input = 'select_address'
     let address_list = [];
     let number_list = [];
 
@@ -237,13 +237,12 @@
     });
 
     backspace.onclick = () => {
-        console.log(input)
         if (input == 'select_address') {
-            address_list.shift()
+            address_list.pop()
             address = address_list.join('');
             document.getElementById("select_address").value = address;
         } else{
-            number_list.shift()
+            number_list.pop()
             phone_num = number_list.join('');
             document.getElementById("select_num").value = phone_num;
         }
