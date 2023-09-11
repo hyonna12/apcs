@@ -37,7 +37,7 @@ func Handler(r *mux.Router) {
 	// [API] 택배기사가 물건을 테이블에 올려놓은 경우 호출
 	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods(http.MethodPost)
 	// [API] 물품 계측 후 수납 가능 시 호출 (입고가 완료되었습니다 화면에서 호출)
-	//r.HandleFunc("/input/input", Input).Methods(http.MethodPost)
+	r.HandleFunc("/input/input", Input).Methods(http.MethodPost)
 	r.HandleFunc("/input/stop_input", StopInput).Methods(http.MethodPost)
 	r.HandleFunc("/input/senseItem", SenseItem).Methods(http.MethodPost)
 

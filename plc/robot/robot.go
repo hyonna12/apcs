@@ -3,8 +3,9 @@ package robot
 import (
 	"apcs_refactored/config"
 	"apcs_refactored/model"
-	log "github.com/sirupsen/logrus"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type robotStatus string

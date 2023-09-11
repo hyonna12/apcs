@@ -57,7 +57,11 @@ type request struct {
 }
 
 var (
-	requestList map[int64]*request
+	requestList   map[int64]*request
+	itemDimension plc.ItemDimension
+	deliveryIdStr string
+	ownerIdStr    string
+	bestSlot      model.Slot
 )
 
 func Response(w http.ResponseWriter, data interface{}, status int, err error) {

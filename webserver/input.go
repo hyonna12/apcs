@@ -9,6 +9,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"math/rand"
 	"net/http"
@@ -173,7 +174,7 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 
 // ItemSubmitted
 //
-// [API] 택배기사가 물건을 테이블에 올려놓은 경우 호출
+// [API] 택배기사가 물건을 테이블에 올려놓기 전 호출
 func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
 	if err != nil {
@@ -182,8 +183,8 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
-	deliveryIdStr := r.URL.Query().Get("deliveryId")
-	ownerIdStr := r.URL.Query().Get("ownerId")
+	deliveryIdStr = r.URL.Query().Get("deliveryId")
+	ownerIdStr = r.URL.Query().Get("ownerId")
 
 	// 센싱하고 있다가 물품 감지
 	/* for {
@@ -216,7 +217,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO - temp
-	var itemDimension plc.ItemDimension
+	//var itemDimension plc.ItemDimension
 	// **수정
 	if !isItemOnTable {
 		// 물품 크기, 무게, 송장번호 조회
@@ -250,7 +251,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	buff := bytes.NewBuffer(pbytes)
 	resp, err := http.Post("http://localhost:8080/get/best_slot", "application/json", buff)
 
-	var bestSlot model.Slot
+	//var bestSlot model.Slot
 
 	if err != nil {
 		// 에러나면 직접 수납슬롯 구하기
@@ -282,7 +283,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		err = json.Unmarshal(respData, &bestSlot)
+		json.Unmarshal(respData, &bestSlot)
 		log.Infof("[웹핸들러] 최적 슬롯: slotId=%v", bestSlot.SlotId)
 		if bestSlot.Lane == 0 {
 			Response(w, nil, http.StatusBadRequest, errors.New("수납가능한 슬롯이 없습니다"))
@@ -293,10 +294,10 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 
 	Response(w, "/input/complete_input_item", http.StatusOK, nil)
 
-	go inputItem(bestSlot, deliveryIdStr, ownerIdStr, itemDimension)
+	//go inputItem(bestSlot, deliveryIdStr, ownerIdStr, itemDimension)
 }
 
-func inputItem(bestSlot model.Slot, deliveryIdStr string, ownerIdStr string, itemDimension plc.ItemDimension) {
+func Input(w http.ResponseWriter, r *http.Request) {
 
 	// 아이템 수납
 	log.Infof("[웹핸들러] 아이템 수납")
@@ -418,6 +419,7 @@ type StopRequest struct {
 }
 
 func StopInput(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("입고취소")
 	stopRequest := StopRequest{}
 	err := json.NewDecoder(r.Body).Decode(&stopRequest)
 	if err != nil {
