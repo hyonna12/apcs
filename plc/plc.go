@@ -6,6 +6,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
+	"container/list"
 	"database/sql"
 	"math/rand"
 	"time"
@@ -30,11 +31,52 @@ var (
 	trayIdOnTable sql.NullInt64
 )
 
+// 빈트레이 id를 담기 위한 스택
+type TrayBuffer struct {
+	ids *list.List
+}
+
 type ItemDimension struct {
 	Height      int
 	Width       int
 	Weight      int
 	TrackingNum int
+}
+
+func NewTrayBuffer() *TrayBuffer {
+	log.Debug("TrayBuffer created")
+	return &TrayBuffer{list.New()}
+}
+
+// stack 에 값 추가
+func (t *TrayBuffer) Push(id interface{}) {
+	t.ids.PushBack(id)
+}
+
+// 맨 위의 값 삭제하고 반환
+func (t *TrayBuffer) Pop() interface{} {
+	back := t.ids.Back()
+	if back == nil {
+		return nil
+	}
+
+	return t.ids.Remove(back)
+}
+
+func (t *TrayBuffer) Get() interface{} {
+	list := []any{}
+
+	back := t.ids.Back()
+	list = append(list, back.Value)
+
+	prev := back.Prev()
+	for prev != nil {
+		list = append(list, prev.Value)
+		prev = prev.Prev()
+	}
+	log.Debugf("buffer tray : %v", list)
+
+	return list
 }
 
 func StartPlcClient(n *messenger.Node) {

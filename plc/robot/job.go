@@ -4,9 +4,10 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/resource"
+	"time"
+
 	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
-	"time"
 )
 
 // job
@@ -360,7 +361,6 @@ func JobDismiss() error {
 			if err != nil {
 				return err
 			}
-
 			resource.ReleaseTable()
 			robot.changeStatus(robotStatusAvailable)
 		}

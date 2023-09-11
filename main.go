@@ -85,9 +85,18 @@ func main() {
 	for _, slot := range slots {
 		slotIds = append(slotIds, slot.SlotId)
 	}
+
+	// 트레이 버퍼 스택 생성
+	Buffer := plc.NewTrayBuffer()
+	for i := 1; i <= 15; i++ {
+		Buffer.Push(i)
+	}
+	Buffer.Get()
+
 	resource.InitResources(slotIds)
 	// 이벤트 서버 시작
 	event.StartEventServer(eventMsgNode)
 	// 웹소켓 서버 시작
 	webserver.StartWebserver(websocketserverMsgNode)
+
 }
