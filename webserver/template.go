@@ -84,13 +84,13 @@ func CancelInputItem(w http.ResponseWriter, r *http.Request) {
 	log.Infof("[웹핸들러] 수납 취소")
 
 	// 빈 트레이 회수 및 DB 업데이트
-	go func() {
+	/* go func() {
 		err := RetrieveEmptyTrayFromTableAndUpdateDb()
 		if err != nil {
 			log.Error(err)
 			// TODO - 에러 처리
 		}
-	}()
+	}() */
 
 	templ.ExecuteTemplate(w, "input/cancel_input_item", &Page{Title: "Home"})
 }
