@@ -61,6 +61,7 @@ var (
 	itemDimension plc.ItemDimension
 	deliveryIdStr string
 	ownerIdStr    string
+	trayId        int64
 	bestSlot      model.Slot
 )
 

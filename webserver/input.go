@@ -79,18 +79,11 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 테이블에 빈 트레이 감지
-	isEmptyTrayOnTable, err := plc.SenseTableForEmptyTray()
-	if err != nil {
-		// changeKioskView
-		// return
-		log.Error(err)
-		Response(w, nil, http.StatusInternalServerError, err)
-		return
-	}
-	// 빈 트레이가 있을 경우
-	if isEmptyTrayOnTable {
-		log.Infof("[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=%v", isEmptyTrayOnTable)
+	// 버퍼에 빈트레이 유무 확인
+	if !plc.Buffer.IsEmpty() {
+		trayId = plc.Buffer.Peek().(int64)
+		plc.TrayIdOnTable.Int64 = trayId
+		log.Infof("[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=%v", trayId)
 
 		err = plc.StandbyRobotAtTable()
 		if err != nil {
@@ -99,16 +92,15 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 			log.Error(err)
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-
-		// 빈 트레이가 없을 경우
 	} else {
 		// 빈트레이를 가져올 슬롯 선택
 		slotsWithEmptyTray, err := model.SelectSlotListWithEmptyTray()
 		// TODO - 빈 슬롯 선정 최적화
 		slotWithEmptyTray := slotsWithEmptyTray[0]
 		trayId := slotWithEmptyTray.TrayId.Int64
+		plc.TrayIdOnTable.Int64 = trayId
 		log.Infof("[웹 핸들러] 빈 트레이를 가져올 slotId=%v, trayId=%v", slotWithEmptyTray.SlotId, trayId)
-		if slotWithEmptyTray.TrayId.Valid == false {
+		if !slotWithEmptyTray.TrayId.Valid {
 			log.Info("[웹 핸들러] 빈 트레이가 존재하지 않음")
 			Response(w, nil, http.StatusBadRequest, errors.New("빈 트레이가 존재하지 않습니다"))
 			return
