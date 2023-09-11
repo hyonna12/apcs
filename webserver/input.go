@@ -81,7 +81,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 
 	// 버퍼에 빈트레이 유무 확인
 	if !plc.Buffer.IsEmpty() {
-		trayId = plc.Buffer.Peek().(int64)
+		id := plc.Buffer.Peek().(int)
+		trayId := int64(id)
 		plc.TrayIdOnTable.Int64 = trayId
 		log.Infof("[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=%v", trayId)
 
@@ -346,6 +347,8 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		return
 	}
+	// 버퍼에서 맨위 트레이 삭제
+	plc.Buffer.Pop()
 
 	// 아이템이 수납된 lane 슬롯 업데이트
 	slots, err := model.SelectSlotListByLane(bestSlot.Lane)
