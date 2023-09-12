@@ -36,6 +36,7 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 	if exists {
+		plc.Buffer.Get()
 		_, err = fmt.Fprint(w, fmt.Sprintf("/output/item_list?address=%v", address))
 		if err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -143,27 +144,22 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 테이블에 빈 트레이가 있는 경우 회수 요청
-	emptyTrayExistsOnTable, err := plc.SenseTableForEmptyTray()
-	if err != nil {
-		// TODO - PLC 에러 처리
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
-	}
+	// 트레이 버퍼 개수 조회 - 20개면 한개 회수
+	if plc.Buffer.Count() == 20 {
+		err := RetrieveEmptyTrayFromTableAndUpdateDb()
+		if err != nil {
+			log.Error(err)
+			// TODO - 에러 처리
+		}
+		plc.Buffer.Pop()
+		num := plc.Buffer.Count()
+		model.InsertBufferState(num)
 
-	if emptyTrayExistsOnTable {
-		go func() {
-			err := RetrieveEmptyTrayFromTableAndUpdateDb()
-			if err != nil {
-				log.Error(err)
-				// TODO - 에러 처리
-			}
-		}()
-
-		// Output 요청이 먼저 테이블을 점유하는 것을 방지
-		time.Sleep(1 * time.Second)
+		trayId := plc.Buffer.Peek().(int64)
+		plc.TrayIdOnTable.Int64 = trayId
 	}
+	// Output 요청이 먼저 테이블을 점유하는 것을 방지
+	time.Sleep(1 * time.Second)
 
 	err = templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
 	if err != nil {
@@ -560,13 +556,19 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		// TODO - DB 에러 처리
 	}
 
+	plc.Buffer.Push(itemBottomSlot.TrayId.Int64)
+	num := plc.Buffer.Count()
+	model.InsertBufferState(num)
+	plc.Buffer.Get()
+	trayId := plc.Buffer.Peek().(int64)
+	plc.TrayIdOnTable.Int64 = trayId
+
 	err = tx.Commit()
 	if err != nil {
 		return
 	}
 
 	delete(requestList, itemId)
-
 	if len(requestList) > 0 {
 		// Request가 남아있는 경우- 택배가 나오고 있습니다 화면으로
 		log.Info("[웹핸들러] 불출 요청이 남아 있어 택배 나오는 중 화면 출력")
@@ -576,13 +578,6 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 			log.Error(err)
 			return
 			// TODO - 에러 처리
-		}
-
-		err = RetrieveEmptyTrayFromTableAndUpdateDb()
-		if err != nil {
-			log.Error(err)
-			return
-			// TODO - 에러처리
 		}
 
 	} else {

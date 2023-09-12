@@ -90,8 +90,14 @@ func main() {
 	Buffer := plc.NewTrayBuffer()
 	// 초기 버퍼 빈트레이 id 값 /** 수정
 	for i := 1; i <= 20; i++ {
-		Buffer.Push(i)
+		num := int64(i)
+		Buffer.Push(num)
 	}
+	num := Buffer.Count()
+	model.InsertBufferState(num)
+	trayId := plc.Buffer.Peek().(int64)
+	plc.TrayIdOnTable.Int64 = trayId
+	plc.Buffer.Get()
 
 	resource.InitResources(slotIds)
 	// 이벤트 서버 시작

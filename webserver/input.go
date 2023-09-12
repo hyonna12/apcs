@@ -81,8 +81,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 
 	// 버퍼에 빈트레이 유무 확인
 	if !plc.Buffer.IsEmpty() {
-		id := plc.Buffer.Peek().(int)
-		trayId := int64(id)
+		plc.Buffer.Get()
+		trayId := plc.Buffer.Peek().(int64)
 		plc.TrayIdOnTable.Int64 = trayId
 		log.Infof("[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=%v", trayId)
 
@@ -99,7 +99,7 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		// TODO - 빈 슬롯 선정 최적화
 		slotWithEmptyTray := slotsWithEmptyTray[0]
 		trayId := slotWithEmptyTray.TrayId.Int64
-		plc.TrayIdOnTable.Int64 = trayId
+
 		log.Infof("[웹 핸들러] 빈 트레이를 가져올 slotId=%v, trayId=%v", slotWithEmptyTray.SlotId, trayId)
 		if !slotWithEmptyTray.TrayId.Valid {
 			log.Info("[웹 핸들러] 빈 트레이가 존재하지 않음")
@@ -122,6 +122,12 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 			Response(w, nil, http.StatusInternalServerError, err)
 			return
 		}
+
+		// 버퍼에 트레이 추가
+		plc.Buffer.Push(trayId)
+		num := plc.Buffer.Count()
+		model.InsertBufferState(num)
+		plc.TrayIdOnTable.Int64 = trayId
 
 		slotUpdateRequest := model.SlotUpdateRequest{
 			Lane:  slotWithEmptyTray.Lane,
@@ -347,8 +353,14 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		return
 	}
-	// 버퍼에서 맨위 트레이 삭제
+
+	// 버퍼에서 사용한 트레이 삭제
 	plc.Buffer.Pop()
+	num := plc.Buffer.Count()
+	model.InsertBufferState(num)
+
+	trayId := plc.Buffer.Peek().(int64)
+	plc.TrayIdOnTable.Int64 = trayId
 
 	// 아이템이 수납된 lane 슬롯 업데이트
 	slots, err := model.SelectSlotListByLane(bestSlot.Lane)
@@ -636,24 +648,6 @@ func Sort(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		// TODO - DB 에러 처리
 	}
-
-	/* inputSlotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, TrayId: currentSlot.TrayId, ItemId: currentSlot.ItemId}
-	_, err = model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, item.ItemHeight, tx)
-	if err != nil {
-		log.Errorf("[웹핸들러] 밑에 빈 슬롯없음. error=%v", err)
-	}
-	_, err = model.UpdateStorageSlotList(item.ItemHeight, inputSlotUpdateRequest, tx)
-	if err != nil {
-		log.Error(err)
-		// changeKioskView
-		// return
-	}
-	_, err = model.UpdateSlot(inputSlotUpdateRequest, tx)
-	if err != nil {
-		log.Error(err)
-		// changeKioskView
-		// return
-	} */
 
 	err = tx.Commit()
 	if err != nil {

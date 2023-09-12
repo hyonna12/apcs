@@ -94,6 +94,11 @@ func (t *TrayBuffer) IsEmpty() bool {
 	return t.ids.Len() == 0
 }
 
+// 트레이의 개수 count 해주는 함수 추가 - db갱신하기 전 조회
+func (t *TrayBuffer) Count() int {
+	return t.ids.Len()
+}
+
 func StartPlcClient(n *messenger.Node) {
 	msgNode = n
 
