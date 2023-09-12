@@ -4,6 +4,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
+	"apcs_refactored/plc/robot"
 	"bytes"
 	"context"
 	"database/sql"
@@ -468,6 +469,7 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if stopRequest.Step >= "1" {
+		robot.JobDismiss()
 		Response(w, "OK", http.StatusOK, nil)
 	}
 }
