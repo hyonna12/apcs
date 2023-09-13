@@ -93,6 +93,7 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/output/item_list_error", ItemListError).Methods(http.MethodGet)
 
 	/* sort */
-	r.HandleFunc("/sort", Sort).Methods(http.MethodPost)
+	r.HandleFunc("/sort/tray_buffer", SortTrayBuffer).Methods(http.MethodGet)
+	r.HandleFunc("/sort/item", SortItem).Methods(http.MethodPost)
 
 }

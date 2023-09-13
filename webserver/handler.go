@@ -6,6 +6,7 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"time"
 
@@ -104,9 +105,14 @@ func ChangeKioskView(url string) error {
 // 테이블의 빈 트레이를 회수.
 // 빈 트레이를 격납할 위치를 선정하여 격납 후 DB 업데이트.
 func RetrieveEmptyTrayFromTableAndUpdateDb() error {
-	log.Info("[웹핸들러] 입고 취소 후 빈 트레이 회수")
+	log.Info("[웹핸들러] 빈 트레이 회수")
 	slots, err := model.SelectSlotListForEmptyTray()
 	if err != nil {
+		log.Error(err)
+		return err
+	}
+	if len(slots) == 0 {
+		err := errors.New("빈 슬롯 없음")
 		return err
 	}
 	// TODO - 빈 트레이 격납 위치 최적화
