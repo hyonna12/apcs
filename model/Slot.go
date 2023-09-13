@@ -132,7 +132,7 @@ func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
 			FROM TN_CTR_SLOT
 			WHERE 
 			    slot_enabled = 1
-				AND tray_id is null
+				AND lane != 1
 			  	AND slot_keep_cnt >= ?
 			`
 
@@ -172,7 +172,7 @@ func SelectSlotListForEmptyTray() ([]Slot, error) {
 			FROM TN_CTR_SLOT
 			WHERE 
 				tray_id IS NULL
-				AND floor BETWEEN 35 AND 36
+				AND lane = 1
 			`
 
 	rows, err := DB.Query(query)

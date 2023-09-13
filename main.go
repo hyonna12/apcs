@@ -89,7 +89,7 @@ func main() {
 	// 트레이 버퍼 스택 생성
 	Buffer := plc.NewTrayBuffer()
 	// 초기 버퍼 빈트레이 id 값 /** 수정
-	for i := 1; i <= 17; i++ {
+	for i := 1; i <= 20; i++ {
 		num := int64(i)
 		Buffer.Push(num)
 	}
