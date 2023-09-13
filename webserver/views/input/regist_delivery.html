@@ -130,7 +130,7 @@
     let company_id = '';
     
     /* 배송 정보 전달 */
-    function send_delivery_info() {
+    async function send_delivery_info() {
         let request = JSON.stringify({
             delivery_id: company_id,
             address: $('#select_address').val(),
@@ -139,34 +139,47 @@
 
         if (company_id == '') {
             alert('택배 회사를 입력해주세요.');
-            return false;
+            return
         }
         if ($('#select_address').val() == '') {
             alert('수령인 주소를 입력해주세요.');
-            return false;
+            return
         }
 
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
-
-        axios.post('/input/input_delivery_info', request).then(res => {
-            console.log(res.data)
-            if(res.data.status === 200){
-                input = ''
-                address_list = []
-                number_list = []
-                location.replace(res.data.data)
-            } else{
-                console.log(res.data.error)
-                alert(res.data.error)
-            }
-        }).catch(err => {
-            modal.style.display = "none";
-            document.body.style.overflow = "auto"; // 스크롤바 보이기
+        // 수령인 주소 확인
+        let axiosResult = await axios.post('/input/check_address', request).catch(err => {
             console.log(err);
             alert(err.response.data.error)
-           
         });
+
+        let response = axiosResult.data;
+        let id = JSON.parse(response.data);
+
+        if (id !== undefined) {
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+    
+            await axios.post('/input/input_delivery_info', request).then(res => {
+                console.log(res.data)
+                if(res.data.status === 200){
+                    input = ''
+                    address_list = []
+                    number_list = []
+                    location.replace(res.data.data)
+                } else{
+                    console.log(res.data.error)
+                    alert(res.data.error)
+                }
+            }).catch(err => {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto"; // 스크롤바 보이기
+                console.log(err);
+                alert(err.response.data.error)
+                
+            });
+        }
+        
+    
     }
 
     /* 입고 취소 */

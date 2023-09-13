@@ -176,7 +176,7 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	go Response(w, "OK", http.StatusOK, nil)
+	Response(w, "OK", http.StatusOK, nil)
 }
 
 func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {

@@ -46,12 +46,11 @@ func DeliveryCompanyList(w http.ResponseWriter, r *http.Request) {
 	Response(w, deliveryList, http.StatusOK, nil)
 }
 
-// DeliveryInfoRequested
+// CheckAdress
 //
 // [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출
-//
-// 성공 시 /input/input_item 호출
-func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
+func CheckAdress(w http.ResponseWriter, r *http.Request) {
+
 	inputInfoRequest := InputInfoRequest{}
 	err := json.NewDecoder(r.Body).Decode(&inputInfoRequest)
 	if err != nil {
@@ -67,7 +66,9 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ownerId, err := model.SelectOwnerIdByAddress(inputInfoRequest.Address)
+	fmt.Println("주소", ownerId)
 	if ownerId == 0 {
+		fmt.Println("실행")
 		log.Error(err)
 		Response(w, nil, http.StatusBadRequest, errors.New("입력하신 주소가 존재하지 않습니다"))
 		return
@@ -75,6 +76,23 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// changeKioskView
 		// return
+		log.Error(err)
+		Response(w, nil, http.StatusInternalServerError, err)
+		return
+	}
+	Response(w, ownerId, http.StatusOK, nil)
+
+}
+
+// DeliveryInfoRequested
+//
+// [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출
+//
+// 성공 시 /input/input_item 호출
+func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
+	inputInfoRequest := InputInfoRequest{}
+	err := json.NewDecoder(r.Body).Decode(&inputInfoRequest)
+	if err != nil {
 		log.Error(err)
 		Response(w, nil, http.StatusInternalServerError, err)
 		return
@@ -165,6 +183,16 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
+	ownerId, err := model.SelectOwnerIdByAddress(inputInfoRequest.Address)
+	if err != nil {
+		// changeKioskView
+		// return
+		log.Error(err)
+		Response(w, nil, http.StatusInternalServerError, err)
+		return
+	}
+
 	log.Infof("[웹 핸들러] OwnerId=%v", ownerId)
 	ownerIdStr := strconv.FormatInt(ownerId, 10)
 	redirectUrl := "/input/input_item?deliveryId=" + inputInfoRequest.DeliveryId + "&ownerId=" + ownerIdStr

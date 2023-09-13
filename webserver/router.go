@@ -31,7 +31,10 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/cancel_input_item", CancelInputItem).Methods(http.MethodGet)
 
 	r.HandleFunc("/input/get_delivery_list", DeliveryCompanyList).Methods(http.MethodGet)
-	// [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출
+	// [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출 (수령인 주소 확인)
+	//
+	r.HandleFunc("/input/check_address", CheckAdress).Methods(http.MethodPost)
+	// [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출 (배송 정보 전송)
 	// 성공 시 /input/input_item 호출
 	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods(http.MethodPost)
 	// [API] 택배기사가 물건을 테이블에 올려놓은 경우 호출

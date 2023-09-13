@@ -75,7 +75,6 @@ func Response(w http.ResponseWriter, data interface{}, status int, err error) {
 		res.Status = status
 		res.Error = err.Error()
 	}
-
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(res)
