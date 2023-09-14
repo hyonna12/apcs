@@ -1,29 +1,25 @@
-{{define "input/cancel_input_item"}}
-{{template "header" .}}
-
-        <main id="main">
-            <div class="content-wrap">
-                <div class="fixed-btn">
-                    <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+{{template "layout.html" .}}
+{{define "content"}}
+<main id="main">
+    <div class="content-wrap">
+        <div class="fixed-btn">
+            <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+        </div>
+        <!-- 입고 취소 -->
+        <div class="msg-wrap">
+            <div class="msg-body">
+                <div class="img-wrap">
+                    <img src="/static/images/ico_cancel.png" alt="">
                 </div>
-                <!-- 입고 취소 -->
-                <div class="msg-wrap">
-                    <div class="msg-body">
-                        <div class="img-wrap">
-                            <img src="/static/images/ico_cancel.png" alt="">
-                        </div>
-                        <p class="msg">택배 입고가 취소되었습니다.</p>
-                    </div>
-                </div>
+                <p class="msg">택배 입고가 취소되었습니다.</p>
             </div>
-        </main>
+        </div>
     </div>
-</body>
-</html>
+</main>
 
 <script>
-    setTimeout(function(){
-        location.href='/';
+    setTimeout(function () {
+        location.href = '/';
     }, 3000);
 </script>
 {{end}}

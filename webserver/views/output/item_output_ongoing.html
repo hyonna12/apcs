@@ -1,22 +1,19 @@
-{{define "output/item_output_ongoing"}}
-{{template "header" .}}
+{{template "layout.html" .}}
+{{define "content"}}
 
-        <main id="main">
-            <div class="content-wrap">
-                <!-- 택배 받기 로딩 -->
-                <div class="msg-wrap">
-                    <div class="msg-body">
-                        <div class="img-wrap">
-                            <img src="/static/images/ico_complete.png" alt="">
-                        </div>
-                        <p class="msg">택배 나오는 중 …</p>
-                    </div>
+<main id="main">
+    <div class="content-wrap">
+        <!-- 택배 받기 로딩 -->
+        <div class="msg-wrap">
+            <div class="msg-body">
+                <div class="img-wrap">
+                    <img src="/static/images/ico_complete.png" alt="">
                 </div>
+                <p class="msg">택배 나오는 중 …</p>
             </div>
-        </main>
+        </div>
     </div>
-</body>
-</html>
+</main>
 
 <script>
 

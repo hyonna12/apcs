@@ -50,7 +50,7 @@ func InitResources(slotIds []int64) {
 // 두 개의 로봇이 서로 점유하고 있는 자원을 기다릴 때 발생하는 데드락 감시 및 해결.
 // 슬롯에서 물건을 꺼낸 후 점유를 해제하기 때문에 이론 상 데드락이 발생할 경우는 없을 것으로 보이긴 함.
 func CheckResolveDeadlock() {
-	log.Infof("CheckResolveDeadlock()")
+	log.Infof("[PLC_resource] CheckResolveDeadlock()")
 }
 
 func ReserveTable() {

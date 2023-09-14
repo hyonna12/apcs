@@ -21,12 +21,12 @@ func Handler(r *mux.Router) {
 
 	/* input */
 	// [View] 택배 입고 버튼을 누른 경우 호출
-	r.HandleFunc("/input/regist_delivery", RegistDelivery).Methods(http.MethodGet)
+	r.HandleFunc("/input/register_delivery", RegisterDelivery).Methods(http.MethodGet)
 	// [View] 테이블에 빈 트레이가 서빙된 후 호출
 	r.HandleFunc("/input/input_item", InputItem).Methods(http.MethodGet)
 	r.HandleFunc("/input/input_item_error", InputItemError).Methods(http.MethodGet)
-	r.HandleFunc("/input/regist_owner", RegistOwner).Methods(http.MethodGet)
-	r.HandleFunc("/input/regist_owner_error", RegistOwnerError).Methods(http.MethodGet)
+	r.HandleFunc("/input/register_owner", RegisterOwner).Methods(http.MethodGet)
+	r.HandleFunc("/input/register_owner_error", RegisterOwnerError).Methods(http.MethodGet)
 	r.HandleFunc("/input/complete_input_item", CompleteInputItem).Methods(http.MethodGet)
 	r.HandleFunc("/input/cancel_input_item", CancelInputItem).Methods(http.MethodGet)
 
@@ -42,7 +42,7 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/senseItem", SenseItem).Methods(http.MethodPost)
 
 	/* output */
-	r.HandleFunc("/output/regist_address", RegistAddress)
+	r.HandleFunc("/output/register_address", RegistAddress)
 
 	// [API] 동호수 입력 시 호출
 	r.HandleFunc("/output/check_item_exists", CheckItemExists).Methods(http.MethodGet)

@@ -1,7 +1,6 @@
 package plc
 
 import (
-	"apcs_refactored/config"
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
@@ -14,11 +13,11 @@ import (
 )
 
 const (
-	Robot = "Robot"
-	Slot  = "Slot"
-	Tray  = "Tray"
-	Table = "Table"
-	Gate  = "Gate"
+	Robot = iota
+	Slot
+	Tray
+	Table
+	Gate
 )
 
 var (
@@ -41,10 +40,11 @@ func StartPlcClient(n *messenger.Node) {
 	msgNode = n
 
 	// 시뮬레이터 딜레이 설정
-	simulatorDelay = time.Duration(config.Config.Plc.Simulation.Delay)
+	simulatorDelay = time.Duration(simulatorDelay)
 
 	robot.InitRobots()
 
+	// TODO - 삭제
 	go msgNode.ListenMessages(
 		func(m *messenger.Message) bool {
 			log.Debugf("[%v] Received Message: %v", msgNode.Name, m)
@@ -53,7 +53,7 @@ func StartPlcClient(n *messenger.Node) {
 		},
 	)
 
-	// Job을 로봇에 배정
+	// Job을 로봇에 배정하는 고루틴
 	go robot.DistributeJob()
 
 }
@@ -93,6 +93,7 @@ func SenseTableForEmptyTray() (bool, error) {
 func SenseTableForItem() (bool, error) {
 	log.Infof("[PLC_Sensor] 테이블 물품 존재 여부 감지")
 	// TODO - PLC 센서 물품 존재 여부 감지
+
 	// TODO - temp - 물건 꺼내기 버튼
 	return IsItemOnTable, nil
 

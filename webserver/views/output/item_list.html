@@ -1,50 +1,46 @@
-{{define "output/item_list"}}
-{{template "header" .}}
-
-        <main id="main">
-            <div class="content-wrap">
-                <div class="fixed-btn">
-                    <button class="btn-normal"><a href="/output/regist_address">이전 화면으로</a></button>
-                    <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+{{template "layout.html" .}}
+{{define "content"}}
+<main id="main">
+    <div class="content-wrap">
+        <div class="fixed-btn">
+            <button class="btn-normal"><a href="/output/register_address">이전 화면으로</a></button>
+            <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+        </div>
+        <div class="list-box">
+            <form action="/output/ongoing" method="post">
+                <div class="list-top">
+                    <p class="title">귀하의 호수</p>
+                    <div id="address"><p class="value"></p></div>
                 </div>
-                <div class="list-box">
-                    <form action="/output/ongoing" method="post">
-                        <div class="list-top">
-                            <p class="title">귀하의 호수</p>
-                            <div id="address"><p class="value"></p></div>
-                        </div>
-                        <div class="list-tbl-wrap">
-                            <table class="list-tbl">
-                                <colgroup>
-                                    <col width="10%">
-                                    <col width="22%">
-                                    <col width="33%">
-                                    <col width="35%">
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>택배사</th>
-                                        <th>운송장번호</th>
-                                        <th>입고 일시</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- <p class="list-count"><span></span>개 선택</p> -->
-                    
-                        <div class="btn-wrap">
-                            <button class="btn-normal" id="$output_request_btn">택배 찾기</button>
-                        </div>
-                    </form>
-                </div> 
-            </div>
-        </main>
+                <div class="list-tbl-wrap">
+                    <table class="list-tbl">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="22%">
+                            <col width="33%">
+                            <col width="35%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>택배사</th>
+                            <th>운송장번호</th>
+                            <th>입고 일시</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <p class="list-count"><span></span>개 선택</p> -->
+
+                <div class="btn-wrap">
+                    <button class="btn-normal" id="$output_request_btn">택배 찾기</button>
+                </div>
+            </form>
+        </div>
     </div>
-</body>
-</html>
+</main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -59,7 +55,7 @@
     // db에서 유저 호수와 택배 리스트 가져오기
     axios.get('/output/get_item_list?address=' + address)
         .then(axiosResult => {
-            let itemListResponses = axiosResult.data.data;            
+            let itemListResponses = axiosResult.data.data;
             let tr = '';
             itemListResponses.forEach(item => {
                 tr += `

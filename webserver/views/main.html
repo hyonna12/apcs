@@ -1,49 +1,45 @@
-{{define "main"}}
-{{template "header" .}}
+{{template "layout.html" .}}
+{{define "content"}}
 
-
-        <main id="main">
-            <div class="content-wrap">
-                <div class="banner">
-                    <div class="title-wrap">
-                        <p class="title">URCC</p>
-                        <p class="sub-title">It Contains Everything</p>
-                    </div>
-                </div>
-                <div class="btn-wrap">
-                    <div class="btn" id="popup_open_btn">
-                        <img src="/static/images/ico_find.png" alt="">
-                        <p class="btn-title">택배<br>입고</p>
-                    </div>
-                    <div class="btn" id="output_item_btn">
-                        <img src="/static/images/ico_parcel_white.png" alt="">
-                        <p class="btn-title">택배<br>찾기</p>
-                    </a>
-                </div>
+<main id="main">
+    <div class="content-wrap">
+        <div class="banner">
+            <div class="title-wrap">
+                <p class="title">URCC</p>
+                <p class="sub-title">It Contains Everything</p>
             </div>
-        </main>
-    </div>
-
-    <div class="popup-layer" style="display: none;" id="my_modal">
-        <div class="popup-box msg-box">
-            <div class="popup-body">
-                <p class="msg">변질과 파손 우려 물품은 입고 자제 바랍니다.</p>
+        </div>
+        <div class="btn-wrap">
+            <div class="btn" id="popup_open_btn">
+                <img src="/static/images/ico_find.png" alt="">
+                <p class="btn-title">택배<br>입고</p>
+            </div>
+            <div class="btn" id="output_item_btn">
+                <img src="/static/images/ico_parcel_white.png" alt="">
+                <p class="btn-title">택배<br>찾기</p>
             </div>
         </div>
     </div>
-</body>
-</html>
+</main>
+
+<div class="popup-layer" style="display: none;" id="my_modal">
+    <div class="popup-box msg-box">
+        <div class="popup-body">
+            <p class="msg">변질과 파손 우려 물품은 입고 자제 바랍니다.</p>
+        </div>
+    </div>
+</div>
 
 <script>
     let intervalId;
-    setTimeout(function(){
+    setTimeout(function () {
         intervalId = setInterval(sort, 4000);
-    }, 10000); 
+    }, 10000);
 
-    function sort(){
+    function sort() {
         axios.post('/sort').then(res => {
             console.log(res.data)
-            
+
         }).catch(err => {
             console.log(err);
             clearInterval(intervalId);
@@ -55,13 +51,13 @@
         // 모달창 띄우기
         document.getElementById("my_modal").style.display = 'block'
 
-        setTimeout(function(){
-            location.href="input/regist_delivery"
+        setTimeout(function () {
+            location.href = "input/register_delivery"
         }, 2000);
     };
 
     output_item_btn.onclick = () => {
-        location.href="output/regist_address"
+        location.href = "output/register_address"
     };
 
 </script>

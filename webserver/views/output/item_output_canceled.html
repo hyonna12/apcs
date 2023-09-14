@@ -1,25 +1,22 @@
-{{define "output/item_output_canceled"}}
-{{template "header" .}}
+{{template "layout.html" .}}
+{{define "content"}}
 
-        <main id="main">
-            <div class="content-wrap">
-                <div class="fixed-btn">
-                    <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+<main id="main">
+    <div class="content-wrap">
+        <div class="fixed-btn">
+            <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+        </div>
+        <!-- 택배 찾기 취소 -->
+        <div class="msg-wrap">
+            <div class="msg-body">
+                <div class="img-wrap">
+                    <img src="/static/images/ico_cancel.png" alt="">
                 </div>
-                <!-- 택배 찾기 취소 -->
-                <div class="msg-wrap">
-                    <div class="msg-body">
-                        <div class="img-wrap">
-                            <img src="/static/images/ico_cancel.png" alt="">
-                        </div>
-                        <p class="msg">택배 찾기가 취소되었습니다.</p>
-                    </div>
-                </div>
+                <p class="msg">택배 찾기가 취소되었습니다.</p>
             </div>
-        </main>
+        </div>
     </div>
-</body>
-</html>
+</main>
 
 <script>
 

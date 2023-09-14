@@ -1,54 +1,50 @@
-{{define "output/item_output_confirm"}}
-{{template "header" .}}
+{{template "layout.html" .}}
+{{define "content"}}
 
+<main id="main">
+    <div class="content-wrap">
+        <div class="fixed-btn">
+            <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+        </div>
 
-        <main id="main">
-            <div class="content-wrap">
-                <div class="fixed-btn">
-                    <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+        <!-- 택배 수령 -->
+        <div class="msg-wrap">
+            <div class="msg-body">
+                <div class="img-wrap">
+                    <img src="/static/images/ico_complete.png" alt="">
                 </div>
-                
-                <!-- 택배 수령 -->
-                <div class="msg-wrap">
-                    <div class="msg-body">
-                        <div class="img-wrap">
-                            <img src="/static/images/ico_complete.png" alt="">
-                        </div>
-                        <p class="msg">택배를 확인해주세요</p>
-                        <table class="info-tbl tbl">
-                            <colgroup>
-                                <col width="33%">
-                                <col width="67%">
-                            </colgroup>
-                            <tbody>
-                                <tr>
-                                    <th>택배사</th>
-                                    <td>{{.ItemInfoData.DeliveryCompany}}</td>
-                                </tr>
-                                <tr>
-                                    <th>송장번호</th>
-                                    <td>{{.ItemInfoData.TrackingNumber}}</td>
-                                </tr>
-                                <tr>
-                                    <th>입고 일시</th>
-                                    <td>{{.ItemInfoData.InputDate}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p class="green time-msg">5초 뒤 자동으로 재입고 됩니다.</p>
-                    </div>
-                    <div class="msg-footer">
-                        <div class="btn-wrap">
-                            <button class="btn-normal" id="$output_btn">수령</button>
-                            <button class="btn-normal btn-white" id="$return_btn">반납</button>
-                        </div>
-                    </div>
+                <p class="msg">택배를 확인해주세요</p>
+                <table class="info-tbl tbl">
+                    <colgroup>
+                        <col width="33%">
+                        <col width="67%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>택배사</th>
+                        <td>{{.ItemInfoData.DeliveryCompany}}</td>
+                    </tr>
+                    <tr>
+                        <th>송장번호</th>
+                        <td>{{.ItemInfoData.TrackingNumber}}</td>
+                    </tr>
+                    <tr>
+                        <th>입고 일시</th>
+                        <td>{{.ItemInfoData.InputDate}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p class="green time-msg">5초 뒤 자동으로 재입고 됩니다.</p>
+            </div>
+            <div class="msg-footer">
+                <div class="btn-wrap">
+                    <button class="btn-normal" id="$output_btn">수령</button>
+                    <button class="btn-normal btn-white" id="$return_btn">반납</button>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
-</body>
-</html>
+</main>
 
 
 <script>

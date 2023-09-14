@@ -9,22 +9,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
-	"time"
-
-	log "github.com/sirupsen/logrus"
 )
-
-func RegistAddress(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	err := templ.ExecuteTemplate(w, "output/regist_address", &Page{Title: "Home"})
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
-}
 
 // CheckItemExists - [API] 동호수 입력 시 호출
 func CheckItemExists(w http.ResponseWriter, r *http.Request) {
@@ -42,17 +30,6 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		http.Error(w, "Item Not Found", http.StatusNotFound)
-	}
-}
-
-// ItemList - [View] 아이템 목록 화면 출력
-func ItemList(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	err := templ.ExecuteTemplate(w, "output/item_list", &Page{Title: "Home"})
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
 
@@ -75,200 +52,6 @@ func GetItemList(w http.ResponseWriter, r *http.Request) {
 
 	data, _ := json.Marshal(response)
 	_, err = fmt.Fprint(w, string(data))
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
-}
-
-// ItemOutputOngoing - [View] "택배가 나오는 중입니다" 화면 출력
-func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	// Get 요청인 경우 화면만 출력
-	if r.Method == http.MethodGet {
-		err := templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
-		if err != nil {
-			log.Error(err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		}
-		return
-	}
-
-	// Post 요청인 경우
-	err := r.ParseForm()
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Bad Request", http.StatusBadRequest)
-	}
-
-	itemIdsStr := r.PostForm["item_id"]
-	var itemIds []int64
-	log.Infof("[웹핸들러] 아이템 불출 요청 접수. itemIds=%v", itemIdsStr)
-
-	// 접수 요청된 택배 물품을 요청 리스트에 추가
-	for _, idStr := range itemIdsStr {
-		itemId, err := strconv.ParseInt(idStr, 10, 64)
-		if err != nil {
-			log.Error(err)
-			http.Error(w, "Bad Request", http.StatusBadRequest)
-		}
-
-		req := &request{
-			itemId:      itemId,
-			requestType: requestTypeOutput,
-			//requestStatus: requestStatusPending, // TODO - 삭제
-		}
-
-		requestList[itemId] = req
-		itemIds = append(itemIds, itemId)
-	}
-
-	// item id로 물품이 보관된 슬롯 얻어오기
-	slots, err := model.SelectSlotListByItemIds(itemIds)
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Bad Request", http.StatusBadRequest)
-	}
-
-	var slotIds []int64
-	for _, slot := range slots {
-		slotIds = append(slotIds, slot.SlotId)
-	}
-	log.Infof("[웹핸들러] 아이템을 불출할 슬롯: %v", slotIds)
-
-	if len(slotIds) == 0 {
-		// 에러처리
-		log.Error()
-		return
-	}
-
-	// 테이블에 빈 트레이가 있는 경우 회수 요청
-	emptyTrayExistsOnTable, err := plc.SenseTableForEmptyTray()
-	if err != nil {
-		// TODO - PLC 에러 처리
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
-	}
-
-	if emptyTrayExistsOnTable {
-		go func() {
-			err := RetrieveEmptyTrayFromTableAndUpdateDb()
-			if err != nil {
-				log.Error(err)
-				// TODO - 에러 처리
-			}
-		}()
-
-		// Output 요청이 먼저 테이블을 점유하는 것을 방지
-		time.Sleep(1 * time.Second)
-	}
-
-	err = templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
-	}
-
-	// 슬롯 정보로 PLC에 불출 요청
-	for _, slot := range slots {
-		go func(s model.Slot) {
-			time.Sleep(1 * time.Second) // 키오스크 웹소켓 연결 대기
-			log.Debugf("[웹핸들러 -> PLC] 불출 요청. 슬롯 id=%v, 아이템 id=%v", s.SlotId, s.ItemId.Int64)
-			err := plc.OutputItem(s)
-			if err != nil {
-				log.Error(err)
-				// TODO - 불출 실패한 물품은 요청에서 삭제 및 알림 처리
-				return
-			}
-
-			// 택배가 테이블에 올라가면 요청 목록에서 제거
-			log.Debugf("[웹핸들러] 불출 완료. slotId=%v, itemId=%v", s.SlotId, s.ItemId.Int64)
-			// TODO - 수령/반품 화면 전환
-			err = ChangeKioskView("/output/confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10))
-			if err != nil {
-				// TODO - 에러처리
-				log.Error(err)
-				return
-			}
-
-			// TODO - 수령/반납 화면으로 넘길 지 결정
-			delete(requestList, s.ItemId.Int64)
-		}(slot)
-	}
-}
-
-// ItemOutputConfirm - [View] "택배를 확인해주세요" 화면 출력
-func ItemOutputConfirm(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	itemIdStr := r.URL.Query().Get("itemId")
-	itemId, err := strconv.ParseInt(itemIdStr, 10, 64)
-	// TODO - 에러 처리
-	if err != nil {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
-	}
-
-	var itemInfo model.ItemListResponse
-	itemInfo, err = model.SelectItemInfoByItemId(itemId)
-	if err != nil {
-		// TODO - DB 에러 발생 시 에러처리
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
-
-	itemInfoData := ItemInfoData{
-		ItemId:          itemInfo.ItemId,
-		DeliveryCompany: itemInfo.DeliveryCompany,
-		TrackingNumber:  itemInfo.TrackingNumber,
-		InputDate:       itemInfo.InputDate,
-	}
-
-	pageData := struct {
-		Title        string
-		ItemInfoData ItemInfoData
-	}{
-		"수령 확인창",
-		itemInfoData,
-	}
-
-	err = templ.ExecuteTemplate(w, "output/item_output_confirm", pageData)
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
-}
-
-// ItemOutputPasswordForm - [View] 비밀번호 입력 화면 출력
-func ItemOutputPasswordForm(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	itemIdStr := r.URL.Query().Get("itemId")
-	itemId, err := strconv.ParseInt(itemIdStr, 10, 64)
-	if err != nil {
-		// TODO - 에러처리
-		http.Error(w, "Bad Request", http.StatusBadRequest)
-	}
-
-	// TODO - 수정
-	address, err := model.SelectAddressByItemId(itemId)
-	if err != nil {
-		// TODO - DB 에러 발생 시 에러처리
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
-
-	pageData := struct {
-		Title   string
-		Address string
-	}{
-		"수령 확인창",
-		address,
-	}
-
-	err = templ.ExecuteTemplate(w, "output/item_output_password_form", pageData)
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -301,17 +84,6 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 		Response(w, nil, http.StatusOK, nil)
 	} else {
 		Response(w, nil, http.StatusBadRequest, errors.New("잘못된 비밀번호입니다"))
-	}
-}
-
-// ItemOutputAccept - [VIEW] "택배를 꺼내 주세요" 화면 출력
-func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	err := templ.ExecuteTemplate(w, "output/item_output_accept", nil)
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
 
@@ -419,20 +191,6 @@ func ItemOutputReturnByTimeout(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Response(w, nil, http.StatusOK, nil)
-}
-
-// ItemOutputCancel
-//
-// [VIEW] "택배 찾기가 취소되었습니다" 화면 출력
-// '/output/return' 호출 후 requestList에 요청이 남아 있지 않은 경우
-func ItemOutputCancel(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	err := templ.ExecuteTemplate(w, "output/item_output_canceled", nil)
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
 }
 
 // ItemOutputTakeout
@@ -605,15 +363,4 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Response(w, nil, http.StatusOK, nil)
-}
-
-// ItemOutputThankyou - [VIEW] "감사합니다" 화면 출력
-func ItemOutputThankyou(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	err := templ.ExecuteTemplate(w, "output/item_output_thankyou", nil)
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
 }

@@ -1,25 +1,21 @@
-{{define "input/input_item"}}
-{{template "header" .}}
-
-        <main id="main">
-            <div class="content-wrap">
-                <div class="fixed-btn">
-                    <button class="btn-normal home_btn">첫 화면으로</button>
+{{template "layout.html" .}}
+{{define "content"}}
+<main id="main">
+    <div class="content-wrap">
+        <div class="fixed-btn">
+            <button class="btn-normal home_btn">첫 화면으로</button>
+        </div>
+        <!-- 택배 투입 -->
+        <div class="msg-wrap">
+            <div class="msg-body">
+                <div class="img-wrap">
+                    <img src="/static/images/parcel.png" alt="">
                 </div>
-                <!-- 택배 투입 -->
-                <div class="msg-wrap">
-                    <div class="msg-body">
-                        <div class="img-wrap">
-                            <img src="/static/images/parcel.png" alt="">
-                        </div>
-                        <p class="msg">송장이 위로 향하게 투입해 주세요!</p>
-                    </div>
-                </div>
+                <p class="msg">송장이 위로 향하게 투입해 주세요!</p>
             </div>
-        </main>
+        </div>
     </div>
-</body>
-</html>
+</main>
 
 
 <script>
@@ -28,19 +24,20 @@
     let ownerId = url.searchParams.get("ownerId");
 
     /* 택배 투입 */
-    axios.post(`/input/submit_item?deliveryId=${deliveryId}&ownerId=${ownerId}`).then(axiosResult => {
+    axios.post(`/input/submit_item?deliveryId=${deliveryId}&ownerId=${ownerId}`)
+    .then(axiosResult => {
         let response = axiosResult.data;
-        if(response.status === 200){
+        if (response.status === 200) {
             let redirectUrl = `${response.data}?deliveryId=${deliveryId}&ownerId=${ownerId}`;
             location.replace(redirectUrl);
-        } else{
+        } else {
             console.log(response.error);
             alert(response.error)
         }
     }).catch(err => {
         console.log(err);
-        setTimeout(function(){
-            location.href='/input/input_item_error?error=' + err.response.data.error;
+        setTimeout(function () {
+            location.replace('/input/input_item_error?error=' + err.response.data.error);
         }, 5000);
     });
 
@@ -51,23 +48,23 @@
         });
 
         axios.post('/input/stop_input', request).then(res => {
-            if(res.data.status === 200){
-                location.href='/input/cancel_input_item'
+            if (res.data.status === 200) {
+                location.href = '/input/cancel_input_item'
                 alert('입고를 취소하셨습니다.');
-            } else{
+            } else {
                 console.log(res.data.error)
                 alert(res.data.error)
             }
-            
+
         }).catch(err => {
             console.log(err);
             alert(err.response.data.error)
         });
     }
 
-    $('.home_btn').click(function(){
+    $('.home_btn').click(function () {
         send_stop_info();
     });
-    
+
 </script>
 {{end}}
