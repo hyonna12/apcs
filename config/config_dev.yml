@@ -40,6 +40,6 @@ plc:
     # 시뮬레이션 속도 배율
     # 0일 경우 딜레이 없이 진행됨
     delay: 1
-  tray_buffer:
+  trayBuffer:
     # 트레이 버퍼의 최대 개수
     optimum: 20

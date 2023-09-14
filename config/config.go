@@ -59,7 +59,7 @@ type Configuration struct {
 		} `yaml:"simulation"`
 		TrayBuffer struct {
 			Optimum int `yaml:"optimum"`
-		}
+		} `yaml:"trayBuffer"`
 	} `yaml:"plc"`
 }
 

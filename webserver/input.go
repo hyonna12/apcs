@@ -5,12 +5,12 @@ import (
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
+	"apcs_refactored/plc/trayBuffer"
 	"bytes"
 	"context"
 	"database/sql"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"math/rand"
 	"net/http"
@@ -49,7 +49,7 @@ func DeliveryCompanyList(w http.ResponseWriter, r *http.Request) {
 // CheckAdress
 //
 // [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출
-func CheckAdress(w http.ResponseWriter, r *http.Request) {
+func CheckAddress(w http.ResponseWriter, r *http.Request) {
 
 	inputInfoRequest := InputInfoRequest{}
 	err := json.NewDecoder(r.Body).Decode(&inputInfoRequest)
@@ -59,16 +59,14 @@ func CheckAdress(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if inputInfoRequest.Address == "" || inputInfoRequest.DeliveryId == "" {
+	if inputInfoRequest.Address == "" || inputInfoRequest.DeliveryId == "" || inputInfoRequest.TrackingNum == "" {
 		log.Error(err)
 		Response(w, nil, http.StatusBadRequest, errors.New("파라미터가 누락되었습니다"))
 		return
 	}
 
 	ownerId, err := model.SelectOwnerIdByAddress(inputInfoRequest.Address)
-	fmt.Println("주소", ownerId)
 	if ownerId == 0 {
-		fmt.Println("실행")
 		log.Error(err)
 		Response(w, nil, http.StatusBadRequest, errors.New("입력하신 주소가 존재하지 않습니다"))
 		return
@@ -98,10 +96,14 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	tracking_num, _ := strconv.Atoi(inputInfoRequest.TrackingNum)
+	itemDimension.TrackingNum = tracking_num
+
 	// 버퍼에 빈트레이 유무 확인
-	if !plc.Buffer.IsEmpty() {
-		plc.Buffer.Get()
-		trayId := plc.Buffer.Peek().(int64)
+	if !trayBuffer.Buffer.IsEmpty() {
+		// 버퍼의 맨 위 트레이 사용
+		trayBuffer.Buffer.Get()
+		trayId := trayBuffer.Buffer.Peek().(int64)
 		plc.TrayIdOnTable.Int64 = trayId
 		log.Infof("[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=%v", trayId)
 
@@ -143,8 +145,8 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// 버퍼에 트레이 추가
-		plc.Buffer.Push(trayId)
-		num := plc.Buffer.Count()
+		trayBuffer.Buffer.Push(trayId)
+		num := trayBuffer.Buffer.Count()
 		model.InsertBufferState(num)
 		plc.TrayIdOnTable.Int64 = trayId
 
@@ -249,13 +251,20 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	// **수정
 	if !isItemOnTable {
 		// 물품 크기, 무게, 송장번호 조회
-		itemDimension, err = plc.SenseItemInfo()
+		item, err := plc.SenseItemInfo()
+		itemDimension.Height = item.Height
+		itemDimension.Width = item.Width
+		itemDimension.Weight = item.Weight
+
 		if err != nil {
 			// changeKioskView
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		itemDimension = plc.ItemDimension{Height: rand.Intn(6) + 1, Width: 5, Weight: 8, TrackingNum: 1010} // **제거
+		// **제거
+		itemDimension.Height = rand.Intn(6) + 1
+		itemDimension.Width = 5
+		itemDimension.Weight = 8
 		log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 	}
 
@@ -337,6 +346,14 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		// return
 	}
 
+	// 버퍼에서 사용한 트레이 삭제
+	trayBuffer.Buffer.Pop()
+	num := trayBuffer.Buffer.Count()
+	model.InsertBufferState(num)
+
+	trayId := trayBuffer.Buffer.Peek().(int64)
+	plc.TrayIdOnTable.Int64 = trayId
+
 	// 송장번호, 물품높이, 택배기사, 수령인 정보 itemCreateRequest 에 넣어서 물품 db업데이트
 	deliveryId, err := strconv.ParseInt(deliveryIdStr, 10, 64)
 	ownerId, err := strconv.ParseInt(ownerIdStr, 10, 64)
@@ -382,14 +399,6 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		return
 	}
-
-	// 버퍼에서 사용한 트레이 삭제
-	plc.Buffer.Pop()
-	num := plc.Buffer.Count()
-	model.InsertBufferState(num)
-
-	trayId := plc.Buffer.Peek().(int64)
-	plc.TrayIdOnTable.Int64 = trayId
 
 	// 아이템이 수납된 lane 슬롯 업데이트
 	slots, err := model.SelectSlotListByLane(bestSlot.Lane)
@@ -455,7 +464,7 @@ type StopRequest struct {
 }
 
 func StopInput(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("입고취소")
+	log.Info("입고취소")
 	stopRequest := StopRequest{}
 	err := json.NewDecoder(r.Body).Decode(&stopRequest)
 	if err != nil {

@@ -60,6 +60,7 @@
             })
             .catch(err => {
                 console.log(err);
+                console.log(err.response.data.error);
                 clearInterval(intervalIdBuffer);
                 next = true;
                 intervalIdItem = setInterval(sortItem, 1000);

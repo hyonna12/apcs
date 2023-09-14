@@ -6,7 +6,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
-	"container/list"
+	"apcs_refactored/plc/trayBuffer"
 	"database/sql"
 	"math/rand"
 	"time"
@@ -29,74 +29,13 @@ var (
 	IsItemOnTable = false
 	// TODO - temp - 빈 트레이 감지 시뮬레이션 용
 	TrayIdOnTable sql.NullInt64
-	Buffer        *TrayBuffer
 )
-
-// 빈트레이 id를 담기 위한 스택
-type TrayBuffer struct {
-	ids *list.List
-}
 
 type ItemDimension struct {
 	Height      int
 	Width       int
 	Weight      int
 	TrackingNum int
-}
-
-func NewTrayBuffer() *TrayBuffer {
-	log.Debug("TrayBuffer created")
-	Buffer = &TrayBuffer{list.New()}
-	return Buffer
-}
-
-// stack 에 값 추가
-func (t *TrayBuffer) Push(id interface{}) {
-	t.ids.PushBack(id)
-}
-
-// 맨 위의 값 반환
-func (t *TrayBuffer) Peek() interface{} {
-	back := t.ids.Back().Value
-	if back == nil {
-		return nil
-	}
-	return back
-}
-
-// 맨 위의 값 삭제하고 반환
-func (t *TrayBuffer) Pop() interface{} {
-	back := t.ids.Back()
-	if back == nil {
-		return nil
-	}
-
-	return t.ids.Remove(back)
-}
-
-func (t *TrayBuffer) Get() interface{} {
-	list := []any{}
-
-	back := t.ids.Back()
-	list = append(list, back.Value)
-
-	prev := back.Prev()
-	for prev != nil {
-		list = append(list, prev.Value)
-		prev = prev.Prev()
-	}
-	log.Debugf("buffer tray : %v", list)
-
-	return list
-}
-
-func (t *TrayBuffer) IsEmpty() bool {
-	return t.ids.Len() == 0
-}
-
-// 트레이의 개수 count 해주는 함수 추가 - db갱신하기 전 조회
-func (t *TrayBuffer) Count() int {
-	return t.ids.Len()
 }
 
 func StartPlcClient(n *messenger.Node) {
@@ -128,6 +67,19 @@ func StartPlcClient(n *messenger.Node) {
 // - door.DoorOperation: 조작 명령
 func SetUpDoor(doorType door.DoorType, doorOperation door.DoorOperation) error {
 	err := door.SetUpDoor(doorType, doorOperation)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// SetUpTrayBuffer
+//
+// 트레이 버퍼 조작.
+//
+// - tray.BufferOperation: 조작 명령
+func SetUpTrayBuffer(bufferOperation trayBuffer.BufferOperation) error {
+	err := trayBuffer.SetUpTrayBuffer(bufferOperation)
 	if err != nil {
 		return err
 	}
@@ -206,10 +158,9 @@ func SenseItemInfo() (ItemDimension, error) {
 
 	// TODO - temp
 	itemDimension := &ItemDimension{
-		Height:      rand.Intn(10),
-		Width:       rand.Intn(10),
-		Weight:      rand.Intn(10),
-		TrackingNum: rand.Intn(10000),
+		Height: rand.Intn(10),
+		Width:  rand.Intn(10),
+		Weight: rand.Intn(10),
 	}
 
 	return *itemDimension, nil

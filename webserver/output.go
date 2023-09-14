@@ -1,9 +1,11 @@
 package webserver
 
 import (
+	"apcs_refactored/config"
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
+	"apcs_refactored/plc/trayBuffer"
 	"context"
 	"database/sql"
 	"encoding/json"
@@ -36,7 +38,7 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 	if exists {
-		plc.Buffer.Get()
+		trayBuffer.Buffer.Get()
 		_, err = fmt.Fprint(w, fmt.Sprintf("/output/item_list?address=%v", address))
 		if err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -144,23 +146,6 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 트레이 버퍼 개수 조회 - 20개면 한개 회수
-	if plc.Buffer.Count() == 20 {
-		err := RetrieveEmptyTrayFromTableAndUpdateDb()
-		if err != nil {
-			log.Error(err)
-			// TODO - 에러 처리
-		}
-		plc.Buffer.Pop()
-		num := plc.Buffer.Count()
-		model.InsertBufferState(num)
-
-		trayId := plc.Buffer.Peek().(int64)
-		plc.TrayIdOnTable.Int64 = trayId
-	}
-	// Output 요청이 먼저 테이블을 점유하는 것을 방지
-	time.Sleep(1 * time.Second)
-
 	err = templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
 	if err != nil {
 		log.Error(err)
@@ -168,17 +153,42 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// 트레이 버퍼 개수 조회 후 (20개-물품개수) 될 때까지 회수
+	for trayBuffer.Buffer.Count() > (config.Config.Plc.TrayBuffer.Optimum - len(itemIds)) {
+		err := RetrieveEmptyTrayFromTableAndUpdateDb()
+		if err != nil {
+			log.Error(err)
+			// TODO - 에러 처리
+		}
+
+		trayBuffer.Buffer.Pop()
+		num := trayBuffer.Buffer.Count()
+		model.InsertBufferState(num)
+
+		trayId := trayBuffer.Buffer.Peek().(int64)
+		plc.TrayIdOnTable.Int64 = trayId
+	}
+
+	// Output 요청이 먼저 테이블을 점유하는 것을 방지
+	time.Sleep(1 * time.Second)
+
 	// 슬롯 정보로 PLC에 불출 요청
 	for _, slot := range slots {
 		go func(s model.Slot) {
 			time.Sleep(1 * time.Second) // 키오스크 웹소켓 연결 대기
 			log.Debugf("[웹핸들러 -> PLC] 불출 요청. 슬롯 id=%v, 아이템 id=%v", s.SlotId, s.ItemId.Int64)
+
 			err := plc.OutputItem(s)
 			if err != nil {
 				log.Error(err)
 				// TODO - 불출 실패한 물품은 요청에서 삭제 및 알림 처리
 				return
 			}
+
+			trayBuffer.Buffer.Push(s.TrayId.Int64)
+			num := trayBuffer.Buffer.Count()
+			model.InsertBufferState(num)
+			plc.TrayIdOnTable.Int64 = s.TrayId.Int64
 
 			// 택배가 테이블에 올라가면 요청 목록에서 제거
 			log.Debugf("[웹핸들러] 불출 완료. slotId=%v, itemId=%v", s.SlotId, s.ItemId.Int64)
@@ -347,6 +357,13 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 			// TODO - PLC 에러처리
 			log.Error(err)
 		}
+
+		trayBuffer.Buffer.Pop()
+		num := trayBuffer.Buffer.Count()
+		model.InsertBufferState(num)
+
+		trayId := trayBuffer.Buffer.Peek().(int64)
+		plc.TrayIdOnTable.Int64 = trayId
 	}()
 
 	delete(requestList, itemId)
@@ -404,6 +421,13 @@ func ItemOutputReturnByTimeout(w http.ResponseWriter, r *http.Request) {
 				// TODO - PLC 에러처리
 				log.Error(err)
 			}
+
+			trayBuffer.Buffer.Pop()
+			num := trayBuffer.Buffer.Count()
+			model.InsertBufferState(num)
+
+			trayId := trayBuffer.Buffer.Peek().(int64)
+			plc.TrayIdOnTable.Int64 = trayId
 		}()
 
 		delete(requestList, itemId)
@@ -556,13 +580,6 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 		// TODO - DB 에러 처리
 	}
 
-	plc.Buffer.Push(itemBottomSlot.TrayId.Int64)
-	num := plc.Buffer.Count()
-	model.InsertBufferState(num)
-	plc.Buffer.Get()
-	trayId := plc.Buffer.Peek().(int64)
-	plc.TrayIdOnTable.Int64 = trayId
-
 	err = tx.Commit()
 	if err != nil {
 		return
@@ -590,13 +607,13 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 			// TODO - 에러 처리
 			return
 		}
+	}
 
-		err = plc.DismissRobotAtTable()
-		if err != nil {
-			log.Error(err)
-			return
-			// TODO - PLC 에러 처리
-		}
+	err = plc.DismissRobotAtTable()
+	if err != nil {
+		log.Error(err)
+		return
+		// TODO - PLC 에러 처리
 	}
 
 	Response(w, nil, http.StatusOK, nil)

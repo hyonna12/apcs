@@ -5,6 +5,7 @@ import (
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
+	"apcs_refactored/plc/trayBuffer"
 	"context"
 	"database/sql"
 	"errors"
@@ -183,7 +184,7 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 	log.Info("[PLC] 트레이 버퍼 정리")
 
 	// 트레이 버퍼의 개수를 조회
-	count := plc.Buffer.Count()
+	count := trayBuffer.Buffer.Count()
 
 	// 15개면 정리 종료
 	if count == 15 {
@@ -199,11 +200,12 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 			return
 			// TODO - 에러 처리
 		}
-		plc.Buffer.Pop()
-		num := plc.Buffer.Count()
+
+		trayBuffer.Buffer.Pop()
+		num := trayBuffer.Buffer.Count()
 		model.InsertBufferState(num)
 
-		trayId := plc.Buffer.Peek().(int64)
+		trayId := trayBuffer.Buffer.Peek().(int64)
 		plc.TrayIdOnTable.Int64 = trayId
 		fmt.Println(num)
 
@@ -236,6 +238,19 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 			Response(w, nil, http.StatusInternalServerError, err)
 			return
 		}
+
+		err = plc.SetUpTrayBuffer(trayBuffer.BufferOperationDown)
+		if err != nil {
+			// changeKioskView
+			// return
+			Response(w, nil, http.StatusInternalServerError, err)
+		}
+
+		trayBuffer.Buffer.Push(trayId)
+		num := trayBuffer.Buffer.Count()
+		model.InsertBufferState(num)
+		plc.TrayIdOnTable.Int64 = trayId
+
 		err = plc.ServeEmptyTrayToTable(slotWithEmptyTray)
 		if err != nil {
 			log.Error(err)
@@ -245,13 +260,6 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		robot.JobDismiss()
-
-		// 버퍼에 트레이 추가
-		plc.Buffer.Push(trayId)
-		num := plc.Buffer.Count()
-		model.InsertBufferState(num)
-		plc.Buffer.Get()
-		plc.TrayIdOnTable.Int64 = trayId
 
 		slotUpdateRequest := model.SlotUpdateRequest{
 			Lane:  slotWithEmptyTray.Lane,

@@ -7,6 +7,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/resource"
+	"apcs_refactored/plc/trayBuffer"
 	"apcs_refactored/webserver"
 
 	log "github.com/sirupsen/logrus"
@@ -87,7 +88,7 @@ func main() {
 	}
 
 	// 트레이 버퍼 스택 생성
-	Buffer := plc.NewTrayBuffer()
+	Buffer := trayBuffer.NewTrayBuffer()
 	// 초기 버퍼 빈트레이 id 값 /** 수정
 	for i := 1; i <= 20; i++ {
 		num := int64(i)
@@ -95,9 +96,9 @@ func main() {
 	}
 	count := Buffer.Count()
 	model.InsertBufferState(count)
-	trayId := plc.Buffer.Peek().(int64)
+	trayId := trayBuffer.Buffer.Peek().(int64)
 	plc.TrayIdOnTable.Int64 = trayId
-	plc.Buffer.Get()
+	trayBuffer.Buffer.Get()
 
 	resource.InitResources(slotIds)
 	// 이벤트 서버 시작

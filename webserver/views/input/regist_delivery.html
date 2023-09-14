@@ -57,6 +57,11 @@
                         <p class="title">수령인 연락처</p>
                         <p class="value" ><input type="number" id="select_num" value=""></p>
                     </div>
+                    <div class="list-top">
+                        <p class="title">송장번호</p>
+                        <p class="value" ><input type="text" id="select_tracking_num" value=""></p>
+                    </div>
+
                     <div class="number-input" id="number_keypad">
                         <button class="number" value="1">1</button>
                         <button class="number" value="2">2</button>
@@ -104,6 +109,7 @@
 
 
 <script>
+
     /* 택배 회사 리스트 조회 */
     axios.get('/input/get_delivery_list').then(res => {
         let delivery_list = res.data.data;
@@ -135,6 +141,7 @@
             delivery_id: company_id,
             address: $('#select_address').val(),
             phone_num: $('#select_num').val(),
+            tracking_num: $('#select_tracking_num').val(),
         });
 
         if (company_id == '') {
@@ -143,6 +150,10 @@
         }
         if ($('#select_address').val() == '') {
             alert('수령인 주소를 입력해주세요.');
+            return
+        }
+        if ($('#select_tracking_num').val() == '') {
+            alert('송장번호를 입력해주세요.');
             return
         }
 
@@ -223,6 +234,18 @@
     let input = 'select_address'
     let address_list = [];
     let number_list = [];
+    let tracking_num_list = [];
+
+    // keydown 발생시 실행
+    window.addEventListener("keypress", (e) => {
+        data = e.key
+        tracking_num_list.push(data)
+        tracking_num = tracking_num_list.join('');
+        document.getElementById('select_tracking_num').value = tracking_num;
+
+        $('#select_tracking_num').focus();
+        input = $(":focus").attr('id')
+    });
 
     select_address.onclick  = () => {
         $('#select_address').focus();
@@ -234,13 +257,18 @@
         input = $(":focus").attr('id')
     };
 
+    select_tracking_num.onclick  = () => {
+        $('#select_tracking_num').focus();
+        input = $(":focus").attr('id')
+    };
+
     $('.number').click(function(){
         number = $(this).attr('value');
         if (input == 'select_address') {
             address_list.push(number)
             address = address_list.join('');
             document.getElementById("select_address").value = address;
-        } else{
+        } else if(input == 'select_num'){
             number_list.push(number)
             phone_num = number_list.join('');
             document.getElementById("select_num").value = phone_num;
@@ -252,12 +280,16 @@
             address_list.pop()
             address = address_list.join('');
             document.getElementById("select_address").value = address;
-        } else{
+        } else if(input == 'select_num') {
             number_list.pop()
             phone_num = number_list.join('');
             document.getElementById("select_num").value = phone_num;
+        } else if(input == 'select_tracking_num'){
+            tracking_num_list = []
+            tracking_num = tracking_num_list.join('');
+            document.getElementById("select_tracking_num").value = tracking_num;
         }
-            };
+    };
 
     delivery_regist_btn.onclick  = () => {
         send_delivery_info()
