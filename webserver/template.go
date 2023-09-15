@@ -2,12 +2,13 @@ package webserver
 
 import (
 	"embed"
-	log "github.com/sirupsen/logrus"
 	"html/template"
 	"io/fs"
 	"net/http"
 	"path/filepath"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -127,7 +128,13 @@ func RegisterOwner(w http.ResponseWriter, r *http.Request) {
 
 func InputItemError(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
+
 	render(w, "input/input_item_error.html", nil)
+}
+
+func CheckItemInfo(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	render(w, "input/check_item_info.html", nil)
 }
 
 func RegisterOwnerError(w http.ResponseWriter, r *http.Request) {

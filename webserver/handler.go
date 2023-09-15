@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strconv"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -150,4 +151,19 @@ func RetrieveEmptyTrayFromTableAndUpdateDb() error {
 	}
 
 	return nil
+}
+
+// SenseTableForItem - [API] 테이블에 물품 여부 확인하기 위해 매 초마다 호출
+func SenseTableForItem(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+
+	isItemOnTable, err := plc.SenseTableForItem()
+	if err != nil {
+		log.Error(err)
+		// TODO - 에러처리
+		Response(w, nil, http.StatusInternalServerError, nil)
+	}
+	boolStr := strconv.FormatBool(isItemOnTable)
+
+	Response(w, boolStr, http.StatusOK, nil)
 }

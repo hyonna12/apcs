@@ -11,10 +11,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // CheckItemExists - [API] 동호수 입력 시 호출
@@ -182,6 +183,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			delete(requestList, s.ItemId.Int64)
 		}(slot)
 	}
+
 }
 
 // ItemOutputConfirm - [View] "택배를 확인해주세요" 화면 출력
@@ -416,21 +418,6 @@ func ItemOutputTakeout(w http.ResponseWriter, r *http.Request) {
 
 	plc.IsItemOnTable = false
 	Response(w, nil, http.StatusOK, nil)
-}
-
-// SenseTableForItem - [API] "택배를 꺼내주세요" 화면에서 매 초마다 호출
-func SenseTableForItem(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	isItemOnTable, err := plc.SenseTableForItem()
-	if err != nil {
-		log.Error(err)
-		// TODO - 에러처리
-		Response(w, nil, http.StatusInternalServerError, nil)
-	}
-	boolStr := strconv.FormatBool(isItemOnTable)
-
-	Response(w, boolStr, http.StatusOK, nil)
 }
 
 // ItemOutputComplete - [API] 입주민이 택배를 수령해 테이블에 물건이 없을 경우 호출

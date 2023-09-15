@@ -110,8 +110,8 @@ func SenseTableForItem() (bool, error) {
 	// TODO - PLC 센서 물품 존재 여부 감지
 
 	// TODO - temp - 물건 꺼내기 버튼
+	IsItemOnTable = true
 	return IsItemOnTable, nil
-
 	//return false, nil
 }
 
