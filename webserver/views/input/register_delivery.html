@@ -39,67 +39,72 @@
     }
 </style>
 
-<main id="main">
-    <div class="content-wrap">
-        <div class="fixed-btn">
-            <button class="btn-normal home_btn">첫 화면으로</button>
-        </div>
-        <div class="list-box">
-            <div class="list-title">아래의 정보를 입력해 주세요</div>
-            <div class="list-top company">
-                <p class="title">택배 회사</p>
-                <p class="value"><input type="text" id="select_company" value=""></p>
-            </div>
-            <div class="list-top">
-                <p class="title">수령인 주소</p>
-                <p class="value"><input type="number" id="select_address" value="">호</p>
-            </div>
-            <div class="list-top">
-                <p class="title">수령인 연락처</p>
-                <p class="value"><input type="number" id="select_num" value=""></p>
-            </div>
-            <div class="number-input" id="number_keypad">
-                <button class="number" value="1">1</button>
-                <button class="number" value="2">2</button>
-                <button class="number" value="3">3</button>
-                <button class="number" value="4">4</button>
-                <button class="number" value="5">5</button>
-                <button class="number" value="6">6</button>
-                <button class="number" value="7">7</button>
-                <button class="number" value="8">8</button>
-                <button class="number" value="9">9</button>
-                <button></button>
-                <button class="number" value="0">0</button>
-                <button id="backspace"><img src="/static/images/backspace.png" alt=""></button>
-            </div>
-            <div class="btn-wrap">
-                <button class="btn-normal" id="delivery_register_btn">입력 완료</button>
-            </div>
-        </div>
-    </div>
-</main>
+        <main id="main">
+            <div class="content-wrap">
+                <div class="fixed-btn">
+                    <button class="btn-normal home_btn">첫 화면으로</button>
+                </div>
+                <div class="list-box">
+                    <div class="list-title">아래의 정보를 입력해 주세요</div>
+                    <div class="list-top company">
+                        <p class="title">택배 회사</p>
+                        <p class="value" ><input type="text" id="select_company" value=""></p>
+                    </div>
+                    <div class="list-top">
+                        <p class="title">수령인 주소</p>
+                        <p class="value" ><input type="number" id="select_address" value="">호</p>
+                    </div>
+                    <div class="list-top">
+                        <p class="title">수령인 연락처</p>
+                        <p class="value" ><input type="number" id="select_num" value=""></p>
+                    </div>
+                    <div class="list-top">
+                        <p class="title">송장번호</p>
+                        <p class="value" ><input type="text" id="select_tracking_num" value=""></p>
+                    </div>
 
-<div class="popup-layer" style="display: none;" id="modal">
-    <div class="popup-box msg-box">
-        <div class="popup-body">
-            <p class="msg">입고 준비중입니다<br>잠시만 기다려주세요</p>
-        </div>
+                    <div class="number-input" id="number_keypad">
+                        <button class="number" value="1">1</button>
+                        <button class="number" value="2">2</button>
+                        <button class="number" value="3">3</button>
+                        <button class="number" value="4">4</button>
+                        <button class="number" value="5">5</button>
+                        <button class="number" value="6">6</button>
+                        <button class="number" value="7">7</button>
+                        <button class="number" value="8">8</button>
+                        <button class="number" value="9">9</button>
+                        <button></button>
+                        <button class="number" value="0">0</button>
+                        <button id="backspace"><img src="/static/images/backspace.png" alt=""></button>
+                    </div>
+                    <div class="btn-wrap">
+                        <button class="btn-normal" id="delivery_register_btn">입력 완료</button>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-</div>
-<div class="popup-layer" style="display: none;" id="popup_company">
-    <div class="popup-box">
-        <div class="popup-body">
-            <p class="company-title">택배 회사 선택</p>
-            <ul class="company-list" id="delivery_company">
-            </ul>
-        </div>
-        <div class="popup-footer">
-            <div class="btn-wrap">
-                <button class="btn-normal" id="choice_company">선택 완료</button>
+    <div class="popup-layer" style="display: none;" id="modal">
+        <div class="popup-box msg-box">
+            <div class="popup-body">
+                <p class="msg">입고 준비중입니다<br>잠시만 기다려주세요</p>
             </div>
         </div>
     </div>
-</div>
+    <div class="popup-layer" style="display: none;" id="popup_company">
+        <div class="popup-box">
+            <div class="popup-body">
+                <p class="company-title">택배 회사 선택</p>
+                <ul class="company-list" id="delivery_company">
+                </ul>
+            </div>
+            <div class="popup-footer">
+                <div class="btn-wrap">
+                    <button class="btn-normal" id="choice_company">선택 완료</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script>
     /* 택배 회사 리스트 조회 */
@@ -127,45 +132,64 @@
 
     const modal = document.getElementById("modal");
     let company_id = '';
+    let company_name = '';
 
     /* 배송 정보 전달 */
-    function send_delivery_info() {
+    async function send_delivery_info() {
         let request = JSON.stringify({
             delivery_id: company_id,
             address: $('#select_address').val(),
             phone_num: $('#select_num').val(),
+            tracking_num: $('#select_tracking_num').val(),
         });
 
-        if (company_id == '') {
+        if (company_id === '') {
             alert('택배 회사를 입력해주세요.');
-            return false;
+            return
         }
-        if ($('#select_address').val() == '') {
+        if ($('#select_address').val() === '') {
             alert('수령인 주소를 입력해주세요.');
-            return false;
+            return
+        }
+        if ($('#select_tracking_num').val() === '') {
+            alert('송장번호를 입력해주세요.');
+            return
         }
 
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
-
-        axios.post('/input/input_delivery_info', request).then(res => {
-            console.log(res.data)
-            if (res.data.status === 200) {
-                input = ''
-                address_list = []
-                number_list = []
-                location.replace(res.data.data)
-            } else {
-                console.log(res.data.error)
-                alert(res.data.error)
-            }
-        }).catch(err => {
-            modal.style.display = "none";
-            document.body.style.overflow = "auto"; // 스크롤바 보이기
+        // 수령인 주소 확인
+        let axiosResult = await axios.post('/input/check_address', request).catch(err => {
             console.log(err);
             alert(err.response.data.error)
-
         });
+
+        let response = axiosResult.data;
+        let id = JSON.parse(response.data);
+
+        if (id !== undefined) {
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+
+            await axios.post('/input/input_delivery_info', request).then(res => {
+                console.log(res.data)
+                if(res.data.status === 200){
+                    input = ''
+                    address_list = []
+                    number_list = []
+                    location.replace(res.data.data)
+                } else{
+                    console.log(res.data.error)
+                    alert(res.data.error)
+                }
+            }).catch(err => {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto"; // 스크롤바 보이기
+                console.log(err);
+                alert(err.response.data.error)
+
+            });
+        }
+
+
     }
 
     /* 입고 취소 */
@@ -192,7 +216,6 @@
 
     select_company.onclick = () => {
         document.getElementById("popup_company").style.display = 'block'
-
     };
 
     choice_company.onclick = () => {
@@ -207,10 +230,21 @@
         send_stop_info();
     });
 
-
     let input = 'select_address'
     let address_list = [];
     let number_list = [];
+    let tracking_num_list = [];
+
+    // keydown 발생시 실행
+    window.addEventListener("keypress", (e) => {
+        let data = e.key
+        tracking_num_list.push(data)
+        let tracking_num = tracking_num_list.join('');
+        document.getElementById('select_tracking_num').value = tracking_num;
+
+        $('#select_tracking_num').focus();
+        input = $(":focus").attr('id')
+    });
 
     select_address.onclick = () => {
         $('#select_address').focus();
@@ -222,13 +256,18 @@
         input = $(":focus").attr('id')
     };
 
-    $('.number').click(function () {
+    select_tracking_num.onclick  = () => {
+        $('#select_tracking_num').focus();
+        input = $(":focus").attr('id')
+    };
+
+    $('.number').click(function(){
         number = $(this).attr('value');
-        if (input == 'select_address') {
+        if (input === 'select_address') {
             address_list.push(number)
-            address = address_list.join('');
+            let address = address_list.join('');
             document.getElementById("select_address").value = address;
-        } else {
+        } else if(input === 'select_num'){
             number_list.push(number)
             phone_num = number_list.join('');
             document.getElementById("select_num").value = phone_num;
@@ -236,20 +275,24 @@
     });
 
     backspace.onclick = () => {
-        if (input == 'select_address') {
+        if (input === 'select_address') {
             address_list.pop()
-            address = address_list.join('');
+            let address = address_list.join('');
             document.getElementById("select_address").value = address;
-        } else {
+        } else if(input === 'select_num') {
             number_list.pop()
-            phone_num = number_list.join('');
+            let phone_num = number_list.join('');
             document.getElementById("select_num").value = phone_num;
+        } else if(input === 'select_tracking_num'){
+            tracking_num_list = []
+            let tracking_num = tracking_num_list.join('');
+            document.getElementById("select_tracking_num").value = tracking_num;
         }
     };
 
     delivery_register_btn.onclick = () => {
         send_delivery_info()
     };
-
+    
 </script>
 {{end}}

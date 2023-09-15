@@ -3,11 +3,12 @@ package config
 import (
 	"flag"
 	"fmt"
-	log "github.com/sirupsen/logrus"
-	"gopkg.in/yaml.v3"
 	"os"
 	"path/filepath"
 	"runtime"
+
+	log "github.com/sirupsen/logrus"
+	"gopkg.in/yaml.v3"
 )
 
 var (
@@ -56,6 +57,9 @@ type Configuration struct {
 		Simulation struct {
 			Delay int `yaml:"delay"`
 		} `yaml:"simulation"`
+		TrayBuffer struct {
+			Optimum int `yaml:"optimum"`
+		} `yaml:"trayBuffer"`
 	} `yaml:"plc"`
 }
 

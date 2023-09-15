@@ -4,9 +4,11 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/resource"
+	"apcs_refactored/plc/trayBuffer"
+	"time"
+
 	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
-	"time"
 )
 
 // job
@@ -170,6 +172,9 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
+	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationUp); err != nil {
+		return err
+	}
 	resource.ReleaseTable()
 
 	resource.ReserveSlot(slot.SlotId)
@@ -231,6 +236,9 @@ func JobInputItem(slot model.Slot) error {
 	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
+	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationUp); err != nil {
+		return err
+	}
 	resource.ReleaseTable()
 
 	resource.ReserveSlot(slot.SlotId)
@@ -271,7 +279,11 @@ func JobOutputItem(slot model.Slot) error {
 	resource.ReleaseSlot(slot.SlotId)
 
 	resource.ReserveTable()
+
 	if err := robot.moveToTable(); err != nil {
+		return err
+	}
+	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationDown); err != nil {
 		return err
 	}
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
@@ -360,7 +372,6 @@ func JobDismiss() error {
 			if err != nil {
 				return err
 			}
-
 			resource.ReleaseTable()
 			robot.changeStatus(robotStatusAvailable)
 		}

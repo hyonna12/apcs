@@ -5,6 +5,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
+	"apcs_refactored/plc/trayBuffer"
 	"database/sql"
 	"math/rand"
 	"time"
@@ -26,7 +27,7 @@ var (
 	// TODO - temp - 키오스크 임시 물건 꺼내기 버튼 시뮬레이션 용
 	IsItemOnTable = false
 	// TODO - temp - 빈 트레이 감지 시뮬레이션 용
-	trayIdOnTable sql.NullInt64
+	TrayIdOnTable sql.NullInt64
 )
 
 type ItemDimension struct {
@@ -72,6 +73,19 @@ func SetUpDoor(doorType door.DoorType, doorOperation door.DoorOperation) error {
 	return nil
 }
 
+// SetUpTrayBuffer
+//
+// 트레이 버퍼 조작.
+//
+// - tray.BufferOperation: 조작 명령
+func SetUpTrayBuffer(bufferOperation trayBuffer.BufferOperation) error {
+	err := trayBuffer.SetUpTrayBuffer(bufferOperation)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // SenseTableForEmptyTray
 //
 // 테이블에 빈 트레이가 있는지 감지.
@@ -83,7 +97,7 @@ func SenseTableForEmptyTray() (bool, error) {
 		return false, nil
 	}
 
-	return trayIdOnTable.Valid, nil
+	return TrayIdOnTable.Valid, nil
 }
 
 // SenseTableForItem
@@ -112,7 +126,7 @@ func ServeEmptyTrayToTable(slot model.Slot) error {
 	if err := robot.JobServeEmptyTrayToTable(slot); err != nil {
 		return err
 	}
-	trayIdOnTable = slot.TrayId
+	TrayIdOnTable = slot.TrayId
 
 	return nil
 }
@@ -145,10 +159,9 @@ func SenseItemInfo() (ItemDimension, error) {
 
 	// TODO - temp
 	itemDimension := &ItemDimension{
-		Height:      rand.Intn(10),
-		Width:       rand.Intn(10),
-		Weight:      rand.Intn(10),
-		TrackingNum: rand.Intn(10000),
+		Height: rand.Intn(10),
+		Width:  rand.Intn(10),
+		Weight: rand.Intn(10),
 	}
 
 	return *itemDimension, nil
@@ -172,7 +185,7 @@ func MoveTray(from, to model.Slot) error {
 // 테이블의 빈 트레이 회수.
 // 회수한 트레이의 id를 반환
 //
-// - slot: 빈 트레이를 격납할 슬롯
+// - slot: 빈 트레이를 격납할 슬롯	***************
 func RetrieveEmptyTrayFromTable(slot model.Slot) (int64, error) {
 	log.Infof("[PLC] 테이블 빈 트레이 회수. slotId=%v", slot.SlotId)
 
@@ -180,8 +193,8 @@ func RetrieveEmptyTrayFromTable(slot model.Slot) (int64, error) {
 		return 0, err
 	}
 
-	trayId := trayIdOnTable.Int64
-	trayIdOnTable = sql.NullInt64{Valid: false} // set null
+	trayId := TrayIdOnTable.Int64
+	//TrayIdOnTable = sql.NullInt64{Valid: false} // set null
 
 	return trayId, nil
 }
@@ -198,11 +211,8 @@ func InputItem(slot model.Slot) (int64, error) {
 		return 0, err
 	}
 
-	// TODO - temp - 시뮬레이션 용
-	IsItemOnTable = false
-
-	trayId := trayIdOnTable.Int64
-	trayIdOnTable = sql.NullInt64{Valid: false} // set null
+	trayId := TrayIdOnTable.Int64
+	//trayIdOnTable := sql.NullInt64{Valid: false} // set null
 
 	return trayId, nil
 }
@@ -211,7 +221,7 @@ func InputItem(slot model.Slot) (int64, error) {
 //
 // 물품 불출.
 //
-// - slot: 물품을 꺼내올 슬롯
+// - slot: 물품을 꺼내올 슬롯	***************
 func OutputItem(slot model.Slot) error {
 	log.Infof("[PLC] 물품 불출 시작. 꺼내올 슬롯 id=%v", slot.SlotId)
 
@@ -222,7 +232,7 @@ func OutputItem(slot model.Slot) error {
 	// TODO - temp - 시뮬레이션용
 	IsItemOnTable = true
 
-	trayIdOnTable = slot.TrayId
+	TrayIdOnTable = slot.TrayId
 
 	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil

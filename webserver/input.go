@@ -4,6 +4,8 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
+	"apcs_refactored/plc/robot"
+	"apcs_refactored/plc/trayBuffer"
 	"bytes"
 	"context"
 	"database/sql"
@@ -44,12 +46,11 @@ func DeliveryCompanyList(w http.ResponseWriter, r *http.Request) {
 	Response(w, deliveryList, http.StatusOK, nil)
 }
 
-// DeliveryInfoRequested
+// CheckAdress
 //
 // [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출
-//
-// 성공 시 /input/input_item 호출
-func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
+func CheckAddress(w http.ResponseWriter, r *http.Request) {
+
 	inputInfoRequest := InputInfoRequest{}
 	err := json.NewDecoder(r.Body).Decode(&inputInfoRequest)
 	if err != nil {
@@ -58,7 +59,7 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if inputInfoRequest.Address == "" || inputInfoRequest.DeliveryId == "" {
+	if inputInfoRequest.Address == "" || inputInfoRequest.DeliveryId == "" || inputInfoRequest.TrackingNum == "" {
 		log.Error(err)
 		Response(w, nil, http.StatusBadRequest, errors.New("파라미터가 누락되었습니다"))
 		return
@@ -77,19 +78,34 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		Response(w, nil, http.StatusInternalServerError, err)
 		return
 	}
+	Response(w, ownerId, http.StatusOK, nil)
 
-	// 테이블에 빈 트레이 감지
-	isEmptyTrayOnTable, err := plc.SenseTableForEmptyTray()
+}
+
+// DeliveryInfoRequested
+//
+// [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출
+//
+// 성공 시 /input/input_item 호출
+func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
+	inputInfoRequest := InputInfoRequest{}
+	err := json.NewDecoder(r.Body).Decode(&inputInfoRequest)
 	if err != nil {
-		// changeKioskView
-		// return
 		log.Error(err)
 		Response(w, nil, http.StatusInternalServerError, err)
 		return
 	}
-	// 빈 트레이가 있을 경우
-	if isEmptyTrayOnTable {
-		log.Infof("[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=%v", isEmptyTrayOnTable)
+
+	tracking_num, _ := strconv.Atoi(inputInfoRequest.TrackingNum)
+	itemDimension.TrackingNum = tracking_num
+
+	// 버퍼에 빈트레이 유무 확인
+	if !trayBuffer.Buffer.IsEmpty() {
+		// 버퍼의 맨 위 트레이 사용
+		trayBuffer.Buffer.Get()
+		trayId := trayBuffer.Buffer.Peek().(int64)
+		plc.TrayIdOnTable.Int64 = trayId
+		log.Infof("[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=%v", trayId)
 
 		err = plc.StandbyRobotAtTable()
 		if err != nil {
@@ -98,16 +114,15 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 			log.Error(err)
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-
-		// 빈 트레이가 없을 경우
 	} else {
 		// 빈트레이를 가져올 슬롯 선택
 		slotsWithEmptyTray, err := model.SelectSlotListWithEmptyTray()
 		// TODO - 빈 슬롯 선정 최적화
 		slotWithEmptyTray := slotsWithEmptyTray[0]
 		trayId := slotWithEmptyTray.TrayId.Int64
+
 		log.Infof("[웹 핸들러] 빈 트레이를 가져올 slotId=%v, trayId=%v", slotWithEmptyTray.SlotId, trayId)
-		if slotWithEmptyTray.TrayId.Valid == false {
+		if !slotWithEmptyTray.TrayId.Valid {
 			log.Info("[웹 핸들러] 빈 트레이가 존재하지 않음")
 			Response(w, nil, http.StatusBadRequest, errors.New("빈 트레이가 존재하지 않습니다"))
 			return
@@ -128,6 +143,12 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 			Response(w, nil, http.StatusInternalServerError, err)
 			return
 		}
+
+		// 버퍼에 트레이 추가
+		trayBuffer.Buffer.Push(trayId)
+		num := trayBuffer.Buffer.Count()
+		model.InsertBufferState(num)
+		plc.TrayIdOnTable.Int64 = trayId
 
 		slotUpdateRequest := model.SlotUpdateRequest{
 			Lane:  slotWithEmptyTray.Lane,
@@ -164,6 +185,16 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
+	ownerId, err := model.SelectOwnerIdByAddress(inputInfoRequest.Address)
+	if err != nil {
+		// changeKioskView
+		// return
+		log.Error(err)
+		Response(w, nil, http.StatusInternalServerError, err)
+		return
+	}
+
 	log.Infof("[웹 핸들러] OwnerId=%v", ownerId)
 	ownerIdStr := strconv.FormatInt(ownerId, 10)
 	redirectUrl := "/input/input_item?deliveryId=" + inputInfoRequest.DeliveryId + "&ownerId=" + ownerIdStr
@@ -173,7 +204,7 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 
 // ItemSubmitted
 //
-// [API] 택배기사가 물건을 테이블에 올려놓은 경우 호출
+// [API] 택배기사가 물건을 테이블에 올려놓기 전 호출
 func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
 	if err != nil {
@@ -182,8 +213,8 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
-	deliveryIdStr := r.URL.Query().Get("deliveryId")
-	ownerIdStr := r.URL.Query().Get("ownerId")
+	deliveryIdStr = r.URL.Query().Get("deliveryId")
+	ownerIdStr = r.URL.Query().Get("ownerId")
 
 	// 센싱하고 있다가 물품 감지
 	/* for {
@@ -216,17 +247,24 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO - temp
-	var itemDimension plc.ItemDimension
+	//var itemDimension plc.ItemDimension
 	// **수정
 	if !isItemOnTable {
 		// 물품 크기, 무게, 송장번호 조회
-		itemDimension, err = plc.SenseItemInfo()
+		item, err := plc.SenseItemInfo()
+		itemDimension.Height = item.Height
+		itemDimension.Width = item.Width
+		itemDimension.Weight = item.Weight
+
 		if err != nil {
 			// changeKioskView
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		itemDimension = plc.ItemDimension{Height: rand.Intn(6) + 1, Width: 5, Weight: 8, TrackingNum: 1010} // **제거
+		// **제거
+		itemDimension.Height = rand.Intn(6) + 1
+		itemDimension.Width = 5
+		itemDimension.Weight = 8
 		log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 	}
 
@@ -250,7 +288,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	buff := bytes.NewBuffer(pbytes)
 	resp, err := http.Post("http://localhost:8080/get/best_slot", "application/json", buff)
 
-	var bestSlot model.Slot
+	//var bestSlot model.Slot
 
 	if err != nil {
 		// 에러나면 직접 수납슬롯 구하기
@@ -282,7 +320,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		err = json.Unmarshal(respData, &bestSlot)
+		json.Unmarshal(respData, &bestSlot)
 		log.Infof("[웹핸들러] 최적 슬롯: slotId=%v", bestSlot.SlotId)
 		if bestSlot.Lane == 0 {
 			Response(w, nil, http.StatusBadRequest, errors.New("수납가능한 슬롯이 없습니다"))
@@ -293,10 +331,10 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 
 	Response(w, "/input/complete_input_item", http.StatusOK, nil)
 
-	go inputItem(bestSlot, deliveryIdStr, ownerIdStr, itemDimension)
+	//go inputItem(bestSlot, deliveryIdStr, ownerIdStr, itemDimension)
 }
 
-func inputItem(bestSlot model.Slot, deliveryIdStr string, ownerIdStr string, itemDimension plc.ItemDimension) {
+func Input(w http.ResponseWriter, r *http.Request) {
 
 	// 아이템 수납
 	log.Infof("[웹핸들러] 아이템 수납")
@@ -307,6 +345,14 @@ func inputItem(bestSlot model.Slot, deliveryIdStr string, ownerIdStr string, ite
 		// changeKioskView
 		// return
 	}
+
+	// 버퍼에서 사용한 트레이 삭제
+	trayBuffer.Buffer.Pop()
+	num := trayBuffer.Buffer.Count()
+	model.InsertBufferState(num)
+
+	trayId := trayBuffer.Buffer.Peek().(int64)
+	plc.TrayIdOnTable.Int64 = trayId
 
 	// 송장번호, 물품높이, 택배기사, 수령인 정보 itemCreateRequest 에 넣어서 물품 db업데이트
 	deliveryId, err := strconv.ParseInt(deliveryIdStr, 10, 64)
@@ -418,6 +464,7 @@ type StopRequest struct {
 }
 
 func StopInput(w http.ResponseWriter, r *http.Request) {
+	log.Info("입고취소")
 	stopRequest := StopRequest{}
 	err := json.NewDecoder(r.Body).Decode(&stopRequest)
 	if err != nil {
@@ -459,6 +506,7 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if stopRequest.Step >= "1" {
+		robot.JobDismiss()
 		Response(w, "OK", http.StatusOK, nil)
 	}
 }
@@ -485,183 +533,4 @@ func SenseItem(w http.ResponseWriter, r *http.Request) {
 	if !isItemOnTable {
 		Response(w, "/input/input_item", http.StatusOK, nil)
 	}
-}
-
-func Sort(w http.ResponseWriter, r *http.Request) {
-	// 정리할 물품 선정 // **제거
-	itemList, err := model.SelectSortItemList()
-	if len(itemList) == 0 {
-		Response(w, nil, http.StatusBadRequest, errors.New("정리가능한 물품이 존재하지 않습니다"))
-		return
-	}
-	if err != nil {
-		Response(w, nil, http.StatusInternalServerError, err)
-	}
-
-	item := itemList[rand.Intn(len(itemList)-1)]
-	// 물품의 현재 슬롯
-	currentSlot, err := model.SelectSlotByItemId(item.ItemId)
-	log.Infof("[웹핸들러] 현재수납슬롯: slotId=%v", currentSlot.SlotId)
-
-	if len(itemList) == 0 {
-		Response(w, nil, http.StatusBadRequest, errors.New("해당 물품이 보관되어 있지 않습니다"))
-		return
-	}
-	if err != nil {
-		// changeKioskView
-		// return
-		Response(w, nil, http.StatusInternalServerError, err)
-	}
-
-	// 이동할 슬롯 선정 // **제거
-	slotList, err := model.SelectAvailableSlotList(item.ItemHeight)
-	if len(slotList) == 0 {
-		Response(w, nil, http.StatusBadRequest, errors.New("이동가능한 슬롯이 존재하지 않습니다"))
-		return
-	}
-	if err != nil {
-		// changeKioskView
-		// return
-		Response(w, nil, http.StatusInternalServerError, err)
-	}
-
-	sort.SliceStable(slotList, func(i, j int) bool {
-		return slotList[i].TransportDistance < slotList[j].TransportDistance
-	})
-	bestSlot := slotList[0]
-	log.Infof("[웹핸들러] 최적수납슬롯: slotId=%v", bestSlot.SlotId)
-
-	// 트레이 이동
-	err = plc.MoveTray(currentSlot, bestSlot)
-	if err != nil {
-		// changeKioskView
-		// return
-		Response(w, nil, http.StatusInternalServerError, err)
-	}
-
-	// 트랜잭션
-	tx, err := model.DB.BeginTx(context.Background(), nil)
-	if err != nil {
-		return
-	}
-	defer func(tx *sql.Tx) {
-		_ = tx.Rollback()
-	}(tx)
-
-	// db 변경
-	slots, err := model.SelectSlotListByLaneAndItemId(item.ItemId)
-	if err != nil {
-		log.Error(err)
-		// TODO - DB 에러 처리
-	}
-
-	// 물건이 차지하던 슬롯 초기화
-	for idx, _ := range slots {
-		slot := &slots[idx]
-
-		if slot.ItemId.Int64 == item.ItemId {
-			slot.SlotEnabled = true
-			slot.ItemId = sql.NullInt64{Valid: false} // set null
-			slot.TrayId = sql.NullInt64{Valid: false} // set null
-		}
-	}
-	// slot-keep-cnt 갱신
-	for idx := range slots {
-		slot := &slots[idx]
-
-		// 비어있는 슬롯에 대해서만 진행
-		if !slot.SlotEnabled {
-			continue
-		}
-
-		if idx == 0 { // 맨 위쪽 빈 슬롯인 경우
-			slot.SlotKeepCnt = 1
-		} else {
-			slot.SlotKeepCnt = slots[idx-1].SlotKeepCnt + 1
-		}
-	}
-
-	_, err = model.UpdateSlots(slots, tx)
-	if err != nil {
-		log.Error(err)
-		// TODO - DB 에러 처리
-	}
-
-	// 아이템이 수납된 lane 슬롯 업데이트
-	slots, err = model.SelectSlotListByLane(bestSlot.Lane)
-	if err != nil {
-		log.Error(err)
-		// TODO - DB 에러 처리
-		return
-	}
-
-	for idx := range slots {
-		slot := &slots[idx]
-
-		// 물건 가장 아랫부분 슬롯 갱신
-		if slot.SlotId == bestSlot.SlotId {
-			slot.SlotEnabled = false
-			slot.SlotKeepCnt = 0
-			slot.ItemId = sql.NullInt64{Int64: item.ItemId, Valid: true}
-			slot.TrayId = currentSlot.TrayId
-			continue
-		}
-
-		// 물건이 차지하는 슬롯 갱신
-		itemTopFloor := bestSlot.Floor - item.ItemHeight + 1
-		if itemTopFloor <= slot.Floor && slot.Floor <= bestSlot.Floor {
-			slot.SlotEnabled = false
-			slot.SlotKeepCnt = 0
-			slot.ItemId = sql.NullInt64{Int64: item.ItemId, Valid: true}
-			slot.TrayId = sql.NullInt64{Valid: false} // set null
-			continue
-		}
-	}
-
-	// slot-keep-cnt 갱신
-	for idx := range slots {
-		slot := &slots[idx]
-
-		// 비어있는 슬롯에 대해서만 진행
-		if !slot.SlotEnabled {
-			continue
-		}
-
-		if idx == 0 { // 맨 위쪽 빈 슬롯인 경우
-			slot.SlotKeepCnt = 1
-		} else {
-			slot.SlotKeepCnt = slots[idx-1].SlotKeepCnt + 1
-		}
-	}
-
-	_, err = model.UpdateSlots(slots, tx)
-	if err != nil {
-		log.Error(err)
-		// TODO - DB 에러 처리
-	}
-
-	/* inputSlotUpdateRequest := model.SlotUpdateRequest{Lane: bestSlot.Lane, Floor: bestSlot.Floor, SlotEnabled: false, TrayId: currentSlot.TrayId, ItemId: currentSlot.ItemId}
-	_, err = model.UpdateStorageSlotKeepCnt(bestSlot.Lane, bestSlot.Floor, item.ItemHeight, tx)
-	if err != nil {
-		log.Errorf("[웹핸들러] 밑에 빈 슬롯없음. error=%v", err)
-	}
-	_, err = model.UpdateStorageSlotList(item.ItemHeight, inputSlotUpdateRequest, tx)
-	if err != nil {
-		log.Error(err)
-		// changeKioskView
-		// return
-	}
-	_, err = model.UpdateSlot(inputSlotUpdateRequest, tx)
-	if err != nil {
-		log.Error(err)
-		// changeKioskView
-		// return
-	} */
-
-	err = tx.Commit()
-	if err != nil {
-		return
-	}
-
-	Response(w, "OK", http.StatusOK, nil)
 }

@@ -31,13 +31,16 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/cancel_input_item", CancelInputItem).Methods(http.MethodGet)
 
 	r.HandleFunc("/input/get_delivery_list", DeliveryCompanyList).Methods(http.MethodGet)
-	// [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출
+	// [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출 (수령인 주소 확인)
+	//
+	r.HandleFunc("/input/check_address", CheckAddress).Methods(http.MethodPost)
+	// [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출 (배송 정보 전송)
 	// 성공 시 /input/input_item 호출
 	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods(http.MethodPost)
 	// [API] 택배기사가 물건을 테이블에 올려놓은 경우 호출
 	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods(http.MethodPost)
 	// [API] 물품 계측 후 수납 가능 시 호출 (입고가 완료되었습니다 화면에서 호출)
-	//r.HandleFunc("/input/input", Input).Methods(http.MethodPost)
+	r.HandleFunc("/input/input", Input).Methods(http.MethodPost)
 	r.HandleFunc("/input/stop_input", StopInput).Methods(http.MethodPost)
 	r.HandleFunc("/input/senseItem", SenseItem).Methods(http.MethodPost)
 
@@ -93,6 +96,7 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/output/item_list_error", ItemListError).Methods(http.MethodGet)
 
 	/* sort */
-	r.HandleFunc("/sort", Sort).Methods(http.MethodPost)
+	r.HandleFunc("/sort/tray_buffer", SortTrayBuffer).Methods(http.MethodGet)
+	r.HandleFunc("/sort/item", SortItem).Methods(http.MethodPost)
 
 }
