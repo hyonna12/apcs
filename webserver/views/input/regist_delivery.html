@@ -25,7 +25,6 @@
         transform: translate(-50%, -50%);
       }
       .modal-msg {
-        
         text-align: center;
         color: rgb(255, 174, 0);
         font-size: 2.8rem; 
@@ -36,6 +35,17 @@
         margin: 0 auto; 
         padding: 30px 0;
       }
+      .list-box .list-top.tracking_num .value img {
+        width:50px
+      }
+      .popup-box.msg-box .img {
+        text-align: center;
+      }
+      .popup-box.msg-box .img img {
+        width:400px
+      }
+
+     
 </style>
 
         <main id="main">
@@ -53,9 +63,9 @@
                         <p class="title">수령인 주소</p>
                         <p class="value" ><input type="number" id="select_address" value="">호</p>
                     </div>
-                    <div class="list-top">
-                        <p class="title">송장번호</p>
-                        <p class="value" ><input type="text" id="select_tracking_num" value=""></p>
+                    <div class="list-top tracking_num">
+                        <p class="title">송장 번호</p>
+                        <p class="value" ><input type="text" id="select_tracking_num" value=""><img src="/static/images/ico_barcode.png" id="tracking_barcode" alt=""></p>
                     </div>
                     <div class="list-top">
                         <p class="title">수령인 연락처</p>
@@ -83,13 +93,6 @@
             </div>
         </main>
     </div>
-    <div class="popup-layer" style="display: none;" id="modal">
-        <div class="popup-box msg-box">
-            <div class="popup-body">
-                <p class="msg">입고 준비중입니다<br>잠시만 기다려주세요</p>
-            </div>
-        </div>
-    </div>
     <div class="popup-layer" style="display: none;" id="popup_company">
         <div class="popup-box">
             <div class="popup-body">
@@ -102,6 +105,24 @@
                     <button class="btn-normal" id="choice_company">선택 완료</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="popup-layer" style="display: none;" id="modal">
+        <div class="popup-box msg-box">
+            <div class="popup-body">
+                <p class="msg">입고 준비중입니다<br>잠시만 기다려주세요</p>
+            </div>
+        </div>
+    </div>
+    <div class="popup-layer" style="display: none;" id="popup_barcode">
+        <div class="popup-box msg-box">
+            <div class="popup-body">
+                <p class="img"><img src="/static/images/ico_barcode.png" alt=""></p>
+                <p class="msg">스캐너에 송장번호를 읽혀주세요.</p>
+            </div>
+        </div>
+        <div class="fixed-btn">
+            <button class="btn-normal cancel_btn">스캔 취소</button>
         </div>
     </div>
 </body>
@@ -129,10 +150,10 @@
         }
     }).catch(err => {
         console.log(err);
-        alert(err)
+        alert(err);
     });
 
-    const modal = document.getElementById("modal");
+    const modal = document.getElementById("modal"); // 택배회사 파업창
     let company_id = '';
     
     /* 배송 정보 전달 */
@@ -160,7 +181,7 @@
         // 수령인 주소 확인
         let axiosResult = await axios.post('/input/check_address', request).catch(err => {
             console.log(err);
-            alert(err.response.data.error)
+            alert(err.response.data.error);
         });
 
         let response = axiosResult.data;
@@ -173,24 +194,22 @@
             await axios.post('/input/input_delivery_info', request).then(res => {
                 console.log(res.data)
                 if(res.data.status === 200){
-                    input = ''
-                    address_list = []
-                    number_list = []
-                    location.replace(res.data.data)
+                    input = '';
+                    address_list = [];
+                    number_list = [];
+                    location.replace(res.data.data);
                 } else{
-                    console.log(res.data.error)
-                    alert(res.data.error)
+                    console.log(res.data.error);
+                    alert(res.data.error);
                 }
             }).catch(err => {
                 modal.style.display = "none";
                 document.body.style.overflow = "auto"; // 스크롤바 보이기
                 console.log(err);
-                alert(err.response.data.error)
+                alert(err.response.data.error);
                 
             });
         }
-        
-    
     }
 
     /* 입고 취소 */
@@ -202,97 +221,133 @@
         axios.post('/input/stop_input', request).then(res => {
             if(res.data.status === 200){
                 alert('입고를 취소하셨습니다.');
-                location.href='/'
+                location.href='/';
             } else{
-                console.log(res.data.error)
-                alert(res.data.error)
+                console.log(res.data.error);
+                alert(res.data.error);
                 //location.href='/input/regist_delivery_error'
             }
             
         }).catch(err => {
             console.log(err);
-            alert(err.response.data.error)
+            alert(err.response.data.error);
         });
     }
     
+    /* 택배사 리스트 팝업 열기 */
     select_company.onclick = () => {
-        document.getElementById("popup_company").style.display = 'block'    
+        document.getElementById("popup_company").style.display = 'block';
     };
 
+
+    /* 바코드 찍힐때 이벤트 */
+    const barcode = (e) => {
+        tracking_num_list = [];
+        document.getElementById("popup_barcode").style.display = 'none';
+        data = e.key;
+        tracking_num_list.push(data);
+        tracking_num = tracking_num_list.join('');
+        document.getElementById('select_tracking_num').value = tracking_num;
+
+        $('#select_tracking_num').focus();
+        input = $(":focus").attr('id');
+    };
+
+    let isKeypress = false; // 바코드 이벤트 실행여부 확인
+
+    /* 바코드 팝업 열기 */
+    tracking_barcode.onclick = () => {
+        document.getElementById("popup_barcode").style.display = 'block';
+        if(isKeypress == true){
+            window.removeEventListener('keypress', barcode);
+            isKeypress = false;
+        }
+        // keypress 발생 시 실행
+        window.addEventListener('keypress', barcode);
+        isKeypress = true;
+    }
+
+    /* 바코드 팝업 닫기 */
+    $('.cancel_btn').click(function(){
+        document.getElementById("popup_barcode").style.display = 'none';
+    });
+
+    /* 택배사 선택 */
     choice_company.onclick = () => {
         company_id = $("input[name='radio']:checked").val();
         company_name = $("input[name=radio]:checked").next().text();
     
         document.getElementById('select_company').value = company_name;
-        document.getElementById("popup_company").style.display = 'none'
+        document.getElementById("popup_company").style.display = 'none';
     };
 
+    /* 첫 화면으로 */
     $('.home_btn').click(function(){
         send_stop_info();
     });
    
-    let input = 'select_address'
+    
+    let input = 'select_address'    // 기본 포커스 주소 input
     let address_list = [];
     let number_list = [];
     let tracking_num_list = [];
 
-    // keydown 발생시 실행
-    window.addEventListener("keypress", (e) => {
-        data = e.key
-        tracking_num_list.push(data)
-        tracking_num = tracking_num_list.join('');
-        document.getElementById('select_tracking_num').value = tracking_num;
-
-        $('#select_tracking_num').focus();
-        input = $(":focus").attr('id')
-    });
-
+    /* 수령인 주소 input 눌렀을때 */
     select_address.onclick  = () => {
         $('#select_address').focus();
-        input = $(":focus").attr('id')
+        input = $(":focus").attr('id');
     };
 
+    /* 수령인 연락처 input 눌렀을때 */
     select_num.onclick  = () => {
         $('#select_num').focus();
-        input = $(":focus").attr('id')
+        input = $(":focus").attr('id');
     };
 
+    /* 송장번호 input 눌렀을때 */
     select_tracking_num.onclick  = () => {
         $('#select_tracking_num').focus();
-        input = $(":focus").attr('id')
+        input = $(":focus").attr('id');
     };
 
+    /* 숫자패드 숫자버튼 눌렀을때 */
     $('.number').click(function(){
         number = $(this).attr('value');
         if (input == 'select_address') {
-            address_list.push(number)
+            address_list.push(number);
             address = address_list.join('');
             document.getElementById("select_address").value = address;
         } else if(input == 'select_num'){
-            number_list.push(number)
-            phone_num = number_list.join('');
-            document.getElementById("select_num").value = phone_num;
-        }
-    });
-
-    backspace.onclick = () => {
-        if (input == 'select_address') {
-            address_list.pop()
-            address = address_list.join('');
-            document.getElementById("select_address").value = address;
-        } else if(input == 'select_num') {
-            number_list.pop()
+            number_list.push(number);
             phone_num = number_list.join('');
             document.getElementById("select_num").value = phone_num;
         } else if(input == 'select_tracking_num'){
-            tracking_num_list = []
+            tracking_num_list.push(number);
+            tracking_num = tracking_num_list.join('');
+            document.getElementById("select_tracking_num").value = tracking_num;
+        }
+    });
+
+    /* 숫자패드 뒤로가기 버튼 눌렀을때 */
+    backspace.onclick = () => {
+        if (input == 'select_address') {
+            address_list.pop();
+            address = address_list.join('');
+            document.getElementById("select_address").value = address;
+        } else if(input == 'select_num') {
+            number_list.pop();
+            phone_num = number_list.join('');
+            document.getElementById("select_num").value = phone_num;
+        } else if(input == 'select_tracking_num'){
+            tracking_num_list.pop();
             tracking_num = tracking_num_list.join('');
             document.getElementById("select_tracking_num").value = tracking_num;
         }
     };
 
+    /* 입력완료 버튼 선택시 */
     delivery_regist_btn.onclick  = () => {
-        send_delivery_info()
+        send_delivery_info();
     };
     
 </script>
