@@ -1,6 +1,7 @@
 package plc
 
 import (
+	"apcs_refactored/config"
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
@@ -41,7 +42,7 @@ func StartPlcClient(n *messenger.Node) {
 	msgNode = n
 
 	// 시뮬레이터 딜레이 설정
-	simulatorDelay = time.Duration(simulatorDelay)
+	simulatorDelay = time.Duration(config.Config.Plc.Simulation.Delay)
 
 	robot.InitRobots()
 
