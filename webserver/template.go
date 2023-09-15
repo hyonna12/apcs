@@ -68,9 +68,9 @@ func InputItemError(w http.ResponseWriter, r *http.Request) {
 	templ.ExecuteTemplate(w, "input/input_item_error", &Page{Title: "Home"})
 }
 
-func RegistOwnerError(w http.ResponseWriter, r *http.Request) {
+func CheckItemInfo(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
-	templ.ExecuteTemplate(w, "input/regist_owner_error", &Page{Title: "Home"})
+	templ.ExecuteTemplate(w, "input/check_item_info", &Page{Title: "Home"})
 }
 
 func CompleteInputItem(w http.ResponseWriter, r *http.Request) {

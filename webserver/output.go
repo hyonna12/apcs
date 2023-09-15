@@ -146,13 +146,6 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
-	}
-
 	// 트레이 버퍼 개수 조회 후 (20개-물품개수) 될 때까지 회수
 	for trayBuffer.Buffer.Count() > (config.Config.Plc.TrayBuffer.Optimum - len(itemIds)) {
 		err := RetrieveEmptyTrayFromTableAndUpdateDb()
@@ -204,6 +197,14 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			delete(requestList, s.ItemId.Int64)
 		}(slot)
 	}
+
+	err = templ.ExecuteTemplate(w, "output/item_output_ongoing", &Page{Title: "Home"})
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
 }
 
 // ItemOutputConfirm - [View] "택배를 확인해주세요" 화면 출력
@@ -463,21 +464,6 @@ func ItemOutputTakeout(w http.ResponseWriter, r *http.Request) {
 
 	plc.IsItemOnTable = false
 	Response(w, nil, http.StatusOK, nil)
-}
-
-// SenseTableForItem - [API] "택배를 꺼내주세요" 화면에서 매 초마다 호출
-func SenseTableForItem(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-
-	isItemOnTable, err := plc.SenseTableForItem()
-	if err != nil {
-		log.Error(err)
-		// TODO - 에러처리
-		Response(w, nil, http.StatusInternalServerError, nil)
-	}
-	boolStr := strconv.FormatBool(isItemOnTable)
-
-	Response(w, boolStr, http.StatusOK, nil)
 }
 
 // ItemOutputComplete - [API] 입주민이 택배를 수령해 테이블에 물건이 없을 경우 호출

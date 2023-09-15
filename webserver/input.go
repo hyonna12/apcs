@@ -186,6 +186,13 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
+	if err != nil {
+		// changeKioskView
+		// return
+		Response(w, nil, http.StatusInternalServerError, err)
+	}
+
 	ownerId, err := model.SelectOwnerIdByAddress(inputInfoRequest.Address)
 	if err != nil {
 		// changeKioskView
@@ -204,42 +211,13 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 
 // ItemSubmitted
 //
-// [API] 택배기사가 물건을 테이블에 올려놓기 전 호출
+// [API] 택배기사가 물건을 테이블에 올려놓은 후 호출
 func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
-	err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
-	if err != nil {
-		// changeKioskView
-		// return
-		Response(w, nil, http.StatusInternalServerError, err)
-	}
 
 	deliveryIdStr = r.URL.Query().Get("deliveryId")
 	ownerIdStr = r.URL.Query().Get("ownerId")
 
-	// 센싱하고 있다가 물품 감지
-	/* for {
-		IsItemOnTable, err := plc.SenseTableForItem() // 값 들어올때까지 대기
-		time.Sleep(1 * time.Second)
-
-
-		if err != nil {
-			// changeKioskView
-			// return
-			Response(w, nil, http.StatusInternalServerError, err)
-		}
-		if IsItemOnTable {
-			break
-		}
-	} */
-
-	isItemOnTable, err := plc.SenseTableForItem() // 값 들어올때까지 대기
-	if err != nil {
-		// changeKioskView
-		// return
-		Response(w, nil, http.StatusInternalServerError, err)
-	}
-
-	err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
+	err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
 	if err != nil {
 		// changeKioskView
 		// return
@@ -249,27 +227,25 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	// TODO - temp
 	//var itemDimension plc.ItemDimension
 	// **수정
-	if !isItemOnTable {
-		// 물품 크기, 무게, 송장번호 조회
-		item, err := plc.SenseItemInfo()
-		itemDimension.Height = item.Height
-		itemDimension.Width = item.Width
-		itemDimension.Weight = item.Weight
+	// 물품 크기, 무게, 송장번호 조회
+	item, err := plc.SenseItemInfo()
+	itemDimension.Height = item.Height
+	itemDimension.Width = item.Width
+	itemDimension.Weight = item.Weight
 
-		if err != nil {
-			// changeKioskView
-			// return
-			Response(w, nil, http.StatusInternalServerError, err)
-		}
-		// **제거
-		itemDimension.Height = rand.Intn(6) + 1
-		itemDimension.Width = 5
-		itemDimension.Weight = 8
-		log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
+	if err != nil {
+		// changeKioskView
+		// return
+		Response(w, nil, http.StatusInternalServerError, err)
 	}
+	// **제거
+	itemDimension.Height = rand.Intn(6) + 1
+	itemDimension.Width = 15
+	itemDimension.Weight = 8
+	log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 
 	// 물품의 크기, 무게가 기준 초과되면 입고 취소
-	if itemDimension.Height > 10 {
+	if itemDimension.Height > 10 { //**수정 45mm * 6
 		Response(w, nil, http.StatusBadRequest, errors.New("허용 높이 초과"))
 		return
 	}
@@ -472,6 +448,8 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if stopRequest.Step >= "2" {
+		// 앞문 열려있는지 확인하고
+		// if 닫혀있다면 문 열기
 		err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
 		if err != nil {
 			// changeKioskView
@@ -479,32 +457,29 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
 
-		/* for {
-			IsItemOnTable, err := plc.SenseTableForItem() // 값 들어올때까지 대기
-			if err != nil {
-				Response(w, nil, http.StatusInternalServerError, err)
-			}
-			if IsItemOnTable {
-				break
-			}
-		} */
-		// 센싱하고 있다가 물품 감지
-		item, err := plc.SenseTableForItem() // 값 들어올때까지 대기
+		// 물품 감지
+		isItemOnTable, err := plc.SenseTableForItem()
 		if err != nil {
 			// changeKioskView
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		// **수정
-		if !item {
-			err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
+
+		// 물품이 없다면(회수했다면) 앞문 닫기
+		if !isItemOnTable {
+			err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
 			if err != nil {
 				// changeKioskView
 				// return
 				Response(w, nil, http.StatusInternalServerError, err)
 			}
+			robot.JobDismiss()
 		}
+		boolStr := strconv.FormatBool(isItemOnTable)
+		Response(w, boolStr, http.StatusOK, nil)
+		return
 	}
+
 	if stopRequest.Step >= "1" {
 		robot.JobDismiss()
 		Response(w, "OK", http.StatusOK, nil)
@@ -533,4 +508,19 @@ func SenseItem(w http.ResponseWriter, r *http.Request) {
 	if !isItemOnTable {
 		Response(w, "/input/input_item", http.StatusOK, nil)
 	}
+}
+
+// SenseTableForItem - [API] "택배를 꺼내주세요" 화면에서 매 초마다 호출
+func SenseTableItem(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+
+	isItemOnTable, err := plc.SenseTableForItem()
+	if err != nil {
+		log.Error(err)
+		// TODO - 에러처리
+		Response(w, nil, http.StatusInternalServerError, nil)
+	}
+	boolStr := strconv.FormatBool(isItemOnTable)
+
+	Response(w, boolStr, http.StatusOK, nil)
 }

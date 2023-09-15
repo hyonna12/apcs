@@ -18,6 +18,13 @@
             </div>
         </main>
     </div>
+    <div class="popup-layer" style="display: none;" id="modal">
+        <div class="popup-box msg-box">
+            <div class="popup-body">
+                <p class="msg">물품을 회수해주세요
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
@@ -26,49 +33,90 @@
     let url = new URL(window.location.href);
     let deliveryId = url.searchParams.get("deliveryId");
     let ownerId = url.searchParams.get("ownerId");
+    let cancel = false; // 취소 여부
+    let next = true;    // 함수 실행 가능 여부 확인 true : 가능
+    let intervalId = setInterval(senseTableForItem, 1000);
 
-    /* 택배 투입 */
-    axios.post(`/input/submit_item?deliveryId=${deliveryId}&ownerId=${ownerId}`).then(axiosResult => {
-        let response = axiosResult.data;
-        if(response.status === 200){
-            let redirectUrl = `${response.data}?deliveryId=${deliveryId}&ownerId=${ownerId}`;
-            location.replace(redirectUrl);
-        } else{
-            console.log(response.error);
-            alert(response.error)
+    // 테이블에 택배 있는지 확인
+    function senseTableForItem(){
+        if(next == true){
+            next = false;
+            axios.get('/input/sense_table_for_item').then(res => {
+                let response = res.data.data
+                console.log(res.data)
+
+                // 물품이 없다면 반복실행
+                if(response == 'false'){
+                    console.log("물품 안들어옴")
+                    next = true
+                } else{
+                    // 물품이 있다면 inputItem
+                    console.log("물품 들어옴")
+                    clearInterval(intervalId)
+                    inputItem()
+                }
+            }).catch(err => {
+                console.error(err);
+            });
         }
-    }).catch(err => {
-        console.log(err);
-        setTimeout(function(){
-            location.href='/input/input_item_error?error=' + err.response.data.error;
-        }, 5000);
-    });
+    }
+    
+    function inputItem(){
+        /* 택배 투입 */
+        axios.post(`/input/submit_item?deliveryId=${deliveryId}&ownerId=${ownerId}`).then(axiosResult => {
+            let response = axiosResult.data;
+            let redirectUrl = `${response.data}?deliveryId=${deliveryId}&ownerId=${ownerId}`;
+            console.log(redirectUrl)
+            if(cancel == false){
+                location.replace(redirectUrl);
+            }
+        }).catch(err => {
+            console.log(err);
+            setTimeout(function(){
+                location.href='/input/input_item_error?error=' + err.response.data.error;
+            }, 5000);
+        });
+    }
+    let isItemOnTable;
+    let keep = true; // 함수 실행 가능 여부 확인 true : 가능
+    const modal = document.getElementById("modal");
 
     /* 입고 취소 */
     function send_stop_info() {
-        
+        cancel = true;
         let request = JSON.stringify({
             step: "2",
         });
+        modal.style.display = "block";
+        document.body.style.overflow = "hidden";
 
-        axios.post('/input/stop_input', request).then(res => {
-            if(res.data.status === 200){
-                location.href='/input/cancel_input_item'
-                alert('입고를 취소하셨습니다.');
-            } else{
-                console.log(res.data.error)
-                alert(res.data.error)
-            }
-            
-        }).catch(err => {
-            console.log(err);
-            alert(err.response.data.error)
-        });
+        // 문 열고 물품 회수했는지 확인
+        if(keep == true){
+            keep = false;
+            axios.post('/input/stop_input', request).then(res => {
+                let response = res.data.data
+                console.log(res.data)
+                // 물품이 있다면 반복실행
+                if(response == 'true'){
+                    console.log("회수 안함")
+                    keep = true
+                } else{
+                    // 물품이 없다면 inputItem
+                    console.log("회수 완료")
+                    clearInterval(isItemOnTable)
+                    location.href='/input/cancel_input_item'
+                }
+            }).catch(err => {
+                console.error(err);
+            });
+        }       
     }
 
     $('.home_btn').click(function(){
-        send_stop_info();
+        clearInterval(intervalId);
+        isItemOnTable = setInterval(send_stop_info, 1000);
     });
-    
+
+
 </script>
 {{end}}
