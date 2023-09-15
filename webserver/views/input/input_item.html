@@ -24,7 +24,6 @@
     </div>
 </main>
 
-
 <script>
     let url = new URL(window.location.href);
     let deliveryId = url.searchParams.get("deliveryId");
@@ -73,6 +72,7 @@
             }, 5000);
         });
     }
+    
     let isItemOnTable;
     let keep = true; // 함수 실행 가능 여부 확인 true : 가능
     const modal = document.getElementById("modal");
