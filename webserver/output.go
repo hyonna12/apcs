@@ -313,8 +313,16 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
+
+	adminPassword, err := model.SelectAdminPassword()
+	if err != nil {
+		// TODO - DB 에러 발생 시 에러처리
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
 	// 마스터 pw 값으로 수정***
-	if request.Password == password || request.Password == 0000 {
+	if request.Password == password || request.Password == adminPassword {
 		Response(w, nil, http.StatusOK, nil)
 	} else {
 		Response(w, nil, http.StatusBadRequest, errors.New("잘못된 비밀번호입니다"))
