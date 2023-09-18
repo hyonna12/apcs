@@ -313,8 +313,8 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
-
-	if request.Password == password {
+	// 마스터 pw 값으로 수정***
+	if request.Password == password || request.Password == 0000 {
 		Response(w, nil, http.StatusOK, nil)
 	} else {
 		Response(w, nil, http.StatusBadRequest, errors.New("잘못된 비밀번호입니다"))
