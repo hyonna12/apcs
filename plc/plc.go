@@ -74,6 +74,21 @@ func SetUpDoor(doorType door.DoorType, doorOperation door.DoorOperation) error {
 	return nil
 }
 
+// GetDoorState
+//
+// 도어 조작.
+//
+// - door.DoorType: 조작할 도어
+// - door.DoorOperation: 조작 명령
+func GetDoorState() ([]door.DoorState, error) {
+	resp, err := door.GetDoorState()
+
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // SetUpTrayBuffer
 //
 // 트레이 버퍼 조작.
