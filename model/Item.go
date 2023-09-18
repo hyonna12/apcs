@@ -367,6 +367,25 @@ func SelectItemExistsByAddress(address string) (bool, error) {
 	return exists, err
 }
 
+func SelectItemExistsByTrackingNum(trackingNumber string) (bool, error) {
+	query :=
+		`SELECT EXISTS(
+				SELECT item_id
+				FROM TN_CTR_ITEM 
+				WHERE tracking_number = ?
+			)
+			`
+
+	var exists bool
+	row := DB.QueryRow(query, trackingNumber)
+	err := row.Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+
+	return exists, err
+}
+
 func SelectSortItemList() ([]ItemReadResponse, error) {
 	query := `
 			SELECT item_id, item_height 

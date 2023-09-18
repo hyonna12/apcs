@@ -1,15 +1,54 @@
 {{template "layout.html" .}}
 {{define "content"}}
+<style>
+    .list-box .list-check {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin: 0 auto 60px;
+        padding: 18px 30px;
+        box-sizing: border-box;
+        width: fit-content;
+        border-radius: 15px;
+        word-break: keep-all;
+        line-height: 135%;
+    }
+    .list-box .list-check .list {
+        text-align: center;
+        display: flex;
+        gap: 80px;
+
+    }
+    .list-box .list-check .list .chk {
+        width: 200px;
+    }
+
+</style>
 <main id="main">
     <div class="content-wrap">
         <div class="fixed-btn">
             <button class="btn-normal" id="$cancel_btn"><a href="/">첫 화면으로</a></button>
         </div>
         <div class="list-box">
-            <div class="list-title">아래의 정보를 입력해 주세요</div>
-            <div class="list-top">
+            <div class="list-title">물품을 조회할 수단을 선택해주세요</div>
+            <div class="list-check">
+                <div class="list">
+                    <p class="chk">
+                        <input type="radio" id="address" checked name="radio" value="address" onclick="getChecked(event)">
+                        <label for="address" class="address" >호수</label>
+                    </p>
+                    <p class="chk">
+                        <input type="radio" id="tracking_num" name="radio" value="tracking_num" onclick="getChecked(event)">
+                        <label for="tracking_num" class="tracking_num" >송장번호</label>
+                    </p>
+                </div>
+            </div>
+            <div class="list-top" id="input_address">
                 <p class="title">귀하의 호수</p>
-                <p class="value"><input type="number" id="$address" value="">호</p>
+                <p class="value"><input type="number" id="$address_info" value="">호</p>
+            </div>
+            <div class="list-top" id="input_tracking_num" style="display: none;">
+                <p class="title">송장번호</p>
+                <p class="value"><input type="number" id="$tracking_num_info" value=""></p>
             </div>
             <div class="number-input" id="number_keypad">
                 <button class="number" value="1">1</button>
@@ -35,14 +74,81 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
+    
+    let input = '$address_info'
+    let address_list = [];
+    let tracking_num_list = [];
+
+    $address_info.onclick = () => {
+        $address_info.focus();
+        input = $(":focus").attr('id')
+    };
+
+    $tracking_num_info.onclick = () => {
+        $tracking_num_info.focus();
+        input = $(":focus").attr('id')
+    };
+
+    $('.number').click(function () {
+        number = $(this).attr('value');
+        if (input == '$address_info') {
+            address_list.push(number)
+            address = address_list.join('');
+            document.getElementById("$address_info").value = address;
+        } else if (input == '$tracking_num_info') {
+            tracking_num_list.push(number)
+            tracking_num = tracking_num_list.join('');
+            document.getElementById("$tracking_num_info").value = tracking_num;
+        }
+    });
+
+    backspace.onclick = () => {
+        if (input == '$address_info') {
+            address_list.pop()
+            address = address_list.join('');
+            document.getElementById("$address_info").value = address;
+        } else if (input == '$tracking_num_info') {
+            tracking_num_list.pop()
+            tracking_num = tracking_num_list.join('');
+            document.getElementById("$tracking_num_info").value = tracking_num;
+        }
+    };
+
+    function getChecked(event) {
+        let radio_opt = event.target.value
+        if(radio_opt == 'address'){
+            $address_info.focus();
+            input = '$address_info';
+
+            address_list = []
+            address = address_list.join('');
+            document.getElementById("$address_info").value = address;
+
+            input_tracking_num.style.display = 'none';
+            input_address.style.display = 'flex';
+
+        } else if(radio_opt == 'tracking_num'){
+            $tracking_num_info.focus();
+            input = '$tracking_num_info';
+
+            tracking_num_list = []
+            tracking_num = tracking_num_list.join('');
+            document.getElementById("$tracking_num_info").value = tracking_num;
+
+            input_address.style.display = 'none';
+            input_tracking_num.style.display = 'flex';
+        }
+    }
 
     $submit_address_btn.onclick = () => {
-        if ($address.value === '') {
-            alert('주소를 입력해주세요.');
-            return false;
-        }
+        // focus에 따라
+        if(input == '$address_info'){
+            if ($address_info.value === '') {
+                alert('주소를 입력해주세요.');
+                return false;
+            }
 
-        axios.get('/output/check_item_exists?address=' + $address.value)
+            axios.get('/output/check_item_exists?address=' + $address_info.value)
             .then(axiosResult => {
                 let response = axiosResult.data;
                 location.replace(response);
@@ -55,32 +161,30 @@
                     console.error(err);
                 }
             });
+        } else if(input == '$tracking_num_info'){
+            if ($tracking_num_info.value === '') {
+                alert('송장번호를 입력해주세요.');
+                return false;
+            }
+
+            axios.get('/output/check_item_exists?tracking_num=' + $tracking_num_info.value)
+            .then(axiosResult => {
+                let response = axiosResult.data;
+                location.replace(response);
+            })
+            .catch(err => {
+                if (err.response.status === 404) {
+
+                    alert('보관된 택배가 없습니다.', '다시 입력해주세요');
+                } else {
+                    console.error(err);
+                }
+            });
+        }
+        
+        
     }
 
-    let input = '$address'
-    let address_list = [];
-
-    $address.onclick = () => {
-        $address.focus();
-        input = $(":focus").attr('id')
-    };
-
-    $('.number').click(function () {
-        number = $(this).attr('value');
-        if (input == '$address') {
-            address_list.push(number)
-            address = address_list.join('');
-            document.getElementById("$address").value = address;
-        }
-    });
-
-    backspace.onclick = () => {
-        if (input == '$address') {
-            address_list.pop()
-            address = address_list.join('');
-            document.getElementById("$address").value = address;
-        }
-    };
 
 </script>
 {{end}}

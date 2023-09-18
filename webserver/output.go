@@ -20,22 +20,41 @@ import (
 
 // CheckItemExists - [API] 동호수 입력 시 호출
 func CheckItemExists(w http.ResponseWriter, r *http.Request) {
-	address := r.URL.Query().Get("address")
-	log.Infof("[불출] 입주민 주소 입력: %v", address)
+	if r.URL.Query().Has("address") {
+		address := r.URL.Query().Get("address")
+		log.Infof("[불출] 입주민 주소 입력: %v", address)
 
-	exists, err := model.SelectItemExistsByAddress(address)
-	if err != nil {
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
-	if exists {
-		trayBuffer.Buffer.Get()
-		_, err = fmt.Fprint(w, fmt.Sprintf("/output/item_list?address=%v", address))
+		exists, err := model.SelectItemExistsByAddress(address)
 		if err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
+		if exists {
+			_, err = fmt.Fprint(w, fmt.Sprintf("/output/item_list?address=%v", address))
+			if err != nil {
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			}
+		} else {
+			http.Error(w, "Item Not Found", http.StatusNotFound)
+		}
 	} else {
-		http.Error(w, "Item Not Found", http.StatusNotFound)
+		tracking_num := r.URL.Query().Get("tracking_num")
+		log.Infof("[불출] 입주민 주소 입력: %v", tracking_num)
+
+		exists, err := model.SelectItemExistsByTrackingNum(tracking_num)
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
+		if exists {
+			_, err = fmt.Fprint(w, fmt.Sprintf("/output/item_list?tracking_num=%v", tracking_num))
+
+			if err != nil {
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			}
+		} else {
+			http.Error(w, "Item Not Found", http.StatusNotFound)
+		}
 	}
+
 }
 
 // GetItemList - [API] 아이템 목록 반환
