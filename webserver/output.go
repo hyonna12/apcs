@@ -46,7 +46,6 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 		}
 		if exists {
 			_, err = fmt.Fprint(w, fmt.Sprintf("/output/item_list?tracking_num=%v", tracking_num))
-
 			if err != nil {
 				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			}
@@ -54,31 +53,52 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Item Not Found", http.StatusNotFound)
 		}
 	}
-
 }
 
 // GetItemList - [API] 아이템 목록 반환
 func GetItemList(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
-	address := r.URL.Query().Get("address")
-	itemListResponses, err := model.SelectItemListByAddress(address)
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
+	if r.URL.Query().Has("address") {
+		address := r.URL.Query().Get("address")
+		itemListResponses, err := model.SelectItemListByAddress(address)
+		if err != nil {
+			log.Error(err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
 
-	response := CommonResponse{
-		Data:   itemListResponses,
-		Status: http.StatusOK,
-		Error:  nil,
-	}
+		response := CommonResponse{
+			Data:   itemListResponses,
+			Status: http.StatusOK,
+			Error:  nil,
+		}
 
-	data, _ := json.Marshal(response)
-	_, err = fmt.Fprint(w, string(data))
-	if err != nil {
-		log.Error(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		data, _ := json.Marshal(response)
+		_, err = fmt.Fprint(w, string(data))
+		if err != nil {
+			log.Error(err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
+	} else {
+		tracking_num := r.URL.Query().Get("tracking_num")
+		itemResponses, err := model.SelectItemIdByTrackingNum(tracking_num)
+		if err != nil {
+			log.Error(err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
+
+		response := CommonResponse{
+			Data:   itemResponses,
+			Status: http.StatusOK,
+			Error:  nil,
+		}
+
+		data, _ := json.Marshal(response)
+		_, err = fmt.Fprint(w, string(data))
+		if err != nil {
+			log.Error(err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
 	}
 }
 
