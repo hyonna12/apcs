@@ -12,7 +12,6 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
-	"math/rand"
 	"net/http"
 	"sort"
 	"strconv"
@@ -238,10 +237,6 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
-	// **제거
-	itemDimension.Height = rand.Intn(6) + 1
-	itemDimension.Width = 6
-	itemDimension.Weight = rand.Intn(10) + 1
 	log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 
 	// 물품의 크기, 무게가 기준 초과되면 입고 취소

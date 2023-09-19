@@ -38,8 +38,7 @@ type Door struct {
 // - door.DoorOperation: 조작 명령
 func SetUpDoor(DoorType DoorType, DoorOperation DoorOperation) error {
 	log.Infof("[PLC_Door] 도어 조작: %v, %v", DoorType, DoorOperation)
-	// TODO - PLC 도어 조작 로직
-
+	// PLC 도어 조작
 	data := Door{DoorType, DoorOperation}
 	pbytes, _ := json.Marshal(data)
 	buff := bytes.NewBuffer(pbytes)
@@ -59,9 +58,8 @@ func SetUpDoor(DoorType DoorType, DoorOperation DoorOperation) error {
 // - door.DoorOperation: 조작 명령
 func GetDoorState() ([]DoorState, error) {
 	log.Infof("[PLC_Door] 도어 상태 조회")
-	// TODO - PLC 도어 조작 로직
+	// PLC 도어 조작 로직
 	var doorState []DoorState
-
 	resp, err := http.Get("http://localhost:8000/door")
 	if err != nil {
 		return doorState, err

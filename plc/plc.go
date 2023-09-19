@@ -8,7 +8,9 @@ import (
 	"apcs_refactored/plc/robot"
 	"apcs_refactored/plc/trayBuffer"
 	"database/sql"
-	"math/rand"
+	"encoding/json"
+	"io"
+	"net/http"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -102,16 +104,30 @@ func SetUpTrayBuffer(bufferOperation trayBuffer.BufferOperation) error {
 	return nil
 }
 
-// SenseTableForEmptyTray
+// SenseTableForEmptyTray		**트레이 버퍼로 빈트레이 확인
 //
 // 테이블에 빈 트레이가 있는지 감지.
 // 있으면 true, 없으면 false 반환.
 func SenseTableForEmptyTray() (bool, error) {
 	log.Infof("[PLC_Sensor] 테이블 빈 트레이 감지")
-	// TODO - PLC 센서 빈 트레이 감지 로직
-	if IsItemOnTable {
-		return false, nil
+	// PLC 센서 빈 트레이 감지 로직
+	var IsTrayOnTable bool
+	resp, err := http.Get("http://localhost:8000/table/empty_tray")
+	if err != nil {
+		return IsTrayOnTable, err
 	}
+
+	defer resp.Body.Close()
+
+	respData, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return IsTrayOnTable, err
+	}
+	json.Unmarshal(respData, &IsTrayOnTable)
+
+	log.Infof("[PLC_Sensor] 테이블 빈트레이 존재 여부: %v", IsTrayOnTable)
+
+	TrayIdOnTable.Valid = IsTrayOnTable
 
 	return TrayIdOnTable.Valid, nil
 }
@@ -122,10 +138,24 @@ func SenseTableForEmptyTray() (bool, error) {
 // 있으면 true, 없으면 false 반환.
 func SenseTableForItem() (bool, error) {
 	log.Infof("[PLC_Sensor] 테이블 물품 존재 여부 감지")
-	// TODO - PLC 센서 물품 존재 여부 감지
-	// TODO - temp - 물건 꺼내기 버튼
+	// PLC 센서 물품 존재 여부 감지
+	var IsItemOnTable bool
+	resp, err := http.Get("http://localhost:8000/table/item")
+	if err != nil {
+		return IsItemOnTable, err
+	}
+
+	defer resp.Body.Close()
+
+	respData, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return IsItemOnTable, err
+	}
+	json.Unmarshal(respData, &IsItemOnTable)
+
+	log.Infof("[PLC_Sensor] 테이블 물품 존재 여부: %v", IsItemOnTable)
+
 	return IsItemOnTable, nil
-	//return false, nil
 }
 
 // ServeEmptyTrayToTable
@@ -171,14 +201,24 @@ func DismissRobotAtTable() error {
 func SenseItemInfo() (ItemDimension, error) {
 	log.Infof("[PLC] 크기/무게 측정")
 
-	// TODO - temp
-	itemDimension := &ItemDimension{
-		Height: rand.Intn(10),
-		Width:  rand.Intn(10),
-		Weight: rand.Intn(10),
+	// PLC 센서 물품 크기/무게 측정
+	var itemDimension ItemDimension
+	resp, err := http.Get("http://localhost:8000/table/item_info")
+	if err != nil {
+		return itemDimension, err
 	}
 
-	return *itemDimension, nil
+	defer resp.Body.Close()
+
+	respData, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return itemDimension, err
+	}
+	json.Unmarshal(respData, &itemDimension)
+
+	log.Infof("[PLC_Sensor] 테이블 물품 정보: %v", itemDimension)
+
+	return itemDimension, nil
 }
 
 // MoveTray
