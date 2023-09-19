@@ -107,7 +107,7 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
-	if err := robot.pullTray(); err != nil {
+	if err := robot.pullFromSlot(slot); err != nil {
 		return err
 	}
 	resource.ReleaseSlot(slot.SlotId)
@@ -119,7 +119,7 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
-	if err := robot.pushTray(); err != nil {
+	if err := robot.pushToTable(); err != nil {
 		return err
 	}
 
@@ -169,7 +169,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
-	if err := robot.pullTray(); err != nil {
+	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
 	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationUp); err != nil {
@@ -181,7 +181,7 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
-	if err := robot.pushTray(); err != nil {
+	if err := robot.pushToSlot(slot); err != nil {
 		return err
 	}
 	resource.ReleaseSlot(slot.SlotId)
@@ -227,33 +227,25 @@ func JobInputItem(slot model.Slot) error {
 
 	robot.changeStatus(robotStatusWorking)
 
-	resp, err := GetRobotState()
-	if err != nil {
+	if err := robot.moveToTable(); err != nil {
 		return err
 	}
-	if resp[robot.id-1].Location.Lane != 0 || resp[robot.id-1].Location.Floor != 0 {
-		if err := robot.moveToTable(); err != nil {
-			return err
-		}
-	}
-
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
-	if err := robot.pullTray(); err != nil {
+	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
 	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationUp); err != nil {
 		return err
 	}
-
 	resource.ReleaseTable()
 
 	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
-	if err := robot.pushTray(); err != nil {
+	if err := robot.pushToSlot(slot); err != nil {
 		return err
 	}
 	resource.ReleaseSlot(slot.SlotId)
@@ -281,7 +273,7 @@ func JobOutputItem(slot model.Slot) error {
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
-	if err := robot.pullTray(); err != nil {
+	if err := robot.pullFromSlot(slot); err != nil {
 		return err
 	}
 	resource.ReleaseSlot(slot.SlotId)
@@ -297,7 +289,7 @@ func JobOutputItem(slot model.Slot) error {
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
-	if err := robot.pushTray(); err != nil {
+	if err := robot.pushToTable(); err != nil {
 		return err
 	}
 
@@ -328,7 +320,7 @@ func JobMoveTray(from, to model.Slot) error {
 	if err := robot.moveToSlot(from); err != nil {
 		return err
 	}
-	if err := robot.pullTray(); err != nil {
+	if err := robot.pullFromSlot(from); err != nil {
 		return err
 	}
 	resource.ReleaseSlot(from.SlotId)
@@ -337,7 +329,7 @@ func JobMoveTray(from, to model.Slot) error {
 	if err := robot.moveToSlot(to); err != nil {
 		return err
 	}
-	if err := robot.pushTray(); err != nil {
+	if err := robot.pushToSlot(to); err != nil {
 		return err
 	}
 	resource.ReleaseSlot(to.SlotId)

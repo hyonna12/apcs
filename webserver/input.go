@@ -12,6 +12,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"math"
 	"net/http"
 	"sort"
 	"strconv"
@@ -239,7 +240,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 
 	// 물품의 크기, 무게가 기준 초과되면 입고 취소
-	if itemDimension.Height > 10 { //**수정 45mm * 6
+	if itemDimension.Height > 270 { // 단위:mm
 		Response(w, nil, http.StatusBadRequest, errors.New("허용 높이 초과"))
 		return
 	}
@@ -314,14 +315,6 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		// changeKioskView
 		// return
-	}
-	err = plc.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose)
-	if err != nil {
-		log.Error(err)
-		// changeKioskView
-		// return
-		Response(w, nil, http.StatusInternalServerError, err)
-		return
 	}
 
 	// 버퍼에서 사용한 트레이 삭제
@@ -398,8 +391,12 @@ func Input(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
+		height := float64(itemDimension.Height)
+		float := math.Ceil(height / 45)
+		slotKeepCnt := int(float)
+
 		// 물건이 차지하는 슬롯 갱신
-		itemTopFloor := bestSlot.Floor - itemDimension.Height + 1
+		itemTopFloor := bestSlot.Floor - slotKeepCnt + 1
 		if itemTopFloor <= slot.Floor && slot.Floor <= bestSlot.Floor {
 			slot.SlotEnabled = false
 			slot.SlotKeepCnt = 0
@@ -450,9 +447,14 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if stopRequest.Step >= "2" {
-		// 앞문 열려있는지 확인하고
-		// if 닫혀있다면 문 열기
+
 		err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
+		if err != nil {
+			// changeKioskView
+			// return
+			Response(w, nil, http.StatusInternalServerError, err)
+		}
+
 		if err != nil {
 			// changeKioskView
 			// return

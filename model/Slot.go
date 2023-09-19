@@ -3,6 +3,7 @@ package model
 import (
 	"apcs_refactored/customerror"
 	"database/sql"
+	"math"
 	"strconv"
 	"strings"
 	"time"
@@ -122,6 +123,9 @@ func SelectSlotListByItemIds(itemIds []int64) ([]Slot, error) {
 }
 
 func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
+	height := float64(itemHeight)
+	float := math.Ceil(height / 45)
+	slotKeepCnt := int(float)
 	query := `
 			SELECT 
 				slot_id, 
@@ -136,7 +140,7 @@ func SelectAvailableSlotList(itemHeight int) ([]Slot, error) {
 			  	AND slot_keep_cnt >= ?
 			`
 
-	rows, err := DB.Query(query, itemHeight)
+	rows, err := DB.Query(query, slotKeepCnt)
 	if err != nil {
 		return nil, err
 	}

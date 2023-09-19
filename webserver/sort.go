@@ -9,6 +9,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"math"
 	"math/rand"
 	"net/http"
 	"sort"
@@ -87,7 +88,7 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 물건이 차지하던 슬롯 초기화
-	for idx, _ := range slots {
+	for idx := range slots {
 		slot := &slots[idx]
 
 		if slot.ItemId.Int64 == item.ItemId {
@@ -139,7 +140,11 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// 물건이 차지하는 슬롯 갱신
-		itemTopFloor := bestSlot.Floor - item.ItemHeight + 1
+		height := float64(item.ItemHeight)
+		float := math.Ceil(height / 45)
+		slotKeepCnt := int(float)
+
+		itemTopFloor := bestSlot.Floor - slotKeepCnt + 1
 		if itemTopFloor <= slot.Floor && slot.Floor <= bestSlot.Floor {
 			slot.SlotEnabled = false
 			slot.SlotKeepCnt = 0

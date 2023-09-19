@@ -29,7 +29,7 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
 		if exists {
-			_, err = fmt.Fprint(w, fmt.Sprintf("/output/item_list?address=%v", address))
+			_, err = fmt.Fprintf(w, "/output/item_list?address=%v", address)
 			if err != nil {
 				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			}
@@ -45,7 +45,7 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
 		if exists {
-			_, err = fmt.Fprint(w, fmt.Sprintf("/output/item_list?tracking_num=%v", tracking_num))
+			_, err = fmt.Fprint(w, "/output/item_list?tracking_num=%v", tracking_num)
 			if err != nil {
 				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			}

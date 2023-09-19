@@ -8,9 +8,7 @@ import (
 	"apcs_refactored/plc/robot"
 	"apcs_refactored/plc/trayBuffer"
 	"database/sql"
-	"encoding/json"
-	"io"
-	"net/http"
+	"math/rand"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -76,21 +74,6 @@ func SetUpDoor(doorType door.DoorType, doorOperation door.DoorOperation) error {
 	return nil
 }
 
-// GetDoorState
-//
-// 도어 조작.
-//
-// - door.DoorType: 조작할 도어
-// - door.DoorOperation: 조작 명령
-func GetDoorState() ([]door.DoorState, error) {
-	resp, err := door.GetDoorState()
-
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
-}
-
 // SetUpTrayBuffer
 //
 // 트레이 버퍼 조작.
@@ -112,24 +95,10 @@ func SetUpTrayBuffer(bufferOperation trayBuffer.BufferOperation) error {
 // 있으면 true, 없으면 false 반환.
 func SenseTableForEmptyTray() (bool, error) {
 	log.Infof("[PLC_Sensor] 테이블 빈 트레이 감지")
-	// PLC 센서 빈 트레이 감지 로직
-	var IsTrayOnTable bool
-	resp, err := http.Get("http://localhost:8000/table/empty_tray")
-	if err != nil {
-		return IsTrayOnTable, err
+	// TODO - PLC 센서 빈 트레이 감지 로직
+	if IsItemOnTable {
+		return false, nil
 	}
-
-	defer resp.Body.Close()
-
-	respData, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return IsTrayOnTable, err
-	}
-	json.Unmarshal(respData, &IsTrayOnTable)
-
-	log.Infof("[PLC_Sensor] 테이블 빈트레이 존재 여부: %v", IsTrayOnTable)
-
-	TrayIdOnTable.Valid = IsTrayOnTable
 
 	return TrayIdOnTable.Valid, nil
 }
@@ -140,24 +109,10 @@ func SenseTableForEmptyTray() (bool, error) {
 // 있으면 true, 없으면 false 반환.
 func SenseTableForItem() (bool, error) {
 	log.Infof("[PLC_Sensor] 테이블 물품 존재 여부 감지")
-	// PLC 센서 물품 존재 여부 감지
-	var IsItemOnTable bool
-	resp, err := http.Get("http://localhost:8000/table/item")
-	if err != nil {
-		return IsItemOnTable, err
-	}
-
-	defer resp.Body.Close()
-
-	respData, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return IsItemOnTable, err
-	}
-	json.Unmarshal(respData, &IsItemOnTable)
-
-	log.Infof("[PLC_Sensor] 테이블 물품 존재 여부: %v", IsItemOnTable)
-
+	// TODO - PLC 센서 물품 존재 여부 감지
+	// TODO - temp - 물건 꺼내기 버튼
 	return IsItemOnTable, nil
+	//return false, nil
 }
 
 // ServeEmptyTrayToTable
@@ -203,24 +158,14 @@ func DismissRobotAtTable() error {
 func SenseItemInfo() (ItemDimension, error) {
 	log.Infof("[PLC] 크기/무게 측정")
 
-	// PLC 센서 물품 크기/무게 측정
-	var itemDimension ItemDimension
-	resp, err := http.Get("http://localhost:8000/table/item_info")
-	if err != nil {
-		return itemDimension, err
+	// TODO - temp
+	itemDimension := &ItemDimension{
+		Height: rand.Intn(10),
+		Width:  rand.Intn(10),
+		Weight: rand.Intn(10),
 	}
 
-	defer resp.Body.Close()
-
-	respData, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return itemDimension, err
-	}
-	json.Unmarshal(respData, &itemDimension)
-
-	log.Infof("[PLC_Sensor] 테이블 물품 정보: %v", itemDimension)
-
-	return itemDimension, nil
+	return *itemDimension, nil
 }
 
 // MoveTray
@@ -231,7 +176,10 @@ func SenseItemInfo() (ItemDimension, error) {
 // - to: 트레이를 넣을 슬롯
 func MoveTray(from, to model.Slot) error {
 	log.Infof("[PLC] 트레이 이동: fromSlotId=%v -> toSlotId=%v", from.SlotId, to.SlotId)
-	// TODO -
+
+	if err := robot.JobMoveTray(from, to); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -292,16 +240,4 @@ func OutputItem(slot model.Slot) error {
 
 	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil
-}
-
-// GetRobotState
-//
-// 로봇 상태 조회
-func GetRobotState() ([]robot.RobotState, error) {
-	resp, err := robot.GetRobotState()
-
-	if err != nil {
-		return nil, err
-	}
-	return resp, err
 }
