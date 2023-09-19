@@ -9,7 +9,6 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"fmt"
 	"math/rand"
 	"net/http"
 	"sort"
@@ -207,7 +206,6 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 
 		trayId := trayBuffer.Buffer.Peek().(int64)
 		plc.TrayIdOnTable.Int64 = trayId
-		fmt.Println(num)
 
 		Response(w, num, http.StatusOK, nil)
 		return

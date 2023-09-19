@@ -204,7 +204,6 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 	log.Infof("[웹 핸들러] OwnerId=%v", ownerId)
 	ownerIdStr := strconv.FormatInt(ownerId, 10)
 	redirectUrl := "/input/input_item?deliveryId=" + inputInfoRequest.DeliveryId + "&ownerId=" + ownerIdStr
-
 	Response(w, redirectUrl, http.StatusOK, nil)
 }
 

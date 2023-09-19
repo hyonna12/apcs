@@ -293,3 +293,15 @@ func OutputItem(slot model.Slot) error {
 	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil
 }
+
+// GetRobotState
+//
+// 로봇 상태 조회
+func GetRobotState() ([]robot.RobotState, error) {
+	resp, err := robot.GetRobotState()
+
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
