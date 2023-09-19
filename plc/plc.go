@@ -99,6 +99,8 @@ func GetDoorState() ([]door.DoorState, error) {
 func SetUpTrayBuffer(bufferOperation trayBuffer.BufferOperation) error {
 	err := trayBuffer.SetUpTrayBuffer(bufferOperation)
 	if err != nil {
+		log.Error("버퍼 조작 에러", err)
+
 		return err
 	}
 	return nil

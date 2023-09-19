@@ -1,7 +1,10 @@
 package trayBuffer
 
 import (
+	"bytes"
 	"container/list"
+	"encoding/json"
+	"net/http"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -17,6 +20,10 @@ var (
 	Buffer *TrayBuffer
 )
 
+type TrayBufferRequest struct {
+	BufferOperation BufferOperation `json:"BufferOperation"`
+}
+
 // 빈트레이 id를 담기 위한 스택
 type TrayBuffer struct {
 	ids *list.List
@@ -28,8 +35,15 @@ type TrayBuffer struct {
 //
 // - trayBuffer.BufferOperation: 조작 명령
 func SetUpTrayBuffer(BufferOperation BufferOperation) error {
-	log.Infof("[PLC_Door] 트레이 버퍼 조작: %v", BufferOperation)
-	// TODO - PLC 트레이 버퍼 조작 로직
+	log.Infof("[PLC_TrayBuffer] 트레이 버퍼 조작: %v", BufferOperation)
+	// PLC 트레이 버퍼 조작
+	data := TrayBufferRequest{BufferOperation: BufferOperation}
+	pbytes, _ := json.Marshal(data)
+	buff := bytes.NewBuffer(pbytes)
+	_, err := http.Post("http://localhost:8000/setup/buffer", "application/json", buff)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
