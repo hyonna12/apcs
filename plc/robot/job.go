@@ -227,9 +227,16 @@ func JobInputItem(slot model.Slot) error {
 
 	robot.changeStatus(robotStatusWorking)
 
-	if err := robot.moveToTable(); err != nil {
+	resp, err := GetRobotState()
+	if err != nil {
 		return err
 	}
+	if resp[robot.id-1].Location.Lane != 0 || resp[robot.id-1].Location.Floor != 0 {
+		if err := robot.moveToTable(); err != nil {
+			return err
+		}
+	}
+
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
@@ -239,6 +246,7 @@ func JobInputItem(slot model.Slot) error {
 	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationUp); err != nil {
 		return err
 	}
+
 	resource.ReleaseTable()
 
 	resource.ReserveSlot(slot.SlotId)

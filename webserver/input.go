@@ -315,6 +315,14 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		// changeKioskView
 		// return
 	}
+	err = plc.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose)
+	if err != nil {
+		log.Error(err)
+		// changeKioskView
+		// return
+		Response(w, nil, http.StatusInternalServerError, err)
+		return
+	}
 
 	// 버퍼에서 사용한 트레이 삭제
 	trayBuffer.Buffer.Pop()
