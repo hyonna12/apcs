@@ -6,9 +6,9 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
+	"apcs_refactored/plc/sensor"
 	"apcs_refactored/plc/trayBuffer"
 	"database/sql"
-	"math/rand"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -89,30 +89,17 @@ func SetUpTrayBuffer(bufferOperation trayBuffer.BufferOperation) error {
 	return nil
 }
 
-// SenseTableForEmptyTray		**트레이 버퍼로 빈트레이 확인
-//
-// 테이블에 빈 트레이가 있는지 감지.
-// 있으면 true, 없으면 false 반환.
-func SenseTableForEmptyTray() (bool, error) {
-	log.Infof("[PLC_Sensor] 테이블 빈 트레이 감지")
-	// TODO - PLC 센서 빈 트레이 감지 로직
-	if IsItemOnTable {
-		return false, nil
-	}
-
-	return TrayIdOnTable.Valid, nil
-}
-
 // SenseTableForItem
 //
 // 테이블에 물품이 있는지 감지.
 // 있으면 true, 없으면 false 반환.
 func SenseTableForItem() (bool, error) {
-	log.Infof("[PLC_Sensor] 테이블 물품 존재 여부 감지")
-	// TODO - PLC 센서 물품 존재 여부 감지
-	// TODO - temp - 물건 꺼내기 버튼
+	IsItemOnTable, err := sensor.SenseTableForItem()
+	if err != nil {
+		return IsItemOnTable, err
+	}
+
 	return IsItemOnTable, nil
-	//return false, nil
 }
 
 // ServeEmptyTrayToTable
@@ -156,16 +143,14 @@ func DismissRobotAtTable() error {
 //
 // 테이블에 올려진 물품 크기/무게 계측.
 func SenseItemInfo() (ItemDimension, error) {
-	log.Infof("[PLC] 크기/무게 측정")
+	itemDimension, err := sensor.SenseItemInfo()
+	ItemDimension := ItemDimension{Height: itemDimension.Height, Weight: itemDimension.Weight, Width: itemDimension.Width}
 
-	// TODO - temp
-	itemDimension := &ItemDimension{
-		Height: rand.Intn(10),
-		Width:  rand.Intn(10),
-		Weight: rand.Intn(10),
+	if err != nil {
+		return ItemDimension, err
 	}
 
-	return *itemDimension, nil
+	return ItemDimension, nil
 }
 
 // MoveTray

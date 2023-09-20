@@ -13,7 +13,6 @@ import (
 	"errors"
 	"io"
 	"math"
-	"math/rand"
 	"net/http"
 	"sort"
 	"strconv"
@@ -121,7 +120,7 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 		// TODO - 빈 슬롯 선정 최적화
 		slotWithEmptyTray := slotsWithEmptyTray[0]
 		trayId := slotWithEmptyTray.TrayId.Int64
-
+		//** 수정
 		log.Infof("[웹 핸들러] 빈 트레이를 가져올 slotId=%v, trayId=%v", slotWithEmptyTray.SlotId, trayId)
 		if !slotWithEmptyTray.TrayId.Valid {
 			log.Info("[웹 핸들러] 빈 트레이가 존재하지 않음")
@@ -238,11 +237,6 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
-
-	// **제거
-	itemDimension.Height = rand.Intn(270) + 1
-	itemDimension.Width = rand.Intn(10) + 1
-	itemDimension.Weight = rand.Intn(10) + 1
 
 	log.Printf("[제어서버] 아이템 크기/무게: %v", itemDimension)
 
