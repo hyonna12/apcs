@@ -28,7 +28,7 @@ type TrayBuffer struct {
 //
 // - trayBuffer.BufferOperation: 조작 명령
 func SetUpTrayBuffer(BufferOperation BufferOperation) error {
-	log.Infof("[PLC_Door] 트레이 버퍼 조작: %v", BufferOperation)
+	log.Infof("[PLC_Buffer] 트레이 버퍼 조작: %v", BufferOperation)
 	// TODO - PLC 트레이 버퍼 조작 로직
 	return nil
 }
