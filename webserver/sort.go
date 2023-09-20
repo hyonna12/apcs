@@ -225,15 +225,6 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 			Response(w, nil, http.StatusBadRequest, errors.New("빈 트레이가 존재하지 않습니다"))
 			return
 		}
-		// TODO - 빈 슬롯 선정 최적화
-		slotWithEmptyTray := slotsWithEmptyTray[0]
-		trayId := slotWithEmptyTray.TrayId.Int64
-		log.Infof("[웹 핸들러] 빈 트레이를 가져올 slotId=%v, trayId=%v", slotWithEmptyTray.SlotId, trayId)
-		if !slotWithEmptyTray.TrayId.Valid {
-			log.Info("[웹 핸들러] 빈 트레이가 존재하지 않음")
-			Response(w, nil, http.StatusBadRequest, errors.New("빈 트레이가 존재하지 않습니다"))
-			return
-		}
 		if err != nil {
 			log.Error(err)
 			// changeKioskView
@@ -241,6 +232,11 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 			Response(w, nil, http.StatusInternalServerError, err)
 			return
 		}
+
+		// TODO - 빈 슬롯 선정 최적화
+		slotWithEmptyTray := slotsWithEmptyTray[0]
+		trayId := slotWithEmptyTray.TrayId.Int64
+		log.Infof("[웹 핸들러] 빈 트레이를 가져올 slotId=%v, trayId=%v", slotWithEmptyTray.SlotId, trayId)
 
 		err = plc.SetUpTrayBuffer(trayBuffer.BufferOperationDown)
 		if err != nil {

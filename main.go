@@ -9,6 +9,8 @@ import (
 	"apcs_refactored/plc/resource"
 	"apcs_refactored/plc/trayBuffer"
 	"apcs_refactored/webserver"
+	"io"
+	"os"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -35,6 +37,13 @@ func main() {
 			DisableLevelTruncation: false,
 		})
 	}
+
+	file, err := os.OpenFile("./log/apcs.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0755)
+	if err != nil {
+		panic(err)
+	}
+	// 로그 콘솔, 파일에 출력
+	log.SetOutput(io.MultiWriter(os.Stdout, file))
 
 	log.Info("Control server started")
 

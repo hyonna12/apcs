@@ -76,7 +76,7 @@ func (t *TrayBuffer) Get() interface{} {
 		list = append(list, prev.Value)
 		prev = prev.Prev()
 	}
-	log.Debugf("buffer tray : %v", list)
+	log.Debugf("tray buffer : %v", list)
 
 	return list
 }
