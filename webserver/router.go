@@ -66,6 +66,9 @@ func Handler(r *mux.Router) {
 	// [View] 비밀번호 입력 화면 출력
 	r.HandleFunc("/output/password/form", ItemOutputPasswordForm).Methods(http.MethodGet)
 
+	// [View] 비밀번호 불일치 화면 출력
+	r.HandleFunc("/output/password/mismatch", ItemOutputPasswordMismatch).Methods(http.MethodGet)
+
 	// [API] 비밀번호가 제출된 경우 호출
 	r.HandleFunc("/output/password/check", ItemOutputCheckPassword).Methods(http.MethodPost)
 

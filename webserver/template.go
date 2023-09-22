@@ -214,6 +214,13 @@ func ItemOutputAccept(w http.ResponseWriter, r *http.Request) {
 	render(w, "output/item_output_accept.html", nil)
 }
 
+// ItemOutputPasswordMismatch - [VIEW] "비밀번호가 일치하지 않습니다" 화면 출력
+func ItemOutputPasswordMismatch(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+
+	render(w, "output/item_output_password_mismatch.html", nil)
+}
+
 // ItemOutputCancel
 //
 // [VIEW] "택배 찾기가 취소되었습니다" 화면 출력
