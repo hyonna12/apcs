@@ -449,6 +449,7 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 
 	if stopRequest.Step >= "2" {
 
+		// 앞문이 열려있는지 확인한 후에 front open
 		err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
 		if err != nil {
 			// changeKioskView

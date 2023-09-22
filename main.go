@@ -99,7 +99,7 @@ func main() {
 	// 트레이 버퍼 스택 생성
 	Buffer := trayBuffer.NewTrayBuffer()
 	// 초기 버퍼 빈트레이 id 값 /** 수정
-	for i := 1; i <= 20; i++ {
+	for i := 1; i <= 20; i++ { // config.Config.Plc.TrayBuffer.Optimum
 		num := int64(i)
 		Buffer.Push(num)
 	}

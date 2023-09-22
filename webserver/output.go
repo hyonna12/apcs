@@ -323,6 +323,11 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 
 	// 마스터 pw 값으로 수정***
 	if request.Password == password || request.Password == adminPassword {
+		if err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen); err != nil {
+			log.Error(err)
+			// TODO - PLC 에러처리
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
 		Response(w, nil, http.StatusOK, nil)
 	} else {
 		Response(w, nil, http.StatusBadRequest, errors.New("잘못된 비밀번호입니다"))
@@ -344,12 +349,6 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Infof("[웹핸들러] 물건 반납 요청 접수. itemId=%v", itemId)
-
-	if err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
-		log.Error(err)
-		// TODO - PLC 에러처리
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
 
 	// 택배 반환
 	// TODO - 반환하는 김에 정리(최적 슬롯 알고리즘) - 꺼낸 슬롯의 원래 자리는 비어있다고 가정하고 선정

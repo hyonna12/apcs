@@ -236,6 +236,9 @@ func JobInputItem(slot model.Slot) error {
 	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
+	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
+		return err
+	}
 	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationUp); err != nil {
 		return err
 	}
@@ -290,6 +293,9 @@ func JobOutputItem(slot model.Slot) error {
 		return err
 	}
 	if err := robot.pushToTable(); err != nil {
+		return err
+	}
+	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
 		return err
 	}
 
