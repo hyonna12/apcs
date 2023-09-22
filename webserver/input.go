@@ -34,7 +34,6 @@ type Item struct {
 }
 
 func DeliveryCompanyList(w http.ResponseWriter, r *http.Request) {
-
 	// 택배회사 리스트 조회
 	deliveryList, err := model.SelectDeliveryCompanyList()
 	if err != nil {
@@ -456,6 +455,8 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
+		// 앞문 열림 완료 확인
+		robot.CheckCompletePlc("complete")
 
 		if err != nil {
 			// changeKioskView

@@ -32,6 +32,7 @@ type job struct {
 
 var (
 	jobQueue []*job
+	RespPlc  interface{}
 )
 
 func newJob(robotStatus robotStatus, jobDescription string) *job {
@@ -102,23 +103,32 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 	}
 
 	robot.changeStatus(robotStatusWorking)
-
 	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
+	// 슬롯으로 이동 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := robot.pullFromSlot(slot); err != nil {
 		return err
 	}
+	// 트레이 꺼내기 완료 확인
+	CheckCompletePlc("complete")
+
 	resource.ReleaseSlot(slot.SlotId)
 
 	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
+
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
+	// 트레이로 이동 완료 확인 & 뒷문 열림 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := robot.pushToTable(); err != nil {
 		return err
 	}
@@ -166,24 +176,42 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
+
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
+	// 테이블로 이동 완료 확인 & 뒷문 열림 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
+	// 트레이 꺼내기 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationUp); err != nil {
 		return err
 	}
+
+	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
+		return err
+	}
+
 	resource.ReleaseTable()
 
 	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
+	// 슬롯으로 이동 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := robot.pushToSlot(slot); err != nil {
 		return err
 	}
+	// 트레이 넣기 완료 확인
+	CheckCompletePlc("complete")
+
 	resource.ReleaseSlot(slot.SlotId)
 
 	robot.changeStatus(robotStatusAvailable)
@@ -230,27 +258,44 @@ func JobInputItem(slot model.Slot) error {
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
+
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
+	// 테이블 이동 완료 확인 & 뒷문 열림 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := robot.pullFromTable(); err != nil {
 		return err
 	}
+	// 트레이 꺼내기 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
 		return err
 	}
+	// 뒷문 닫힘 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationUp); err != nil {
 		return err
 	}
+	// 트레이 버퍼 올리기 완료 확인
+	CheckCompletePlc("complete")
+
 	resource.ReleaseTable()
 
 	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
+	// 슬롯으로 이동 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := robot.pushToSlot(slot); err != nil {
 		return err
 	}
+
 	resource.ReleaseSlot(slot.SlotId)
 
 	robot.changeStatus(robotStatusAvailable)
@@ -276,9 +321,15 @@ func JobOutputItem(slot model.Slot) error {
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
+	// 슬롯 이동 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := robot.pullFromSlot(slot); err != nil {
 		return err
 	}
+	// 트레이 꺼내기 완료 확인
+	CheckCompletePlc("complete")
+
 	resource.ReleaseSlot(slot.SlotId)
 
 	resource.ReserveTable()
@@ -286,15 +337,22 @@ func JobOutputItem(slot model.Slot) error {
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
+
 	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationDown); err != nil {
 		return err
 	}
+
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
 	}
+	// 테이블 이동 완료 확인, 트레이 버퍼 내리기 완료 확인, 뒷문 열림 완료 확인
+	CheckCompletePlc("complete")
 	if err := robot.pushToTable(); err != nil {
 		return err
 	}
+	// 트레이 넣기 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
 		return err
 	}
@@ -326,18 +384,28 @@ func JobMoveTray(from, to model.Slot) error {
 	if err := robot.moveToSlot(from); err != nil {
 		return err
 	}
+	// 슬롯 이동 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := robot.pullFromSlot(from); err != nil {
 		return err
 	}
+	// 트레이 꺼내기 완료 확인
+	CheckCompletePlc("complete")
+
 	resource.ReleaseSlot(from.SlotId)
 
 	resource.ReserveSlot(to.SlotId)
 	if err := robot.moveToSlot(to); err != nil {
 		return err
 	}
+	// 슬롯 이동 완료 확인
+	CheckCompletePlc("complete")
+
 	if err := robot.pushToSlot(to); err != nil {
 		return err
 	}
+
 	resource.ReleaseSlot(to.SlotId)
 
 	robot.changeStatus(robotStatusAvailable)
@@ -383,4 +451,27 @@ func JobDismiss() error {
 	}
 
 	return nil
+}
+
+// 업무 완료 확인
+//
+// data : 기대하는 값
+func CheckCompletePlc(data interface{}) error {
+	RespPlc = ""
+	for {
+		// TODO - plc에서 데이터 조회	/ 어떤 데이터를 가져올지 매개변수 추가
+		log.Infof("[PLC] 데이터 조회")
+		if RespPlc == data {
+			log.Info("업무 완료 응답")
+			return nil
+		}
+		go simul()
+		time.Sleep(1 * time.Second)
+	}
+}
+
+// 값 응답
+func simul() {
+	time.Sleep(5 * time.Second)
+	RespPlc = "complete"
 }
