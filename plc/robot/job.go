@@ -255,6 +255,7 @@ func JobInputItem(slot model.Slot) error {
 
 	robot.changeStatus(robotStatusWorking)
 
+	// 로봇(r)의 위치 조회해와서 테이블 앞이면(이미 대기중) 이 과정 생략 **수정
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
@@ -283,12 +284,12 @@ func JobInputItem(slot model.Slot) error {
 	// 트레이 버퍼 올리기 완료 확인
 	CheckCompletePlc("complete")
 
-	resource.ReleaseTable()
-
 	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
+	resource.ReleaseTable()
+
 	// 슬롯으로 이동 완료 확인
 	CheckCompletePlc("complete")
 
@@ -330,13 +331,13 @@ func JobOutputItem(slot model.Slot) error {
 	// 트레이 꺼내기 완료 확인
 	CheckCompletePlc("complete")
 
-	resource.ReleaseSlot(slot.SlotId)
-
 	resource.ReserveTable()
 
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
+
+	resource.ReleaseSlot(slot.SlotId)
 
 	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationDown); err != nil {
 		return err

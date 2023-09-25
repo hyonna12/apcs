@@ -2,8 +2,9 @@ package resource
 
 import (
 	"apcs_refactored/config"
-	log "github.com/sirupsen/logrus"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -54,8 +55,11 @@ func CheckResolveDeadlock() {
 }
 
 func ReserveTable() {
+
 	if !tableReserved {
 		tableReserved = true
+		log.Infof("[PLC] 테이블 점유")
+
 		return
 	}
 
@@ -66,6 +70,8 @@ func ReserveTable() {
 		select {
 		case <-waiting:
 			tableReserved = true
+			log.Infof("[PLC] 테이블 점유")
+
 			return
 		// 일정 시간마다 데드락 확인 및 해결
 		case <-time.After(deadlockCheckPeriod * time.Second):
@@ -76,9 +82,12 @@ func ReserveTable() {
 }
 
 func ReserveSlot(slotId int64) {
+
 	isSlotReserved := slotReservationMap[slotId]
 	if !isSlotReserved {
 		slotReservationMap[slotId] = true
+		log.Infof("[PLC] 슬롯 점유")
+
 		return
 	}
 
@@ -89,6 +98,8 @@ func ReserveSlot(slotId int64) {
 		select {
 		case <-waiting:
 			slotReservationMap[slotId] = true
+			log.Infof("[PLC] 슬롯 점유")
+
 			return
 		// 일정 시간 마다 데드락 확인 및 해결
 		case <-time.After(deadlockCheckPeriod * time.Second):
@@ -99,6 +110,8 @@ func ReserveSlot(slotId int64) {
 }
 
 func ReleaseTable() {
+	log.Infof("[PLC] 테이블 점유 해제")
+
 	tableReserved = false
 	if len(tableWaitingQueue) > 0 {
 		tableWaitingQueue[0] <- struct{}{}
@@ -106,6 +119,8 @@ func ReleaseTable() {
 	}
 }
 func ReleaseSlot(slotId int64) {
+	log.Infof("[PLC] 슬롯 점유 해제")
+
 	slotReservationMap[slotId] = false
 	if len(slotWaitingQueueMap[slotId]) > 0 {
 		slotWaitingQueueMap[slotId][0] <- struct{}{}

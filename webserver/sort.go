@@ -30,7 +30,8 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
-	item := itemList[rand.Intn(len(itemList)-1)]
+	num := rand.Intn(len(itemList) - 1)
+	item := itemList[num]
 	// 물품의 현재 슬롯
 	currentSlot, err := model.SelectSlotByItemId(item.ItemId)
 	log.Infof("[웹핸들러] 현재수납슬롯: slotId=%v", currentSlot.SlotId)
