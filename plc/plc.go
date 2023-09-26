@@ -193,17 +193,16 @@ func RetrieveEmptyTrayFromTable(slot model.Slot) (int64, error) {
 // 물품 수납. 트레이 id 반환
 //
 // - slot: 물품을 수납할 슬롯
-func InputItem(slot model.Slot) (int64, error) {
+func InputItem(slot model.Slot) error {
 	log.Infof("[PLC] 물품 수납. slotId=%v", slot.SlotId)
 
 	if err := robot.JobInputItem(slot); err != nil {
-		return 0, err
+		return err
 	}
 
-	trayId := TrayIdOnTable.Int64
 	//trayIdOnTable := sql.NullInt64{Valid: false} // set null
 
-	return trayId, nil
+	return nil
 }
 
 // OutputItem

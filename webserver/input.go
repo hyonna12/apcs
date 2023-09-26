@@ -307,23 +307,23 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 
 func Input(w http.ResponseWriter, r *http.Request) {
 
+	// 버퍼에서 사용한 트레이 삭제
+	trayId := trayBuffer.Buffer.Pop().(int64)
+	num := trayBuffer.Buffer.Count()
+	model.InsertBufferState(num)
+
+	id := trayBuffer.Buffer.Peek().(int64)
+	plc.TrayIdOnTable.Int64 = id
+
 	// 아이템 수납
 	log.Infof("[웹핸들러] 아이템 수납")
 
-	trayIdWithItem, err := plc.InputItem(bestSlot)
+	err := plc.InputItem(bestSlot)
 	if err != nil {
 		log.Error(err)
 		// changeKioskView
 		// return
 	}
-
-	// 버퍼에서 사용한 트레이 삭제
-	trayBuffer.Buffer.Pop()
-	num := trayBuffer.Buffer.Count()
-	model.InsertBufferState(num)
-
-	trayId := trayBuffer.Buffer.Peek().(int64)
-	plc.TrayIdOnTable.Int64 = trayId
 
 	// 송장번호, 물품높이, 택배기사, 수령인 정보 itemCreateRequest 에 넣어서 물품 db업데이트
 	deliveryId, err := strconv.ParseInt(deliveryIdStr, 10, 64)
@@ -364,7 +364,7 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		TrayOccupied: true,
 		ItemId:       sql.NullInt64{Int64: itemId, Valid: true},
 	}
-	_, err = model.UpdateTray(trayIdWithItem, trayUpdateRequest, tx)
+	_, err = model.UpdateTray(trayId, trayUpdateRequest, tx)
 	if err != nil {
 		// TODO - 에러처리
 		log.Error(err)
@@ -387,7 +387,8 @@ func Input(w http.ResponseWriter, r *http.Request) {
 			slot.SlotEnabled = false
 			slot.SlotKeepCnt = 0
 			slot.ItemId = sql.NullInt64{Int64: itemId, Valid: true}
-			slot.TrayId = sql.NullInt64{Int64: trayIdWithItem, Valid: true}
+			slot.TrayId = sql.NullInt64{Int64: trayId, Valid: true}
+			log.Infoln("***트레이값: ", trayId)
 			continue
 		}
 

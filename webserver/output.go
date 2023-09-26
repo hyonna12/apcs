@@ -360,7 +360,7 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 	}
 
 	go func() {
-		if _, err = plc.InputItem(slot); err != nil {
+		if err = plc.InputItem(slot); err != nil {
 			// TODO - PLC 에러처리
 			log.Error(err)
 		}
@@ -428,7 +428,7 @@ func ItemOutputReturnByTimeout(w http.ResponseWriter, r *http.Request) {
 		}
 
 		go func() {
-			if _, err = plc.InputItem(slot); err != nil {
+			if err = plc.InputItem(slot); err != nil {
 				// TODO - PLC 에러처리
 				log.Error(err)
 			}
