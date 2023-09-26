@@ -297,9 +297,7 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 			Response(w, nil, http.StatusBadRequest, errors.New("수납가능한 슬롯이 없습니다"))
 			return
 		}
-
 	}
-
 	Response(w, "/input/complete_input_item", http.StatusOK, nil)
 }
 
@@ -332,15 +330,6 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		TrackingNumber: itemDimension.TrackingNum,
 		DeliveryId:     deliveryId,
 		OwnerId:        ownerId,
-	}
-	// 아이템 수납
-	log.Infof("[웹핸들러] 아이템 수납")
-
-	err = plc.InputItem(bestSlot)
-	if err != nil {
-		log.Error(err)
-		// changeKioskView
-		// return
 	}
 
 	// 트랜잭션
@@ -394,12 +383,13 @@ func Input(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		height := float64(itemDimension.Height)
+		height := float64(itemCreateRequest.ItemHeight)
 		float := math.Ceil(height / 45)
 		slotKeepCnt := int(float)
 
 		// 물건이 차지하는 슬롯 갱신
 		itemTopFloor := bestSlot.Floor - slotKeepCnt + 1
+
 		if itemTopFloor <= slot.Floor && slot.Floor <= bestSlot.Floor {
 			slot.SlotEnabled = false
 			slot.SlotKeepCnt = 0
@@ -407,6 +397,7 @@ func Input(w http.ResponseWriter, r *http.Request) {
 			slot.TrayId = sql.NullInt64{Valid: false} // set null
 			continue
 		}
+
 	}
 
 	// slot-keep-cnt 갱신
@@ -435,6 +426,17 @@ func Input(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+
+	// 아이템 수납
+	log.Infof("[웹핸들러] 아이템 수납")
+
+	err = plc.InputItem(bestSlot)
+	if err != nil {
+		log.Error(err)
+		// changeKioskView
+		// return
+	}
+
 }
 
 type StopRequest struct {

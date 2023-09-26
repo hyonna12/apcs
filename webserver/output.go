@@ -113,6 +113,8 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Post 요청인 경우
+	render(w, "output/item_output_ongoing.html", nil)
+
 	err := r.ParseForm()
 	if err != nil {
 		log.Error(err)
@@ -159,8 +161,6 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		log.Error()
 		return
 	}
-
-	render(w, "output/item_output_ongoing.html", nil)
 
 	// 트레이 버퍼 개수 조회 후 (20개-물품개수) 될 때까지 회수
 	for trayBuffer.Buffer.Count() > (config.Config.Plc.TrayBuffer.Optimum - len(itemIds)) {
@@ -222,7 +222,6 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			delete(requestList, s.ItemId.Int64)
 		}(slot)
 	}
-
 }
 
 // ItemOutputConfirm - [View] "택배를 확인해주세요" 화면 출력
