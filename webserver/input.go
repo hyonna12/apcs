@@ -301,8 +301,6 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Response(w, "/input/complete_input_item", http.StatusOK, nil)
-
-	//go inputItem(bestSlot, deliveryIdStr, ownerIdStr, itemDimension)
 }
 
 func Input(w http.ResponseWriter, r *http.Request) {
@@ -315,23 +313,34 @@ func Input(w http.ResponseWriter, r *http.Request) {
 	id := trayBuffer.Buffer.Peek().(int64)
 	plc.TrayIdOnTable.Int64 = id
 
-	// 아이템 수납
-	log.Infof("[웹핸들러] 아이템 수납")
-
-	err := plc.InputItem(bestSlot)
-	if err != nil {
-		log.Error(err)
-		// changeKioskView
-		// return
-	}
-
 	// 송장번호, 물품높이, 택배기사, 수령인 정보 itemCreateRequest 에 넣어서 물품 db업데이트
 	deliveryId, err := strconv.ParseInt(deliveryIdStr, 10, 64)
+	if err != nil {
+		// TODO - 에러처리
+		log.Error(err)
+		return
+	}
 	ownerId, err := strconv.ParseInt(ownerIdStr, 10, 64)
 	if err != nil {
 		// TODO - 에러처리
 		log.Error(err)
 		return
+	}
+
+	itemCreateRequest := model.ItemCreateRequest{
+		ItemHeight:     itemDimension.Height,
+		TrackingNumber: itemDimension.TrackingNum,
+		DeliveryId:     deliveryId,
+		OwnerId:        ownerId,
+	}
+	// 아이템 수납
+	log.Infof("[웹핸들러] 아이템 수납")
+
+	err = plc.InputItem(bestSlot)
+	if err != nil {
+		log.Error(err)
+		// changeKioskView
+		// return
 	}
 
 	// 트랜잭션
@@ -343,12 +352,6 @@ func Input(w http.ResponseWriter, r *http.Request) {
 		_ = tx.Rollback()
 	}(tx)
 
-	itemCreateRequest := model.ItemCreateRequest{
-		ItemHeight:     itemDimension.Height,
-		TrackingNumber: itemDimension.TrackingNum,
-		DeliveryId:     deliveryId,
-		OwnerId:        ownerId,
-	}
 	itemId, err := model.InsertItem(itemCreateRequest, tx)
 	if err != nil {
 		// changeKioskView
@@ -388,7 +391,6 @@ func Input(w http.ResponseWriter, r *http.Request) {
 			slot.SlotKeepCnt = 0
 			slot.ItemId = sql.NullInt64{Int64: itemId, Valid: true}
 			slot.TrayId = sql.NullInt64{Int64: trayId, Valid: true}
-			log.Infoln("***트레이값: ", trayId)
 			continue
 		}
 
