@@ -4,7 +4,7 @@
 <main id="main">
     <div class="content-wrap">
         <div class="fixed-btn">
-            <button class="btn-normal"><a href="/">첫 화면으로</a></button>
+            <button class="btn-normal" id="$home_btn">첫 화면으로</button>
         </div>
 
         <!-- 택배 수령 -->
@@ -51,11 +51,22 @@
     const url = new URL(window.location.href);
     const itemId = url.searchParams.get("itemId");
 
+    setTimeout(function () {
+        returnItem()
+    }, 5000);
+
     $output_btn.onclick = () => {
         window.location.replace('/output/password/form?itemId=' + itemId);
     }
 
     $return_btn.onclick = () => {
+        returnItem()
+    }
+    $home_btn.onclick = () => {
+        returnItem()
+    }
+
+    function returnItem(){
         axios.post('/output/return?itemId=' + itemId)
             .then(axiosResult => {
                 let response = axiosResult.data;

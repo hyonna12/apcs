@@ -456,7 +456,7 @@ func JobDismiss() error {
 
 // 업무 완료 확인
 //
-// data : 기대하는 값
+// data : 기대하는 값		***수정
 func CheckCompletePlc(data interface{}) error {
 	RespPlc = ""
 	for {

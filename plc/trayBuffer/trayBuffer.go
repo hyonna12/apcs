@@ -1,6 +1,7 @@
 package trayBuffer
 
 import (
+	"apcs_refactored/model"
 	"container/list"
 
 	log "github.com/sirupsen/logrus"
@@ -31,6 +32,20 @@ func SetUpTrayBuffer(BufferOperation BufferOperation) error {
 	log.Infof("[PLC_Buffer] 트레이 버퍼 조작: %v", BufferOperation)
 	// TODO - PLC 트레이 버퍼 조작 로직
 	return nil
+}
+
+// 트레이 버퍼 초기 설정
+func InitTrayBuffer() {
+	// 트레이 버퍼 스택 생성
+	Buffer := NewTrayBuffer()
+	// 초기 버퍼 빈트레이 id 값 /** 수정
+	for i := 1; i <= 20; i++ { // config.Config.Plc.TrayBuffer.Optimum
+		num := int64(i)
+		Buffer.Push(num)
+	}
+	count := Buffer.Count()
+	model.InsertBufferState(count)
+	Buffer.Get()
 }
 
 // 트레이 버퍼 스택 생성

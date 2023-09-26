@@ -178,17 +178,12 @@
             })
             .catch(err => {
                 if (err.response.status === 404) {
-
                     alert('보관된 택배가 없습니다.', '다시 입력해주세요');
                 } else {
                     console.error(err);
                 }
             });
         }
-        
-        
     }
-
-
 </script>
 {{end}}

@@ -96,18 +96,8 @@ func main() {
 		slotIds = append(slotIds, slot.SlotId)
 	}
 
-	// 트레이 버퍼 스택 생성
-	Buffer := trayBuffer.NewTrayBuffer()
-	// 초기 버퍼 빈트레이 id 값 /** 수정
-	for i := 1; i <= 20; i++ { // config.Config.Plc.TrayBuffer.Optimum
-		num := int64(i)
-		Buffer.Push(num)
-	}
-	count := Buffer.Count()
-	model.InsertBufferState(count)
-	trayId := trayBuffer.Buffer.Peek().(int64)
-	plc.TrayIdOnTable.Int64 = trayId
-	trayBuffer.Buffer.Get()
+	// 트레이버퍼 초기 설정
+	trayBuffer.InitTrayBuffer()
 
 	resource.InitResources(slotIds)
 	// 이벤트 서버 시작

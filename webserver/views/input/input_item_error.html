@@ -41,7 +41,6 @@
     let getSplit = getLink.split('=');	//getLink를 '='를 기준으로 두 배열 요소로 분리
     let getError = getSplit[1];	//분리한 배열 중 두번째 요소 변수에 넣기
     let decodeError = decodeURI(getError)
-    console.log(decodeError);
     getHtml(decodeError);
 
     function getHtml(error){
@@ -56,6 +55,7 @@
 
     
     setTimeout(function(){
+        send_stop_info();    // 최초실행
         isItemOnTable = setInterval(send_stop_info, 1000);
     }, 5000);
 
@@ -76,11 +76,9 @@
                 console.log(res.data)
                 // 물품이 있다면 반복실행
                 if(response == 'true'){
-                    console.log("회수 안함")
                     keep = true
                 } else{
-                    // 물품이 없다면 inputItem
-                    console.log("회수 완료")
+                    // 물품이 없다면
                     clearInterval(isItemOnTable)
                     location.href='/'
                 }
@@ -91,11 +89,13 @@
     }
 
     $('.home_btn').click(function(){
-        send_stop_info();
+        send_stop_info();    // 최초실행
+        isItemOnTable = setInterval(send_stop_info, 1000);
     });
 
     $('.cancel_btn').click(function(){
-        send_stop_info();
+        send_stop_info();    // 최초실행
+        isItemOnTable = setInterval(send_stop_info, 1000);
     });
     
 </script>
