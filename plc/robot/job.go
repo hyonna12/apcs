@@ -7,6 +7,7 @@ import (
 	"apcs_refactored/plc/trayBuffer"
 	"time"
 
+	_ "github.com/future-architect/go-mcprotocol/mcp"
 	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
 )
@@ -116,12 +117,11 @@ func JobServeEmptyTrayToTable(slot model.Slot) error {
 	// 트레이 꺼내기 완료 확인
 	CheckCompletePlc("complete")
 
-	resource.ReleaseSlot(slot.SlotId)
-
 	resource.ReserveTable()
 	if err := robot.moveToTable(); err != nil {
 		return err
 	}
+	resource.ReleaseSlot(slot.SlotId)
 
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
@@ -169,13 +169,12 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 		}
 		robot = r
 		resource.ReserveTable()
+		if err := robot.moveToTable(); err != nil {
+			return err
+		}
 	}
 
 	robot.changeStatus(robotStatusWorking)
-
-	if err := robot.moveToTable(); err != nil {
-		return err
-	}
 
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
@@ -197,12 +196,12 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 		return err
 	}
 
-	resource.ReleaseTable()
-
 	resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
+	resource.ReleaseTable()
+
 	// 슬롯으로 이동 완료 확인
 	CheckCompletePlc("complete")
 
@@ -228,8 +227,9 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 // - slot: 물건을 수납할 슬롯
 func JobInputItem(slot model.Slot) error {
 	log.Infof("[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=%v", slot.SlotId)
-
 	var robot *robot
+
+	resource.ReserveSlot(slot.SlotId)
 
 	// 대기 중인 로봇에게 job 우선 배정
 	// waiting 로봇은 테이블을 점유하고 있으므로 resource.ReserveTable() 생략
@@ -251,14 +251,12 @@ func JobInputItem(slot model.Slot) error {
 		}
 		robot = r
 		resource.ReserveTable()
+		if err := robot.moveToTable(); err != nil {
+			return err
+		}
 	}
 
 	robot.changeStatus(robotStatusWorking)
-
-	// 로봇(r)의 위치 조회해와서 테이블 앞이면(이미 대기중) 이 과정 생략 **수정
-	if err := robot.moveToTable(); err != nil {
-		return err
-	}
 
 	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
 		return err
@@ -284,7 +282,7 @@ func JobInputItem(slot model.Slot) error {
 	// 트레이 버퍼 올리기 완료 확인
 	CheckCompletePlc("complete")
 
-	resource.ReserveSlot(slot.SlotId)
+	//resource.ReserveSlot(slot.SlotId)
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
@@ -317,8 +315,8 @@ func JobOutputItem(slot model.Slot) error {
 	}
 
 	robot.changeStatus(robotStatusWorking)
-
 	resource.ReserveSlot(slot.SlotId)
+
 	if err := robot.moveToSlot(slot); err != nil {
 		return err
 	}
@@ -456,23 +454,26 @@ func JobDismiss() error {
 
 // 업무 완료 확인
 //
-// data : 기대하는 값		***수정
+// data : 기대하는 값		***수정	// address , data2
 func CheckCompletePlc(data interface{}) error {
-	RespPlc = ""
+	RespPlc = "waiting"
+	go simul()
+
 	for {
-		// TODO - plc에서 데이터 조회	/ 어떤 데이터를 가져올지 매개변수 추가
-		log.Infof("[PLC] 데이터 조회")
+		// 어떤 데이터를 가져올지 매개변수 추가
+		log.Infof("[PLC] 10ms 마다 데이터 조회 중") // 조회한 데이터 struct에 저장
+
 		if RespPlc == data {
 			log.Info("업무 완료 응답")
 			return nil
 		}
-		go simul()
 		time.Sleep(1 * time.Second)
+
 	}
 }
 
 // 값 응답
 func simul() {
-	time.Sleep(5 * time.Second)
+	time.Sleep(3 * time.Second)
 	RespPlc = "complete"
 }

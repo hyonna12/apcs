@@ -13,6 +13,7 @@ require (
 require gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 
 require (
+	github.com/future-architect/go-mcprotocol v0.0.0-20210518065132-abfb4ef2fb9b
 	github.com/gorilla/mux v1.8.0
 	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
 )

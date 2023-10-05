@@ -182,7 +182,7 @@ func RetrieveEmptyTrayFromTable(slot model.Slot) (int64, error) {
 		return 0, err
 	}
 
-	trayId := TrayIdOnTable.Int64
+	trayId := trayBuffer.Buffer.Peek().(int64)
 	//TrayIdOnTable = sql.NullInt64{Valid: false} // set null
 
 	return trayId, nil

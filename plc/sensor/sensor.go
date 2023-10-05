@@ -8,7 +8,7 @@ import (
 
 var (
 	// TODO - temp - 키오스크 임시 물건 꺼내기 버튼 시뮬레이션 용
-	IsItemOnTable = false
+	IsItemOnTable = true
 )
 
 type ItemDimension struct {

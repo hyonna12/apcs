@@ -62,16 +62,19 @@ func (t *TrayBuffer) Push(id interface{}) {
 
 // 맨 위의 값 반환
 func (t *TrayBuffer) Peek() interface{} {
-	back := t.ids.Back().Value
-	if back == nil {
+	id := t.ids.Back()
+	if id == nil {
 		return nil
 	}
+	back := id.Value
+
 	return back
 }
 
 // 맨 위의 값 삭제하고 반환
 func (t *TrayBuffer) Pop() interface{} {
 	back := t.ids.Back()
+
 	if back == nil {
 		return nil
 	}

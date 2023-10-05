@@ -5,6 +5,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
+	"apcs_refactored/plc/sensor"
 	"apcs_refactored/plc/trayBuffer"
 	"context"
 	"database/sql"
@@ -113,13 +114,12 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Post 요청인 경우
-	render(w, "output/item_output_ongoing.html", nil)
-
 	err := r.ParseForm()
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 	}
+	render(w, "output/item_output_ongoing.html", nil)
 
 	itemIdsStr := r.PostForm["item_id"]
 	var itemIds []int64
@@ -461,7 +461,7 @@ func ItemOutputReturnByTimeout(w http.ResponseWriter, r *http.Request) {
 func ItemOutputTakeout(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
-	plc.IsItemOnTable = false
+	sensor.IsItemOnTable = false
 	Response(w, nil, http.StatusOK, nil)
 }
 

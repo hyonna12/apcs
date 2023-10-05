@@ -116,16 +116,16 @@ func DeliveryInfoRequested(w http.ResponseWriter, r *http.Request) {
 	} else {
 		// 빈트레이를 가져올 슬롯 선택
 		slotsWithEmptyTray, err := model.SelectSlotListWithEmptyTray()
-		// TODO - 빈 슬롯 선정 최적화
-		slotWithEmptyTray := slotsWithEmptyTray[0]
-		trayId := slotWithEmptyTray.TrayId.Int64
-		//** 수정
-		log.Infof("[웹 핸들러] 빈 트레이를 가져올 slotId=%v, trayId=%v", slotWithEmptyTray.SlotId, trayId)
-		if !slotWithEmptyTray.TrayId.Valid {
+		if len(slotsWithEmptyTray) == 0 {
 			log.Info("[웹 핸들러] 빈 트레이가 존재하지 않음")
 			Response(w, nil, http.StatusBadRequest, errors.New("빈 트레이가 존재하지 않습니다"))
 			return
 		}
+		slotWithEmptyTray := slotsWithEmptyTray[0]
+		trayId := slotWithEmptyTray.TrayId.Int64
+		//** 수정
+		log.Infof("[웹 핸들러] 빈 트레이를 가져올 slotId=%v, trayId=%v", slotWithEmptyTray.SlotId, trayId)
+
 		if err != nil {
 			log.Error(err)
 			// changeKioskView
@@ -308,8 +308,15 @@ func Input(w http.ResponseWriter, r *http.Request) {
 	num := trayBuffer.Buffer.Count()
 	model.InsertBufferState(num)
 
-	id := trayBuffer.Buffer.Peek().(int64)
-	plc.TrayIdOnTable.Int64 = id
+	value := trayBuffer.Buffer.Peek()
+
+	if value == nil {
+		log.Error("버퍼에 빈 트레이가 존재하지 않음")
+		// TODO - 관리자에게 알림
+	} else {
+		id := value.(int64)
+		plc.TrayIdOnTable.Int64 = id
+	}
 
 	// 송장번호, 물품높이, 택배기사, 수령인 정보 itemCreateRequest 에 넣어서 물품 db업데이트
 	deliveryId, err := strconv.ParseInt(deliveryIdStr, 10, 64)
@@ -493,7 +500,7 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if stopRequest.Step >= "1" {
-		robot.JobDismiss()
+		//robot.JobDismiss()
 		Response(w, "OK", http.StatusOK, nil)
 	}
 }

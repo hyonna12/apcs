@@ -38,15 +38,11 @@
             axios.get('/input/sense_table_for_item').then(res => {
                 let response = res.data.data
                 console.log(res.data)
-                // *** 삭제
-                response = 'true'
-
                 // 물품이 없다면 반복실행
                 if(response == 'false'){
                     console.log("물품 안들어옴")
                     next = true
                 } else{
-                    
                     // 물품이 있다면 inputItem
                     console.log("물품 들어옴")
                     clearInterval(intervalId)
@@ -94,6 +90,8 @@
             axios.post('/input/stop_input', request).then(res => {
                 let response = res.data.data
                 console.log(res.data)
+                // **삭제
+                response = 'false'
                 // 물품이 있다면 반복실행
                 if(response == 'true'){
                     keep = true
