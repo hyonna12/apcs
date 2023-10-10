@@ -1,10 +1,10 @@
 # package 구조
 
-APCS
-│
-└─ config
-│
-└─ event
+APCS  
+│  
+└─ config  
+│  
+└─ event  
 │
 └─ messenger --> 메시지 전파
 │
