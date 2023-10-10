@@ -48,7 +48,6 @@
     }
 
 </style>
-
         <main id="main">
             <div class="content-wrap">
                 <div class="fixed-btn">
@@ -131,6 +130,10 @@
     </div>
 
 <script>
+    setTimeout(function () {
+        send_stop_info();
+    }, 60000);
+
     /* 택배 회사 리스트 조회 */
     axios.get('/input/get_delivery_list')
         .then(res => {
@@ -211,8 +214,6 @@
 
             });
         }
-
-
     }
 
     /* 입고 취소 */
@@ -223,7 +224,7 @@
 
         axios.post('/input/stop_input', request).then(res => {
             if (res.data.status === 200) {
-                alert('입고를 취소하셨습니다.');
+                alert('입고가 취소되었습니다.');
                 location.href = '/'
             } else {
                 console.log(res.data.error)

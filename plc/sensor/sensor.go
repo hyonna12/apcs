@@ -23,7 +23,6 @@ type ItemDimension struct {
 // 테이블에 물품이 있는지 감지.
 // 있으면 true, 없으면 false 반환.
 func SenseTableForItem() (bool, error) {
-	IsItemOnTable = true
 	log.Infof("[PLC_Sensor] 테이블 물품 존재 여부 감지: %v", IsItemOnTable)
 	// TODO - PLC 센서 물품 존재 여부 감지
 	// TODO - temp - 물건 꺼내기 버튼
