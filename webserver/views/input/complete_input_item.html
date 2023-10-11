@@ -2,6 +2,12 @@
 {{define "content"}}
 <main id="main">
     <div class="content-wrap">
+        <div class="time-wrap">
+            <p class="msg">남은시간</p>
+            <p class="time-count">
+                <span id="$counter">5</span>
+            </p>
+        </div>
         <div class="fixed-btn">
             <button class="btn-normal"><a href="/">첫 화면으로</a></button>
         </div>
@@ -24,6 +30,21 @@
 </main>
 
 <script>
+    /* 남은 시간 확인 */
+    const timeLimit = 5;
+    let counter = 0;
+    count();
+    let intervalId = setInterval(count, 1000);
+
+    function count(){
+        if (counter > timeLimit) {
+            clearInterval(intervalId);
+            return false;
+        }
+        $counter.innerText = timeLimit - counter;
+        counter += 1;
+    }
+
     setTimeout(function(){
         location.href='/';
     }, 5000);

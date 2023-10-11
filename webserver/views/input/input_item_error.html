@@ -2,6 +2,12 @@
 {{define "content"}}
 <main id="main">
     <div class="content-wrap">
+        <div class="time-wrap">
+            <p class="msg">남은시간</p>
+            <p class="time-count">
+                <span id="$counter">5</span>
+            </p>
+        </div>
         <div class="fixed-btn">
             <button class="btn-normal home_btn">첫 화면으로</button>
         </div>
@@ -48,12 +54,26 @@
         $('#error_msg').html(getHtml)
     }
 
-   
     let isItemOnTable;
     let keep = true; // 함수 실행 가능 여부 확인 true : 가능
     const modal = document.getElementById("modal");
 
     
+    /* 남은 시간 확인 */
+    const timeLimit = 5;
+    let counter = 0;
+    count();
+    let intervalId = setInterval(count, 1000);
+
+    function count(){
+        if (counter > timeLimit) {
+            clearInterval(intervalId);
+            return false;
+        }
+        $counter.innerText = timeLimit - counter;
+        counter += 1;
+    }
+
     setTimeout(function(){
         send_stop_info();    // 최초실행
         isItemOnTable = setInterval(send_stop_info, 1000);

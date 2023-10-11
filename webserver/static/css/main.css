@@ -67,9 +67,15 @@
 .btn-wrap .btn img {width: fit-content; height: 250px; margin-bottom: 40px;}
 .btn-wrap .btn .btn-title {font-size: 4rem; line-height: 125%; font-weight: 700;}
 
+/* 시간 제한 */
+.time-wrap {border-radius: 24px; margin: 0 auto; position: absolute; transform: translate(10%, -160%); padding: 15px; box-sizing: border-box;}
+.time-wrap .msg {font-size: 1.5rem; font-weight: 700; word-break: keep-all; text-align: center; line-height: 140%; color: #efefef; margin: 0 auto; padding: 10px 0;}
+.time-wrap .time-count {text-align: center; display: flex; justify-content: center;}
+.time-wrap .time-count span {display: flex; justify-content: center; align-items: center; border-radius: 100%; color: #efefef; font-weight: 600; font-size: 2.0rem;}
+
 /* 메시지 */
 .msg-wrap {border-radius: 24px; background-color: #fff; width: 60%; margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 40px; box-sizing: border-box;}
-.msg-wrap .img-wrap {margin: 50px auto 30px; text-align: center;;}
+.msg-wrap .img-wrap {margin: 50px auto 30px; text-align: center;}
 .msg-wrap .img-wrap img {height: 220px;}
 .msg-wrap .msg {font-size: 2.8rem; font-weight: 700; word-break: keep-all; text-align: center; line-height: 140%; width: 80%; margin: 0 auto; padding: 30px 0;}
 .msg-wrap .time-msg {font-size: 2.2rem; font-weight: 600; word-break: keep-all; text-align: center; line-height: 135%; width: 90%; margin: 0 auto; padding: 20px 0;}
