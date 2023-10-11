@@ -380,6 +380,7 @@ func JobMoveTray(from, to model.Slot) error {
 	robot.changeStatus(robotStatusWorking)
 
 	resource.ReserveSlot(from.SlotId)
+	resource.ReserveSlot(to.SlotId)
 	if err := robot.moveToSlot(from); err != nil {
 		return err
 	}
@@ -392,12 +393,12 @@ func JobMoveTray(from, to model.Slot) error {
 	// 트레이 꺼내기 완료 확인
 	CheckCompletePlc("complete")
 
-	resource.ReleaseSlot(from.SlotId)
-
-	resource.ReserveSlot(to.SlotId)
 	if err := robot.moveToSlot(to); err != nil {
 		return err
 	}
+
+	resource.ReleaseSlot(from.SlotId)
+
 	// 슬롯 이동 완료 확인
 	CheckCompletePlc("complete")
 
@@ -474,6 +475,6 @@ func CheckCompletePlc(data interface{}) error {
 
 // 값 응답
 func simul() {
-	time.Sleep(3 * time.Second)
+	time.Sleep(2 * time.Second)
 	RespPlc = "complete"
 }
