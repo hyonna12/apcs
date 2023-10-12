@@ -40,7 +40,7 @@ func main() {
 
 	file, err := os.OpenFile("./log/apcs.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0755)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 	// 로그 콘솔, 파일에 출력
 	log.SetOutput(io.MultiWriter(os.Stdout, file))

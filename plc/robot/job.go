@@ -458,7 +458,10 @@ func JobDismiss() error {
 // data : 기대하는 값		***수정	// address , data2
 func CheckCompletePlc(data interface{}) error {
 	RespPlc = "waiting"
-	go simul()
+	go func() {
+		time.Sleep(2 * time.Second)
+		RespPlc = "complete"
+	}()
 
 	for {
 		// 어떤 데이터를 가져올지 매개변수 추가
@@ -469,12 +472,110 @@ func CheckCompletePlc(data interface{}) error {
 			return nil
 		}
 		time.Sleep(1 * time.Second)
+	}
+}
+
+// 트러블 감지
+func SenseTrouble() {
+	var waiting = make(chan string)
+	log.Infof("[PLC] 10ms 마다 데이터 조회 중") // 조회한 데이터 struct에 저장
+	/* go func() {
+		fmt.Println("실행")
+
+		waiting <- "화재"
+	}() */
+
+	data := <-waiting
+	switch data {
+	case "화재":
+		log.Infof("[PLC] 화재발생")
+		// TODO - 사업자에게 알림
+		// 키오스크 화면 변경
+		return
+	case "물품 끼임":
+		log.Infof("[PLC] 물품 끼임")
+		// TODO - 사업자에게 알림
+		// 키오스크 화면 변경
+		return
+	case "물품 낙하":
+		log.Infof("[PLC] 물품 낙하")
+		// TODO - 사업자에게 알림
+		// 키오스크 화면 변경
+		return
+	case "이물질 감지":
+		log.Infof("[PLC] 이물질 감지")
+		// TODO - 사업자에게 알림
+		// 키오스크 화면 변경
+		return
 
 	}
 }
 
-// 값 응답
-func simul() {
-	time.Sleep(2 * time.Second)
-	RespPlc = "complete"
+/* // PLC
+type PLC struct {
+	addr string // 주소
+	conn net.Conn
 }
+
+// 새로운 PLC를 생성
+func NewPLC(addr string) (*PLC, error) {
+	conn, err := net.Dial("tcp", addr)
+	if err != nil {
+		return nil, err
+	}
+	return &PLC{
+		addr: addr,
+		conn: conn,
+	}, nil
+}
+
+func (plc *PLC) Close() {
+	plc.conn.Close()
+}
+
+// PLC로부터 응답읽어옴
+func (plc *PLC) ReadRequest() ([]byte, error) {
+	buf := make([]byte, 1024)
+	n, err := plc.conn.Read(buf)
+	if err != nil {
+		return nil, err
+	}
+	return buf[:n], nil
+}
+
+// PLC에 요청 보냄
+func (plc *PLC) WriteRequest(req []byte) error {
+	_, err := plc.conn.Write(req)
+	return err
+}
+
+// PLC로부터 택배함의 상태를 조회
+func (plc *PLC) Poll() ([]byte, error) {
+	req := []byte{0x01}
+	err := plc.WriteRequest(req)
+	if err != nil {
+		return nil, err
+	}
+	return plc.ReadRequest()
+}
+
+func InitConnPlc() {
+	plc, err := NewPLC("192.168.1.100:502")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer plc.Close()
+
+	// 10ms마다 PLC로부터 택배함의 상태를 조회
+	for {
+		req, err := plc.Poll()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println(req)
+		time.Sleep(10 * time.Millisecond)
+	}
+}
+*/

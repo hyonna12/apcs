@@ -39,11 +39,12 @@ func InitTrayBuffer() {
 	// 트레이 버퍼 스택 생성
 	Buffer := NewTrayBuffer()
 	// 초기 버퍼 빈트레이 id 값 /** 수정
-	for i := 1; i <= 20; i++ { // config.Config.Plc.TrayBuffer.Optimum
+	for i := 1; i <= 0; i++ { // config.Config.Plc.TrayBuffer.Optimum
 		num := int64(i)
 		Buffer.Push(num)
 	}
 	count := Buffer.Count()
+
 	model.InsertBufferState(count)
 	Buffer.Get()
 }
@@ -85,14 +86,16 @@ func (t *TrayBuffer) Pop() interface{} {
 // 트레이 버퍼 값 가져오기
 func (t *TrayBuffer) Get() interface{} {
 	list := []any{}
+	if len(list) >= 1 {
 
-	back := t.ids.Back()
-	list = append(list, back.Value)
+		back := t.ids.Back()
+		list = append(list, back.Value)
 
-	prev := back.Prev()
-	for prev != nil {
-		list = append(list, prev.Value)
-		prev = prev.Prev()
+		prev := back.Prev()
+		for prev != nil {
+			list = append(list, prev.Value)
+			prev = prev.Prev()
+		}
 	}
 	log.Debugf("tray buffer : %v", list)
 

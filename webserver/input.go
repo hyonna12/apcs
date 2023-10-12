@@ -5,7 +5,6 @@ import (
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
-	"apcs_refactored/plc/sensor"
 	"apcs_refactored/plc/trayBuffer"
 	"bytes"
 	"context"
@@ -43,6 +42,9 @@ func DeliveryCompanyList(w http.ResponseWriter, r *http.Request) {
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
+	// **삭제
+	robot.SenseTrouble()
+
 	Response(w, deliveryList, http.StatusOK, nil)
 }
 
@@ -50,9 +52,6 @@ func DeliveryCompanyList(w http.ResponseWriter, r *http.Request) {
 //
 // [API] 배송정보 입력 화면에서 입력완료 버튼을 누른 경우 호출
 func CheckAddress(w http.ResponseWriter, r *http.Request) {
-	// **제거
-	sensor.IsItemOnTable = true
-
 	inputInfoRequest := InputInfoRequest{}
 	err := json.NewDecoder(r.Body).Decode(&inputInfoRequest)
 	if err != nil {

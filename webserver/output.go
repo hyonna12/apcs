@@ -475,6 +475,9 @@ func ItemOutputTakeout(w http.ResponseWriter, r *http.Request) {
 func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
+	// **제거
+	sensor.IsItemOnTable = true
+
 	if err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
 		// TODO - PLC 에러 처리
 		log.Error(err)
