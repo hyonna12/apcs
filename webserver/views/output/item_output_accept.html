@@ -40,14 +40,12 @@
             return false;
         }
 
-        $counter.innerText = timeLimit - counter;
-
         // 테이블에 택배 있는 지 확인
         let axiosResult = await axios.get('/output/sense_table_for_item')
             .catch(err => {
                 console.error(err);
             });
-
+        
         let response = axiosResult.data;
         console.log(response);
         // true or false
@@ -64,10 +62,14 @@
             return false;
         }
 
+        // 화면 타이머 변경
+        $counter.innerText = timeLimit - counter;
+
         if (counter !== timeLimit) {
             return false
         }
         clearInterval(intervalId);
+
 
         // 5초 경과 후에도 입주민이 택배를 수령하지 않은 경우
         await axios.post('/output/return?itemId=' + itemId)

@@ -2,6 +2,12 @@
 {{define "content"}}
 <main id="main">
     <div class="content-wrap">
+        <div class="time-wrap">
+            <p class="msg">남은시간</p>
+            <p class="time-count">
+                <span id="$counter">5</span>
+            </p>
+        </div>
         <div class="fixed-btn">
             <button class="btn-normal home_btn">첫 화면으로</button>
         </div>
@@ -31,6 +37,22 @@
     let cancel = false; // 취소 여부
     let next = true;    // 함수 실행 가능 여부 확인 true : 가능 - 이 전 동작 완료 시 실행 가능
     let intervalId = setInterval(senseTableForItem, 1000);
+
+    /* 남은 시간 확인 */
+    const timeLimit = 15;
+    let counter = 0;
+    count();
+    let intervalTime = setInterval(count, 1000);
+
+    function count(){
+        if (counter > timeLimit) {
+            clearInterval(intervalTime);
+            return false;
+        }
+        $counter.innerText = timeLimit - counter;
+        counter += 1;
+    }
+    
     // 테이블에 택배 있는지 확인
     function senseTableForItem(){
         if(next == true){
@@ -111,6 +133,11 @@
         send_stop_info();    // 최초실행
         isItemOnTable = setInterval(send_stop_info, 1000);
     });
+
+    setTimeout(function () {
+        send_stop_info();    // 최초실행
+        isItemOnTable = setInterval(send_stop_info, 1000);
+    }, 15000);
 
 </script>
 {{end}}

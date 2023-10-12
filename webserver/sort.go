@@ -71,14 +71,6 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 	bestSlot := slotList[0]
 	log.Infof("[웹핸들러] 최적수납슬롯: slotId=%v", bestSlot.SlotId)
 
-	// 트레이 이동
-	err = plc.MoveTray(currentSlot, bestSlot)
-	if err != nil {
-		// changeKioskView
-		// return
-		Response(w, nil, http.StatusInternalServerError, err)
-	}
-
 	// 트랜잭션
 	tx, err := model.DB.BeginTx(context.Background(), nil)
 	if err != nil {
@@ -187,6 +179,14 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 	err = tx.Commit()
 	if err != nil {
 		return
+	}
+
+	// 트레이 이동
+	err = plc.MoveTray(currentSlot, bestSlot)
+	if err != nil {
+		// changeKioskView
+		// return
+		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
 	Response(w, "OK", http.StatusOK, nil)

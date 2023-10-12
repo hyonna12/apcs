@@ -337,7 +337,7 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 //
 // [API] "택배를 확인해 주세요" 화면에서 "반납" 버튼을 누른 경우 호출
 // 비밀번호 입력 화면에서 "취소" 버튼을 누른 경우 호출
-// "택배를 꺼내 주세요" 화면에서 5초 경과 후 호출
+// [API] "택배를 꺼내 주세요" 화면에서 5초 경과 후 호출
 func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
@@ -349,8 +349,14 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 
 	log.Infof("[웹핸들러] 물건 반납 요청 접수. itemId=%v", itemId)
 
+	// TODO - 앞문이 열려있는지 확인
+	if err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
+		log.Error(err)
+		// TODO - 앞문 닫힘 불가 시 에러처리
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
 	// 택배 반환
-	// TODO - 반환하는 김에 정리(최적 슬롯 알고리즘) - 꺼낸 슬롯의 원래 자리는 비어있다고 가정하고 선정
 	slot, err := model.SelectSlotByItemId(itemId)
 	if err != nil {
 		// TODO - DB 에러처리
@@ -468,6 +474,9 @@ func ItemOutputTakeout(w http.ResponseWriter, r *http.Request) {
 // ItemOutputComplete - [API] 입주민이 택배를 수령해 테이블에 물건이 없을 경우 호출
 func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
+
+	// **제거
+	sensor.IsItemOnTable = true
 
 	if err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
 		// TODO - PLC 에러 처리

@@ -86,7 +86,7 @@ func ReserveSlot(slotId int64) {
 	isSlotReserved := slotReservationMap[slotId]
 	if !isSlotReserved {
 		slotReservationMap[slotId] = true
-		log.Infof("[PLC] 슬롯 점유")
+		log.Infof("[PLC] 슬롯 점유 [%v]", slotId)
 
 		return
 	}
@@ -98,7 +98,7 @@ func ReserveSlot(slotId int64) {
 		select {
 		case <-waiting:
 			slotReservationMap[slotId] = true
-			log.Infof("[PLC] 슬롯 점유")
+			log.Infof("[PLC] 슬롯 점유 [%v]", slotId)
 
 			return
 		// 일정 시간 마다 데드락 확인 및 해결
@@ -119,7 +119,7 @@ func ReleaseTable() {
 	}
 }
 func ReleaseSlot(slotId int64) {
-	log.Infof("[PLC] 슬롯 점유 해제")
+	log.Infof("[PLC] 슬롯 점유 해제 [%v]", slotId)
 
 	slotReservationMap[slotId] = false
 	if len(slotWaitingQueueMap[slotId]) > 0 {
