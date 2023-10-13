@@ -50,17 +50,17 @@
     }, 5000);
     
     ok_btn.onclick = () => {
-        location.href = "/input/register_delivery"
+        location.href = "/input/register_delivery";
     };
 
     no_btn.onclick = () => {
-        location.href = "/"
+        location.href = "/";
     };
 
     /* 입고 */
     axios.post('/input/input').then(res => {
         console.log(res.data);
-            console.log("완료")
+        console.log("완료");
     }).catch(err => {
         console.log(err);
         alert(err.response.data.error);

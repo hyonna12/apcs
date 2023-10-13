@@ -32,8 +32,7 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- <p class="list-count"><span></span>개 선택</p> -->
-
+                <p class="list-count"><span>2</span>개 선택</p>
                 <div class="btn-wrap">
                     <button class="btn-normal" id="$output_request_btn">택배 찾기</button>
                 </div>
@@ -46,72 +45,61 @@
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-   
+    var query = ''
+    var data = ''
+
     if(urlParams.has('address')){
-        const address = urlParams.get('address');
+        query = 'address';
+        data = urlParams.get(query);
+        var info = `<p class="value">${data}호</p>`;
 
-        data = `<p class="value">${address}호</p>`;
-
-        $('#owner_info').html(data);
-        
-
-        // db에서 유저 호수와 택배 리스트 가져오기
-        axios.get('/output/get_item_list?address=' + address)
+    } else if(urlParams.has('tracking_num')){
+        query = 'tracking_num';
+        data = urlParams.get(query);
+        var info = `<p class="value">${data}</p>`;
+    }
+        $('#owner_info').html(info);
+        // db에서 유저 호수 or 송장번호와 택배 리스트 가져오기
+        axios.get('/output/get_item_list?'+query+'=' + data)
         .then(axiosResult => {
             let itemListResponses = axiosResult.data.data;
-            let tr = '';
-            itemListResponses.forEach(item => {
+            let tr = ''
+            if(Array.isArray(itemListResponses) == true){
+                itemListResponses.forEach(item => {
+                    tr += `
+                        <tr>
+                            <td>
+                                <div class="chk-item">
+                                    <input type="checkbox" id="chk${item.item_id}" name="item_id" value="${item.item_id}">
+                                    <label for="chk${item.item_id}" class="label-cb"></label>
+                                </div>
+                            </td>
+                            <td>${item.delivery_company}</td>
+                            <td>${item.tracking_number}</td>
+                            <td>${item.input_date}</td>
+                        </tr>
+                    `;
+                });
+            } else{
                 tr += `
-                    <tr>
-                        <td>
-                            <div class="chk-item">
-                                <input type="checkbox" id="chk${item.item_id}" name="item_id" value="${item.item_id}">
-                                <label for="chk${item.item_id}" class="label-cb"></label>
-                            </div>
-                        </td>
-                        <td>${item.delivery_company}</td>
-                        <td>${item.tracking_number}</td>
-                        <td>${item.input_date}</td>
-                    </tr>
-                `;
-            });
+                <tr>
+                    <td>
+                        <div class="chk-item">
+                            <input type="checkbox" id="chk${itemListResponses.item_id}" name="item_id" value="${itemListResponses.item_id}">
+                            <label for="chk${itemListResponses.item_id}" class="label-cb"></label>
+                        </div>
+                    </td>
+                    <td>${itemListResponses.delivery_company}</td>
+                    <td>${itemListResponses.tracking_number}</td>
+                    <td>${itemListResponses.input_date}</td>
+                </tr>
+            `;
+            }
             $('#tbody').html(tr);
         })
         .catch(err => {
-            console.error(err)
+            console.error(err);
         });
-    } else{
-        const tracking_num = urlParams.get('tracking_num');
-
-        data = `<p class="value">${tracking_num}</p>`;
-
-        $('#owner_info').html(data);
-        
-        // db에서 유저 호수와 택배 리스트 가져오기
-        axios.get('/output/get_item_list?tracking_num=' + tracking_num)
-        .then(axiosResult => {
-            let item = axiosResult.data.data;
-            console.log(item)
-            let tr = `
-                    <tr>
-                        <td>
-                            <div class="chk-item">
-                                <input type="checkbox" id="chk${item.item_id}" name="item_id" value="${item.item_id}">
-                                <label for="chk${item.item_id}" class="label-cb"></label>
-                            </div>
-                        </td>
-                        <td>${item.delivery_company}</td>
-                        <td>${item.tracking_number}</td>
-                        <td>${item.input_date}</td>
-                    </tr>
-                `;
-            
-            $('#tbody').html(tr);
-        })
-        .catch(err => {
-            console.error(err)
-        });
-    }
 
     $output_request_btn.onclick = e => {
         let $checkboxes = document.getElementsByName("item_id");

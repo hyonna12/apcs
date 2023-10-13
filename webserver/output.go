@@ -42,6 +42,7 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 		log.Infof("[불출] 입주민 주소 입력: %v", tracking_num)
 
 		exists, err := model.SelectItemExistsByTrackingNum(tracking_num)
+
 		if err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
@@ -59,47 +60,33 @@ func CheckItemExists(w http.ResponseWriter, r *http.Request) {
 // GetItemList - [API] 아이템 목록 반환
 func GetItemList(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
+	var itemListResponses interface{}
+	var err error
 
 	if r.URL.Query().Has("address") {
 		address := r.URL.Query().Get("address")
-		itemListResponses, err := model.SelectItemListByAddress(address)
-		if err != nil {
-			log.Error(err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		}
-
-		response := CommonResponse{
-			Data:   itemListResponses,
-			Status: http.StatusOK,
-			Error:  nil,
-		}
-
-		data, _ := json.Marshal(response)
-		_, err = fmt.Fprint(w, string(data))
-		if err != nil {
-			log.Error(err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		}
+		itemListResponses, err = model.SelectItemListByAddress(address)
 	} else {
 		tracking_num := r.URL.Query().Get("tracking_num")
-		itemResponses, err := model.SelectItemIdByTrackingNum(tracking_num)
-		if err != nil {
-			log.Error(err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		}
+		itemListResponses, err = model.SelectItemIdByTrackingNum(tracking_num)
+	}
 
-		response := CommonResponse{
-			Data:   itemResponses,
-			Status: http.StatusOK,
-			Error:  nil,
-		}
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
 
-		data, _ := json.Marshal(response)
-		_, err = fmt.Fprint(w, string(data))
-		if err != nil {
-			log.Error(err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		}
+	response := CommonResponse{
+		Data:   itemListResponses,
+		Status: http.StatusOK,
+		Error:  nil,
+	}
+
+	data, _ := json.Marshal(response)
+	_, err = fmt.Fprint(w, string(data))
+	if err != nil {
+		log.Error(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
 

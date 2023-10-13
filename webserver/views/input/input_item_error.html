@@ -24,7 +24,7 @@
                     </div>
                     
                 </div>
-                <p class="msg">택배를 다시 입고해주세요.</p>
+                <!-- <p class="msg">택배를 다시 입고해주세요.</p> -->
             </div>
            <!--  <div class="msg-footer">
                 <div class="btn-wrap">
@@ -46,12 +46,12 @@
     let getLink = window.location.search;
     let getSplit = getLink.split('=');	//getLink를 '='를 기준으로 두 배열 요소로 분리
     let getError = getSplit[1];	//분리한 배열 중 두번째 요소 변수에 넣기
-    let decodeError = decodeURI(getError)
+    let decodeError = decodeURI(getError);
     getHtml(decodeError);
 
     function getHtml(error){
-        let getHtml = `<span>${error}</span>`
-        $('#error_msg').html(getHtml)
+        let getHtml = `<span>${error}</span>`;
+        $('#error_msg').html(getHtml);
     }
 
     let isItemOnTable;
@@ -92,15 +92,16 @@
         if(keep == true){
             keep = false;
             axios.post('/input/stop_input', request).then(res => {
-                let response = res.data.data
-                console.log(res.data)
+                let response = res.data.data;
+                console.log(res.data);
+                response = false;
                 // 물품이 있다면 반복실행
                 if(response == 'true'){
-                    keep = true
+                    keep = true;
                 } else{
                     // 물품이 없다면
-                    clearInterval(isItemOnTable)
-                    location.href='/'
+                    clearInterval(isItemOnTable);
+                    location.href='/';
                 }
             }).catch(err => {
                 console.error(err);
@@ -120,4 +121,4 @@
     
 </script>
 
-{{end}}1
+{{end}}

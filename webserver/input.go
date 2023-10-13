@@ -42,9 +42,6 @@ func DeliveryCompanyList(w http.ResponseWriter, r *http.Request) {
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
-	// **삭제
-	robot.SenseTrouble()
-
 	Response(w, deliveryList, http.StatusOK, nil)
 }
 
