@@ -17,30 +17,53 @@
                 <div class="img-wrap">
                     <img src="/static/images/ico_cancel.png" alt="">
                 </div>
-                <p class="msg">택배 입고가 취소되었습니다.</p>
+                <p class="msg">
+                    택배 입고가 취소되었습니다. <br>
+                    택배를 수거해주세요.
+                </p>
             </div>
         </div>
     </div>
 </main>
 
 <script>
-    /* 남은 시간 확인 */
-    const timeLimit = 3;
-    let counter = 0;
-    count();
-    let intervalId = setInterval(count, 1000);
+    let keep = true; // 함수 실행 가능 여부 확인 true : 가능
 
-    function count(){
-        if (counter > timeLimit) {
-            clearInterval(intervalId);
-            return false;
-        }
-        $counter.innerText = timeLimit - counter;
-        counter += 1;
+    send_stop_info();    // 최초실행
+    isItemOnTable = setInterval(send_stop_info, 1000);
+
+    /* 입고 취소 */
+    function send_stop_info() {
+        console.log("실행")
+        let request = JSON.stringify({
+            step: "2",
+        });
+
+        // 문 열고 물품 회수했는지 확인
+        if(keep == true){
+            keep = false;
+            axios.post('/input/stop_input', request).then(res => {
+                let response = res.data.data;
+                console.log(res.data);
+                // **삭제
+                response = 'false';
+                // 물품이 있다면 반복실행
+                if(response == 'true'){
+                    keep = true;
+                } else{
+                    // 물품이 없다면 inputItem
+                    clearInterval(isItemOnTable);
+                    location.href='/';
+                }
+            }).catch(err => {
+                console.error(err);
+            });
+        }       
     }
+
 
     setTimeout(function () {
         location.href = '/';
-    }, 3000);
+    }, 30000);  // 30초 지나면 알림
 </script>
 {{end}}

@@ -145,7 +145,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 
 	if len(slotIds) == 0 {
 		// 에러처리
-		log.Error()
+		log.Error("물품이 보관된 슬롯이 존재하지 않습니다.")
 		return
 	}
 

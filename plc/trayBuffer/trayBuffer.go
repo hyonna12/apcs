@@ -86,11 +86,9 @@ func (t *TrayBuffer) Pop() interface{} {
 // 트레이 버퍼 값 가져오기
 func (t *TrayBuffer) Get() interface{} {
 	list := []any{}
-	if len(list) >= 1 {
-
+	if t.Count() >= 1 {
 		back := t.ids.Back()
 		list = append(list, back.Value)
-
 		prev := back.Prev()
 		for prev != nil {
 			list = append(list, prev.Value)
