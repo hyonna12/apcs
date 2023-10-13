@@ -35,14 +35,11 @@
     /* 입고 취소 */
     function send_stop_info() {
         console.log("실행")
-        let request = JSON.stringify({
-            step: "2",
-        });
 
         // 문 열고 물품 회수했는지 확인
         if(keep == true){
             keep = false;
-            axios.post('/input/stop_input', request).then(res => {
+            axios.post('/input/stop_input').then(res => {
                 let response = res.data.data;
                 console.log(res.data);
                 // **삭제

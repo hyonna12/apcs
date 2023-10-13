@@ -47,6 +47,7 @@ func (h *WsHub) run() {
 			err := msgNode.SpreadMessage(message)
 			if err != nil {
 				// TODO - 메시지 응답 없음 관련 에러 처리
+				log.Error(err)
 			}
 		// 외부에서 메시지 노드로 들어온 메시지는 메신저 허브로 전파하지 않음
 		case message := <-h.privateBroadcast:

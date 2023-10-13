@@ -451,55 +451,45 @@ type StopRequest struct {
 
 func StopInput(w http.ResponseWriter, r *http.Request) {
 	log.Info("입고취소")
-	stopRequest := StopRequest{}
-	err := json.NewDecoder(r.Body).Decode(&stopRequest)
+
+	// 앞문이 열려있는지 확인한 후에 front open
+	err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
 	if err != nil {
+		// changeKioskView
+		// return
+		Response(w, nil, http.StatusInternalServerError, err)
+	}
+	// 앞문 열림 완료 확인
+	robot.CheckCompletePlc("complete")
+
+	if err != nil {
+		// changeKioskView
+		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
-	if stopRequest.Step >= "2" {
-
-		// 앞문이 열려있는지 확인한 후에 front open
-		err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen)
-		if err != nil {
-			// changeKioskView
-			// return
-			Response(w, nil, http.StatusInternalServerError, err)
-		}
-		// 앞문 열림 완료 확인
-		robot.CheckCompletePlc("complete")
-
-		if err != nil {
-			// changeKioskView
-			// return
-			Response(w, nil, http.StatusInternalServerError, err)
-		}
-
-		// 물품 감지
-		isItemOnTable, err := plc.SenseTableForItem()
-		if err != nil {
-			// changeKioskView
-			// return
-			Response(w, nil, http.StatusInternalServerError, err)
-		}
-
-		// 물품이 없다면(회수했다면) 앞문 닫기
-		if !isItemOnTable {
-			err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
-			if err != nil {
-				// changeKioskView
-				// return
-				Response(w, nil, http.StatusInternalServerError, err)
-			}
-			robot.JobDismiss()
-		}
-		boolStr := strconv.FormatBool(isItemOnTable)
-		Response(w, boolStr, http.StatusOK, nil)
-		return
+	// 물품 감지
+	isItemOnTable, err := plc.SenseTableForItem()
+	if err != nil {
+		// changeKioskView
+		// return
+		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
-	if stopRequest.Step >= "1" {
-		//robot.JobDismiss()
-		Response(w, "OK", http.StatusOK, nil)
+	// 물품이 없다면(회수했다면) 앞문 닫기
+	if !isItemOnTable {
+		err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
+		if err != nil {
+			// changeKioskView
+			// return
+			Response(w, nil, http.StatusInternalServerError, err)
+		}
+		robot.JobDismiss()
 	}
+	boolStr := strconv.FormatBool(isItemOnTable)
+	// **삭제
+	robot.JobDismiss()
+
+	Response(w, boolStr, http.StatusOK, nil)
+
 }
