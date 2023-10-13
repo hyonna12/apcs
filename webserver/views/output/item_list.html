@@ -32,7 +32,7 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="list-count"><span>2</span>개 선택</p>
+                <p class="list-count"><span class="count">0</span>개 선택 찾기</p>
                 <div class="btn-wrap">
                     <button class="btn-normal" id="$output_request_btn">택배 찾기</button>
                 </div>
@@ -70,7 +70,7 @@
                         <tr>
                             <td>
                                 <div class="chk-item">
-                                    <input type="checkbox" id="chk${item.item_id}" name="item_id" value="${item.item_id}">
+                                    <input type="checkbox" id="chk${item.item_id}" name="item_id" value="${item.item_id}" onclick="getCheckedCnt()">
                                     <label for="chk${item.item_id}" class="label-cb"></label>
                                 </div>
                             </td>
@@ -116,7 +116,16 @@
         }
         e.target.closest('form').submit();
     };
+    
+    function getCheckedCnt()  {        
+        // 선택된 목록의 갯수 세기
+        count = $("input:checkbox[name=item_id]:checked").length
+        console.log(count)
 
+        // 출력
+        var html = `${count}`;
+        $('.count').html(html);
+    }
 
 </script>
 {{end}}
