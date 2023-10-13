@@ -85,7 +85,7 @@
                 <tr>
                     <td>
                         <div class="chk-item">
-                            <input type="checkbox" id="chk${itemListResponses.item_id}" name="item_id" value="${itemListResponses.item_id}">
+                            <input type="checkbox" id="chk${itemListResponses.item_id}" name="item_id" value="${itemListResponses.item_id}" onclick="getCheckedCnt()">
                             <label for="chk${itemListResponses.item_id}" class="label-cb"></label>
                         </div>
                     </td>
@@ -120,7 +120,6 @@
     function getCheckedCnt()  {        
         // 선택된 목록의 갯수 세기
         count = $("input:checkbox[name=item_id]:checked").length
-        console.log(count)
 
         // 출력
         var html = `${count}`;
