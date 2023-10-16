@@ -2,12 +2,6 @@
 {{define "content"}}
 <main id="main">
     <div class="content-wrap">
-        <div class="time-wrap">
-            <p class="msg">남은시간</p>
-            <p class="time-count">
-                <span id="$counter">5</span>
-            </p>
-        </div>
         <div class="fixed-btn">
             <button class="btn-normal"><a href="/">첫 화면으로</a></button>
         </div>
@@ -34,8 +28,6 @@
 
     /* 입고 취소 */
     function send_stop_info() {
-        console.log("실행")
-
         // 문 열고 물품 회수했는지 확인
         if(keep == true){
             keep = false;
@@ -58,9 +50,19 @@
         }       
     }
 
+    /* 남은 시간 확인 */
+    const timeLimit = 30;
+    let counter = 0;
+    count();
+    let intervalTimer = setInterval(count, 1000);
 
-    setTimeout(function () {
-        location.href = '/';
-    }, 30000);  // 30초 지나면 알림
+    function count(){
+        if (counter > timeLimit) {
+            clearInterval(intervalTimer);
+            location.href='/';
+            // 30초 지나면 알림
+        }
+        counter += 1;
+    }
 </script>
 {{end}}

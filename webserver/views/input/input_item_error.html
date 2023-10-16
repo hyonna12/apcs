@@ -2,12 +2,6 @@
 {{define "content"}}
 <main id="main">
     <div class="content-wrap">
-        <div class="time-wrap">
-            <p class="msg">남은시간</p>
-            <p class="time-count">
-                <span id="$counter">5</span>
-            </p>
-        </div>
         <div class="fixed-btn">
             <button class="btn-normal home_btn">첫 화면으로</button>
         </div>
@@ -53,24 +47,18 @@
 
     
     /* 남은 시간 확인 */
-    const timeLimit = 5;
+    const timeLimit = 10;
     let counter = 0;
     count();
-    let intervalId = setInterval(count, 1000);
+    let intervalTimer = setInterval(count, 1000);
 
     function count(){
         if (counter > timeLimit) {
-            clearInterval(intervalId);
-            return false;
+            clearInterval(intervalTimer);
+            location.href='/input/cancel_input_item';
         }
-        $counter.innerText = timeLimit - counter;
         counter += 1;
     }
-
-    setTimeout(function(){
-        location.href='/input/cancel_input_item';
-    }, 5000);
-
 
     $('.home_btn').click(function(){
         location.href='/input/cancel_input_item';

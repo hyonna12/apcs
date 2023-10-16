@@ -84,17 +84,41 @@
     let address_list = [];
     let tracking_num_list = [];
 
+    /* 남은 시간 확인 */
+    const timeLimit = 60;
+    let counter = 0;
+    count();
+    let intervalTimer = setInterval(count, 1000);
+
+    function count(){
+        if (counter > timeLimit) {
+            clearInterval(intervalTimer);
+            location.href='/';
+        }
+        counter += 1;
+    }
+
+
     $address_info.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         $address_info.focus();
         input = $(":focus").attr('id')
     };
 
     $tracking_num_info.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         $tracking_num_info.focus();
         input = $(":focus").attr('id')
     };
 
     $('.number').click(function () {
+        // 타이머 리셋
+        counter = 0;
+
         number = $(this).attr('value');
         if (input == '$address_info') {
             address_list.push(number)
@@ -108,6 +132,9 @@
     });
 
     backspace.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         if (input == '$address_info') {
             address_list.pop()
             address = address_list.join('');
@@ -146,6 +173,9 @@
     }
 
     $submit_address_btn.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         // focus에 따라
         if(input == '$address_info'){
             if ($address_info.value === '') {

@@ -48,6 +48,20 @@
     var query = ''
     var data = ''
 
+    /* 남은 시간 확인 */
+    const timeLimit = 30;
+    let counter = 0;
+    count();
+    let intervalTimer = setInterval(count, 1000);
+
+    function count(){
+        if (counter > timeLimit) {
+            clearInterval(intervalTimer);
+            location.href='/';
+        }
+        counter += 1;
+    }
+
     if(urlParams.has('address')){
         query = 'address';
         data = urlParams.get(query);
@@ -58,50 +72,53 @@
         data = urlParams.get(query);
         var info = `<p class="value">${data}</p>`;
     }
-        $('#owner_info').html(info);
-        // db에서 유저 호수 or 송장번호와 택배 리스트 가져오기
-        axios.get('/output/get_item_list?'+query+'=' + data)
-        .then(axiosResult => {
-            let itemListResponses = axiosResult.data.data;
-            let tr = ''
-            if(Array.isArray(itemListResponses) == true){
-                itemListResponses.forEach(item => {
-                    tr += `
-                        <tr>
-                            <td>
-                                <div class="chk-item">
-                                    <input type="checkbox" id="chk${item.item_id}" name="item_id" value="${item.item_id}" onclick="getCheckedCnt()">
-                                    <label for="chk${item.item_id}" class="label-cb"></label>
-                                </div>
-                            </td>
-                            <td>${item.delivery_company}</td>
-                            <td>${item.tracking_number}</td>
-                            <td>${item.input_date}</td>
-                        </tr>
-                    `;
-                });
-            } else{
+    $('#owner_info').html(info);
+    // db에서 유저 호수 or 송장번호와 택배 리스트 가져오기
+    axios.get('/output/get_item_list?'+query+'=' + data)
+    .then(axiosResult => {
+        let itemListResponses = axiosResult.data.data;
+        let tr = ''
+        if(Array.isArray(itemListResponses) == true){
+            itemListResponses.forEach(item => {
                 tr += `
-                <tr>
-                    <td>
-                        <div class="chk-item">
-                            <input type="checkbox" id="chk${itemListResponses.item_id}" name="item_id" value="${itemListResponses.item_id}" onclick="getCheckedCnt()">
-                            <label for="chk${itemListResponses.item_id}" class="label-cb"></label>
-                        </div>
-                    </td>
-                    <td>${itemListResponses.delivery_company}</td>
-                    <td>${itemListResponses.tracking_number}</td>
-                    <td>${itemListResponses.input_date}</td>
-                </tr>
-            `;
-            }
-            $('#tbody').html(tr);
-        })
-        .catch(err => {
-            console.error(err);
-        });
+                    <tr>
+                        <td>
+                            <div class="chk-item">
+                                <input type="checkbox" id="chk${item.item_id}" name="item_id" value="${item.item_id}" onclick="getCheckedCnt()">
+                                <label for="chk${item.item_id}" class="label-cb"></label>
+                            </div>
+                        </td>
+                        <td>${item.delivery_company}</td>
+                        <td>${item.tracking_number}</td>
+                        <td>${item.input_date}</td>
+                    </tr>
+                `;
+            });
+        } else{
+            tr += `
+            <tr>
+                <td>
+                    <div class="chk-item">
+                        <input type="checkbox" id="chk${itemListResponses.item_id}" name="item_id" value="${itemListResponses.item_id}" onclick="getCheckedCnt()">
+                        <label for="chk${itemListResponses.item_id}" class="label-cb"></label>
+                    </div>
+                </td>
+                <td>${itemListResponses.delivery_company}</td>
+                <td>${itemListResponses.tracking_number}</td>
+                <td>${itemListResponses.input_date}</td>
+            </tr>
+        `;
+        }
+        $('#tbody').html(tr);
+    })
+    .catch(err => {
+        console.error(err);
+    });
 
     $output_request_btn.onclick = e => {
+        // 타이머 리셋
+        counter = 0;
+
         let $checkboxes = document.getElementsByName("item_id");
         let nothingChecked = true;
         $checkboxes.forEach(checkbox => {

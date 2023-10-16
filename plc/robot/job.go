@@ -479,6 +479,11 @@ func CheckCompletePlc(data interface{}) error {
 func SenseTrouble() {
 	var waiting = make(chan string)
 	log.Infof("[PLC] 10ms 마다 데이터 조회 중") // 조회한 데이터 struct에 저장
+
+	/* if state.D0 == 1 {
+		waiting <- "??"
+	} */
+
 	/* go func() {
 		fmt.Println("실행")
 
@@ -515,6 +520,12 @@ func SenseTrouble() {
 type PLC struct {
 	addr string // 주소
 	conn net.Conn
+}
+
+type State struct{
+	D0 int
+	D1 int
+
 }
 
 // 새로운 PLC를 생성
@@ -559,6 +570,7 @@ func (plc *PLC) Poll() ([]byte, error) {
 	return plc.ReadRequest()
 }
 
+
 func InitConnPlc() {
 	plc, err := NewPLC("192.168.1.100:502")
 	if err != nil {
@@ -575,7 +587,13 @@ func InitConnPlc() {
 			return
 		}
 		fmt.Println(req)
+		state := state{
+			D0: req.D0,
+			D1: req.D1,
+		}
+
 		time.Sleep(10 * time.Millisecond)
+
 	}
 }
 */

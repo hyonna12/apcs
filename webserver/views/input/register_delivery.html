@@ -50,12 +50,6 @@
 </style>
         <main id="main">
             <div class="content-wrap">
-                <div class="time-wrap">
-                    <p class="msg">남은시간</p>
-                    <p class="time-count">
-                        <span id="$counter">5</span>
-                    </p>
-                </div>
                 <div class="fixed-btn">
                     <button class="btn-normal home_btn">첫 화면으로</button>
                 </div>
@@ -140,18 +134,15 @@
     const timeLimit = 60;
     let counter = 0;
     count();
-    let intervalId = setInterval(count, 1000);
+    let intervalTimer = setInterval(count, 1000);
 
     function count(){
         if (counter > timeLimit) {
-            clearInterval(intervalId);
+            clearInterval(intervalTimer);
             location.href='/';
-            return;
         }
-        $counter.innerText = timeLimit - counter;
         counter += 1;
     }
-
 
     /* 택배 회사 리스트 조회 */
     axios.get('/input/get_delivery_list')
@@ -236,11 +227,17 @@
 
     /* 택배사 리스트 팝업 열기 */
     select_company.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         document.getElementById("popup_company").style.display = 'block';
     };
 
     /* 바코드 찍힐때 이벤트 */
     const barcode = (e) => {
+        // 타이머 리셋
+        counter = 0;
+
         tracking_num_list = [];
         document.getElementById("popup_barcode").style.display = 'none';
         data = e.key;
@@ -256,6 +253,9 @@
 
     /* 바코드 팝업 열기 */
     tracking_barcode.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         document.getElementById("popup_barcode").style.display = 'block';
         if(isKeypress == true){
             window.removeEventListener('keypress', barcode);
@@ -268,11 +268,17 @@
 
     /* 바코드 팝업 닫기 */
     $('.cancel_btn').click(function(){
+        // 타이머 리셋
+        counter = 0;
+
         document.getElementById("popup_barcode").style.display = 'none';
     });
 
     /* 택배사 선택 */
     choice_company.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         company_id = $("input[name='radio']:checked").val();
         company_name = $("input[name=radio]:checked").next().text();
 
@@ -292,23 +298,35 @@
 
     /* 수령인 주소 input 눌렀을때 */
     select_address.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         $('#select_address').focus();
         input = $(":focus").attr('id');
     };
 
     /* 수령인 연락처 input 눌렀을때 */
     select_num.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         $('#select_num').focus();
         input = $(":focus").attr('id');
     };
     /* 송장번호 input 눌렀을때 */
     select_tracking_num.onclick  = () => {
+        // 타이머 리셋
+        counter = 0;
+
         $('#select_tracking_num').focus();
         input = $(":focus").attr('id');
     };
     
     /* 숫자패드 숫자버튼 눌렀을때 */
     $('.number').click(function(){
+        // 타이머 리셋
+        counter = 0;
+
         number = $(this).attr('value');
         if (input === 'select_address') {
             address_list.push(number);
@@ -326,6 +344,9 @@
     });
     /* 숫자패드 뒤로가기 버튼 눌렀을때 */
     backspace.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         if (input === 'select_address') {
             address_list.pop();
             let address = address_list.join('');
@@ -343,6 +364,9 @@
 
     /* 입력완료 버튼 선택시 */
     delivery_register_btn.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
         send_delivery_info();
     };
     
