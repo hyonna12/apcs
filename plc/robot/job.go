@@ -465,10 +465,10 @@ func CheckCompletePlc(data interface{}) error {
 
 	for {
 		// 어떤 데이터를 가져올지 매개변수 추가
-		log.Infof("[PLC] 10ms 마다 데이터 조회 중") // 조회한 데이터 struct에 저장
+		//log.Infof("[PLC] 10ms 마다 데이터 조회 중") // 조회한 데이터 struct에 저장
 
 		if RespPlc == data {
-			log.Info("업무 완료 응답")
+			//log.Info("업무 완료 응답")
 			return nil
 		}
 		time.Sleep(1 * time.Second)

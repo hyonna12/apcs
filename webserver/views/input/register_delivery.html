@@ -46,7 +46,14 @@
     .popup-box.msg-box .img img {
         width:400px
     }
-
+    .popup-layer input{
+        padding: 20px; 
+        font-size: 60px;
+        text-align: center;
+        width: 450px;
+        border: 1px solid #666;
+        background-color: #ddd;
+    }
 </style>
         <main id="main">
             <div class="content-wrap">
@@ -71,20 +78,31 @@
                         <p class="title">수령인 연락처</p>
                         <p class="value" ><input type="number" id="select_num" value=""></p>
                     </div>
-
-                    <div class="number-input" id="number_keypad">
-                        <button class="number" value="1">1</button>
-                        <button class="number" value="2">2</button>
-                        <button class="number" value="3">3</button>
-                        <button class="number" value="4">4</button>
-                        <button class="number" value="5">5</button>
-                        <button class="number" value="6">6</button>
-                        <button class="number" value="7">7</button>
-                        <button class="number" value="8">8</button>
-                        <button class="number" value="9">9</button>
-                        <button></button>
-                        <button class="number" value="0">0</button>
-                        <button id="backspace"><img src="/static/images/backspace.png" alt=""></button>
+                    <div class="popup-layer" style="display: none;" id="popup_keypad">
+                        <div class="popup-box">
+                            <div class="popup-header">
+                                <input type="text" value="" id="number_val">
+                            </div>
+                            <div class="number-input" id="number_keypad">
+                                <button class="number" value="1">1</button>
+                                <button class="number" value="2">2</button>
+                                <button class="number" value="3">3</button>
+                                <button class="number" value="4">4</button>
+                                <button class="number" value="5">5</button>
+                                <button class="number" value="6">6</button>
+                                <button class="number" value="7">7</button>
+                                <button class="number" value="8">8</button>
+                                <button class="number" value="9">9</button>
+                                <button></button>
+                                <button class="number" value="0">0</button>
+                                <button id="backspace"><img src="/static/images/backspace.png" alt=""></button>
+                            </div>
+                            <div class="popup-footer">
+                                <div class="btn-wrap">
+                                    <button class="btn-normal" id="choice_number">선택 완료</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="btn-wrap">
                         <button class="btn-normal" id="delivery_register_btn">입력 완료</button>
@@ -302,6 +320,10 @@
 
         $('#select_address').focus();
         input = $(":focus").attr('id');
+        document.getElementById("popup_keypad").style.display = 'block';
+
+        let address = address_list.join('');
+        document.getElementById("number_val").value = address;
     };
 
     /* 수령인 연락처 input 눌렀을때 */
@@ -311,6 +333,10 @@
 
         $('#select_num').focus();
         input = $(":focus").attr('id');
+        document.getElementById("popup_keypad").style.display = 'block';
+
+        let phone_num = number_list.join('');
+        document.getElementById("number_val").value = phone_num;
     };
 
     /* 송장번호 input 눌렀을때 */
@@ -320,6 +346,10 @@
 
         $('#select_tracking_num').focus();
         input = $(":focus").attr('id');
+        document.getElementById("popup_keypad").style.display = 'block';
+
+        let tracking_num = tracking_num_list.join('');
+        document.getElementById("number_val").value = tracking_num;
     };
     
     /* 숫자패드 숫자버튼 눌렀을때 */
@@ -332,14 +362,17 @@
             address_list.push(number);
             let address = address_list.join('');
             document.getElementById("select_address").value = address;
+            document.getElementById("number_val").value = address;
         } else if(input === 'select_num'){
             number_list.push(number);
             phone_num = number_list.join('');
             document.getElementById("select_num").value = phone_num;
+            document.getElementById("number_val").value = phone_num;
         } else if(input == 'select_tracking_num'){
             tracking_num_list.push(number);
             tracking_num = tracking_num_list.join('');
             document.getElementById("select_tracking_num").value = tracking_num;
+            document.getElementById("number_val").value = tracking_num;
         }
     });
     
@@ -352,15 +385,27 @@
             address_list.pop();
             let address = address_list.join('');
             document.getElementById("select_address").value = address;
+            document.getElementById("number_val").value = address;
         } else if(input === 'select_num') {
             number_list.pop();
             let phone_num = number_list.join('');
             document.getElementById("select_num").value = phone_num;
+            document.getElementById("number_val").value = phone_num;
         } else if(input === 'select_tracking_num'){
             tracking_num_list.pop();
             let tracking_num = tracking_num_list.join('');
             document.getElementById("select_tracking_num").value = tracking_num;
+            document.getElementById("number_val").value = tracking_num;
         }
+    };
+
+    /* 키패드_선택완료 버튼 선택시 */
+    choice_number.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
+        document.getElementById("popup_keypad").style.display = 'none';
+        document.getElementById("number_val").value = ""
     };
 
     /* 입력완료 버튼 선택시 */
