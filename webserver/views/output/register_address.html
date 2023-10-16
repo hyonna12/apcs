@@ -80,10 +80,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
-    let input = '$address_info'
-    let address_list = [];
-    let tracking_num_list = [];
-
     /* 남은 시간 확인 */
     const timeLimit = 60;
     let counter = 0;
@@ -98,7 +94,11 @@
         counter += 1;
     }
 
+    let input = '$address_info' // 기본 포커스 주소 input
+    let address_list = [];
+    let tracking_num_list = [];
 
+    /* 주소 입력칸 클릭 */
     $address_info.onclick = () => {
         // 타이머 리셋
         counter = 0;
@@ -107,6 +107,7 @@
         input = $(":focus").attr('id')
     };
 
+    /* 송장번호 입력칸 클릭 */
     $tracking_num_info.onclick = () => {
         // 타이머 리셋
         counter = 0;
@@ -115,6 +116,7 @@
         input = $(":focus").attr('id')
     };
 
+    /* 숫자패드 숫자버튼 눌렀을때 */
     $('.number').click(function () {
         // 타이머 리셋
         counter = 0;
@@ -131,6 +133,7 @@
         }
     });
 
+    /* 숫자패드 뒤로가기 버튼 눌렀을때 */
     backspace.onclick = () => {
         // 타이머 리셋
         counter = 0;
@@ -146,6 +149,7 @@
         }
     };
 
+    /* 선택한 방법 확인 */
     function getChecked(event) {
         let radio_opt = event.target.value
         if(radio_opt == 'address'){
@@ -172,6 +176,7 @@
         }
     }
 
+    /* 입력완료 버튼 선택시 */
     $submit_address_btn.onclick = () => {
         // 타이머 리셋
         counter = 0;

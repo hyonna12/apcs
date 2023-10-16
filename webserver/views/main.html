@@ -64,6 +64,7 @@
         }
     }
 
+    // 물품 정리
     function sortItem(){
         if(next == true){
             next = false;
@@ -80,6 +81,7 @@
 
     }
 
+    // 입고 버튼 클릭시
     popup_open_btn.onclick = () => {
         // 모달창 띄우기
         document.getElementById("my_modal").style.display = 'block'
@@ -89,6 +91,7 @@
         }, 2000);
     };
 
+    // 찾기 버튼 클릭시
     output_item_btn.onclick = () => {
         location.href = "output/register_address"
     };

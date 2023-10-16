@@ -115,6 +115,7 @@
         console.error(err);
     });
 
+    /* 택배 찾기 버튼 선택시 */
     $output_request_btn.onclick = e => {
         // 타이머 리셋
         counter = 0;
@@ -134,8 +135,8 @@
         e.target.closest('form').submit();
     };
     
+    /* 선택된 물품 갯수 세기 */
     function getCheckedCnt()  {        
-        // 선택된 목록의 갯수 세기
         count = $("input:checkbox[name=item_id]:checked").length
 
         // 출력

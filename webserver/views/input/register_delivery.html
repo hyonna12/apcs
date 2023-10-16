@@ -1,7 +1,7 @@
 {{template "layout.html" .}}
 {{define "content"}}
 <style>
-    #modal {
+    #popup_ready_input {
         position: absolute;
         z-index: 9998;
         left: 0;
@@ -13,7 +13,7 @@
         display: block;
     }
 
-    .modal-content {
+    /* .modal-content {
         background-color: rgb(2, 26, 2);
         position: absolute;
         top: 35%;
@@ -26,7 +26,6 @@
     }
 
     .modal-msg {
-
         text-align: center;
         color: rgb(255, 174, 0);
         font-size: 2.8rem;
@@ -36,15 +35,16 @@
         width: 80%;
         margin: 0 auto;
         padding: 30px 0;
-    }
+    } */
+
     .list-box .list-top.tracking_num .value img {
         width:50px
     }
     .popup-box.msg-box .img {
-    text-align: center;
+        text-align: center;
     }
     .popup-box.msg-box .img img {
-    width:400px
+        width:400px
     }
 
 </style>
@@ -107,7 +107,7 @@
             </div>
         </div>
     </div>
-    <div class="popup-layer" style="display: none;" id="modal">
+    <div class="popup-layer" style="display: none;" id="popup_ready_input">
         <div class="popup-box msg-box">
             <div class="popup-body">
                 <p class="msg">입고 준비중입니다<br>잠시만 기다려주세요</p>
@@ -167,7 +167,6 @@
         alert(err);
     });
 
-    const modal = document.getElementById("modal"); // 택배회사 팝업창
     let company_id = '';
 
     /* 배송 정보 전달 */
@@ -202,7 +201,7 @@
         let id = JSON.parse(response.data);
 
         if (id !== undefined) {
-            modal.style.display = "block";
+            document.getElementById("popup_ready_input").style.display = "block";
             document.body.style.overflow = "hidden";
 
             await axios.post('/input/input_delivery_info', request).then(res => {
@@ -217,7 +216,7 @@
                     alert(res.data.error);
                 }
             }).catch(err => {
-                modal.style.display = "none";
+                document.getElementById("popup_ready_input").style.display = "none";
                 document.body.style.overflow = "auto"; // 스크롤바 보이기
                 console.log(err);
                 alert(err.response.data.error);
@@ -231,6 +230,18 @@
         counter = 0;
 
         document.getElementById("popup_company").style.display = 'block';
+    };
+
+    /* 택배사 선택 */
+    choice_company.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+
+        company_id = $("input[name='radio']:checked").val();
+        company_name = $("input[name=radio]:checked").next().text();
+
+        document.getElementById('select_company').value = company_name;
+        document.getElementById("popup_company").style.display = 'none';
     };
 
     /* 바코드 찍힐때 이벤트 */
@@ -274,18 +285,6 @@
         document.getElementById("popup_barcode").style.display = 'none';
     });
 
-    /* 택배사 선택 */
-    choice_company.onclick = () => {
-        // 타이머 리셋
-        counter = 0;
-
-        company_id = $("input[name='radio']:checked").val();
-        company_name = $("input[name=radio]:checked").next().text();
-
-        document.getElementById('select_company').value = company_name;
-        document.getElementById("popup_company").style.display = 'none';
-    };
-
     /* 첫 화면으로 */
     $('.home_btn').click(function () {
         location.href='/';
@@ -313,6 +312,7 @@
         $('#select_num').focus();
         input = $(":focus").attr('id');
     };
+
     /* 송장번호 input 눌렀을때 */
     select_tracking_num.onclick  = () => {
         // 타이머 리셋
@@ -342,6 +342,7 @@
             document.getElementById("select_tracking_num").value = tracking_num;
         }
     });
+    
     /* 숫자패드 뒤로가기 버튼 눌렀을때 */
     backspace.onclick = () => {
         // 타이머 리셋
