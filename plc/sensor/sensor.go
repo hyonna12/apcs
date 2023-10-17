@@ -2,13 +2,15 @@ package sensor
 
 import (
 	"math/rand"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 )
 
 var (
 	// TODO - temp - 키오스크 임시 물건 꺼내기 버튼 시뮬레이션 용
-	IsItemOnTable = true
+	IsItemOnTable  = true
+	simulatorDelay time.Duration
 )
 
 type ItemDimension struct {
@@ -26,6 +28,9 @@ func SenseTableForItem() (bool, error) {
 	log.Infof("[PLC_Sensor] 테이블 물품 존재 여부 감지: %v", IsItemOnTable)
 	// TODO - PLC 센서 물품 존재 여부 감지
 	// TODO - temp - 물건 꺼내기 버튼
+
+	// TODO - temp - 시뮬레이터
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 	return IsItemOnTable, nil
 }
 
@@ -40,6 +45,9 @@ func SenseItemInfo() (ItemDimension, error) {
 		Weight: rand.Intn(10) + 1,
 	}
 	log.Infof("[PLC_Sensor] 크기/무게 측정: %v", itemDimension)
+
+	// TODO - temp - 시뮬레이터
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return itemDimension, nil
 }

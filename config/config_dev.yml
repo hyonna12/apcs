@@ -16,6 +16,7 @@ database:
 
 logging:
   level: debug
+  output: file  # console: 콘솔에 color, file: 로그파일에 color
 
 webserver:
   server:

@@ -132,11 +132,6 @@ func InputItemError(w http.ResponseWriter, r *http.Request) {
 	render(w, "input/input_item_error.html", nil)
 }
 
-func CheckItemInfo(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-	render(w, "input/check_item_info.html", nil)
-}
-
 func RegisterOwnerError(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 	render(w, "input/register_owner_error.html", nil)

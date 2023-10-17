@@ -1,6 +1,8 @@
 package door
 
 import (
+	"time"
+
 	log "github.com/sirupsen/logrus"
 )
 
@@ -13,6 +15,10 @@ const (
 
 	DoorOperationOpen  DoorOperation = "DoorOperationOpen"
 	DoorOperationClose DoorOperation = "DoorOperationClose"
+)
+
+var (
+	simulatorDelay time.Duration
 )
 
 type Door struct {
@@ -29,5 +35,8 @@ type Door struct {
 func SetUpDoor(DoorType DoorType, DoorOperation DoorOperation) error {
 	log.Infof("[PLC_Door] 도어 조작: %v, %v", DoorType, DoorOperation)
 	// TODO - PLC 도어 조작 로직
+
+	// TODO - temp - 시뮬레이터
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 	return nil
 }

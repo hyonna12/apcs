@@ -3,6 +3,7 @@ package trayBuffer
 import (
 	"apcs_refactored/model"
 	"container/list"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -15,7 +16,8 @@ const (
 )
 
 var (
-	Buffer *TrayBuffer
+	Buffer         *TrayBuffer
+	simulatorDelay time.Duration
 )
 
 // 빈트레이 id를 담기 위한 스택
@@ -31,6 +33,9 @@ type TrayBuffer struct {
 func SetUpTrayBuffer(BufferOperation BufferOperation) error {
 	log.Infof("[PLC_Buffer] 트레이 버퍼 조작: %v", BufferOperation)
 	// TODO - PLC 트레이 버퍼 조작 로직
+
+	// TODO - temp - 시뮬레이터
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 	return nil
 }
 

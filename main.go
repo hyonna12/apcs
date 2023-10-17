@@ -16,7 +16,6 @@ import (
 )
 
 func main() {
-
 	// 설정 변수 초기화
 	config.InitConfig()
 
@@ -30,12 +29,14 @@ func main() {
 		// 로깅 텍스트 출력 - 개발 단계에서 설정
 		// 무슨 이유에서인가 잘 안 먹힘
 		// TODO - output stream 빼서 보기 좋게 포매팅하기
-		log.SetFormatter(&log.TextFormatter{
+		/* log.SetFormatter(&log.TextFormatter{
 			//ForceColors:     true,
 			TimestampFormat: "15:04:05",
 			//PadLevelText:    true,
 			DisableLevelTruncation: false,
-		})
+		}) */
+		plainFormatter := config.NewPlainFormatter()
+		log.SetFormatter(plainFormatter)
 	}
 
 	file, err := os.OpenFile("./log/apcs.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0755)
@@ -100,7 +101,6 @@ func main() {
 	trayBuffer.InitTrayBuffer()
 
 	resource.InitResources(slotIds)
-	// 이벤트 서버 시작
 	event.StartEventServer(eventMsgNode)
 	// 웹소켓 서버 시작
 	webserver.StartWebserver(websocketserverMsgNode)

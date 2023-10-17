@@ -6,7 +6,9 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"time"
 
+	"github.com/fatih/color"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 )
@@ -28,7 +30,8 @@ type Configuration struct {
 	} `yaml:"database"`
 
 	Logging struct {
-		Level string `yaml:"level"`
+		Level  string `yaml:"level"`
+		Output string `yaml:"output"`
 	} `yaml:"logging"`
 
 	Webserver struct {
@@ -92,4 +95,34 @@ func InitConfig() {
 
 	Config = config
 	Config.Profile = *profile
+}
+
+/* 로그 custom formatter */
+type PlainFormatter struct {
+	log.TextFormatter
+	TimestampFormat        string
+	LevelDesc              []string
+	DisableLevelTruncation bool
+}
+
+func NewPlainFormatter() *PlainFormatter {
+	return &PlainFormatter{
+		TimestampFormat:        time.TimeOnly,
+		LevelDesc:              []string{"PANIC", "ERROR", "WARN", "Info", "DEBUG", "TRACE"},
+		DisableLevelTruncation: false,
+	}
+}
+
+func (f *PlainFormatter) Format(entry *log.Entry) ([]byte, error) {
+	timestamp := fmt.Sprintf("%v", entry.Time.Format(f.TimestampFormat))
+	level := ""
+	message := ""
+	if Config.Logging.Output == "console" {
+		level = f.LevelDesc[entry.Level]
+		message = entry.Message
+	} else if Config.Logging.Output == "file" {
+		level = color.GreenString(f.LevelDesc[entry.Level])
+		message = color.CyanString(entry.Message)
+	}
+	return []byte(fmt.Sprintf("[%s] %s: '%s'\nfunc=%v file=%v:%v\n", timestamp, level, message, entry.Caller.Func.Name(), entry.Caller.File, entry.Caller.Line)), nil
 }

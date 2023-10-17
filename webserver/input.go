@@ -5,6 +5,7 @@ import (
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
+	"apcs_refactored/plc/sensor"
 	"apcs_refactored/plc/trayBuffer"
 	"bytes"
 	"context"
@@ -469,24 +470,30 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 물품 감지
-	isItemOnTable, err := plc.SenseTableForItem()
-	if err != nil {
-		// changeKioskView
-		// return
-		Response(w, nil, http.StatusInternalServerError, err)
-	}
-
-	// 물품이 없다면(회수했다면) 앞문 닫기
-	if !isItemOnTable {
-		err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
+	for {
+		isItemOnTable, err := plc.SenseTableForItem()
 		if err != nil {
 			// changeKioskView
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		robot.JobDismiss()
+		// **삭제
+		isItemOnTable = false
+		// 물품이 없다면(회수했다면) 앞문 닫기
+		if !isItemOnTable {
+			err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
+			if err != nil {
+				// changeKioskView
+				// return
+				Response(w, nil, http.StatusInternalServerError, err)
+			}
+			robot.JobDismiss()
+			break
+		}
+
 	}
-	boolStr := strconv.FormatBool(isItemOnTable)
+
+	boolStr := strconv.FormatBool(sensor.IsItemOnTable)
 	// **삭제
 	robot.JobDismiss()
 

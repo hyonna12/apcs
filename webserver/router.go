@@ -37,8 +37,6 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/input/input_delivery_info", DeliveryInfoRequested).Methods(http.MethodPost)
 	// [API] 택배 투입 화면에서 매 초마다 호출
 	r.HandleFunc("/input/sense_table_for_item", SenseTableForItem).Methods(http.MethodGet)
-	// [View]] 택배 정보 확인 화면 출력
-	r.HandleFunc("/input/check_item_info", CheckItemInfo).Methods(http.MethodGet)
 	// [API] 택배기사가 물건을 테이블에 올려놓은 경우 호출
 	r.HandleFunc("/input/submit_item", ItemSubmitted).Methods(http.MethodPost)
 	// [API] 물품 계측 후 수납 가능 시 호출 (입고가 완료되었습니다 화면에서 호출)
