@@ -64,6 +64,10 @@ type Configuration struct {
 			Optimum int `yaml:"optimum"`
 		} `yaml:"trayBuffer"`
 	} `yaml:"plc"`
+
+	Sorting struct {
+		State string `yaml:"state"`
+	} `yaml:"sorting"`
 }
 
 func InitConfig() {

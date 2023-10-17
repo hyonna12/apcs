@@ -56,3 +56,229 @@ func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/work
 func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:59
 [16:36:25] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
 func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:103
+[17:33:29] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[17:33:29] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[17:33:29] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[17:33:29] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[17:33:29] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[17:33:29] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:59
+[17:33:29] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:103
+[17:33:45] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[17:33:45] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[17:33:45] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[17:33:45] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[17:33:45] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[17:33:45] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:59
+[17:33:45] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:103
+[17:33:46] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:104
+[17:33:50] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:04] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[17:35:04] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[17:35:04] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[17:35:04] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[17:35:04] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[17:35:04] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:59
+[17:35:04] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:103
+[17:35:04] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:104
+[17:35:08] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:09] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:10] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:11] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:12] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:13] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:14] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:15] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:16] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:17] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:18] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:19] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:20] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:21] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:22] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:23] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:24] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:25] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:26] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:27] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:35:28] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:23] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[17:36:23] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[17:36:23] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[17:36:23] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[17:36:23] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[17:36:23] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:59
+[17:36:23] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:103
+[17:36:24] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:104
+[17:36:28] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:29] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:30] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:31] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:32] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:33] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:34] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:35] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:36] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:37] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:36:37] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:115
+[17:37:20] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[17:37:20] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[17:37:20] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[17:37:20] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[17:37:20] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[17:37:20] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:59
+[17:37:20] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:103
+[17:37:21] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:115
+[17:37:27] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:104
+[17:37:31] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:37:32] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:38:13] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[17:38:13] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[17:38:13] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[17:38:13] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[17:38:13] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[17:38:13] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:59
+[17:38:13] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:103
+[17:38:14] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:104
+[17:38:18] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:38:19] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.Off file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[17:38:36] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[17:38:36] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[17:38:36] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[17:38:36] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[17:38:36] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[17:38:36] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:59
+[17:38:36] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:103
+[17:38:50] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:104
+[17:38:54] [32mDEBUG[0m: '[36m[PLC] 트레이 버퍼 정리[0m'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:196
+[17:38:54] [32mDEBUG[0m: '[36m[웹핸들러] 빈 트레이 회수[0m'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:109
+[17:38:54] [32mWARN[0m: '[36m빈 슬롯 없음[0m'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:210
+[17:38:55] [32mDEBUG[0m: '[36m[PLC] 물품 정리[0m'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:21
+[17:38:55] [32mDEBUG[0m: '[36m[웹핸들러] 현재수납슬롯: slotId=364[0m'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:44
+[17:38:55] [32mDEBUG[0m: '[36m[웹핸들러] 최적수납슬롯: slotId=76[0m'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:72
+[17:38:56] [32mDEBUG[0m: '[36m[PLC] 트레이 이동: fromSlotId=364 -> toSlotId=76[0m'
+func=apcs_refactored/plc.MoveTray file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:163
+[17:38:56] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 정리. from_slotId=364, to_slotId=76[0m'
+func=apcs_refactored/plc/robot.JobMoveTray file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:374
+[17:38:56] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=정리, RobotId=1[0m'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:71
+[17:38:56] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [364][0m'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
+[17:38:56] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [76][0m'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
+[17:38:56] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=364[0m'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:53
+[17:38:59] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=1, slotId=364[0m'
+func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:74
+[17:39:01] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=76[0m'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:53
+[17:39:02] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [364][0m'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
+[17:39:04] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=76[0m'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:83
+[17:39:04] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [76][0m'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
+[17:39:05] [32mDEBUG[0m: '[36m[PLC] 물품 정리[0m'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:21
+[17:39:05] [32mDEBUG[0m: '[36m[웹핸들러] 현재수납슬롯: slotId=76[0m'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:44
+[17:39:05] [32mDEBUG[0m: '[36m[웹핸들러] 최적수납슬롯: slotId=364[0m'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:72

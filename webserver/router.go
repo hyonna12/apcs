@@ -1,6 +1,7 @@
 package webserver
 
 import (
+	"apcs_refactored/config"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -98,7 +99,11 @@ func Handler(r *mux.Router) {
 	r.HandleFunc("/output/item_list_error", ItemListError).Methods(http.MethodGet)
 
 	/* sort */
-	r.HandleFunc("/sort/tray_buffer", SortTrayBuffer).Methods(http.MethodGet)
-	r.HandleFunc("/sort/item", SortItem).Methods(http.MethodPost)
-
+	if config.Config.Sorting.State == "off" {
+		r.HandleFunc("/sort/tray_buffer", Off).Methods(http.MethodGet)
+		r.HandleFunc("/sort/item", Off).Methods(http.MethodPost)
+	} else {
+		r.HandleFunc("/sort/tray_buffer", SortTrayBuffer).Methods(http.MethodGet)
+		r.HandleFunc("/sort/item", SortItem).Methods(http.MethodPost)
+	}
 }

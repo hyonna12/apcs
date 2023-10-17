@@ -44,3 +44,8 @@ plc:
   trayBuffer:
     # 트레이 버퍼의 최대 개수
     optimum: 20
+
+sorting:
+  # 정리 동작 여부
+  state: on # on: 동작, off: 미동작
+  
