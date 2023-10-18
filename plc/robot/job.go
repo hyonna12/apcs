@@ -570,7 +570,6 @@ func (plc *PLC) Poll() ([]byte, error) {
 	return plc.ReadRequest()
 }
 
-
 func InitConnPlc() {
 	plc, err := NewPLC("192.168.1.100:502")
 	if err != nil {

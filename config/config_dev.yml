@@ -16,7 +16,7 @@ database:
 
 logging:
   level: debug
-  output: file  # console: 콘솔에 color, file: 로그파일에 color
+  output: terminal  # terminal: 터미널에 color, file: 로그파일에 color
 
 webserver:
   server:
@@ -44,6 +44,7 @@ plc:
   trayBuffer:
     # 트레이 버퍼의 최대 개수
     optimum: 20
+    init: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] #트레이 버퍼에 있는 초기 빈트레이 / 밑에 있는 트레이부터 등록
 
 sorting:
   # 정리 동작 여부

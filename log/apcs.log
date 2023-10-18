@@ -4735,3 +4735,145 @@ func=apcs_refactored/webserver.ItemOutputThankyou file=C:/Users/line/Desktop/로
 func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:104
 [13:28:43] [32mTRACE[0m: '[36mURL: /output/register_address[0m'
 func=apcs_refactored/webserver.RegistAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:193
+[14:09:13] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:09:13] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:09:13] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:09:13] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:09:13] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:09:13] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:62
+[14:09:13] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:106
+[14:09:44] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:09:44] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:09:44] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:09:44] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:09:44] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:09:45] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:62
+[14:09:45] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:106
+[14:12:42] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:12:42] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:12:42] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:12:42] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:12:42] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:12:43] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:66
+[14:12:43] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:110
+[14:15:24] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:15:24] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:15:24] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:15:24] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:15:24] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:15:24] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:65
+[14:15:24] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:109
+[14:15:55] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:15:55] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:15:55] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:15:55] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:15:55] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:15:55] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:67
+[14:15:55] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:111
+[14:16:29] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:104
+[14:19:30] DEBUG: 'Control server started'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:19:30] DEBUG: 'Started initializing database connection'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:19:30] DEBUG: 'Successfully initialized database connection'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:19:30] TRACE: 'Messenger started'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:19:30] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:19:30] TRACE: 'TrayBuffer created'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:19:30] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:19:57] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:19:57] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:19:57] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:19:57] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:19:57] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:19:57] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:19:57] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:20:26] DEBUG: 'Control server started'
+func=main.main file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:20:26] DEBUG: 'Started initializing database connection'
+func=apcs_refactored/model.InitDB file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:20:26] DEBUG: 'Successfully initialized database connection'
+func=apcs_refactored/model.InitDB file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:20:26] TRACE: 'Messenger started'
+func=apcs_refactored/messenger.StartMessengerServer file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:20:26] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
+func=apcs_refactored/plc/robot.InitRobots file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:20:26] TRACE: 'TrayBuffer created'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:20:26] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:20:47] DEBUG: 'Control server started'
+func=main.main file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:20:47] DEBUG: 'Started initializing database connection'
+func=apcs_refactored/model.InitDB file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:20:47] DEBUG: 'Successfully initialized database connection'
+func=apcs_refactored/model.InitDB file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:20:47] TRACE: 'Messenger started'
+func=apcs_refactored/messenger.StartMessengerServer file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:20:47] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
+func=apcs_refactored/plc/robot.InitRobots file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:20:47] TRACE: 'TrayBuffer created'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:20:47] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=c:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:21:03] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:49
+[14:21:03] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[14:21:03] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[14:21:03] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[14:21:03] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[14:21:03] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:21:03] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108

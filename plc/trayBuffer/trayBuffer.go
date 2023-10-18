@@ -1,6 +1,7 @@
 package trayBuffer
 
 import (
+	"apcs_refactored/config"
 	"apcs_refactored/model"
 	"container/list"
 	"time"
@@ -43,8 +44,12 @@ func SetUpTrayBuffer(BufferOperation BufferOperation) error {
 func InitTrayBuffer() {
 	// 트레이 버퍼 스택 생성
 	Buffer := NewTrayBuffer()
-	// 초기 버퍼 빈트레이 id 값 /** 수정
-	for i := 1; i <= 20; i++ { // config.Config.Plc.TrayBuffer.Optimum
+	// 초기 버퍼 빈트레이 id 값
+	list := make([]int, 0)
+	tray := config.Config.Plc.TrayBuffer.Init
+	list = append(list, tray...)
+
+	for _, i := range list { // config.Config.Plc.TrayBuffer.Optimum
 		num := int64(i)
 		Buffer.Push(num)
 	}

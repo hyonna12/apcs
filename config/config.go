@@ -61,7 +61,8 @@ type Configuration struct {
 			Delay int `yaml:"delay"`
 		} `yaml:"simulation"`
 		TrayBuffer struct {
-			Optimum int `yaml:"optimum"`
+			Optimum int   `yaml:"optimum"`
+			Init    []int `yaml:"init"`
 		} `yaml:"trayBuffer"`
 	} `yaml:"plc"`
 
@@ -121,12 +122,12 @@ func (f *PlainFormatter) Format(entry *log.Entry) ([]byte, error) {
 	timestamp := fmt.Sprintf("%v", entry.Time.Format(f.TimestampFormat))
 	level := ""
 	message := ""
-	if Config.Logging.Output == "console" {
-		level = f.LevelDesc[entry.Level]
-		message = entry.Message
-	} else if Config.Logging.Output == "file" {
+	if Config.Logging.Output == "terminal" {
 		level = color.GreenString(f.LevelDesc[entry.Level])
 		message = color.CyanString(entry.Message)
+	} else if Config.Logging.Output == "file" {
+		level = f.LevelDesc[entry.Level]
+		message = entry.Message
 	}
 	return []byte(fmt.Sprintf("[%s] %s: '%s'\nfunc=%v file=%v:%v\n", timestamp, level, message, entry.Caller.Func.Name(), entry.Caller.File, entry.Caller.Line)), nil
 }
