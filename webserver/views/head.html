@@ -57,7 +57,6 @@
             } else {
                 console.error('웹소켓을 지원하지 않는 브라우저입니다.')
             }
-
         }
 
         // 수신한 메시지 파싱 및 처리
@@ -66,6 +65,18 @@
             if (message.request_type === 'changeView') {
                 window.location.replace(message.data.url);
             }
+            /*else if(message.request_type === 'alert'){
+                var result = alert(message.data.msg)
+                console.log(result.isConfirmed)
+                if(result.isConfirmed){
+                    if(message.data.url != ""){
+                        console.log(result)
+                        console.log(message.data.url)
+
+                        window.location.replace(message.data.url);
+                    }
+                }
+            }*/
         }
 
         function createElementFromHtml(htmlString) {

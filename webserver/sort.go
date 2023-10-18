@@ -306,7 +306,7 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Off(w http.ResponseWriter, r *http.Request) {
+func SortOff(w http.ResponseWriter, r *http.Request) {
 	log.Info("정리 미동작")
 	Response(w, nil, http.StatusBadRequest, errors.New("정리 기능 off"))
 }

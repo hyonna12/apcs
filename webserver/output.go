@@ -132,6 +132,35 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 
 	// item id로 물품이 보관된 슬롯 얻어오기
 	slots, err := model.SelectSlotListByItemIds(itemIds)
+
+	if len(slots) == 0 {
+		// 에러처리
+		log.Error("물품이 존재하지 않습니다.")
+		// TODO - 수령/반품 화면 전환
+		render(w, "output/item_error.html", nil)
+
+		delete(requestList, itemIds[0])
+		return
+	}
+
+	if len(itemIds) != len(slots) {
+		itemList := make([]int64, 0)
+		for _, slot := range slots {
+			// 보관되어있는 택배
+			itemId := slot.ItemId.Int64
+			// 보관된 택배리스트
+			itemList = append(itemList, itemId)
+		}
+		// 보관되지 않은 택배 불출리스트에서 삭제
+		for _, itemId := range itemIds {
+			for _, item := range itemList {
+				if itemId != item {
+					delete(requestList, itemId)
+				}
+			}
+		}
+	}
+
 	if err != nil {
 		log.Error(err)
 		http.Error(w, "Bad Request", http.StatusBadRequest)
@@ -142,12 +171,6 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		slotIds = append(slotIds, slot.SlotId)
 	}
 	log.Infof("[웹핸들러] 아이템을 불출할 슬롯: %v", slotIds)
-
-	if len(slotIds) == 0 {
-		// 에러처리
-		log.Error("물품이 보관된 슬롯이 존재하지 않습니다.")
-		return
-	}
 
 	// 트레이 버퍼 개수 조회 후 (20개-물품개수) 될 때까지 회수
 	for trayBuffer.Buffer.Count() > (config.Config.Plc.TrayBuffer.Optimum - len(itemIds)) {
@@ -372,6 +395,7 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 	delete(requestList, itemId)
 
 	if len(requestList) > 0 {
+		fmt.Println("체크", requestList)
 		// Request가 남아 있는 경우- 택배가 나오고 있습니다 화면으로
 		log.Info("[웹핸들러] 불출 요청이 남아 있어 택배 나오는 중 화면 출력")
 

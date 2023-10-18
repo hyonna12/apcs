@@ -98,10 +98,13 @@ func Handler(r *mux.Router) {
 	// [VIEW] "불출 물품 없습니다" 화면 출력
 	r.HandleFunc("/output/item_list_error", ItemListError).Methods(http.MethodGet)
 
+	// [VIEW] "물품이 보관되어있지 않습니다" 화면 출력
+	r.HandleFunc("/output/item_error", ItemError).Methods(http.MethodGet)
+
 	/* sort */
 	if config.Config.Sorting.State == "off" {
-		r.HandleFunc("/sort/tray_buffer", Off).Methods(http.MethodGet)
-		r.HandleFunc("/sort/item", Off).Methods(http.MethodPost)
+		r.HandleFunc("/sort/tray_buffer", SortOff).Methods(http.MethodGet)
+		r.HandleFunc("/sort/item", SortOff).Methods(http.MethodPost)
 	} else {
 		r.HandleFunc("/sort/tray_buffer", SortTrayBuffer).Methods(http.MethodGet)
 		r.HandleFunc("/sort/item", SortItem).Methods(http.MethodPost)

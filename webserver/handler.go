@@ -43,6 +43,7 @@ type KioskRequestType string
 
 const (
 	kioskRequestTypeChangeView           = "changeView"
+	kioskRequestTypeAlert                = "alert"
 	KioskRequestCheckWebsocketConnection = "checkWebsocketConnection"
 )
 
@@ -88,6 +89,26 @@ func ChangeKioskView(url string) error {
 		Data: struct {
 			Url string `json:"url"`
 		}{
+			Url: url,
+		},
+	}
+	request, err := json.Marshal(KioskRequest)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	broadcastToPrivate(request)
+
+	return nil
+}
+func Alert(msg, url string) error {
+	KioskRequest := KioskRequest{
+		RequestType: kioskRequestTypeAlert,
+		Data: struct {
+			Msg string `json:"msg"`
+			Url string `json:"url"`
+		}{
+			Msg: msg,
 			Url: url,
 		},
 	}
