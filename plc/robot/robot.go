@@ -36,7 +36,7 @@ func InitRobots() {
 
 	// TODO - 각 로봇과 통신 후 로봇 인스턴스 생성 및 등록
 	log.Infof("[PLC_로봇] 로봇 통신 테스트 및 초기화")
-	for i, _ := range robots {
+	for i := range robots {
 		robots[i] = &robot{
 			id:     i + 1, // TODO - temp robot id
 			status: robotStatusAvailable,

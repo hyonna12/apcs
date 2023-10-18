@@ -5,9 +5,11 @@ import (
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/resource"
 	"apcs_refactored/plc/trayBuffer"
+	"fmt"
+	"net"
 	"time"
 
-	_ "github.com/future-architect/go-mcprotocol/mcp"
+	mc "github.com/future-architect/go-mcprotocol/mcp"
 	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
 )
@@ -475,9 +477,10 @@ func CheckCompletePlc(data interface{}) error {
 	}
 }
 
+var waiting = make(chan interface{})
+
 // 트러블 감지
 func SenseTrouble() {
-	var waiting = make(chan string)
 	log.Infof("[PLC] 10ms 마다 데이터 조회 중") // 조회한 데이터 struct에 저장
 
 	/* if state.D0 == 1 {
@@ -489,7 +492,7 @@ func SenseTrouble() {
 
 		waiting <- "화재"
 	}() */
-
+	fmt.Println(waiting)
 	data := <-waiting
 	switch data {
 	case "화재":
@@ -516,16 +519,15 @@ func SenseTrouble() {
 	}
 }
 
-/* // PLC
+// PLC
 type PLC struct {
 	addr string // 주소
 	conn net.Conn
 }
 
-type State struct{
+type State struct {
 	D0 int
 	D1 int
-
 }
 
 // 새로운 PLC를 생성
@@ -541,6 +543,7 @@ func NewPLC(addr string) (*PLC, error) {
 }
 
 func (plc *PLC) Close() {
+	log.Debugf("plc conn closed")
 	plc.conn.Close()
 }
 
@@ -551,6 +554,7 @@ func (plc *PLC) ReadRequest() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println(buf[:n])
 	return buf[:n], nil
 }
 
@@ -563,6 +567,8 @@ func (plc *PLC) WriteRequest(req []byte) error {
 // PLC로부터 택배함의 상태를 조회
 func (plc *PLC) Poll() ([]byte, error) {
 	req := []byte{0x01}
+	req = append(req, byte(1))
+	fmt.Println(req)
 	err := plc.WriteRequest(req)
 	if err != nil {
 		return nil, err
@@ -571,28 +577,75 @@ func (plc *PLC) Poll() ([]byte, error) {
 }
 
 func InitConnPlc() {
-	plc, err := NewPLC("192.168.1.100:502")
+	log.Debugf("plc conn started")
+	for {
+		client, err := mc.New3EClient("192.168.50.219", 6000, mc.NewLocalStation())
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		//b := []byte("hello")
+		//client.Write("D", 100, 3, b)
+		read, err := client.Read("D", 100, 3)
+		data := string(read)
+		fmt.Println(string(read))
+		if err != nil {
+			log.Error(err)
+			return
+		}
+
+		switch data {
+		case "화재":
+			log.Infof("[PLC] 화재발생")
+			// TODO - 사업자에게 알림
+			// 키오스크 화면 변경
+			//return
+		case "물품 끼임":
+			log.Infof("[PLC] 물품 끼임")
+			// TODO - 사업자에게 알림
+			// 키오스크 화면 변경
+			//return
+		case "물품 낙하":
+			log.Infof("[PLC] 물품 낙하")
+			// TODO - 사업자에게 알림
+			// 키오스크 화면 변경
+			//return
+		case "이물질 감지":
+			log.Infof("[PLC] 이물질 감지")
+			// TODO - 사업자에게 알림
+			// 키오스크 화면 변경
+			//return
+
+			time.Sleep(10 * time.Millisecond)
+		}
+	}
+
+	//registerBinary, _ := mc.NewParser().Do(read)
+	//fmt.Println(string(registerBinary.Payload))
+
+	/* plc, err := NewPLC("192.168.50.219:6000")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer plc.Close()
-
 	// 10ms마다 PLC로부터 택배함의 상태를 조회
 	for {
+		fmt.Println("실행")
 		req, err := plc.Poll()
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		fmt.Println(req)
-		state := state{
-			D0: req.D0,
-			D1: req.D1,
-		}
+		fmt.Println("응답", req)
+		waiting <- req
+		fmt.Println("chan", waiting)
+
+		// state := state{
+		//	D0: req.D0,
+		//	D1: req.D1,
+		//}
 
 		time.Sleep(10 * time.Millisecond)
-
-	}
+	} */
 }
-*/

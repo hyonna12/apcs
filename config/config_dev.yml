@@ -48,5 +48,5 @@ plc:
 
 sorting:
   # 정리 동작 여부
-  state: on # on: 동작, off: 미동작
+  state: off # on: 동작, off: 미동작
   

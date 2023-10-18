@@ -139,7 +139,9 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		// TODO - 수령/반품 화면 전환
 		render(w, "output/item_error.html", nil)
 
-		delete(requestList, itemIds[0])
+		for _, i := range itemIds {
+			delete(requestList, i)
+		}
 		return
 	}
 
@@ -229,6 +231,7 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 			}
 
 			// TODO - 수령/반납 화면으로 넘길 지 결정
+			fmt.Println("남은 요청", requestList)
 			delete(requestList, s.ItemId.Int64)
 		}(slot)
 	}
