@@ -11,6 +11,7 @@ import (
 
 	mc "github.com/future-architect/go-mcprotocol/mcp"
 	"github.com/google/uuid"
+
 	log "github.com/sirupsen/logrus"
 )
 
@@ -477,48 +478,6 @@ func CheckCompletePlc(data interface{}) error {
 	}
 }
 
-var waiting = make(chan interface{})
-
-// 트러블 감지
-func SenseTrouble() {
-	log.Infof("[PLC] 10ms 마다 데이터 조회 중") // 조회한 데이터 struct에 저장
-
-	/* if state.D0 == 1 {
-		waiting <- "??"
-	} */
-
-	/* go func() {
-		fmt.Println("실행")
-
-		waiting <- "화재"
-	}() */
-	fmt.Println(waiting)
-	data := <-waiting
-	switch data {
-	case "화재":
-		log.Infof("[PLC] 화재발생")
-		// TODO - 사업자에게 알림
-		// 키오스크 화면 변경
-		return
-	case "물품 끼임":
-		log.Infof("[PLC] 물품 끼임")
-		// TODO - 사업자에게 알림
-		// 키오스크 화면 변경
-		return
-	case "물품 낙하":
-		log.Infof("[PLC] 물품 낙하")
-		// TODO - 사업자에게 알림
-		// 키오스크 화면 변경
-		return
-	case "이물질 감지":
-		log.Infof("[PLC] 이물질 감지")
-		// TODO - 사업자에게 알림
-		// 키오스크 화면 변경
-		return
-
-	}
-}
-
 // PLC
 type PLC struct {
 	addr string // 주소
@@ -530,122 +489,117 @@ type State struct {
 	D1 int
 }
 
-// 새로운 PLC를 생성
-func NewPLC(addr string) (*PLC, error) {
-	conn, err := net.Dial("tcp", addr)
-	if err != nil {
-		return nil, err
-	}
-	return &PLC{
-		addr: addr,
-		conn: conn,
-	}, nil
+// MC 프레임 구조체
+type MCFrame struct {
+	Command byte
+	Header  Header
+	Packet  Packet
+}
+type Header struct {
+	Protocol byte // 프로토콜 종류
+	Address  int  // 주소
+	Length   int  // 길이
 }
 
-func (plc *PLC) Close() {
-	log.Debugf("plc conn closed")
-	plc.conn.Close()
-}
-
-// PLC로부터 응답읽어옴
-func (plc *PLC) ReadRequest() ([]byte, error) {
-	buf := make([]byte, 1024)
-	n, err := plc.conn.Read(buf)
-	if err != nil {
-		return nil, err
-	}
-	fmt.Println(buf[:n])
-	return buf[:n], nil
-}
-
-// PLC에 요청 보냄
-func (plc *PLC) WriteRequest(req []byte) error {
-	_, err := plc.conn.Write(req)
-	return err
-}
-
-// PLC로부터 택배함의 상태를 조회
-func (plc *PLC) Poll() ([]byte, error) {
-	req := []byte{0x01}
-	req = append(req, byte(1))
-	fmt.Println(req)
-	err := plc.WriteRequest(req)
-	if err != nil {
-		return nil, err
-	}
-	return plc.ReadRequest()
+type Packet struct {
+	Header   Header // 헤더
+	Data     []byte // 데이터
+	Checksum byte   // 체크섬
 }
 
 func InitConnPlc() {
+
 	log.Debugf("plc conn started")
-	for {
-		client, err := mc.New3EClient("192.168.50.219", 6000, mc.NewLocalStation())
-		if err != nil {
-			log.Error(err)
-			return
-		}
-		//b := []byte("hello")
-		//client.Write("D", 100, 3, b)
-		read, err := client.Read("D", 100, 3)
-		data := string(read)
-		fmt.Println(string(read))
-		if err != nil {
-			log.Error(err)
-			return
-		}
 
-		switch data {
-		case "화재":
-			log.Infof("[PLC] 화재발생")
-			// TODO - 사업자에게 알림
-			// 키오스크 화면 변경
-			//return
-		case "물품 끼임":
-			log.Infof("[PLC] 물품 끼임")
-			// TODO - 사업자에게 알림
-			// 키오스크 화면 변경
-			//return
-		case "물품 낙하":
-			log.Infof("[PLC] 물품 낙하")
-			// TODO - 사업자에게 알림
-			// 키오스크 화면 변경
-			//return
-		case "이물질 감지":
-			log.Infof("[PLC] 이물질 감지")
-			// TODO - 사업자에게 알림
-			// 키오스크 화면 변경
-			//return
-
-			time.Sleep(10 * time.Millisecond)
-		}
-	}
-
-	//registerBinary, _ := mc.NewParser().Do(read)
-	//fmt.Println(string(registerBinary.Payload))
-
-	/* plc, err := NewPLC("192.168.50.219:6000")
+	// go-mcprotocol 라이브러리
+	client, err := mc.New3EClient("192.168.50.219", 6000, mc.NewLocalStation())
 	if err != nil {
-		fmt.Println(err)
+		log.Error("Failed to connect to PLC:", err)
 		return
 	}
-	defer plc.Close()
-	// 10ms마다 PLC로부터 택배함의 상태를 조회
-	for {
-		fmt.Println("실행")
-		req, err := plc.Poll()
-		if err != nil {
-			fmt.Println(err)
-			return
+
+	b := []byte("1")
+	// deviceName: device code name 'D' register/ offset: device offset addr/ numPoints: number of read device pointes
+	client.Write("D", 100, 3, b)
+
+	go func() {
+		for {
+			read, err := client.Read("D", 100, 3)
+			data := string(read)
+			fmt.Println("response", data)
+
+			// registerBinary, _ := mcp.NewParser().Do(read)
+			// fmt.Println(string(registerBinary.Payload))
+
+			if err != nil {
+				log.Error(err)
+				return
+			}
+
+			switch data {
+			case "화재":
+				log.Infof("[PLC] 화재발생")
+				// TODO - 사업자에게 알림
+				// 키오스크 화면 변경
+				//err = webserver.ChangeKioskView("/output/item_error")
+				return
+				//return
+			case "물품 끼임":
+				log.Infof("[PLC] 물품 끼임")
+				// TODO - 사업자에게 알림
+				// 키오스크 화면 변경
+				//return
+			case "물품 낙하":
+				log.Infof("[PLC] 물품 낙하")
+				// TODO - 사업자에게 알림
+				// 키오스크 화면 변경
+				//return
+			case "이물질 감지":
+				log.Infof("[PLC] 이물질 감지")
+				// TODO - 사업자에게 알림
+				// 키오스크 화면 변경
+				//return
+
+			}
+			//time.Sleep(10 * time.Millisecond)
+			time.Sleep(5 * time.Second)
 		}
-		fmt.Println("응답", req)
-		waiting <- req
-		fmt.Println("chan", waiting)
+	}()
 
-		// state := state{
-		//	D0: req.D0,
-		//	D1: req.D1,
-		//}
+	/* // PLC 주소 및 포트 설정
+	plcAddress := "192.168.50.219:6000"
+	conn, err := net.Dial("tcp", plcAddress)
+	if err != nil {
+		fmt.Println("Failed to connect to PLC:", err)
+		return
+	}
+	defer conn.Close()
 
-		time.Sleep(10 * time.Millisecond)
-	} */
+	// MC 프레임 생성
+	frame := MCFrame{
+		Command: 68,
+		// 다른 필드 초기화
+	}
+
+	// MC 프레임을 PLC로 전송
+
+	_, err = conn.Write([]byte{frame.Command}) // 예시: 실제 프레임 전송 방식 사용
+	if err != nil {
+		fmt.Println("Failed to send MC frame:", err)
+		return
+	}
+
+	// PLC로부터 응답 수신 및 처리
+	response := make([]byte, 1024)
+	_, err = conn.Read(response)
+	if err != nil {
+		fmt.Println("Failed to read response:", err)
+		return
+	}
+
+	// 응답 데이터 처리
+	// 실제 MC 프로토콜에 따라 데이터 파싱
+	data := string(response)
+	fmt.Println("Received response:", data) */
+
 }

@@ -4,8 +4,9 @@ import (
 	"apcs_refactored/config"
 	"apcs_refactored/customerror"
 	"encoding/json"
-	log "github.com/sirupsen/logrus"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // 메시지 노드 이름

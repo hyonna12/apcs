@@ -109,4 +109,8 @@ func Handler(r *mux.Router) {
 		r.HandleFunc("/sort/tray_buffer", SortTrayBuffer).Methods(http.MethodGet)
 		r.HandleFunc("/sort/item", SortItem).Methods(http.MethodPost)
 	}
+
+	// [VIEW] "화재 발생" 화면 출력
+	r.HandleFunc("/error/trouble", Trouble).Methods(http.MethodGet)
+
 }
