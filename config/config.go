@@ -69,6 +69,9 @@ type Configuration struct {
 	Sorting struct {
 		State string `yaml:"state"`
 	} `yaml:"sorting"`
+	Kiosk struct {
+		Ad string `yaml:"ad"`
+	} `yaml:"kiosk"`
 }
 
 func InitConfig() {

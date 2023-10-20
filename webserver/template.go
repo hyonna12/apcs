@@ -1,6 +1,7 @@
 package webserver
 
 import (
+	"apcs_refactored/config"
 	"embed"
 	"html/template"
 	"io/fs"
@@ -106,8 +107,11 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
-
-	render(w, "main.html", nil)
+	if config.Config.Kiosk.Ad == "off" {
+		render(w, "main.html", nil)
+	} else {
+		render(w, "main_ad.html", nil)
+	}
 }
 
 /* Input_Item */

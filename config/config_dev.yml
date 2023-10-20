@@ -16,7 +16,7 @@ database:
 
 logging:
   level: debug
-  output: terminal  # terminal: 터미널에 color, file: 로그파일에 color
+  output: file  # terminal: 터미널에 color, file: 로그파일에 color
 
 webserver:
   server:
@@ -49,4 +49,7 @@ plc:
 sorting:
   # 정리 동작 여부
   state: off # on: 동작, off: 미동작
-  
+
+kiosk:
+  #광고 여부
+  ad: off #on: 광고 켜기, off: 광고 끄기

@@ -1,0 +1,99 @@
+{{template "layout.html" .}}
+{{define "content"}}
+
+<main id="main">
+    <div class="content-wrap">
+        <div class="banner">
+            <div class="ad">
+                <img src="/static/images/ad.png" alt="" style="height: 100%; width: 100%;">
+            </div>
+        </div>
+        <div class="btn-wrap">
+            <div class="btn" id="popup_open_btn">
+                <img src="/static/images/ico_find.png" alt="">
+                <p class="btn-title">택배<br>입고</p>
+            </div>
+            <div class="btn" id="output_item_btn">
+                <img src="/static/images/ico_parcel_white.png" alt="">
+                <p class="btn-title">택배<br>찾기</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="popup-layer" style="display: none;" id="my_modal">
+    <div class="popup-box msg-box">
+        <div class="popup-body">
+            <p class="msg">변질과 파손 우려 물품은 입고 자제 바랍니다.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let intervalIdBuffer;
+    let intervalIdItem;
+    let next = true;    // 함수 실행중인지 확인하는 변수
+
+    setTimeout(function (){
+        intervalIdBuffer = setInterval(sortTrayBuffer, 1000)
+    }, 500000); 
+
+    // 트레이 버퍼 개수를 15개로 유지
+    function sortTrayBuffer(){
+        if(next == true){
+            next = false;
+            axios.get('/sort/tray_buffer').then(res => {
+                let response = res.data;
+                console.log("버퍼개수",response.data);
+                let count = JSON.parse(response.data);
+                if(count == 15){
+                    clearInterval(intervalIdBuffer);
+                    next = true;
+                    intervalIdItem = setInterval(sortItem, 1000);
+                }
+                next = true;
+            })
+            .catch(err => {
+                console.log(err);
+                console.log(err.response.data.error);
+                clearInterval(intervalIdBuffer);
+                next = true;
+                intervalIdItem = setInterval(sortItem, 1000);
+            });
+        }
+    }
+
+    // 물품 정리
+    function sortItem(){
+        if(next == true){
+            next = false;
+            axios.post('/sort/item').then(res => {
+                console.log(res.data)
+                next = true;
+
+            }).catch(err => {
+                console.log(err);
+                console.log(err.response.data.error);
+                clearInterval(intervalIdItem);
+            });
+        }
+
+    }
+
+    // 입고 버튼 클릭시
+    popup_open_btn.onclick = () => {
+        // 모달창 띄우기
+        document.getElementById("my_modal").style.display = 'block'
+
+        setTimeout(function () {
+            location.href = "input/register_delivery"
+        }, 2000);
+    };
+
+    // 찾기 버튼 클릭시
+    output_item_btn.onclick = () => {
+        location.href = "output/register_address"
+    };
+
+</script>
+{{end}}

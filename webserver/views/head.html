@@ -94,5 +94,13 @@
                 confirmButtonText: '확인',
             });
         }
+
+        function time(){
+            const date = new Date();
+            datetime = date.toLocaleString('ko-kr');
+            $datetime.innerText = datetime;
+
+        }
+
     </script>
 </head>

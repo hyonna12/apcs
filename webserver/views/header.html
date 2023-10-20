@@ -1,9 +1,21 @@
 {{define "header"}}
 <header id="header">
     <div class="header-wrap">
-        <p class="greeting">안녕하세요</p>
+        <div style="display: flex; align-items: center; gap: 814px;"><span class="number">관리자 042-111-2222</span>
+            <p class="greeting">안녕하세요</p>
+        </div>
         <p class="address">대전 OO아파트 2차 101동 1-4 라인</p>
-        <p class="datetime">2023년 9월 13일 16:12</p>
+        <p class="datetime" id="$datetime">2023년 9월 13일 16:12</p>
     </div>
 </header>
+<script>
+    time()
+    let intervalDatetime = setInterval(time, 1000);
+
+</script>
+<style>
+    .header-wrap span {font-size: 1.8rem; font-weight: 400;}
+</style>
+
+    
 {{end}}
