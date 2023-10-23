@@ -237,7 +237,9 @@
                 document.getElementById("popup_ready_input").style.display = "none";
                 document.body.style.overflow = "auto"; // 스크롤바 보이기
                 console.log(err);
-                alert(err.response.data.error);
+                location.href='/input/input_error?error=' + err.response.data.error;
+
+                //alert(err.response.data.error);
             });
         }
     }

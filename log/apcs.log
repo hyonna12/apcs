@@ -1723,3 +1723,343 @@ func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/work
 func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
 [11:06:08] WARN: 'dial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.'
 func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:123
+[08:55:14] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[08:55:15] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[08:59:43] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[09:00:57] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[09:07:05] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
+[09:07:05] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[09:07:26] [32mPANIC[0m: '[36mFailed to connect to database. Err:dial tcp 121.159.101.191:33305: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:27
+[09:07:35] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
+[09:07:35] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[09:07:56] [32mPANIC[0m: '[36mFailed to connect to database. Err:dial tcp 121.159.101.191:33305: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:27
+[09:15:24] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
+[09:15:24] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[09:15:24] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[09:15:24] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[09:15:24] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[09:15:24] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[09:15:24] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:15:24] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
+[09:15:28] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122
+[09:15:29] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[09:17:52] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[09:18:04] [32mWARN[0m: '[36msql: no rows in result set[0m'
+func=apcs_refactored/model.SelectOwnerIdByAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/Owner.go:29
+[09:18:04] [32mWARN[0m: '[36msql: no rows in result set[0m'
+func=apcs_refactored/webserver.CheckAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:69
+[09:18:09] [32mWARN[0m: '[36msql: no rows in result set[0m'
+func=apcs_refactored/model.SelectOwnerIdByAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/Owner.go:29
+[09:18:09] [32mWARN[0m: '[36msql: no rows in result set[0m'
+func=apcs_refactored/webserver.CheckAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:69
+[09:18:18] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:18:18] [32mDEBUG[0m: '[36m[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:107
+[09:18:18] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기[0m'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:423
+[09:18:18] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1[0m'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:74
+[09:18:18] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:61
+[09:18:18] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블로 이동. robotId=1[0m'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:64
+[09:18:19] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[09:18:19] [32mDEBUG[0m: '[36m[웹 핸들러] OwnerId=1[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:204
+[09:18:19] [32mTRACE[0m: '[36mURL: /input/input_item?deliveryId=5&ownerId=1[0m'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:124
+[09:18:19] [32mTRACE[0m: '[36mURL: /input/cancel_input_item[0m'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:150
+[09:18:19] [32mDEBUG[0m: '[36m[웹핸들러] 수납 취소[0m'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:152
+[09:18:19] [32mDEBUG[0m: '[36m입고취소[0m'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:456
+[09:18:19] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[09:18:21] [32mDEBUG[0m: '[36m[PLC_Sensor] 테이블 물품 존재 여부 감지: true[0m'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:18:21] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[09:18:21] [32mDEBUG[0m: '[36m[PLC_로봇] 대기 상태 해제[0m'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:443
+[09:18:21] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1[0m'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:74
+[09:18:21] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
+[09:18:21] [32mDEBUG[0m: '[36m[PLC_로봇] 대기 상태 해제[0m'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:443
+[09:18:21] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[09:25:33] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[09:25:51] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
+[09:25:51] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[09:25:52] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[09:25:52] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[09:25:52] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[09:25:52] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[09:25:52] [32mTRACE[0m: '[36mtray buffer : [][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:25:52] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
+[09:25:54] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[09:25:56] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122
+[09:26:01] [32mDEBUG[0m: '[36m[웹 핸들러] 빈 트레이가 존재하지 않음[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:120
+[09:26:04] [32mDEBUG[0m: '[36m[웹 핸들러] 빈 트레이가 존재하지 않음[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:120
+[09:27:05] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[09:32:58] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[09:33:14] [32mWARN[0m: '[36msql: no rows in result set[0m'
+func=apcs_refactored/model.SelectOwnerIdByAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/Owner.go:29
+[09:33:14] [32mWARN[0m: '[36msql: no rows in result set[0m'
+func=apcs_refactored/webserver.CheckAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:69
+[09:33:23] [32mDEBUG[0m: '[36m[웹 핸들러] 빈 트레이가 존재하지 않음[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:120
+[09:33:33] [32mDEBUG[0m: '[36m[웹 핸들러] 빈 트레이가 존재하지 않음[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:120
+[09:34:19] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
+[09:34:19] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[09:34:19] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[09:34:19] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[09:34:19] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[09:34:19] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[09:34:19] [32mTRACE[0m: '[36mtray buffer : [][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:34:19] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
+[09:34:22] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[09:34:23] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122
+[09:34:25] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[09:34:29] [32mDEBUG[0m: '[36m[웹 핸들러] 빈 트레이가 존재하지 않음[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:120
+[09:34:29] [32mTRACE[0m: '[36mURL: /input/input_item_error?error=%EB%B9%88%20%ED%8A%B8%EB%A0%88%EC%9D%B4%EA%B0%80%20%EC%A1%B4%EC%9E%AC%ED%95%98%EC%A7%80%20%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4[0m'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:134
+[09:34:41] [32mTRACE[0m: '[36mURL: /input/cancel_input_item[0m'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:150
+[09:34:41] [32mDEBUG[0m: '[36m[웹핸들러] 수납 취소[0m'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:152
+[09:34:41] [32mDEBUG[0m: '[36m입고취소[0m'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:456
+[09:34:41] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[09:34:43] [32mDEBUG[0m: '[36m[PLC_Sensor] 테이블 물품 존재 여부 감지: true[0m'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:34:43] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[09:34:43] [32mDEBUG[0m: '[36m[PLC_로봇] 대기 상태 해제[0m'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:443
+[09:34:43] [32mDEBUG[0m: '[36m[PLC_로봇] 대기 상태 해제[0m'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:443
+[09:34:43] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[09:37:31] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
+[09:37:31] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[09:37:31] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[09:37:31] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[09:37:31] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[09:37:31] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[09:37:31] [32mTRACE[0m: '[36mtray buffer : [][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:37:31] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
+[09:37:33] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[09:37:35] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122
+[09:37:38] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[09:37:49] [32mDEBUG[0m: '[36m[웹 핸들러] 빈 트레이가 존재하지 않음[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:120
+[09:37:49] [32mTRACE[0m: '[36mURL: /input/input_error?error=%EB%B9%88%20%ED%8A%B8%EB%A0%88%EC%9D%B4%EA%B0%80%20%EC%A1%B4%EC%9E%AC%ED%95%98%EC%A7%80%20%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4[0m'
+func=apcs_refactored/webserver.InputError file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:140
+[09:38:00] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[09:38:05] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[09:38:12] [32mDEBUG[0m: '[36m[웹 핸들러] 빈 트레이가 존재하지 않음[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:120
+[09:38:12] [32mTRACE[0m: '[36mURL: /input/input_error?error=%EB%B9%88%20%ED%8A%B8%EB%A0%88%EC%9D%B4%EA%B0%80%20%EC%A1%B4%EC%9E%AC%ED%95%98%EC%A7%80%20%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4[0m'
+func=apcs_refactored/webserver.InputError file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:140
+[09:38:13] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[09:46:35] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[09:46:36] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[10:41:16] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
+[10:41:16] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[10:41:16] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[10:41:16] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[10:41:16] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[10:41:16] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:41:16] [32mTRACE[0m: '[36mtray buffer : [][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:41:16] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
+[10:41:20] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122
+[10:41:31] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[10:41:35] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[10:41:48] [32mDEBUG[0m: '[36m[웹 핸들러] 빈 트레이를 가져올 slotId=1, trayId=21[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:127
+[10:41:48] [32mDEBUG[0m: '[36m[PLC] 테이블에 빈 트레이 서빙[0m'
+func=apcs_refactored/plc.ServeEmptyTrayToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:112
+[10:41:48] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 빈 트레이 테이블로 서빙. slotId=1[0m'
+func=apcs_refactored/plc/robot.JobServeEmptyTrayToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:103
+[10:41:48] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=빈 트레이 서빙, RobotId=1[0m'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:74
+[10:41:48] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [1][0m'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
+[10:41:48] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=1[0m'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:53
+[10:41:50] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=1, slotId=1[0m'
+func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:74
+[10:41:54] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:41:54] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블로 이동. robotId=1[0m'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:64
+[10:41:54] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [1][0m'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
+[10:41:54] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:41:56] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=1[0m'
+func=apcs_refactored/plc/robot.(*robot).pushToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:103
+[10:41:57] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:41:57] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:41:57] [32mDEBUG[0m: '[36m[웹 핸들러] OwnerId=1[0m'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:204
+[10:41:57] [32mTRACE[0m: '[36mURL: /input/input_item?deliveryId=5&ownerId=1[0m'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:124
+[10:41:58] [32mTRACE[0m: '[36mURL: /input/sense_table_for_item[0m'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
+[10:41:58] [32mDEBUG[0m: '[36m[PLC_Sensor] 테이블 물품 존재 여부 감지: true[0m'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:41:58] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:41:58] [32mDEBUG[0m: '[36m[PLC_Sensor] 크기/무게 측정: {7 1 3 0}[0m'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:41:58] [32mDEBUG[0m: '[36m[제어서버] 아이템 크기/무게: {7 1 3 11}[0m'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:240
+[10:41:58] [32mDEBUG[0m: '[36m[웹핸들러] 최적 슬롯: slotId=5[0m'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:297
+[10:41:58] [32mTRACE[0m: '[36mURL: /input/complete_input_item?deliveryId=5&ownerId=1[0m'
+func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:151
+[10:41:59] [32mWARN[0m: '[36m버퍼에 빈 트레이가 존재하지 않음[0m'
+func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:316
+[10:41:59] [32mDEBUG[0m: '[36m[웹핸들러] 아이템 수납[0m'
+func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:440
+[10:41:59] [32mDEBUG[0m: '[36m[PLC] 물품 수납. slotId=5[0m'
+func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:197
+[10:41:59] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=5[0m'
+func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:232
+[10:41:59] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [5][0m'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
+[10:41:59] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1[0m'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:74
+[10:41:59] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:42:00] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[10:42:02] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1[0m'
+func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:93
+[10:42:05] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:42:07] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp[0m'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[10:42:09] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=5[0m'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:53
+[10:42:09] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:42:11] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=5[0m'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:83
+[10:42:12] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [5][0m'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
+[10:50:21] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[10:50:22] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/sort.go:310
+[10:51:21] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[10:52:23] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[10:53:04] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[10:53:08] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[10:53:23] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
+[10:53:23] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
+[10:53:23] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
+[10:53:23] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
+[10:53:23] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:38
+[10:53:23] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:53:23] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:53:23] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
+[10:53:27] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122

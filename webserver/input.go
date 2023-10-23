@@ -254,10 +254,12 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 물품을 수납할 최적 슬롯 찾기 **수정
+	// plc - 로봇 위치 조회
 	data := Data{Robot: Robot{X: "10", Z: "1"}, Item: Item{Height: strconv.Itoa(itemDimension.Height), Weight: strconv.Itoa(itemDimension.Weight)}}
 	pbytes, _ := json.Marshal(data)
 	buff := bytes.NewBuffer(pbytes)
-	resp, err := http.Post("http://localhost:8080/get/best_slot", "application/json", buff)
+	resp, err := http.Post("https://asrsp.mipllab.com/get/best_slot", "application/json", buff)
+	//log.Infof("응답: %v", resp)
 
 	//var bestSlot model.Slot
 

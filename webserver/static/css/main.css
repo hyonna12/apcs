@@ -102,7 +102,7 @@
 
 .list-box {min-width: 80%; min-height: 50%; background-color: #fff; padding: 30px; box-sizing: border-box; border-radius: 25px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
 .list-box .list-title {font-size: 2.8rem; font-weight: 700; text-align: center; margin: 0 auto 80px; background-color: #1b4b43; color: #fff; padding: 18px 30px; box-sizing: border-box; width: fit-content; border-radius: 15px; word-break: keep-all; line-height: 135%;}
-.list-box .list-top {text-align: center; margin-bottom: 60px; gap: 40px; align-items: center; justify-content: center;}
+.list-box .list-top {text-align: center; margin-bottom: 62px; gap: 40px; align-items: center; justify-content: center;}
 .list-box .list-top .title {font-size: 2.8rem; font-weight: 600; margin-bottom: 40px;}
 .list-box .list-top .value {font-size: 3rem; font-weight: 700; background-color: #efefef; padding: 15px 50px; margin: auto; display: flex; align-items: center; justify-content: center; width: 400px;}
 .list-box .list-top.company .value input {background-image: url(/static/images/ico_search.png); background-repeat: no-repeat; background-size: 10%; background-position: 100% 50%;}

@@ -43,6 +43,7 @@ func Handler(r *mux.Router) {
 	// [API] 물품 계측 후 수납 가능 시 호출 (입고가 완료되었습니다 화면에서 호출)
 	r.HandleFunc("/input/input", Input).Methods(http.MethodPost)
 	r.HandleFunc("/input/stop_input", StopInput).Methods(http.MethodPost)
+	r.HandleFunc("/input/input_error", InputError).Methods(http.MethodGet)
 
 	/* output */
 	r.HandleFunc("/output/register_address", RegistAddress)

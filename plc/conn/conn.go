@@ -2,7 +2,6 @@ package conn
 
 import (
 	"apcs_refactored/webserver"
-	"fmt"
 	"net"
 	"time"
 
@@ -115,12 +114,13 @@ func InitConnPlc() {
 		for {
 			read, err := client.Read("D", 100, 3)
 			data := string(read)
-			fmt.Println("response:", string(read))
+			//fmt.Println("response:", string(read))
 			// registerBinary, _ := mcp.NewParser().Do(read)
 			// fmt.Println(string(registerBinary.Payload))
 
 			if err != nil {
 				log.Error(err)
+				// 알림
 				return
 			}
 			SenseTrouble(data)
