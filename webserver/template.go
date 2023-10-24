@@ -256,6 +256,19 @@ func ItemError(w http.ResponseWriter, r *http.Request) {
 	render(w, "output/item_error.html", nil)
 }
 
+func ReturnView(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	if r.URL.Path != "/output/item_return" {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	}
+	render(w, "output/item_return.html", nil)
+}
+
 func Trouble(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 

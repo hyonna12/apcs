@@ -8,7 +8,7 @@ database:
 
 logging:
   level: debug
-  output: terminal  # terminal: 터미널에 color, file: 로그파일에 color
+  output: file  # terminal: 터미널에 color, file: 로그파일에 color
 
 webserver:
   server:

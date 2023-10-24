@@ -35,8 +35,9 @@ type job struct {
 }
 
 var (
-	jobQueue []*job
-	RespPlc  interface{}
+	jobQueue          []*job
+	RespPlc           interface{}
+	outputAbortSignal = false
 )
 
 func newJob(robotStatus robotStatus, jobDescription string) *job {
@@ -231,7 +232,6 @@ func JobRetrieveEmptyTrayFromTable(slot model.Slot) error {
 func JobInputItem(slot model.Slot) error {
 	log.Infof("[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=%v", slot.SlotId)
 	var robot *robot
-
 	resource.ReserveSlot(slot.SlotId)
 
 	// 대기 중인 로봇에게 job 우선 배정
@@ -294,6 +294,7 @@ func JobInputItem(slot model.Slot) error {
 	// 슬롯으로 이동 완료 확인
 	CheckCompletePlc("complete")
 
+	// 전체 불출 취소 시 여기부터 동작
 	if err := robot.pushToSlot(slot); err != nil {
 		return err
 	}
@@ -305,6 +306,26 @@ func JobInputItem(slot model.Slot) error {
 	return nil
 }
 
+var OutputRobots []*OutputRobotState
+
+type OutputRobotState struct {
+	RobotId int
+	ItemId  int64
+	SlotId  int64
+}
+
+func CountOutputRobotList() int {
+	count := len(OutputRobots)
+	return count
+}
+func DeleteOutputRobotList() {
+	OutputRobots = OutputRobots[1:]
+}
+
+func GetOutputRobotList() []*OutputRobotState {
+	return OutputRobots
+}
+
 // JobOutputItem
 //
 // 슬롯의 물건을 테이블로 서빙.
@@ -312,57 +333,154 @@ func JobInputItem(slot model.Slot) error {
 // - slot: 물건을 꺼낼 슬롯
 func JobOutputItem(slot model.Slot) error {
 	log.Infof("[PLC_로봇_Job] 불출 Job 시작. slotId=%v", slot.SlotId)
+
 	robot, err := getRobot(robotStatusAvailable, "물건 불출")
 	if err != nil {
 		return err
 	}
+	robot.changeStatus(robotStatusWorking)
+
+	if !outputAbortSignal {
+		resource.ReserveSlot(slot.SlotId)
+		//slot.Status = "slotStatusGoing"
+
+		if err := robot.moveToSlot(slot); err != nil {
+			return err
+		}
+		// 슬롯 이동 완료 확인
+		CheckCompletePlc("complete")
+
+		if err := robot.pullFromSlot(slot); err != nil {
+			return err
+		}
+		// 트레이 꺼내기 완료 확인
+		CheckCompletePlc("complete")
+
+		resource.ReserveTable()
+		// 불출 전체 취소 여부 확인
+		if outputAbortSignal {
+			log.Infof("불출 취소 여부: %v", outputAbortSignal)
+			resource.ReleaseTable()
+			robot.changeStatus(robotStatusSlot)
+
+			outputRobot := OutputRobotState{RobotId: robot.id, ItemId: slot.ItemId.Int64, SlotId: slot.SlotId}
+			OutputRobots = append(OutputRobots, &outputRobot)
+			log.Infof("불출 로봇 상태, %v", outputRobot)
+
+			return nil
+
+		} else if !outputAbortSignal {
+			if err := robot.moveToTable(); err != nil {
+				return err
+			}
+
+			resource.ReleaseSlot(slot.SlotId)
+
+			if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationDown); err != nil {
+				return err
+			}
+
+			if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
+				return err
+			}
+			// 테이블 이동 완료 확인, 트레이 버퍼 내리기 완료 확인, 뒷문 열림 완료 확인
+			CheckCompletePlc("complete")
+			if err := robot.pushToTable(); err != nil {
+				return err
+			}
+			// 트레이 넣기 완료 확인
+			CheckCompletePlc("complete")
+
+			if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
+				return err
+			}
+
+			// 불출작업 후 입주민이 수령 또는 취소할 때까지 테이블 점유 및 대기
+			robot.changeStatus(robotStatusWaiting)
+
+			outputRobot := OutputRobotState{RobotId: robot.id, ItemId: slot.ItemId.Int64, SlotId: slot.SlotId}
+			OutputRobots = append(OutputRobots, &outputRobot)
+			log.Infof("불출 로봇 상태, %v", outputRobot)
+			log.Infof("[PLC_로봇_Job] 불출 Job 완료. slotId=%v", slot.SlotId)
+		}
+	} else {
+		robot.changeStatus(robotStatusAvailable)
+	}
+
+	return nil
+}
+
+// JobReturnItem
+//
+// 테이블의 물건을 슬롯에 가져다 놓기.
+// 테이블 앞 대기중인 로봇에게 Job이 배정되고,
+// 대기 중인 로봇이 없으면 사용 가능한 로봇에게 배정됨.
+//
+// - slot: 물건을 수납할 슬롯
+func JobReturnItem(slot model.Slot, robotId int) error {
+	log.Infof("[PLC_로봇_Job] 불출중인 물건을 슬롯에 가져다 놓기. slotId=%v", slot.SlotId)
+	var robot *robot
+	isItem := false
+
+	// 점유 상태 확인
+	check := resource.CheckSlotReserve(slot.SlotId)
+	// 슬롯 점유하고 있으면
+	if check {
+		robot, _ = getRobot(robotStatusSlot, "물건재수납")
+		isItem = true
+	} else {
+		// 테이블에 놓여있으면
+		robot, _ = getRobot(robotStatusWaiting, "물건재수납")
+		resource.ReserveSlot(slot.SlotId)
+	}
 
 	robot.changeStatus(robotStatusWorking)
-	resource.ReserveSlot(slot.SlotId)
 
-	if err := robot.moveToSlot(slot); err != nil {
-		return err
+	// 로봇 팔에 물품이 있는지 확인
+	if !isItem {
+		if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
+			return err
+		}
+		// 테이블 이동 완료 확인 & 뒷문 열림 완료 확인
+		CheckCompletePlc("complete")
+
+		if err := robot.pullFromTable(); err != nil {
+			return err
+		}
+		// 트레이 꺼내기 완료 확인
+		CheckCompletePlc("complete")
+
+		if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
+			return err
+		}
+		// 뒷문 닫힘 완료 확인
+		CheckCompletePlc("complete")
+
+		if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationUp); err != nil {
+			return err
+		}
+		// 트레이 버퍼 올리기 완료 확인
+		CheckCompletePlc("complete")
+
+		//resource.ReserveSlot(slot.SlotId)
+		if err := robot.moveToSlot(slot); err != nil {
+			return err
+		}
+		resource.ReleaseTable()
+
+		// 슬롯으로 이동 완료 확인
+		CheckCompletePlc("complete")
+	} else {
+		isItem = false
+
 	}
-	// 슬롯 이동 완료 확인
-	CheckCompletePlc("complete")
 
-	if err := robot.pullFromSlot(slot); err != nil {
-		return err
-	}
-	// 트레이 꺼내기 완료 확인
-	CheckCompletePlc("complete")
-
-	resource.ReserveTable()
-
-	if err := robot.moveToTable(); err != nil {
+	if err := robot.pushToSlot(slot); err != nil {
 		return err
 	}
 
 	resource.ReleaseSlot(slot.SlotId)
-
-	if err := trayBuffer.SetUpTrayBuffer(trayBuffer.BufferOperationDown); err != nil {
-		return err
-	}
-
-	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationOpen); err != nil {
-		return err
-	}
-	// 테이블 이동 완료 확인, 트레이 버퍼 내리기 완료 확인, 뒷문 열림 완료 확인
-	CheckCompletePlc("complete")
-	if err := robot.pushToTable(); err != nil {
-		return err
-	}
-	// 트레이 넣기 완료 확인
-	CheckCompletePlc("complete")
-
-	if err := door.SetUpDoor(door.DoorTypeBack, door.DoorOperationClose); err != nil {
-		return err
-	}
-
-	// 불출작업 후 입주민이 수령 또는 취소할 때까지 테이블 점유 및 대기
-	robot.changeStatus(robotStatusWaiting)
-
-	log.Infof("[PLC_로봇_Job] 불출 Job 완료. slotId=%v", slot.SlotId)
+	robot.changeStatus(robotStatusAvailable)
 
 	return nil
 }
@@ -454,6 +572,16 @@ func JobDismiss() error {
 	}
 
 	return nil
+}
+
+func ChangeOutPutAbortSignal(data bool) {
+	log.Infof("불출 취소 여부 변경:%v", data)
+	outputAbortSignal = data
+}
+
+func CheckOutPutAbortSignal() bool {
+	log.Infof("불출 취소 여부 확인:%v", outputAbortSignal)
+	return outputAbortSignal
 }
 
 // 업무 완료 확인

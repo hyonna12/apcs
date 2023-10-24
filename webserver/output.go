@@ -5,6 +5,7 @@ import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
 	"apcs_refactored/plc/door"
+	"apcs_refactored/plc/robot"
 	"apcs_refactored/plc/sensor"
 	"apcs_refactored/plc/trayBuffer"
 	"context"
@@ -209,30 +210,34 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 				// TODO - 불출 실패한 물품은 요청에서 삭제 및 알림 처리
 				return
 			}
+			abort := robot.CheckOutPutAbortSignal()
+			if !abort {
 
-			trayBuffer.Buffer.Push(s.TrayId.Int64)
-			num := trayBuffer.Buffer.Count()
-			err = model.InsertBufferState(num)
-			if err != nil {
-				log.Error(err)
-				// TODO - 에러 처리
+				// 택배가 테이블에 올라가면 요청 목록에서 제거
+				log.Debugf("[웹핸들러] 불출 완료. slotId=%v, itemId=%v", s.SlotId, s.ItemId.Int64)
+				// TODO - 수령/반품 화면 전환
+				err = ChangeKioskView("/output/confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10))
+				if err != nil {
+					// TODO - 에러처리
+					log.Error(err)
+					return
+				}
+
+				trayBuffer.Buffer.Push(s.TrayId.Int64)
+				num := trayBuffer.Buffer.Count()
+				err = model.InsertBufferState(num)
+				if err != nil {
+					log.Error(err)
+					// TODO - 에러 처리
+				}
+
+				plc.TrayIdOnTable.Int64 = s.TrayId.Int64
+
+				fmt.Println("남은 요청", requestList)
+				// TODO - 수령/반납 화면으로 넘길 지 결정
+				delete(requestList, s.ItemId.Int64)
 			}
 
-			plc.TrayIdOnTable.Int64 = s.TrayId.Int64
-
-			// 택배가 테이블에 올라가면 요청 목록에서 제거
-			log.Debugf("[웹핸들러] 불출 완료. slotId=%v, itemId=%v", s.SlotId, s.ItemId.Int64)
-			// TODO - 수령/반품 화면 전환
-			err = ChangeKioskView("/output/confirm?itemId=" + strconv.FormatInt(s.ItemId.Int64, 10))
-			if err != nil {
-				// TODO - 에러처리
-				log.Error(err)
-				return
-			}
-
-			// TODO - 수령/반납 화면으로 넘길 지 결정
-			fmt.Println("남은 요청", requestList)
-			delete(requestList, s.ItemId.Int64)
 		}(slot)
 	}
 }
@@ -428,17 +433,36 @@ func ItemOutputReturnByTimeout(w http.ResponseWriter, r *http.Request) {
 
 	log.Info("[웹핸들러] 시간 초과에 의한 모든 반납 취소.")
 
+	robot.ChangeOutPutAbortSignal(true)
+
+	err := ChangeKioskView("/output/item_return")
+	if err != nil {
+		log.Error(err)
+	}
+	// TODO - 앞문이 열려있는지 확인
 	if err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
 		log.Error(err)
 		// TODO - 앞문 닫힘 불가 시 에러처리
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 
-	for _, request := range requestList {
-		itemId := request.itemId
+	// 로봇 돌면서 로봇의 상태를 확인
+	robotList := robot.GetOutputRobotList()
+	count := robot.CountOutputRobotList()
+	log.Infof("재수납 로봇 리스트: %v, %v개", robotList, count)
+	var outputRobot *robot.OutputRobotState
+
+	for {
+		if count == 0 {
+			break
+		}
+		outputRobot = robotList[0]
+		//for _, robot := range robotList {
+		log.Infof("재수납 로봇: %v", outputRobot)
+
+		itemId := outputRobot.ItemId
 
 		// 택배 반환
-		// TODO - 반환하는 김에 정리(최적 슬롯 알고리즘) - 꺼낸 슬롯의 원래 자리는 비어있다고 가정하고 선정
 		slot, err := model.SelectSlotByItemId(itemId)
 		if err != nil {
 			// TODO - DB 에러처리
@@ -446,32 +470,39 @@ func ItemOutputReturnByTimeout(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
 
-		go func() {
-			if err = plc.InputItem(slot); err != nil {
-				// TODO - PLC 에러처리
-				log.Error(err)
-			}
-
-			trayBuffer.Buffer.Pop()
-			num := trayBuffer.Buffer.Count()
-			err = model.InsertBufferState(num)
-			if err != nil {
-				log.Error(err)
-				// TODO - 에러 처리
-			}
-
-			trayId := trayBuffer.Buffer.Peek().(int64)
-			plc.TrayIdOnTable.Int64 = trayId
-		}()
+		if slot.SlotId != outputRobot.SlotId {
+			log.Error("재수납:슬롯 아이디 확인")
+		}
+		if err = plc.ReturnItem(slot, outputRobot.RobotId); err != nil {
+			// TODO - PLC 에러처리
+			log.Error(err)
+		}
 
 		delete(requestList, itemId)
-	}
 
-	err := ChangeKioskView("/output/cancel")
+		//}
+		robot.DeleteOutputRobotList()
+		count = robot.CountOutputRobotList()
+		robotList = robot.GetOutputRobotList()
+
+		fmt.Println("남은 요청", robotList)
+	}
+	err = ChangeKioskView("/output/cancel")
 	if err != nil {
 		log.Error(err)
 	}
+	trayBuffer.Buffer.Pop()
+	num := trayBuffer.Buffer.Count()
+	err = model.InsertBufferState(num)
+	if err != nil {
+		log.Error(err)
+		// TODO - 에러 처리
+	}
 
+	trayId := trayBuffer.Buffer.Peek().(int64)
+	plc.TrayIdOnTable.Int64 = trayId
+
+	robot.ChangeOutPutAbortSignal(false)
 	Response(w, nil, http.StatusOK, nil)
 }
 
@@ -491,6 +522,8 @@ func ItemOutputComplete(w http.ResponseWriter, r *http.Request) {
 
 	// **제거
 	sensor.IsItemOnTable = true
+
+	robot.DeleteOutputRobotList()
 
 	if err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
 		// TODO - PLC 에러 처리

@@ -80,6 +80,10 @@ func Handler(r *mux.Router) {
 	// "택배를 꺼내 주세요" 화면에서 5초 경과 후 호출
 	r.HandleFunc("/output/return", ItemOutputReturn).Methods(http.MethodPost)
 
+	// [API] "택배를 확인해 주세요" 화면에서 "처음으로" 버튼을 누른 경우, 시간초과한 경우 호출
+	// "택배를 꺼내 주세요" 화면에서 5초 경과 후 호출
+	r.HandleFunc("/output/return_all", ItemOutputReturnByTimeout).Methods(http.MethodPost)
+
 	// [API] "택배를 꺼내주세요" 화면에서 매 초마다 호출
 	r.HandleFunc("/output/sense_table_for_item", SenseTableForItem).Methods(http.MethodGet)
 
@@ -101,6 +105,8 @@ func Handler(r *mux.Router) {
 
 	// [VIEW] "물품이 보관되어있지 않습니다" 화면 출력
 	r.HandleFunc("/output/item_error", ItemError).Methods(http.MethodGet)
+	// [VIEW] "물품이 보관되어있지 않습니다" 화면 출력
+	r.HandleFunc("/output/item_return", ReturnView).Methods(http.MethodGet)
 
 	/* sort */
 	if config.Config.Sorting.State == "off" {

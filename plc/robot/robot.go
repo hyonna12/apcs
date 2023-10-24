@@ -14,6 +14,7 @@ const (
 	robotStatusWaiting   robotStatus = "robotStatusWaiting"
 	robotStatusAvailable robotStatus = "robotStatusAvailable"
 	robotStatusWorking   robotStatus = "robotStatusWorking"
+	robotStatusSlot      robotStatus = "robotStatusSlot"
 )
 
 type robot struct {

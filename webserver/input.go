@@ -314,7 +314,7 @@ func Input(w http.ResponseWriter, r *http.Request) {
 
 	if value == nil {
 		log.Error("버퍼에 빈 트레이가 존재하지 않음")
-		// TODO - 관리자에게 알림
+		// TODO - 관리자에게 알림(db 빈트레이 개수 체크)
 	} else {
 		id := value.(int64)
 		plc.TrayIdOnTable.Int64 = id
@@ -479,8 +479,6 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		// **삭제
-		isItemOnTable = false
 		// 물품이 없다면(회수했다면) 앞문 닫기
 		if !isItemOnTable {
 			err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
