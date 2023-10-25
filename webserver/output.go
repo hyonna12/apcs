@@ -233,10 +233,9 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 
 				plc.TrayIdOnTable.Int64 = s.TrayId.Int64
 
-				fmt.Println("남은 요청", requestList)
-				// TODO - 수령/반납 화면으로 넘길 지 결정
-				delete(requestList, s.ItemId.Int64)
 			}
+			// TODO - 수령/반납 화면으로 넘길 지 결정
+			delete(requestList, s.ItemId.Int64)
 
 		}(slot)
 	}
@@ -479,13 +478,9 @@ func ItemOutputReturnByTimeout(w http.ResponseWriter, r *http.Request) {
 		}
 
 		delete(requestList, itemId)
-
-		//}
 		robot.DeleteOutputRobotList()
 		count = robot.CountOutputRobotList()
 		robotList = robot.GetOutputRobotList()
-
-		fmt.Println("남은 요청", robotList)
 	}
 	err = ChangeKioskView("/output/cancel")
 	if err != nil {

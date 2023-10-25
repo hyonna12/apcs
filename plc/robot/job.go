@@ -575,7 +575,7 @@ func JobDismiss() error {
 }
 
 func ChangeOutPutAbortSignal(data bool) {
-	log.Infof("불출 취소 여부 변경:%v", data)
+	//log.Infof("불출 취소 여부 변경:%v", data)
 	outputAbortSignal = data
 }
 

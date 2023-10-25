@@ -211,7 +211,7 @@ func InputItem(slot model.Slot) error {
 //
 // - slot: 물품을 꺼내올 슬롯	***************
 func OutputItem(slot model.Slot) error {
-	log.Infof("[PLC] 물품 불출 시작. 수납할 슬롯 id=%v", slot.SlotId)
+	log.Infof("[PLC] 물품 불출 시작. 꺼내올 슬롯 id=%v", slot.SlotId)
 
 	if err := robot.JobOutputItem(slot); err != nil {
 		return err
@@ -222,7 +222,7 @@ func OutputItem(slot model.Slot) error {
 
 	TrayIdOnTable = slot.TrayId
 
-	log.Infof("[PLC] 물품 불출 완료.  슬롯 id=%v", slot.SlotId)
+	log.Infof("[PLC] 물품 불출 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
 	return nil
 }
 
@@ -232,12 +232,12 @@ func OutputItem(slot model.Slot) error {
 //
 // - slot: 물품을 꺼내올 슬롯	***************
 func ReturnItem(slot model.Slot, robotId int) error {
-	log.Infof("[PLC] 물품 재수납 시작. 꺼내올 슬롯 id=%v", slot.SlotId)
+	log.Infof("[PLC] 물품 재수납 시작. 수납할 슬롯 id=%v", slot.SlotId)
 
 	if err := robot.JobReturnItem(slot, robotId); err != nil {
 		return err
 	}
 
-	log.Infof("[PLC] 물품 재수납 완료. 꺼내온 슬롯 id=%v", slot.SlotId)
+	log.Infof("[PLC] 물품 재수납 완료. 슬롯 id=%v", slot.SlotId)
 	return nil
 }
