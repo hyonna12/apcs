@@ -132,7 +132,3 @@ func CheckSlotReserve(slotId int64) bool {
 	log.Infof("[PLC] 슬롯 점유 확인 [%v]", slotReservationMap[slotId])
 	return slotReservationMap[slotId]
 }
-func CheckTableReserve(slotId int64) bool {
-	log.Infof("[PLC] 슬롯 점유 확인 [%v]", slotReservationMap[slotId])
-	return slotReservationMap[slotId]
-}
