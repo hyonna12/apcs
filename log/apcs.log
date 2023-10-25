@@ -2069,650 +2069,409 @@ func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로�
 
 
 
-
-[09:09:55] DEBUG: 'Control server started'
-func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
-[09:09:55] DEBUG: 'Started initializing database connection'
-func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
-[09:09:55] DEBUG: 'Successfully initialized database connection'
-func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
-[09:09:55] TRACE: 'Messenger started'
-func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
-[09:09:55] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
-func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:39
-[09:09:55] TRACE: 'TrayBuffer created'
-func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
-[09:09:55] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
-func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
-[09:09:55] TRACE: 'plc conn started'
-func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
-[09:09:59] WARN: 'dial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.'
-func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122
-[09:10:04] TRACE: 'URL: /input/register_delivery'
+[10:01:14] TRACE: 'URL: /input/register_delivery'
 func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
-[09:10:26] [32mDEBUG[0m: '[36mControl server started[0m'
-func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
-[09:10:26] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
-func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
-[09:10:26] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
-func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
-[09:10:26] [32mTRACE[0m: '[36mMessenger started[0m'
-func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
-[09:10:26] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
-func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:39
-[09:10:26] [32mTRACE[0m: '[36mTrayBuffer created[0m'
-func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
-[09:10:26] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
-func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
-[09:10:26] [32mTRACE[0m: '[36mplc conn started[0m'
-func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
-[09:10:30] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
-func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122
-[09:10:32] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
-func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
-[09:10:44] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
-func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
-[09:10:44] [32mDEBUG[0m: '[36m[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20[0m'
-func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:107
-[09:10:44] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기[0m'
-func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:541
-[09:10:44] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:10:44] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
-func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:61
-[09:10:44] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블로 이동. robotId=1[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:65
-[09:10:45] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:10:45] [32mDEBUG[0m: '[36m[웹 핸들러] OwnerId=1[0m'
-func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:204
-[09:10:45] [32mTRACE[0m: '[36mURL: /input/input_item?deliveryId=5&ownerId=1[0m'
-func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:124
-[09:10:46] [32mTRACE[0m: '[36mURL: /input/sense_table_for_item[0m'
-func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
-[09:10:46] [32mDEBUG[0m: '[36m[PLC_Sensor] 테이블 물품 존재 여부 감지: true[0m'
-func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
-[09:10:46] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:10:46] [32mDEBUG[0m: '[36m[PLC_Sensor] 크기/무게 측정: {96 1 1 0}[0m'
-func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:47
-[09:10:46] [32mDEBUG[0m: '[36m[제어서버] 아이템 크기/무게: {96 1 1 11}[0m'
-func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:240
-[09:10:46] [32mDEBUG[0m: '[36m[웹핸들러] 최적 슬롯: slotId=21[0m'
-func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:297
-[09:10:46] [32mTRACE[0m: '[36mURL: /input/complete_input_item?deliveryId=5&ownerId=1[0m'
-func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:151
-[09:10:47] [32mDEBUG[0m: '[36m[웹핸들러] 아이템 수납[0m'
-func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:440
-[09:10:47] [32mDEBUG[0m: '[36m[PLC] 물품 수납. slotId=21[0m'
-func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:197
-[09:10:47] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=21[0m'
-func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:233
-[09:10:47] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [21][0m'
-func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:10:47] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:10:47] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:10:47] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
-func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
-[09:10:50] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1[0m'
-func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:94
-[09:10:52] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:10:53] [32mTRACE[0m: '[36mtray buffer : [19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
-func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
-[09:10:53] [32mDEBUG[0m: '[36m[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=19[0m'
-func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:107
-[09:10:53] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기[0m'
-func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:541
-[09:10:53] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=2[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:10:54] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp[0m'
-func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
-[09:10:56] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=21[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:10:57] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
-func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
-[09:10:57] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
-func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:73
-[09:10:57] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블로 이동. robotId=2[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:65
-[09:10:57] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:10:57] [32mDEBUG[0m: '[36m[웹 핸들러] OwnerId=1[0m'
-func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:204
-[09:10:57] [32mTRACE[0m: '[36mURL: /input/input_item?deliveryId=5&ownerId=1[0m'
-func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:124
-[09:10:58] [32mTRACE[0m: '[36mURL: /input/sense_table_for_item[0m'
-func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
-[09:10:58] [32mDEBUG[0m: '[36m[PLC_Sensor] 테이블 물품 존재 여부 감지: true[0m'
-func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
-[09:10:58] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:10:58] [32mDEBUG[0m: '[36m[PLC_Sensor] 크기/무게 측정: {16 2 5 0}[0m'
-func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:47
-[09:10:58] [32mDEBUG[0m: '[36m[제어서버] 아이템 크기/무게: {16 2 5 22}[0m'
-func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:240
-[09:10:59] [32mDEBUG[0m: '[36m[웹핸들러] 최적 슬롯: slotId=29[0m'
-func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:297
-[09:10:59] [32mTRACE[0m: '[36mURL: /input/complete_input_item?deliveryId=5&ownerId=1[0m'
-func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:151
-[09:10:59] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=21[0m'
-func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:84
-[09:10:59] [32mDEBUG[0m: '[36m[웹핸들러] 아이템 수납[0m'
-func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:440
-[09:10:59] [32mDEBUG[0m: '[36m[PLC] 물품 수납. slotId=29[0m'
-func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:197
-[09:10:59] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=29[0m'
-func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:233
-[09:10:59] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [29][0m'
-func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:10:59] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=2[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:10:59] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:10:59] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [21][0m'
-func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:11:01] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=2[0m'
-func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:94
-[09:11:02] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
-func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
-[09:11:04] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:06] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp[0m'
-func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
-[09:11:07] [32mTRACE[0m: '[36mtray buffer : [18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
-func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
-[09:11:07] [32mDEBUG[0m: '[36m[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=18[0m'
-func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:107
-[09:11:07] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기[0m'
-func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:541
-[09:11:07] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:11:08] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=2, slotId=29[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:11:08] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
-func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
-[09:11:08] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
-func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:73
-[09:11:08] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블로 이동. robotId=1[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:65
-[09:11:09] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:09] [32mDEBUG[0m: '[36m[웹 핸들러] OwnerId=1[0m'
-func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:204
-[09:11:09] [32mTRACE[0m: '[36mURL: /input/input_item?deliveryId=5&ownerId=1[0m'
-func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:124
-[09:11:10] [32mTRACE[0m: '[36mURL: /input/sense_table_for_item[0m'
-func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
-[09:11:10] [32mDEBUG[0m: '[36m[PLC_Sensor] 테이블 물품 존재 여부 감지: true[0m'
-func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
-[09:11:10] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:10] [32mDEBUG[0m: '[36m[PLC_Sensor] 크기/무게 측정: {67 8 7 0}[0m'
-func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:47
-[09:11:10] [32mDEBUG[0m: '[36m[제어서버] 아이템 크기/무게: {67 8 7 33}[0m'
-func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:240
-[09:11:10] [32mDEBUG[0m: '[36m[웹핸들러] 최적 슬롯: slotId=569[0m'
-func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:297
-[09:11:10] [32mTRACE[0m: '[36mURL: /input/complete_input_item?deliveryId=5&ownerId=1[0m'
-func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:151
-[09:11:10] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=2, slotId=29[0m'
-func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:84
-[09:11:11] [32mDEBUG[0m: '[36m[웹핸들러] 아이템 수납[0m'
-func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:440
-[09:11:11] [32mDEBUG[0m: '[36m[PLC] 물품 수납. slotId=569[0m'
-func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:197
-[09:11:11] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=569[0m'
-func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:233
-[09:11:11] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [569][0m'
-func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:11:11] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:11:11] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:11] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [29][0m'
-func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:11:12] [32mTRACE[0m: '[36mURL: /[0m'
+[10:01:16] TRACE: 'URL: /'
 func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
-[09:11:13] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1[0m'
-func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:94
-[09:11:13] [32mTRACE[0m: '[36mURL: /output/register_address[0m'
+[10:01:16] TRACE: 'URL: /output/register_address'
 func=apcs_refactored/webserver.RegistAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:203
-[09:11:15] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:15] [32mDEBUG[0m: '[36m[불출] 입주민 주소 입력: 123[0m'
+[10:01:19] DEBUG: '[불출] 입주민 주소 입력: 123'
 func=apcs_refactored/webserver.CheckItemExists file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:27
-[09:11:15] [32mTRACE[0m: '[36mURL: /output/item_list?address=123[0m'
+[10:01:19] TRACE: 'URL: /output/item_list?address=123'
 func=apcs_refactored/webserver.ItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:210
-[09:11:15] [32mTRACE[0m: '[36mURL: /output/get_item_list?address=123[0m'
+[10:01:19] TRACE: 'URL: /output/get_item_list?address=123'
 func=apcs_refactored/webserver.GetItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:63
-[09:11:17] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp[0m'
-func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
-[09:11:17] [32mTRACE[0m: '[36mURL: /output/ongoing[0m'
+[10:01:20] TRACE: 'URL: /output/ongoing'
 func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:96
-[09:11:17] [32mDEBUG[0m: '[36m[웹핸들러] 아이템 불출 요청 접수. itemIds=[1 2 3][0m'
+[10:01:20] DEBUG: '[웹핸들러] 아이템 불출 요청 접수. itemIds=[3]'
 func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:114
-[09:11:17] [32mDEBUG[0m: '[36m[웹핸들러] 아이템을 불출할 슬롯: [21 29 569][0m'
+[10:01:20] DEBUG: '[웹핸들러] 아이템을 불출할 슬롯: [529]'
 func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:176
-[09:11:19] [32mTRACE[0m: '[36m[웹핸들러 -> PLC] 불출 요청. 슬롯 id=569, 아이템 id=3[0m'
+[10:01:22] TRACE: '[웹핸들러 -> PLC] 불출 요청. 슬롯 id=529, 아이템 id=3'
 func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:205
-[09:11:19] [32mTRACE[0m: '[36m[웹핸들러 -> PLC] 불출 요청. 슬롯 id=21, 아이템 id=1[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:205
-[09:11:19] [32mDEBUG[0m: '[36m[PLC] 물품 불출 시작. 꺼내올 슬롯 id=21[0m'
+[10:01:22] DEBUG: '[PLC] 물품 불출 시작. 꺼내올 슬롯 id=529'
 func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:214
-[09:11:19] [32mTRACE[0m: '[36m[웹핸들러 -> PLC] 불출 요청. 슬롯 id=29, 아이템 id=2[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:205
-[09:11:19] [32mDEBUG[0m: '[36m[PLC] 물품 불출 시작. 꺼내올 슬롯 id=29[0m'
-func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:214
-[09:11:19] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 시작. slotId=29[0m'
+[10:01:22] DEBUG: '[PLC_로봇_Job] 불출 Job 시작. slotId=529'
 func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:335
-[09:11:19] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 시작. slotId=21[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:335
-[09:11:19] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=2[0m'
+[10:01:22] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=1'
 func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:11:19] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [29][0m'
+[10:01:22] DEBUG: '[PLC] 슬롯 점유 [529]'
 func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:11:19] [32mDEBUG[0m: '[36m[PLC] 물품 불출 시작. 꺼내올 슬롯 id=569[0m'
-func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:214
-[09:11:19] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=2, slotId=29[0m'
+[10:01:23] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=529'
 func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:11:19] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 시작. slotId=569[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:335
-[09:11:22] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=569[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:11:23] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
-func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
-[09:11:25] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=569[0m'
-func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:84
-[09:11:25] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=2, slotId=29[0m'
+[10:01:25] DEBUG: '[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=1, slotId=529'
 func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:75
-[09:11:25] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [569][0m'
-func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:11:25] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=1[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:11:25] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [21][0m'
-func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:11:25] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=21[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:11:27] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
+[10:01:28] DEBUG: '[PLC] 테이블 점유'
 func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:61
-[09:11:27] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블로 이동. robotId=2[0m'
+[10:01:28] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
 func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:65
-[09:11:28] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=1, slotId=21[0m'
-func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:75
-[09:11:28] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [29][0m'
+[10:01:28] DEBUG: '[PLC] 슬롯 점유 해제 [529]'
 func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:11:28] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationDown[0m'
+[10:01:28] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationDown'
 func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
-[09:11:28] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
+[10:01:28] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
 func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:31] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=2[0m'
+[10:01:30] DEBUG: '[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=1'
 func=apcs_refactored/plc/robot.(*robot).pushToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:104
-[09:11:35] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
+[10:01:33] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
 func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:35] [32mDEBUG[0m: '[36m불출 로봇 상태, {2 2 29}[0m'
+[10:01:33] DEBUG: '불출 로봇 상태, {1 3 529}'
 func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:403
-[09:11:35] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 완료. slotId=29[0m'
+[10:01:33] DEBUG: '[PLC_로봇_Job] 불출 Job 완료. slotId=529'
 func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:404
-[09:11:35] [32mDEBUG[0m: '[36m[PLC] 물품 불출 완료. 꺼내온 슬롯 id=29[0m'
+[10:01:33] DEBUG: '[PLC] 물품 불출 완료. 꺼내온 슬롯 id=529'
 func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:225
-[09:11:35] [32mDEBUG[0m: '[36m불출 취소 여부 확인:false[0m'
+[10:01:33] DEBUG: '불출 취소 여부 확인:false'
 func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:583
-[09:11:35] [32mTRACE[0m: '[36m[웹핸들러] 불출 완료. slotId=29, itemId=2[0m'
+[10:01:33] TRACE: '[웹핸들러] 불출 완료. slotId=529, itemId=3'
 func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:217
-[09:11:35] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/confirm?itemId=2"}}[0m'
+[10:01:33] TRACE: 'Broadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/confirm?itemId=3"}}'
 func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
-[09:11:35] [32mTRACE[0m: '[36mURL: /output/confirm?itemId=2[0m'
-func=apcs_refactored/webserver.ItemOutputConfirm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:247
-[09:11:37] [32mTRACE[0m: '[36mURL: /output/return_all?itemId=2[0m'
-func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:432
-[09:11:37] [32mDEBUG[0m: '[36m[웹핸들러] 시간 초과에 의한 모든 반납 취소.[0m'
-func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:434
-[09:11:37] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
+[10:01:33] TRACE: 'URL: /output/confirm?itemId=3'
+func=apcs_refactored/webserver.ItemOutputConfirm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:246
+[10:01:34] TRACE: 'URL: /output/password/form?itemId=3'
+func=apcs_refactored/webserver.ItemOutputPasswordForm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:283
+[10:01:37] TRACE: 'URL: /output/password/check'
+func=apcs_refactored/webserver.ItemOutputCheckPassword file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:313
+[10:01:37] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
 func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:37] [32mDEBUG[0m: '[36m재수납 로봇 리스트: [0xc00032a0f0], 1개[0m'
-func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:452
-[09:11:37] [32mDEBUG[0m: '[36m재수납 로봇: &{2 2 29}[0m'
-func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:461
-[09:11:37] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/item_return"}}[0m'
-func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
-[09:11:37] [32mTRACE[0m: '[36mURL: /output/item_return[0m'
-func=apcs_refactored/webserver.ReturnView file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:260
-[09:11:37] [32mDEBUG[0m: '[36m[PLC] 물품 재수납 시작. 수납할 슬롯 id=29[0m'
-func=apcs_refactored/plc.ReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:235
-[09:11:37] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출중인 물건을 슬롯에 가져다 놓기. slotId=29[0m'
-func=apcs_refactored/plc/robot.JobReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:421
-[09:11:37] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 확인 [false][0m'
-func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:132
-[09:11:37] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건재수납, RobotId=2[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:11:37] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [29][0m'
-func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:11:37] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:39] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=2[0m'
-func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:94
-[09:11:40] [32mInfo[0m: '[36m[PLC_resource] (table) 데드락 확인 및 해결 요청[0m'
-func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:78
-[09:11:40] [32mDEBUG[0m: '[36m[PLC_resource] CheckResolveDeadlock()[0m'
-func=apcs_refactored/plc/resource.CheckResolveDeadlock file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:54
-[09:11:43] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:11:46] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp[0m'
-func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
-[09:11:48] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=2, slotId=29[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:11:48] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
-func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
-[09:11:48] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
-func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:73
-[09:11:48] [32mDEBUG[0m: '[36m불출 취소 여부: true[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:362
-[09:11:48] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
-func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
-[09:11:48] [32mDEBUG[0m: '[36m불출 로봇 상태, {1 1 21}[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:368
-[09:11:48] [32mDEBUG[0m: '[36m[PLC] 물품 불출 완료. 꺼내온 슬롯 id=21[0m'
-func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:225
-[09:11:48] [32mDEBUG[0m: '[36m불출 취소 여부 확인:true[0m'
-func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:583
-[09:11:50] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=2, slotId=29[0m'
-func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:84
-[09:11:51] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [29][0m'
-func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:11:51] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=2[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:11:51] [32mDEBUG[0m: '[36m[PLC] 물품 재수납 완료. 슬롯 id=29[0m'
-func=apcs_refactored/plc.ReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:241
-[09:11:51] [32mDEBUG[0m: '[36m[PLC] 물품 불출 완료. 꺼내온 슬롯 id=569[0m'
-func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:225
-[09:11:51] [32mDEBUG[0m: '[36m재수납 로봇: &{1 1 21}[0m'
-func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:461
-[09:11:51] [32mDEBUG[0m: '[36m불출 취소 여부 확인:true[0m'
-func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:583
-[09:11:51] [32mDEBUG[0m: '[36m[PLC] 물품 재수납 시작. 수납할 슬롯 id=21[0m'
-func=apcs_refactored/plc.ReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:235
-[09:11:51] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출중인 물건을 슬롯에 가져다 놓기. slotId=21[0m'
-func=apcs_refactored/plc/robot.JobReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:421
-[09:11:51] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 확인 [true][0m'
-func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:132
-[09:11:51] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건재수납, RobotId=1[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:11:51] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=21[0m'
-func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:84
-[09:11:51] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [21][0m'
-func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:11:51] [32mDEBUG[0m: '[36m[PLC] 물품 재수납 완료. 슬롯 id=21[0m'
-func=apcs_refactored/plc.ReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:241
-[09:11:51] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/cancel"}}[0m'
-func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
-[09:11:51] [32mTRACE[0m: '[36mURL: /output/cancel[0m'
-func=apcs_refactored/webserver.ItemOutputCancel file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:234
-[09:11:55] [32mTRACE[0m: '[36mURL: /[0m'
-func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
-[09:11:55] [32mTRACE[0m: '[36mURL: /output/register_address[0m'
-func=apcs_refactored/webserver.RegistAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:203
-[09:11:58] [32mDEBUG[0m: '[36m[불출] 입주민 주소 입력: 123[0m'
-func=apcs_refactored/webserver.CheckItemExists file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:27
-[09:11:58] [32mTRACE[0m: '[36mURL: /output/item_list?address=123[0m'
-func=apcs_refactored/webserver.ItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:210
-[09:11:58] [32mTRACE[0m: '[36mURL: /output/get_item_list?address=123[0m'
-func=apcs_refactored/webserver.GetItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:63
-[09:12:01] [32mTRACE[0m: '[36mURL: /output/ongoing[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:96
-[09:12:01] [32mDEBUG[0m: '[36m[웹핸들러] 아이템 불출 요청 접수. itemIds=[2 3][0m'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:114
-[09:12:01] [32mDEBUG[0m: '[36m[웹핸들러] 아이템을 불출할 슬롯: [29 569][0m'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:176
-[09:12:03] [32mTRACE[0m: '[36m[웹핸들러 -> PLC] 불출 요청. 슬롯 id=29, 아이템 id=2[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:205
-[09:12:03] [32mDEBUG[0m: '[36m[PLC] 물품 불출 시작. 꺼내올 슬롯 id=29[0m'
-func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:214
-[09:12:03] [32mTRACE[0m: '[36m[웹핸들러 -> PLC] 불출 요청. 슬롯 id=569, 아이템 id=3[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:205
-[09:12:03] [32mDEBUG[0m: '[36m[PLC] 물품 불출 시작. 꺼내올 슬롯 id=569[0m'
-func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:214
-[09:12:03] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 시작. slotId=29[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:335
-[09:12:03] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=1[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:12:03] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 시작. slotId=569[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:335
-[09:12:03] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [29][0m'
-func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:12:03] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=29[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:12:03] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [569][0m'
-func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:12:03] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=2[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:12:03] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=2, slotId=569[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:12:06] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=2, slotId=569[0m'
-func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:75
-[09:12:06] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=1, slotId=29[0m'
-func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:75
-[09:12:08] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
-func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:61
-[09:12:08] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블로 이동. robotId=2[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:65
-[09:12:09] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [569][0m'
-func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:12:09] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationDown[0m'
-func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
-[09:12:09] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:12:11] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=2[0m'
-func=apcs_refactored/plc/robot.(*robot).pushToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:104
-[09:12:13] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:12:13] [32mDEBUG[0m: '[36m불출 로봇 상태, {2 3 569}[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:403
-[09:12:13] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 완료. slotId=569[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:404
-[09:12:13] [32mDEBUG[0m: '[36m[PLC] 물품 불출 완료. 꺼내온 슬롯 id=569[0m'
-func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:225
-[09:12:13] [32mDEBUG[0m: '[36m불출 취소 여부 확인:false[0m'
-func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:583
-[09:12:13] [32mTRACE[0m: '[36m[웹핸들러] 불출 완료. slotId=569, itemId=3[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:217
-[09:12:13] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/confirm?itemId=3"}}[0m'
-func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
-[09:12:13] [32mTRACE[0m: '[36mURL: /output/confirm?itemId=3[0m'
-func=apcs_refactored/webserver.ItemOutputConfirm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:247
-[09:12:15] [32mTRACE[0m: '[36mURL: /output/return?itemId=3[0m'
-func=apcs_refactored/webserver.ItemOutputReturn file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:360
-[09:12:15] [32mDEBUG[0m: '[36m[웹핸들러] 물건 반납 요청 접수. itemId=3[0m'
-func=apcs_refactored/webserver.ItemOutputReturn file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:368
-[09:12:15] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:12:15] [32mDEBUG[0m: '[36m[PLC] 물품 수납. slotId=569[0m'
-func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:197
-[09:12:15] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=569[0m'
-func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:233
-[09:12:15] [32mDEBUG[0m: '[36m[웹핸들러] 불출 요청이 남아 있어 택배 나오는 중 화면 출력[0m'
-func=apcs_refactored/webserver.ItemOutputReturn file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:408
-[09:12:15] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [569][0m'
-func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:12:15] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/ongoing"}}[0m'
-func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
-[09:12:15] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=2[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:12:15] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:12:15] [32mTRACE[0m: '[36mURL: /output/ongoing[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:96
-[09:12:17] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=2[0m'
-func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:94
-[09:12:18] [32mInfo[0m: '[36m[PLC_resource] (table) 데드락 확인 및 해결 요청[0m'
-func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:78
-[09:12:18] [32mDEBUG[0m: '[36m[PLC_resource] CheckResolveDeadlock()[0m'
-func=apcs_refactored/plc/resource.CheckResolveDeadlock file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:54
-[09:12:19] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:12:21] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp[0m'
-func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
-[09:12:23] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=2, slotId=569[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:12:24] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
-func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
-[09:12:24] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
-func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:73
-[09:12:24] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블로 이동. robotId=1[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:65
-[09:12:24] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [29][0m'
-func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:12:24] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationDown[0m'
-func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
-[09:12:24] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:12:26] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=2, slotId=569[0m'
-func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:84
-[09:12:26] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [569][0m'
-func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:12:26] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=1[0m'
-func=apcs_refactored/plc/robot.(*robot).pushToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:104
-[09:12:30] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:12:30] [32mDEBUG[0m: '[36m불출 로봇 상태, {1 2 29}[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:403
-[09:12:30] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 완료. slotId=29[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:404
-[09:12:30] [32mDEBUG[0m: '[36m[PLC] 물품 불출 완료. 꺼내온 슬롯 id=29[0m'
-func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:225
-[09:12:30] [32mDEBUG[0m: '[36m불출 취소 여부 확인:false[0m'
-func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:583
-[09:12:30] [32mTRACE[0m: '[36m[웹핸들러] 불출 완료. slotId=29, itemId=2[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:217
-[09:12:30] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/confirm?itemId=2"}}[0m'
-func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
-[09:12:30] [32mTRACE[0m: '[36mURL: /output/confirm?itemId=2[0m'
-func=apcs_refactored/webserver.ItemOutputConfirm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:247
-[09:12:31] [32mTRACE[0m: '[36mURL: /output/password/form?itemId=2[0m'
-func=apcs_refactored/webserver.ItemOutputPasswordForm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:284
-[09:12:34] [32mTRACE[0m: '[36mURL: /output/password/check[0m'
-func=apcs_refactored/webserver.ItemOutputCheckPassword file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:314
-[09:12:34] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:12:35] [32mTRACE[0m: '[36mURL: /output/accept?itemId=2[0m'
+[10:01:37] TRACE: 'URL: /output/accept?itemId=3'
 func=apcs_refactored/webserver.ItemOutputAccept file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:217
-[09:12:36] [32mTRACE[0m: '[36mURL: /output/takeout[0m'
-func=apcs_refactored/webserver.ItemOutputTakeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:512
-[09:12:36] [32mTRACE[0m: '[36mURL: /output/sense_table_for_item[0m'
+[10:01:38] TRACE: 'URL: /output/sense_table_for_item'
 func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
-[09:12:36] [32mDEBUG[0m: '[36m[PLC_Sensor] 테이블 물품 존재 여부 감지: false[0m'
+[10:01:38] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
 func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
-[09:12:36] [32mTRACE[0m: '[36mURL: /output/complete?itemId=2[0m'
-func=apcs_refactored/webserver.ItemOutputComplete file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:520
-[09:12:36] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
+[10:01:39] TRACE: 'URL: /output/takeout'
+func=apcs_refactored/webserver.ItemOutputTakeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:508
+[10:01:39] TRACE: 'URL: /output/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
+[10:01:39] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: false'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:01:39] TRACE: 'URL: /output/complete?itemId=3'
+func=apcs_refactored/webserver.ItemOutputComplete file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:516
+[10:01:39] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
 func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:12:36] [32mDEBUG[0m: '[36m[웹핸들러] 불출 요청이 남아 있지 않아 감사합니다 화면 출력[0m'
-func=apcs_refactored/webserver.ItemOutputComplete file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:643
-[09:12:36] [32mDEBUG[0m: '[36m[PLC_로봇] 대기 상태 해제[0m'
+[10:01:41] DEBUG: '[웹핸들러] 불출 요청이 남아 있지 않아 감사합니다 화면 출력'
+func=apcs_refactored/webserver.ItemOutputComplete file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:639
+[10:01:41] DEBUG: '[PLC_로봇] 대기 상태 해제'
 func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:561
-[09:12:36] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1[0m'
+[10:01:41] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
 func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:12:36] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/thankyou"}}[0m'
+[10:01:41] TRACE: 'Broadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/thankyou"}}'
 func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
-[09:12:36] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
+[10:01:41] DEBUG: '[PLC] 테이블 점유 해제'
 func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
-[09:12:36] [32mTRACE[0m: '[36mURL: /output/thankyou[0m'
+[10:01:41] TRACE: 'URL: /output/thankyou'
 func=apcs_refactored/webserver.ItemOutputThankyou file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:241
-[09:12:40] [32mTRACE[0m: '[36mURL: /[0m'
+[10:01:45] TRACE: 'URL: /'
 func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
-[09:12:52] [32mTRACE[0m: '[36mURL: /output/register_address[0m'
-func=apcs_refactored/webserver.RegistAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:203
-[09:12:54] [32mDEBUG[0m: '[36m[불출] 입주민 주소 입력: 123[0m'
-func=apcs_refactored/webserver.CheckItemExists file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:27
-[09:12:54] [32mTRACE[0m: '[36mURL: /output/item_list?address=123[0m'
-func=apcs_refactored/webserver.ItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:210
-[09:12:54] [32mTRACE[0m: '[36mURL: /output/get_item_list?address=123[0m'
-func=apcs_refactored/webserver.GetItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:63
-[09:12:55] [32mTRACE[0m: '[36mURL: /output/ongoing[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:96
-[09:12:55] [32mDEBUG[0m: '[36m[웹핸들러] 아이템 불출 요청 접수. itemIds=[3][0m'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:114
-[09:12:55] [32mDEBUG[0m: '[36m[웹핸들러] 아이템을 불출할 슬롯: [569][0m'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:176
-[09:12:57] [32mTRACE[0m: '[36m[웹핸들러 -> PLC] 불출 요청. 슬롯 id=569, 아이템 id=3[0m'
-func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:205
-[09:12:57] [32mDEBUG[0m: '[36m[PLC] 물품 불출 시작. 꺼내올 슬롯 id=569[0m'
-func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:214
-[09:12:57] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 시작. slotId=569[0m'
-func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:335
-[09:12:57] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=1[0m'
+[10:01:48] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:119
+[10:01:57] TRACE: 'tray buffer : [18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:01:57] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=18'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:107
+[10:01:57] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:541
+[10:01:57] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
 func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:12:57] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 [569][0m'
-func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
-[09:12:57] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=569[0m'
-func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
-[09:13:00] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=1, slotId=569[0m'
-func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:75
-[09:13:02] [32mDEBUG[0m: '[36m[PLC] 테이블 점유[0m'
+[10:01:57] DEBUG: '[PLC] 테이블 점유'
 func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:61
-[09:13:02] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블로 이동. robotId=1[0m'
+[10:01:57] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
 func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:65
-[09:13:03] [32mDEBUG[0m: '[36m[PLC] 슬롯 점유 해제 [569][0m'
-func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
-[09:13:03] [32mDEBUG[0m: '[36m[PLC_Buffer] 트레이 버퍼 조작: BufferOperationDown[0m'
+[10:01:57] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:01:57] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:204
+[10:01:57] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:124
+[10:01:58] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
+[10:01:58] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:01:58] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:01:58] DEBUG: '[PLC_Sensor] 크기/무게 측정: {53 3 5 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:01:58] DEBUG: '[제어서버] 아이템 크기/무게: {53 3 5 33}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:240
+[10:01:59] DEBUG: '[웹핸들러] 최적 슬롯: slotId=13'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:297
+[10:01:59] TRACE: 'URL: /input/complete_input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:151
+[10:02:01] DEBUG: '[웹핸들러] 아이템 수납'
+func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/input.go:440
+[10:02:01] DEBUG: '[PLC] 물품 수납. slotId=13'
+func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:197
+[10:02:01] DEBUG: '[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=13'
+func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:233
+[10:02:01] DEBUG: '[PLC] 슬롯 점유 [13]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
+[10:02:01] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
+[10:02:01] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:02:03] DEBUG: '[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:94
+[10:02:04] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[10:02:04] TRACE: 'URL: /output/register_address'
+func=apcs_refactored/webserver.RegistAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:203
+[10:02:06] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:02:07] DEBUG: '[불출] 입주민 주소 입력: 123'
+func=apcs_refactored/webserver.CheckItemExists file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:27
+[10:02:07] TRACE: 'URL: /output/item_list?address=123'
+func=apcs_refactored/webserver.ItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:210
+[10:02:07] TRACE: 'URL: /output/get_item_list?address=123'
+func=apcs_refactored/webserver.GetItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:63
+[10:02:08] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp'
 func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
-[09:13:03] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen[0m'
+[10:02:11] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=13'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
+[10:02:11] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:02:14] DEBUG: '[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=13'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:84
+[10:02:14] DEBUG: '[PLC] 슬롯 점유 해제 [13]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
+[10:02:15] TRACE: 'URL: /output/ongoing'
+func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:96
+[10:02:15] DEBUG: '[웹핸들러] 아이템 불출 요청 접수. itemIds=[1 2 4]'
+func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:114
+[10:02:15] DEBUG: '[웹핸들러] 아이템을 불출할 슬롯: [569 545 13]'
+func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:176
+[10:02:17] TRACE: '[웹핸들러 -> PLC] 불출 요청. 슬롯 id=545, 아이템 id=2'
+func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:205
+[10:02:17] DEBUG: '[PLC] 물품 불출 시작. 꺼내올 슬롯 id=545'
+func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:214
+[10:02:17] DEBUG: '[PLC_로봇_Job] 불출 Job 시작. slotId=545'
+func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:335
+[10:02:17] TRACE: '[웹핸들러 -> PLC] 불출 요청. 슬롯 id=569, 아이템 id=1'
+func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:205
+[10:02:17] DEBUG: '[PLC] 물품 불출 시작. 꺼내올 슬롯 id=569'
+func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:214
+[10:02:17] DEBUG: '[PLC_로봇_Job] 불출 Job 시작. slotId=569'
+func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:335
+[10:02:17] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=2'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
+[10:02:17] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
+[10:02:17] DEBUG: '[PLC] 슬롯 점유 [545]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
+[10:02:17] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=545'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
+[10:02:17] TRACE: '[웹핸들러 -> PLC] 불출 요청. 슬롯 id=13, 아이템 id=4'
+func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:205
+[10:02:17] DEBUG: '[PLC] 슬롯 점유 [569]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
+[10:02:17] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=2, slotId=569'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
+[10:02:17] DEBUG: '[PLC] 물품 불출 시작. 꺼내올 슬롯 id=13'
+func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:214
+[10:02:17] DEBUG: '[PLC_로봇_Job] 불출 Job 시작. slotId=13'
+func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:335
+[10:02:20] DEBUG: '[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=2, slotId=569'
+func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:75
+[10:02:20] DEBUG: '[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=1, slotId=545'
+func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:75
+[10:02:22] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:02:22] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:02:23] DEBUG: '[PLC] 슬롯 점유 해제 [545]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
+[10:02:23] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationDown'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[10:02:23] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
 func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:13:05] [32mDEBUG[0m: '[36m[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=1[0m'
+[10:02:25] DEBUG: '[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=1'
 func=apcs_refactored/plc/robot.(*robot).pushToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:104
-[09:13:07] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose[0m'
+[10:02:27] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
 func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:13:07] [32mDEBUG[0m: '[36m불출 로봇 상태, {1 3 569}[0m'
+[10:02:27] DEBUG: '불출 로봇 상태, {1 2 545}'
 func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:403
-[09:13:07] [32mDEBUG[0m: '[36m[PLC_로봇_Job] 불출 Job 완료. slotId=569[0m'
+[10:02:27] DEBUG: '[PLC_로봇_Job] 불출 Job 완료. slotId=545'
 func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:404
-[09:13:07] [32mDEBUG[0m: '[36m[PLC] 물품 불출 완료. 꺼내온 슬롯 id=569[0m'
+[10:02:27] DEBUG: '[PLC] 물품 불출 완료. 꺼내온 슬롯 id=545'
 func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:225
-[09:13:07] [32mDEBUG[0m: '[36m불출 취소 여부 확인:false[0m'
+[10:02:27] DEBUG: '불출 취소 여부 확인:false'
 func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:583
-[09:13:07] [32mTRACE[0m: '[36m[웹핸들러] 불출 완료. slotId=569, itemId=3[0m'
+[10:02:27] TRACE: '[웹핸들러] 불출 완료. slotId=545, itemId=2'
 func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:217
-[09:13:07] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/confirm?itemId=3"}}[0m'
+[10:02:27] TRACE: 'Broadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/confirm?itemId=2"}}'
 func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
-[09:13:07] [32mTRACE[0m: '[36mURL: /output/confirm?itemId=3[0m'
-func=apcs_refactored/webserver.ItemOutputConfirm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:247
-[09:13:09] [32mTRACE[0m: '[36mURL: /output/password/form?itemId=3[0m'
-func=apcs_refactored/webserver.ItemOutputPasswordForm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:284
-[09:13:12] [32mTRACE[0m: '[36mURL: /output/password/check[0m'
-func=apcs_refactored/webserver.ItemOutputCheckPassword file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:314
-[09:13:12] [32mTRACE[0m: '[36mURL: /output/password/mismatch?itemId=3[0m'
+[10:02:27] TRACE: 'URL: /output/confirm?itemId=2'
+func=apcs_refactored/webserver.ItemOutputConfirm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:246
+[10:02:30] TRACE: 'URL: /output/password/form?itemId=2'
+func=apcs_refactored/webserver.ItemOutputPasswordForm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:283
+[10:02:32] Info: '[PLC_resource] (table) 데드락 확인 및 해결 요청'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:78
+[10:02:32] DEBUG: '[PLC_resource] CheckResolveDeadlock()'
+func=apcs_refactored/plc/resource.CheckResolveDeadlock file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:54
+[10:02:35] TRACE: 'URL: /output/password/check'
+func=apcs_refactored/webserver.ItemOutputCheckPassword file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:313
+[10:02:35] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:02:35] TRACE: 'URL: /output/accept?itemId=2'
+func=apcs_refactored/webserver.ItemOutputAccept file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:217
+[10:02:36] TRACE: 'URL: /output/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
+[10:02:36] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:02:37] TRACE: 'URL: /output/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
+[10:02:37] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:02:38] TRACE: 'URL: /output/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
+[10:02:38] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:02:39] TRACE: 'URL: /output/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
+[10:02:39] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:02:40] TRACE: 'URL: /output/takeout'
+func=apcs_refactored/webserver.ItemOutputTakeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:508
+[10:02:40] TRACE: 'URL: /output/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
+[10:02:40] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: false'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:02:40] TRACE: 'URL: /output/complete?itemId=2'
+func=apcs_refactored/webserver.ItemOutputComplete file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:516
+[10:02:40] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:02:41] DEBUG: '[웹핸들러] 불출 요청이 남아 있어 택배 나오는 중 화면 출력'
+func=apcs_refactored/webserver.ItemOutputComplete file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:628
+[10:02:41] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:561
+[10:02:41] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
+[10:02:41] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:02:41] TRACE: 'Broadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/ongoing"}}'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
+[10:02:41] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:73
+[10:02:41] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=2'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:02:41] DEBUG: '[PLC] 슬롯 점유 [13]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
+[10:02:41] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 불출, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
+[10:02:41] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=13'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
+[10:02:41] TRACE: 'URL: /output/ongoing'
+func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:96
+[10:02:42] DEBUG: '[PLC] 슬롯 점유 해제 [569]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
+[10:02:42] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationDown'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[10:02:42] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:02:44] DEBUG: '[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=2'
+func=apcs_refactored/plc/robot.(*robot).pushToTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:104
+[10:02:44] DEBUG: '[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=1, slotId=13'
+func=apcs_refactored/plc/robot.(*robot).pullFromSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:75
+[10:02:46] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:02:46] DEBUG: '불출 로봇 상태, {2 1 569}'
+func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:403
+[10:02:46] DEBUG: '[PLC_로봇_Job] 불출 Job 완료. slotId=569'
+func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:404
+[10:02:46] DEBUG: '[PLC] 물품 불출 완료. 꺼내온 슬롯 id=569'
+func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:225
+[10:02:46] DEBUG: '불출 취소 여부 확인:false'
+func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:583
+[10:02:46] TRACE: '[웹핸들러] 불출 완료. slotId=569, itemId=1'
+func=apcs_refactored/webserver.ItemOutputOngoing.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:217
+[10:02:46] TRACE: 'Broadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/confirm?itemId=1"}}'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
+[10:02:46] TRACE: 'URL: /output/confirm?itemId=1'
+func=apcs_refactored/webserver.ItemOutputConfirm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:246
+[10:02:48] TRACE: 'URL: /output/password/form?itemId=1'
+func=apcs_refactored/webserver.ItemOutputPasswordForm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:283
+[10:02:51] TRACE: 'URL: /output/password/check'
+func=apcs_refactored/webserver.ItemOutputCheckPassword file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:313
+[10:02:51] TRACE: 'URL: /output/password/mismatch?itemId=1'
 func=apcs_refactored/webserver.ItemOutputPasswordMismatch file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:224
-[09:13:13] [32mTRACE[0m: '[36mURL: /output/password/form?itemId=3[0m'
-func=apcs_refactored/webserver.ItemOutputPasswordForm file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:284
-[09:13:16] [32mTRACE[0m: '[36mURL: /output/password/check[0m'
-func=apcs_refactored/webserver.ItemOutputCheckPassword file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:314
-[09:13:16] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen[0m'
+[10:02:57] TRACE: 'URL: /output/return_all?itemId=1'
+func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:431
+[10:02:57] DEBUG: '[웹핸들러] 시간 초과에 의한 모든 반납 취소.'
+func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:433
+[10:02:57] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
 func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:13:16] [32mTRACE[0m: '[36mURL: /output/accept?itemId=3[0m'
-func=apcs_refactored/webserver.ItemOutputAccept file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:217
-[09:13:17] [32mTRACE[0m: '[36mURL: /output/takeout[0m'
-func=apcs_refactored/webserver.ItemOutputTakeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:512
-[09:13:17] [32mTRACE[0m: '[36mURL: /output/sense_table_for_item[0m'
-func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:180
-[09:13:17] [32mDEBUG[0m: '[36m[PLC_Sensor] 테이블 물품 존재 여부 감지: false[0m'
-func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/sensor/sensor.go:28
-[09:13:17] [32mTRACE[0m: '[36mURL: /output/complete?itemId=3[0m'
-func=apcs_refactored/webserver.ItemOutputComplete file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:520
-[09:13:17] [32mDEBUG[0m: '[36m[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose[0m'
-func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
-[09:13:18] [32mDEBUG[0m: '[36m[웹핸들러] 불출 요청이 남아 있지 않아 감사합니다 화면 출력[0m'
-func=apcs_refactored/webserver.ItemOutputComplete file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:643
-[09:13:18] [32mDEBUG[0m: '[36m[PLC_로봇] 대기 상태 해제[0m'
-func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:561
-[09:13:18] [32mDEBUG[0m: '[36m[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1[0m'
-func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
-[09:13:18] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/thankyou"}}[0m'
+[10:02:57] DEBUG: '재수납 로봇 리스트: [0xc0001321f8], 1개'
+func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:451
+[10:02:57] DEBUG: '재수납 로봇: &{2 1 569}'
+func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:460
+[10:02:57] TRACE: 'Broadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/item_return"}}'
 func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
-[09:13:18] [32mDEBUG[0m: '[36m[PLC] 테이블 점유 해제[0m'
+[10:02:57] TRACE: 'URL: /output/item_return'
+func=apcs_refactored/webserver.ReturnView file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:260
+[10:02:57] DEBUG: '[PLC] 물품 재수납 시작. 수납할 슬롯 id=569'
+func=apcs_refactored/plc.ReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:235
+[10:02:57] DEBUG: '[PLC_로봇_Job] 불출중인 물건을 슬롯에 가져다 놓기. slotId=569'
+func=apcs_refactored/plc/robot.JobReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:421
+[10:02:57] DEBUG: '[PLC] 슬롯 점유 확인 [false]'
+func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:132
+[10:02:57] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건재수납, RobotId=2'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
+[10:02:57] DEBUG: '[PLC] 슬롯 점유 [569]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:89
+[10:02:57] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:02:57] Info: '[PLC_resource] (table) 데드락 확인 및 해결 요청'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:78
+[10:02:57] DEBUG: '[PLC_resource] CheckResolveDeadlock()'
+func=apcs_refactored/plc/resource.CheckResolveDeadlock file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:54
+[10:02:59] DEBUG: '[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=2'
+func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:94
+[10:03:01] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/door/door.go:36
+[10:03:03] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[10:03:05] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=2, slotId=569'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:54
+[10:03:06] DEBUG: '[PLC] 테이블 점유 해제'
 func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
-[09:13:18] [32mTRACE[0m: '[36mURL: /output/thankyou[0m'
-func=apcs_refactored/webserver.ItemOutputThankyou file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:241
-[09:13:22] [32mTRACE[0m: '[36mURL: /[0m'
+[10:03:06] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:73
+[10:03:06] DEBUG: '불출 취소 여부: true'
+func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:362
+[10:03:06] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:03:06] DEBUG: '불출 로봇 상태, {1 4 13}'
+func=apcs_refactored/plc/robot.JobOutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:368
+[10:03:06] DEBUG: '[PLC] 물품 불출 완료. 꺼내온 슬롯 id=13'
+func=apcs_refactored/plc.OutputItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:225
+[10:03:06] DEBUG: '불출 취소 여부 확인:true'
+func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:583
+[10:03:08] DEBUG: '[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=2, slotId=569'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:84
+[10:03:08] DEBUG: '[PLC] 슬롯 점유 해제 [569]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
+[10:03:08] DEBUG: '[PLC] 물품 재수납 완료. 슬롯 id=569'
+func=apcs_refactored/plc.ReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:241
+[10:03:08] DEBUG: '재수납 로봇: &{1 4 13}'
+func=apcs_refactored/webserver.ItemOutputReturnByTimeout file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:460
+[10:03:08] DEBUG: '[PLC] 물품 재수납 시작. 수납할 슬롯 id=13'
+func=apcs_refactored/plc.ReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:235
+[10:03:08] DEBUG: '[PLC_로봇_Job] 불출중인 물건을 슬롯에 가져다 놓기. slotId=13'
+func=apcs_refactored/plc/robot.JobReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:421
+[10:03:08] DEBUG: '[PLC] 슬롯 점유 확인 [true]'
+func= file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:132
+[10:03:08] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건재수납, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/job.go:75
+[10:03:08] DEBUG: '[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=13'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:84
+[10:03:09] DEBUG: '[PLC] 슬롯 점유 해제 [13]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/resource/resource.go:122
+[10:03:09] DEBUG: '[PLC] 물품 재수납 완료. 슬롯 id=13'
+func=apcs_refactored/plc.ReturnItem file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/plc.go:241
+[10:03:09] TRACE: 'Broadcast message from public to private: {"request_type":"changeView","data":{"url":"/output/cancel"}}'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/wshub.go:54
+[10:03:09] TRACE: 'URL: /output/cancel'
+func=apcs_refactored/webserver.ItemOutputCancel file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:234
+[10:03:15] TRACE: 'URL: /'
 func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
