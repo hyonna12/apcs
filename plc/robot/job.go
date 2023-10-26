@@ -590,7 +590,7 @@ func CheckOutPutAbortSignal() bool {
 func CheckCompletePlc(data interface{}) error {
 	RespPlc = "waiting"
 	go func() {
-		time.Sleep(2 * time.Second)
+		//time.Sleep(2 * time.Second)
 		RespPlc = "complete"
 	}()
 
@@ -602,7 +602,7 @@ func CheckCompletePlc(data interface{}) error {
 			//log.Info("업무 완료 응답")
 			return nil
 		}
-		time.Sleep(1 * time.Second)
+		//time.Sleep(1 * time.Second)
 	}
 }
 

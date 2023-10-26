@@ -209,6 +209,56 @@ func SelectSlotListForEmptyTray() ([]Slot, error) {
 	return slots, nil
 }
 
+// SelectSlotsForEmptyTray
+//
+// 트레이버퍼와 1열이 찼을 때빈 트레이를 격납할 수 있는 슬롯 목록 조회
+func SelectSlotsForEmptyTray() ([]Slot, error) {
+	query := `
+			SELECT 
+				slot_id,
+				lane, 
+				floor,
+				transport_distance,
+				slot_enabled,
+				slot_keep_cnt,
+				tray_id,
+				item_id
+			FROM TN_CTR_SLOT
+			WHERE tray_id IS NULL
+			ORDER BY lane , floor
+	
+			`
+
+	rows, err := DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	var slots []Slot
+
+	for rows.Next() {
+		var slot Slot
+		var slotEnabled []uint8
+		err := rows.Scan(
+			&slot.SlotId,
+			&slot.Lane,
+			&slot.Floor,
+			&slot.TransportDistance,
+			&slotEnabled,
+			&slot.SlotKeepCnt,
+			&slot.TrayId,
+			&slot.ItemId,
+		)
+		if err != nil {
+			return nil, err
+		}
+		slot.SlotEnabled = slotEnabled[0] == 1
+		slots = append(slots, slot)
+	}
+
+	return slots, nil
+}
+
 // SelectSlotListWithEmptyTray
 //
 // 빈 트레이가 있는 슬롯 목록 선택

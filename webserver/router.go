@@ -105,8 +105,10 @@ func Handler(r *mux.Router) {
 
 	// [VIEW] "물품이 보관되어있지 않습니다" 화면 출력
 	r.HandleFunc("/output/item_error", ItemError).Methods(http.MethodGet)
-	// [VIEW] "물품이 보관되어있지 않습니다" 화면 출력
+	// [VIEW] "물품 재입고" 화면 출력
 	r.HandleFunc("/output/item_return", ReturnView).Methods(http.MethodGet)
+	// [VIEW] "불출 불가" 화면 출력
+	r.HandleFunc("/output/error", OutputError).Methods(http.MethodGet)
 
 	/* sort */
 	if config.Config.Sorting.State == "off" {

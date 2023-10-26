@@ -274,3 +274,9 @@ func Trouble(w http.ResponseWriter, r *http.Request) {
 
 	render(w, "error/trouble.html", nil)
 }
+
+func OutputError(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+
+	render(w, "output/error.html", nil)
+}

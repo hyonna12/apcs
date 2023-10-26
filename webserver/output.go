@@ -180,7 +180,18 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 		err := RetrieveEmptyTrayFromTableAndUpdateDb()
 		if err != nil {
 			log.Error(err)
-			// TODO - 에러 처리
+			/* // TODO - 에러 처리
+			err = ChangeKioskView("/output/error")
+			if err != nil {
+				// TODO - 에러처리
+				log.Error(err)
+				return
+			} */
+
+			// TODO - 수령/반품 화면 전환
+			render(w, "output/output_error.html", nil)
+
+			return
 		}
 
 		trayBuffer.Buffer.Pop()

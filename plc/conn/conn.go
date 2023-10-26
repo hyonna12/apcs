@@ -124,8 +124,8 @@ func InitConnPlc() {
 				return
 			}
 			SenseTrouble(data)
-			//time.Sleep(10 * time.Millisecond)
-			time.Sleep(5 * time.Second)
+			//time.Sleep(100 * time.Millisecond)
+			time.Sleep(1 * time.Second)
 		}
 	}()
 

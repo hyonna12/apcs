@@ -71,8 +71,8 @@
         clearInterval(intervalId);
 
 
-        // 5초 경과 후에도 입주민이 택배를 수령하지 않은 경우
-        await axios.post('/output/return?itemId=' + itemId)
+        // 5초 경과 시 전체 취소
+        await axios.post('/output/return_all?itemId=' + itemId)
             .then(axiosResult => {
                 let response = axiosResult.data;
                 console.log(response);

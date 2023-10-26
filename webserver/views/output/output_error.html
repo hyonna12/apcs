@@ -1,0 +1,58 @@
+{{template "layout.html" .}}
+{{define "content"}}
+<main id="main">
+    <div class="content-wrap">
+        <div class="fixed-btn">
+            <button class="btn-normal home_btn">첫 화면으로</button>
+        </div>
+        <div class="msg-wrap home_btn">
+            <div class="msg-body">
+                <div class="img-wrap">
+                    <img src="/static/images/ico_report_red.png" alt="">
+                </div>
+                <div class="fail-msg">
+                    <p>아래 사유로 불출에 실패했습니다.</p>
+                    <div id="error_msg">
+                        <span>빈 슬롯이 존재하지 않습니다.</span>
+                    </div>
+                    
+                </div>
+                <p class="msg">관리자에게 문의해주세요.</p>
+            </div>
+           <!--  <div class="msg-footer">
+                <div class="btn-wrap">
+                    <button class="btn-normal cancel_btn">입고 취소</button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</main>
+
+<script>
+
+    
+    /* 남은 시간 확인 */
+    const timeLimit = 10;
+    let counter = 0;
+    count();
+    let intervalTimer = setInterval(count, 1000);
+
+    function count(){
+        if (counter > timeLimit) {
+            clearInterval(intervalTimer);
+            location.href='/';
+        }
+        counter += 1;
+    }
+
+    $('.home_btn').click(function(){
+        location.href='/';
+    });
+
+    $('.cancel_btn').click(function(){
+        location.href='/';
+    });
+    
+</script>
+
+{{end}}

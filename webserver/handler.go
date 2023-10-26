@@ -135,7 +135,10 @@ func RetrieveEmptyTrayFromTableAndUpdateDb() error {
 	}
 	if len(slots) == 0 {
 		err := errors.New("빈 슬롯 없음")
+		// log.Error("빈 슬롯 없음")
 		// 1열이 아닌 다른 가까운 슬롯을 찾아서 넣은 후 불출 / 빈 슬롯 가져올 때 해당 슬롯에서 먼저 가져옴
+		/* list, err := model.SelectSlotsForEmptyTray()
+		slots = append(slots, list...) */
 		return err
 	}
 	// TODO - 빈 트레이 격납 위치 최적화
