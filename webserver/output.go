@@ -377,6 +377,8 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 
 	log.Infof("[웹핸들러] 물건 반납 요청 접수. itemId=%v", itemId)
 
+	robot.DeleteOutputRobotList()
+
 	// TODO - 앞문이 열려있는지 확인
 	if err := plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose); err != nil {
 		log.Error(err)

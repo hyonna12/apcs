@@ -2,9 +2,9 @@
 {{define "content"}}
 <main id="main">
     <div class="content-wrap">
-        <div class="fixed-btn">
+        <!-- <div class="fixed-btn">
             <button class="btn-normal"><a href="/">첫 화면으로</a></button>
-        </div>
+        </div> -->
         <!-- 입고 취소 -->
         <div class="msg-wrap">
             <div class="msg-body">
@@ -36,6 +36,7 @@
                 console.log(res.data);
                 // **삭제
                 response = 'false';
+                console.log()
                 // 물품이 있다면 반복실행
                 if(response == 'true'){
                     next = true;

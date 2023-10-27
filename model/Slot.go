@@ -225,6 +225,7 @@ func SelectSlotsForEmptyTray() ([]Slot, error) {
 				item_id
 			FROM TN_CTR_SLOT
 			WHERE tray_id IS NULL
+			AND slot_enabled = 1
 			ORDER BY lane , floor
 	
 			`

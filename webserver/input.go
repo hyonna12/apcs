@@ -472,26 +472,26 @@ func StopInput(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 물품 감지
-	for {
-		isItemOnTable, err := plc.SenseTableForItem()
+	//for {
+	isItemOnTable, err := plc.SenseTableForItem()
+	if err != nil {
+		// changeKioskView
+		// return
+		Response(w, nil, http.StatusInternalServerError, err)
+	}
+	// 물품이 없다면(회수했다면) 앞문 닫기
+	if !isItemOnTable {
+		err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
 		if err != nil {
 			// changeKioskView
 			// return
 			Response(w, nil, http.StatusInternalServerError, err)
 		}
-		// 물품이 없다면(회수했다면) 앞문 닫기
-		if !isItemOnTable {
-			err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationClose)
-			if err != nil {
-				// changeKioskView
-				// return
-				Response(w, nil, http.StatusInternalServerError, err)
-			}
-			robot.JobDismiss()
-			break
-		}
-
+		robot.JobDismiss()
+		//break
 	}
+
+	//}
 
 	boolStr := strconv.FormatBool(sensor.IsItemOnTable)
 	// **삭제
