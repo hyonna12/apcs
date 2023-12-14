@@ -34,10 +34,9 @@
     let intervalIdBuffer;
     let intervalIdItem;
     let next = true;    // 함수 실행중인지 확인하는 변수
-
     setTimeout(function (){
         intervalIdBuffer = setInterval(sortTrayBuffer, 1000)
-    }, 500000); 
+    }, 20000); 
 
     // 트레이 버퍼 개수를 15개로 유지
     function sortTrayBuffer(){
@@ -48,6 +47,7 @@
                 console.log("버퍼개수",response.data);
                 let count = JSON.parse(response.data);
                 if(count == 15){
+                    
                     clearInterval(intervalIdBuffer);
                     next = true;
                     intervalIdItem = setInterval(sortItem, 1000);

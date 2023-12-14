@@ -68,79 +68,31 @@ func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로
 
 
 
-[09:08:48] DEBUG: 'Control server started'
-func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
-[09:08:48] DEBUG: 'Started initializing database connection'
-func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
-[09:08:48] DEBUG: 'Successfully initialized database connection'
-func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
-[09:08:48] TRACE: 'Messenger started'
-func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
-[09:08:48] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
-func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:39
-[09:08:48] TRACE: 'TrayBuffer created'
-func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
-[09:08:48] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
-func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
-[09:08:48] TRACE: 'plc conn started'
-func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
-[09:08:50] TRACE: 'URL: /output/register_address'
-func=apcs_refactored/webserver.RegistAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:203
-[09:08:52] WARN: 'dial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.'
-func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122
-[09:08:54] DEBUG: '[불출] 입주민 주소 입력: 123'
-func=apcs_refactored/webserver.CheckItemExists file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:27
-[09:08:54] TRACE: 'URL: /output/item_list?address=123'
-func=apcs_refactored/webserver.ItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:210
-[09:08:54] TRACE: 'URL: /output/get_item_list?address=123'
-func=apcs_refactored/webserver.GetItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:63
-[09:08:56] TRACE: 'URL: /output/ongoing'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:96
-[09:08:56] DEBUG: '[웹핸들러] 아이템 불출 요청 접수. itemIds=[1 3]'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:114
-[09:08:56] DEBUG: '[웹핸들러] 아이템을 불출할 슬롯: [569 37]'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:176
-[09:08:56] DEBUG: '[웹핸들러] 빈 트레이 회수'
-func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:130
-[09:08:56] WARN: '빈 슬롯 없음'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:182
-[09:09:02] TRACE: 'URL: /'
-func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
-[09:09:50] DEBUG: 'Control server started'
-func=main.main file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/main.go:50
-[09:09:50] DEBUG: 'Started initializing database connection'
-func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:17
-[09:09:50] DEBUG: 'Successfully initialized database connection'
-func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/model/database.go:30
-[09:09:50] TRACE: 'Messenger started'
-func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/messenger/messenger.go:71
-[09:09:50] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
-func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/robot/robot.go:39
-[09:09:50] TRACE: 'TrayBuffer created'
-func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
-[09:09:50] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
-func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
-[09:09:50] TRACE: 'plc conn started'
-func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:100
-[09:09:53] TRACE: 'URL: /output/register_address'
-func=apcs_refactored/webserver.RegistAddress file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:203
-[09:09:55] WARN: 'dial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.'
-func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/plc/conn/conn.go:122
-[09:09:56] DEBUG: '[불출] 입주민 주소 입력: 123'
-func=apcs_refactored/webserver.CheckItemExists file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:27
-[09:09:56] TRACE: 'URL: /output/item_list?address=123'
-func=apcs_refactored/webserver.ItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:210
-[09:09:56] TRACE: 'URL: /output/get_item_list?address=123'
-func=apcs_refactored/webserver.GetItemList file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:63
-[09:09:58] TRACE: 'URL: /output/ongoing'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:96
-[09:09:58] DEBUG: '[웹핸들러] 아이템 불출 요청 접수. itemIds=[1 3]'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:114
-[09:09:58] DEBUG: '[웹핸들러] 아이템을 불출할 슬롯: [569 37]'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:176
-[09:09:58] DEBUG: '[웹핸들러] 빈 트레이 회수'
-func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/handler.go:130
-[09:09:58] WARN: '빈 슬롯 없음'
-func=apcs_refactored/webserver.ItemOutputOngoing file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/output.go:182
-[09:10:01] TRACE: 'URL: /'
-func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/로봇/workspace/websocket/apcs/webserver/template.go:105
+[14:20:53] DEBUG: 'Control server started'
+func=main.main file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/main.go:50
+[14:20:53] DEBUG: 'Started initializing database connection'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/model/database.go:17
+[14:20:53] DEBUG: 'Successfully initialized database connection'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/model/database.go:30
+[14:20:53] TRACE: 'Messenger started'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/messenger/messenger.go:71
+[14:20:53] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:39
+[14:20:53] TRACE: 'TrayBuffer created'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:20:53] TRACE: 'tray buffer : [15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:20:53] TRACE: 'plc conn started'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/conn/conn.go:100
+[14:20:55] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[14:20:57] WARN: 'dial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/conn/conn.go:122
+[14:21:16] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[14:21:17] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[14:23:06] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[14:23:07] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28

@@ -259,6 +259,8 @@ func ItemSubmitted(w http.ResponseWriter, r *http.Request) {
 	pbytes, _ := json.Marshal(data)
 	buff := bytes.NewBuffer(pbytes)
 	resp, err := http.Post("https://asrsp.mipllab.com/get/best_slot", "application/json", buff)
+	//resp, err := http.Post("http://localhost:8010/get/best_slot", "application/json", buff)
+
 	//log.Infof("응답: %v", resp)
 
 	//var bestSlot model.Slot

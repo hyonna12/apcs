@@ -429,3 +429,22 @@ func SelectSortItemList() ([]ItemReadResponse, error) {
 	}
 
 }
+
+func SelectItemHeightByItemId(itemId int64) (ItemReadResponse, error) {
+
+	query := `
+			SELECT item_id, item_height 
+			FROM TN_CTR_ITEM 
+			WHERE item_id = ?
+			`
+
+	var itemReadResponses ItemReadResponse
+
+	row := DB.QueryRow(query, itemId)
+	err := row.Scan(&itemReadResponses.ItemId, &itemReadResponses.ItemHeight)
+	if err != nil {
+		return ItemReadResponse{}, err
+	}
+
+	return itemReadResponses, nil
+}

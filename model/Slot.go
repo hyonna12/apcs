@@ -227,7 +227,6 @@ func SelectSlotsForEmptyTray() ([]Slot, error) {
 			WHERE tray_id IS NULL
 			AND slot_enabled = 1
 			ORDER BY lane , floor
-	
 			`
 
 	rows, err := DB.Query(query)
@@ -277,6 +276,51 @@ func SelectSlotListWithEmptyTray() ([]Slot, error) {
 				ON s.tray_id = t.tray_id
 			WHERE
 			    t.tray_occupied = 0
+			`
+
+	rows, err := DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	var slots []Slot
+
+	for rows.Next() {
+		var slot Slot
+		err := rows.Scan(
+			&slot.SlotId,
+			&slot.Lane,
+			&slot.Floor,
+			&slot.TransportDistance,
+			&slot.SlotKeepCnt,
+			&slot.TrayId,
+		)
+		if err != nil {
+			return nil, err
+		}
+		slots = append(slots, slot)
+	}
+
+	return slots, nil
+}
+
+// SelectTempSlotListWithEmptyTray
+//
+// 빈 트레이가 있는 임시 슬롯 목록 선택
+func SelectTempSlotListWithEmptyTray() ([]Slot, error) {
+	query := `
+			SELECT 
+			    s.slot_id, 
+			    s.lane, 
+			    s.floor, 
+			    s.transport_distance, 
+			    s.slot_keep_cnt, 
+			    s.tray_id
+			FROM TN_CTR_SLOT s
+			JOIN TN_CTR_TRAY t
+				ON s.tray_id = t.tray_id
+			WHERE
+			    t.tray_occupied = 0 AND s.lane != 1
 			`
 
 	rows, err := DB.Query(query)
@@ -527,4 +571,56 @@ func UpdateSlotToEmptyTray(request SlotUpdateRequest, tx *sql.Tx) (int64, error)
 	}
 
 	return affected, nil
+}
+
+func UpdateTempSlotToEmptyTray(request SlotUpdateRequest, tx *sql.Tx) (int64, error) {
+
+	query := `
+			UPDATE TN_CTR_SLOT
+			SET 
+				slot_enabled = ?, 
+				tray_id = null
+			WHERE 
+				lane = ? 
+				AND floor = ?
+			`
+
+	result, err := tx.Exec(query, request.Lane, request.Floor)
+	if err != nil {
+		return 0, err
+	}
+
+	affected, err := result.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+
+	if affected == 0 {
+		return 0, customerror.ErrNoRowsAffected
+	}
+
+	return affected, nil
+}
+
+func SelectSlotBySlotId(slotId int64) (Slot, error) {
+
+	query := `
+			SELECT 
+				slot_id, 
+				lane, 
+				floor, 
+				tray_id 
+			FROM TN_CTR_SLOT
+			WHERE slot_id = ? 
+			`
+
+	var slot Slot
+
+	row := DB.QueryRow(query, slotId)
+	err := row.Scan(&slot.SlotId, &slot.Lane, &slot.Floor, &slot.TrayId)
+	if err != nil {
+		return Slot{}, err
+	}
+
+	return slot, nil
 }

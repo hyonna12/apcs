@@ -108,11 +108,11 @@ func InitConnPlc() {
 
 	b := []byte("1")
 	// deviceName: device code name 'D' register/ offset: device offset addr/ numPoints: number of read device pointes
-	client.Write("D", 100, 3, b)
+	client.Write("D", 1000, 3, b)
 
 	go func() {
 		for {
-			read, err := client.Read("D", 100, 3)
+			read, err := client.Read("D", 1000, 3)
 			data := string(read)
 			//fmt.Println("response:", string(read))
 			// registerBinary, _ := mcp.NewParser().Do(read)

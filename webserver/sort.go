@@ -8,68 +8,68 @@ import (
 	"apcs_refactored/plc/trayBuffer"
 	"context"
 	"database/sql"
+	"encoding/json"
 	"errors"
+	"io"
 	"math"
-	"math/rand"
 	"net/http"
-	"sort"
 
 	log "github.com/sirupsen/logrus"
 )
 
+type Sort struct {
+	ItemId int64
+	SlotId int64
+}
+
+var sortInfo Sort
+
 func SortItem(w http.ResponseWriter, r *http.Request) {
 	log.Info("[PLC] 물품 정리")
 
-	// 정리할 물품 선정 // **제거
-	itemList, err := model.SelectSortItemList()
-	if len(itemList) == 0 {
+	resp, err := http.Get("https://asrsp.mipllab.com/get/sort_item")
+
+	//resp, err := http.Get("http://localhost:8010/get/sort_item")
+
+	if err != nil {
+		log.Error(err)
 		Response(w, nil, http.StatusBadRequest, errors.New("정리가능한 물품이 존재하지 않습니다"))
 		return
+	} else {
+		defer resp.Body.Close()
+
+		respData, err := io.ReadAll(resp.Body)
+		if err != nil {
+			Response(w, nil, http.StatusInternalServerError, err)
+		}
+		json.Unmarshal(respData, &sortInfo)
+		if sortInfo.ItemId == 0 || respData == nil {
+			Response(w, nil, http.StatusBadRequest, errors.New("정리가능한 물품이 존재하지 않습니다"))
+			return
+		}
+		log.Infof("[웹핸들러] 정리 물품: itemId=%v, 슬롯: slotId=%v", sortInfo.ItemId, sortInfo.SlotId)
 	}
+
+	item, err := model.SelectItemHeightByItemId(sortInfo.ItemId)
 	if err != nil {
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
-
-	var num int
-	if len(itemList) == 1 {
-		num = 0
-	} else {
-		num = rand.Intn(len(itemList) - 1)
-	}
-
-	item := itemList[num]
 
 	// 물품의 현재 슬롯
 	currentSlot, err := model.SelectSlotByItemId(item.ItemId)
 	log.Infof("[웹핸들러] 현재수납슬롯: slotId=%v", currentSlot.SlotId)
 
-	if len(itemList) == 0 {
-		Response(w, nil, http.StatusBadRequest, errors.New("해당 물품이 보관되어 있지 않습니다"))
-		return
-	}
 	if err != nil {
 		// changeKioskView
 		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
 
-	// 이동할 슬롯 선정 // **제거
-	slotList, err := model.SelectAvailableSlotList(item.ItemHeight)
-	if len(slotList) == 0 {
-		Response(w, nil, http.StatusBadRequest, errors.New("이동가능한 슬롯이 존재하지 않습니다"))
-		return
-	}
+	// 슬롯 아이디로 슬롯 정보 가져오기
+	bestSlot, err := model.SelectSlotBySlotId(sortInfo.SlotId)
 	if err != nil {
-		// changeKioskView
-		// return
 		Response(w, nil, http.StatusInternalServerError, err)
 	}
-
-	sort.SliceStable(slotList, func(i, j int) bool {
-		return slotList[i].TransportDistance < slotList[j].TransportDistance
-	})
-	bestSlot := slotList[0]
-	log.Infof("[웹핸들러] 최적수납슬롯: slotId=%v", bestSlot.SlotId)
 
 	// 트랜잭션
 	tx, err := model.DB.BeginTx(context.Background(), nil)
@@ -86,6 +86,7 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		// TODO - DB 에러 처리
 	}
+	//aaa := []model.Slot{}
 
 	// 물건이 차지하던 슬롯 초기화
 	for idx := range slots {
@@ -95,9 +96,10 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 			slot.SlotEnabled = true
 			slot.ItemId = sql.NullInt64{Valid: false} // set null
 			slot.TrayId = sql.NullInt64{Valid: false} // set null
+			//aaa = append(aaa, *slot)
 		}
 	}
-	// slot-keep-cnt 갱신
+	/// slot-keep-cnt 갱신
 	for idx := range slots {
 		slot := &slots[idx]
 
@@ -111,6 +113,7 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 		} else {
 			slot.SlotKeepCnt = slots[idx-1].SlotKeepCnt + 1
 		}
+
 	}
 
 	_, err = model.UpdateSlots(slots, tx)
@@ -118,6 +121,20 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 		// TODO - DB 에러 처리
 	}
+
+	err = tx.Commit()
+	if err != nil {
+		return
+	}
+
+	// 트랜잭션
+	tx, err = model.DB.BeginTx(context.Background(), nil)
+	if err != nil {
+		return
+	}
+	defer func(tx *sql.Tx) {
+		_ = tx.Rollback()
+	}(tx)
 
 	// 아이템이 수납된 lane 슬롯 업데이트
 	slots, err = model.SelectSlotListByLane(bestSlot.Lane)
@@ -181,6 +198,8 @@ func SortItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	log.Info("트레이버퍼 : ", trayBuffer.Buffer.Get())
+
 	// 트레이 이동
 	err = plc.MoveTray(currentSlot, bestSlot)
 	if err != nil {
@@ -226,13 +245,16 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 	} else if count < 15 {
 		// 15개 미만 채우기
 		// 빈트레이를 가져올 슬롯 선택
-		slotsWithEmptyTray, err := model.SelectSlotListWithEmptyTray()
-
+		slotsWithEmptyTray, err := model.SelectTempSlotListWithEmptyTray()
 		if len(slotsWithEmptyTray) == 0 {
-			log.Info("[웹 핸들러] 빈 트레이가 존재하지 않음")
-			Response(w, nil, http.StatusBadRequest, errors.New("빈 트레이가 존재하지 않습니다"))
-			return
+			slotsWithEmptyTray, err = model.SelectSlotListWithEmptyTray()
+			if len(slotsWithEmptyTray) == 0 {
+				log.Info("[웹 핸들러] 빈 트레이가 존재하지 않음")
+				Response(w, nil, http.StatusBadRequest, errors.New("빈 트레이가 존재하지 않습니다"))
+				return
+			}
 		}
+
 		if err != nil {
 			log.Error(err)
 			// changeKioskView
@@ -281,7 +303,13 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 			_ = tx.Rollback()
 		}(tx)
 
-		_, err = model.UpdateSlotToEmptyTray(slotUpdateRequest, tx)
+		// slot이 1열이라면
+		if slotUpdateRequest.Lane == 1 {
+			_, err = model.UpdateSlotToEmptyTray(slotUpdateRequest, tx)
+		} else {
+			_, err = model.UpdateTempSlotToEmptyTray(slotUpdateRequest, tx)
+		}
+
 		if err != nil {
 			log.Error(err)
 			// changeKioskView

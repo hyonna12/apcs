@@ -178,20 +178,17 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	// 트레이 버퍼 개수 조회 후 (20개-물품개수) 될 때까지 회수
 	for trayBuffer.Buffer.Count() > (config.Config.Plc.TrayBuffer.Optimum - len(itemIds)) {
 		err := RetrieveEmptyTrayFromTableAndUpdateDb()
+
 		if err != nil {
 			log.Error(err)
-			/* // TODO - 에러 처리
-			err = ChangeKioskView("/output/error")
+			// 버퍼, 1열 이외의 슬롯으로 회수
+			err := TempRetrieveEmptyTrayFromTableAndUpdateDb()
 			if err != nil {
-				// TODO - 에러처리
 				log.Error(err)
+				render(w, "output/output_error.html", nil)
+
 				return
-			} */
-
-			// TODO - 수령/반품 화면 전환
-			render(w, "output/output_error.html", nil)
-
-			return
+			}
 		}
 
 		trayBuffer.Buffer.Pop()
@@ -402,6 +399,8 @@ func ItemOutputReturn(w http.ResponseWriter, r *http.Request) {
 
 		trayBuffer.Buffer.Pop()
 		num := trayBuffer.Buffer.Count()
+		log.Info("트레이버퍼 : ", trayBuffer.Buffer.Get())
+
 		err = model.InsertBufferState(num)
 		if err != nil {
 			log.Error(err)
@@ -501,6 +500,7 @@ func ItemOutputReturnByTimeout(w http.ResponseWriter, r *http.Request) {
 	}
 	trayBuffer.Buffer.Pop()
 	num := trayBuffer.Buffer.Count()
+	log.Info("트레이버퍼 : ", trayBuffer.Buffer.Get())
 	err = model.InsertBufferState(num)
 	if err != nil {
 		log.Error(err)

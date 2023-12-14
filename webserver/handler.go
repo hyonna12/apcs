@@ -135,9 +135,13 @@ func RetrieveEmptyTrayFromTableAndUpdateDb() error {
 	}
 	if len(slots) == 0 {
 		err := errors.New("빈 슬롯 없음")
-		// log.Error("빈 슬롯 없음")
-		// 1열이 아닌 다른 가까운 슬롯을 찾아서 넣은 후 불출 / 빈 슬롯 가져올 때 해당 슬롯에서 먼저 가져옴
+		//log.Error("빈 슬롯 없음")
+		//1열이 아닌 다른 가까운 슬롯을 찾아서 넣은 후 불출 / 빈 슬롯 가져올 때 해당 슬롯에서 먼저 가져옴
 		/* list, err := model.SelectSlotsForEmptyTray()
+		if err != nil {
+			log.Error(err)
+			return err
+		}
 		slots = append(slots, list...) */
 		return err
 	}
@@ -149,7 +153,59 @@ func RetrieveEmptyTrayFromTableAndUpdateDb() error {
 	}
 
 	updateRequest := model.SlotUpdateRequest{
-		SlotEnabled: true,
+		SlotEnabled: false,
+		SlotKeepCnt: slotForEmptyTray.SlotKeepCnt,
+		TrayId:      sql.NullInt64{Int64: retrievedEmptyTrayId, Valid: true},
+		ItemId:      sql.NullInt64{Valid: false},
+		Lane:        slotForEmptyTray.Lane,
+		Floor:       slotForEmptyTray.Floor,
+	}
+
+	tx, err := model.DB.BeginTx(context.Background(), nil)
+	if err != nil {
+		return err
+	}
+	defer func(tx *sql.Tx) {
+		_ = tx.Rollback()
+	}(tx)
+
+	_, err = model.UpdateSlot(updateRequest, tx)
+	if err != nil {
+		return err
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// TempRetrieveEmptyTrayFromTableAndUpdateDb
+//
+// 임시로 빈 트레이를 격납할 위치를 선정하여 격납 후 DB 업데이트.
+func TempRetrieveEmptyTrayFromTableAndUpdateDb() error {
+	log.Info("[웹핸들러] 빈 트레이 회수")
+	slots, err := model.SelectSlotsForEmptyTray()
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	if len(slots) == 0 {
+		err := errors.New("빈 슬롯 없음")
+
+		return err
+	}
+	// TODO - 빈 트레이 격납 위치 최적화
+	slotForEmptyTray := slots[0]
+	retrievedEmptyTrayId, err := plc.RetrieveEmptyTrayFromTable(slotForEmptyTray)
+	if err != nil {
+		return err
+	}
+
+	updateRequest := model.SlotUpdateRequest{
+		SlotEnabled: false,
 		SlotKeepCnt: slotForEmptyTray.SlotKeepCnt,
 		TrayId:      sql.NullInt64{Int64: retrievedEmptyTrayId, Valid: true},
 		ItemId:      sql.NullInt64{Valid: false},
