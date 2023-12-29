@@ -109,6 +109,8 @@ func ItemOutputOngoing(w http.ResponseWriter, r *http.Request) {
 	}
 	render(w, "output/item_output_ongoing.html", nil)
 
+	time.Sleep(1 * time.Second)
+
 	itemIdsStr := r.PostForm["item_id"]
 	var itemIds []int64
 	log.Infof("[웹핸들러] 아이템 불출 요청 접수. itemIds=%v", itemIdsStr)

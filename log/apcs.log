@@ -67,32 +67,1579 @@ func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/로
 
 
 
-
-[14:20:53] DEBUG: 'Control server started'
+[09:36:07] DEBUG: 'Control server started'
 func=main.main file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/main.go:50
-[14:20:53] DEBUG: 'Started initializing database connection'
+[09:36:07] DEBUG: 'Started initializing database connection'
 func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/model/database.go:17
-[14:20:53] DEBUG: 'Successfully initialized database connection'
+[09:36:07] DEBUG: 'Successfully initialized database connection'
 func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/model/database.go:30
-[14:20:53] TRACE: 'Messenger started'
+[09:36:07] TRACE: 'Messenger started'
 func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/messenger/messenger.go:71
-[14:20:53] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
+[09:36:07] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
 func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:39
-[14:20:53] TRACE: 'TrayBuffer created'
+[09:36:07] TRACE: 'TrayBuffer created'
 func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
-[14:20:53] TRACE: 'tray buffer : [15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+[09:36:07] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
 func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
-[14:20:53] TRACE: 'plc conn started'
+[09:36:07] TRACE: 'plc conn started'
 func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/conn/conn.go:100
-[14:20:55] TRACE: 'URL: /'
-func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
-[14:20:57] WARN: 'dial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.'
+[09:36:11] WARN: 'dial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.'
 func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/conn/conn.go:122
-[14:21:16] DEBUG: '[PLC] 트레이 버퍼 정리'
+[09:36:11] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[09:36:17] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[09:36:56] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:36:56] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[09:36:56] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[09:36:56] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[09:36:56] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[09:36:56] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[09:36:56] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:36:56] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[09:36:56] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[09:36:57] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[09:36:57] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:36:57] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:36:57] DEBUG: '[PLC_Sensor] 크기/무게 측정: {18 10 2 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[09:36:57] DEBUG: '[제어서버] 아이템 크기/무게: {18 10 2 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[09:37:00] WARN: 'Post "http://localhost:8010/get/best_slot": dial tcp [::1]:8010: connectex: No connection could be made because the target machine actively refused it.'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:270
+[09:37:00] DEBUG: '[웹핸들러] 최적수납슬롯: slotId=76'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:287
+[09:37:00] TRACE: 'URL: /input/complete_input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:151
+[09:37:00] DEBUG: '[웹핸들러] 아이템 수납'
+func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:442
+[09:37:00] DEBUG: '[PLC] 물품 수납. slotId=76'
+func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/plc.go:197
+[09:37:00] DEBUG: '[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=76'
+func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:233
+[09:37:00] DEBUG: '[PLC] 슬롯 점유 [76]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:89
+[09:37:00] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[09:37:00] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:37:00] DEBUG: '[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:94
+[09:37:01] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:37:01] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[09:37:01] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=76'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:54
+[09:37:01] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[09:37:01] DEBUG: '[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=76'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:84
+[09:37:02] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[09:37:02] DEBUG: '[PLC] 슬롯 점유 해제 [76]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:122
+[09:37:50] DEBUG: 'Control server started'
+func=main.main file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/main.go:50
+[09:37:50] DEBUG: 'Started initializing database connection'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/model/database.go:17
+[09:37:50] DEBUG: 'Successfully initialized database connection'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/model/database.go:30
+[09:37:50] TRACE: 'Messenger started'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/messenger/messenger.go:71
+[09:37:50] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:39
+[09:37:50] TRACE: 'TrayBuffer created'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[09:37:50] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:37:50] TRACE: 'plc conn started'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/conn/conn.go:100
+[09:37:54] WARN: 'dial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/conn/conn.go:122
+[09:38:00] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[09:38:07] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:38:07] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[09:38:07] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[09:38:07] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[09:38:07] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[09:38:07] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[09:38:07] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:38:07] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[09:38:07] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[09:38:08] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[09:38:08] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:38:08] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:38:08] DEBUG: '[PLC_Sensor] 크기/무게 측정: {64 5 6 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[09:38:08] DEBUG: '[제어서버] 아이템 크기/무게: {64 5 6 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[09:38:09] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[09:38:14] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[09:38:25] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[09:38:25] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[09:38:25] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[09:38:25] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:38:25] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:38:25] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[09:38:25] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[09:38:25] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[09:38:25] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[09:38:47] DEBUG: '[PLC] 트레이 버퍼 정리'
 func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
-[14:21:17] DEBUG: '[PLC] 물품 정리'
+[09:38:47] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[09:38:47] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[09:38:49] DEBUG: '[PLC] 물품 정리'
 func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
-[14:23:06] DEBUG: '[PLC] 트레이 버퍼 정리'
+[09:54:24] DEBUG: 'Control server started'
+func=main.main file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/main.go:50
+[09:54:24] DEBUG: 'Started initializing database connection'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/model/database.go:17
+[09:54:24] DEBUG: 'Successfully initialized database connection'
+func=apcs_refactored/model.InitDB file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/model/database.go:30
+[09:54:24] TRACE: 'Messenger started'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/messenger/messenger.go:71
+[09:54:24] DEBUG: '[PLC_로봇] 로봇 통신 테스트 및 초기화'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:39
+[09:54:24] TRACE: 'TrayBuffer created'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:64
+[09:54:24] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:54:24] TRACE: 'plc conn started'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/conn/conn.go:100
+[09:54:28] WARN: 'dial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/conn/conn.go:122
+[09:54:30] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[09:54:35] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:54:35] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[09:54:35] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[09:54:35] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[09:54:35] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[09:54:35] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[09:54:36] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:54:36] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[09:54:36] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[09:54:37] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[09:54:37] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:54:37] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:54:37] DEBUG: '[PLC_Sensor] 크기/무게 측정: {179 4 9 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[09:54:37] DEBUG: '[제어서버] 아이템 크기/무게: {179 4 9 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[09:54:37] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[09:54:42] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[09:54:54] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[09:54:54] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[09:54:54] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[09:54:54] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:54:54] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:54:54] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[09:54:54] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[09:54:54] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[09:54:54] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[09:55:17] DEBUG: '[PLC] 트레이 버퍼 정리'
 func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
-[14:23:07] DEBUG: '[PLC] 물품 정리'
+[09:55:17] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[09:55:17] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[09:55:19] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[09:57:36] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[09:57:44] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:57:44] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[09:57:44] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[09:57:44] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[09:57:44] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[09:57:44] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[09:57:45] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:57:45] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[09:57:45] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[09:57:46] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[09:57:46] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:57:46] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:57:46] DEBUG: '[PLC_Sensor] 크기/무게 측정: {48 2 2 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[09:57:46] DEBUG: '[제어서버] 아이템 크기/무게: {48 2 2 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[09:57:46] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[09:57:51] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[09:57:53] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[09:57:53] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[09:57:53] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[09:57:53] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:57:53] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:57:53] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[09:57:53] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[09:57:53] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[09:57:53] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[09:58:15] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[09:58:15] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[09:58:15] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[09:58:17] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[09:59:39] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[09:59:45] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:59:45] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[09:59:45] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[09:59:45] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[09:59:45] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[09:59:45] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[09:59:46] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:59:46] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[09:59:46] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[09:59:47] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[09:59:47] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[09:59:47] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[09:59:47] DEBUG: '[PLC_Sensor] 크기/무게 측정: {128 8 8 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[09:59:47] DEBUG: '[제어서버] 아이템 크기/무게: {128 8 8 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[09:59:47] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[09:59:52] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[10:00:04] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[10:00:04] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[10:00:04] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[10:00:04] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:00:04] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:00:04] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[10:00:04] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:00:04] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:00:04] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[10:00:27] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[10:00:27] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[10:00:27] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[10:00:29] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[10:00:32] WARN: 'Get "http://localhost:8010/get/sort_item": dial tcp [::1]:8010: connectex: No connection could be made because the target machine actively refused it.'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:35
+[10:00:36] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[10:00:43] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:00:43] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[10:00:43] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[10:00:43] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:00:43] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:00:43] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:00:44] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:00:44] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[10:00:44] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[10:00:45] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[10:00:45] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:00:45] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:00:45] DEBUG: '[PLC_Sensor] 크기/무게 측정: {66 2 7 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:00:45] DEBUG: '[제어서버] 아이템 크기/무게: {66 2 7 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[10:00:45] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[10:00:50] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[10:01:01] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[10:01:01] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[10:01:01] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[10:01:01] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:01:01] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:01:01] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[10:01:01] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:01:01] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:01:01] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[10:01:22] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[10:01:22] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[10:01:22] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[10:01:23] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[10:04:50] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[10:04:56] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:04:56] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[10:04:56] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[10:04:56] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:04:56] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:04:56] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:04:56] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:04:56] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[10:04:56] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[10:04:57] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[10:04:57] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:04:57] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:04:57] DEBUG: '[PLC_Sensor] 크기/무게 측정: {246 2 2 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:04:57] DEBUG: '[제어서버] 아이템 크기/무게: {246 2 2 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[10:04:58] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[10:05:03] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[10:05:16] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[10:05:16] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[10:05:16] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[10:05:16] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:05:16] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:05:16] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[10:05:16] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:05:16] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:05:16] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[10:05:39] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[10:05:39] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[10:05:39] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[10:05:41] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[10:05:50] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[10:06:00] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:06:00] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[10:06:00] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[10:06:00] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:06:00] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:06:00] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:06:01] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:06:01] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[10:06:01] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[10:06:02] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[10:06:02] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:06:02] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:06:02] DEBUG: '[PLC_Sensor] 크기/무게 측정: {65 3 7 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:06:02] DEBUG: '[제어서버] 아이템 크기/무게: {65 3 7 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[10:06:02] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[10:06:07] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[10:06:19] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[10:06:19] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[10:06:19] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[10:06:19] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:06:19] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:06:19] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[10:06:19] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:06:19] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:06:19] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[10:06:35] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[10:06:40] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:06:40] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[10:06:40] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[10:06:40] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:06:40] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:06:40] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:06:41] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:06:41] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[10:06:41] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[10:06:42] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[10:06:42] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:06:42] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:06:42] DEBUG: '[PLC_Sensor] 크기/무게 측정: {214 7 8 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:06:42] DEBUG: '[제어서버] 아이템 크기/무게: {214 7 8 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[10:06:42] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[10:06:47] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[10:06:58] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[10:06:58] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[10:06:58] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[10:06:58] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:06:58] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:06:58] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[10:06:58] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:06:58] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:06:58] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[10:07:21] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[10:07:21] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[10:07:21] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[10:07:23] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[10:09:21] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[10:09:27] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:09:27] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[10:09:27] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[10:09:27] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:09:27] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:09:27] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:09:28] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:09:28] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[10:09:28] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[10:09:29] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[10:09:29] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:09:29] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:09:29] DEBUG: '[PLC_Sensor] 크기/무게 측정: {260 4 5 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:09:29] DEBUG: '[제어서버] 아이템 크기/무게: {260 4 5 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[10:09:29] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[10:09:34] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[10:09:46] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[10:09:46] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[10:09:46] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[10:09:46] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:09:46] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:09:46] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[10:09:46] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:09:46] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:09:46] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[10:10:09] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[10:10:09] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[10:10:09] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[10:10:11] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[10:12:00] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[10:12:07] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:12:07] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[10:12:07] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[10:12:07] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:12:07] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:12:07] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:12:07] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:12:07] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[10:12:07] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[10:12:08] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[10:12:08] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:12:08] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:12:08] DEBUG: '[PLC_Sensor] 크기/무게 측정: {260 2 10 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:12:08] DEBUG: '[제어서버] 아이템 크기/무게: {260 2 10 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[10:12:09] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[10:12:14] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[10:12:26] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[10:12:26] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[10:12:26] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[10:12:26] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:12:26] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:12:26] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[10:12:26] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:12:26] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:12:26] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[10:12:49] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[10:12:49] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[10:12:49] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[10:12:51] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[10:15:24] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[10:15:28] WARN: 'sql: no rows in result set'
+func=apcs_refactored/model.SelectOwnerIdByAddress file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/model/Owner.go:29
+[10:15:28] WARN: 'sql: no rows in result set'
+func=apcs_refactored/webserver.CheckAddress file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:69
+[10:15:35] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:15:35] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[10:15:35] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[10:15:35] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:15:35] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:15:35] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:15:35] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:15:35] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[10:15:35] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[10:15:36] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[10:15:36] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:15:36] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:15:36] DEBUG: '[PLC_Sensor] 크기/무게 측정: {195 9 7 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:15:36] DEBUG: '[제어서버] 아이템 크기/무게: {195 9 7 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[10:15:37] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[10:15:42] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[10:15:53] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[10:15:53] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[10:15:53] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[10:15:53] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:15:53] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:15:53] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[10:15:53] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:15:53] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:15:53] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[10:16:16] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[10:16:16] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[10:16:16] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[10:16:18] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[10:58:31] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[10:58:36] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[10:58:45] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:58:45] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[10:58:45] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[10:58:45] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:58:45] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[10:58:45] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[10:58:45] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:58:45] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[10:58:45] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[10:58:46] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[10:58:46] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:58:46] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:58:46] DEBUG: '[PLC_Sensor] 크기/무게 측정: {37 3 9 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[10:58:46] DEBUG: '[제어서버] 아이템 크기/무게: {37 3 9 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[10:58:47] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[10:58:52] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[10:59:03] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[10:59:03] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[10:59:03] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[10:59:03] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[10:59:03] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[10:59:03] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[10:59:03] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[10:59:03] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[10:59:03] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[10:59:26] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[10:59:26] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[10:59:26] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[10:59:28] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[11:04:59] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:05:07] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:05:07] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:05:07] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:05:07] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:05:07] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:05:07] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:05:08] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:05:08] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:05:08] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:05:09] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:05:09] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:05:09] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:05:09] DEBUG: '[PLC_Sensor] 크기/무게 측정: {238 4 3 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:05:09] DEBUG: '[제어서버] 아이템 크기/무게: {238 4 3 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:05:09] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:05:14] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[11:05:26] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[11:05:26] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[11:05:26] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[11:05:26] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:05:26] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:05:26] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[11:05:26] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:05:26] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:05:26] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:05:49] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[11:05:49] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[11:05:49] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[11:05:51] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[11:07:44] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:07:51] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:07:51] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:07:51] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:07:51] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:07:51] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:07:51] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:07:51] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:07:51] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:07:51] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:07:52] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:07:52] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:07:52] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:07:52] DEBUG: '[PLC_Sensor] 크기/무게 측정: {257 9 10 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:07:52] DEBUG: '[제어서버] 아이템 크기/무게: {257 9 10 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:07:53] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:07:58] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[11:08:10] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[11:08:10] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[11:08:10] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[11:08:10] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:08:10] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:08:10] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[11:08:10] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:08:10] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:08:10] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:08:33] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[11:08:33] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[11:08:33] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[11:08:35] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[11:08:37] WARN: 'Get "http://localhost:8010/get/sort_item": read tcp 127.0.0.1:58525->127.0.0.1:8010: wsarecv: An existing connection was forcibly closed by the remote host.'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:35
+[11:08:45] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:09:23] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:09:23] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:09:23] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:09:23] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:09:23] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:09:23] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:09:24] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:09:24] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:09:24] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:09:25] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:09:25] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:09:25] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:09:25] DEBUG: '[PLC_Sensor] 크기/무게 측정: {203 8 7 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:09:25] DEBUG: '[제어서버] 아이템 크기/무게: {203 8 7 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:09:25] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:09:30] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[11:09:42] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[11:09:42] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[11:09:42] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[11:09:42] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:09:42] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:09:42] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[11:09:42] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:09:42] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:09:42] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:10:05] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[11:10:05] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[11:10:05] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[11:10:07] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[11:12:11] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:12:17] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:12:17] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:12:17] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:12:17] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:12:17] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:12:17] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:12:17] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:12:17] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:12:17] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:12:18] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:12:18] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:12:18] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:12:18] DEBUG: '[PLC_Sensor] 크기/무게 측정: {132 8 1 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:12:18] DEBUG: '[제어서버] 아이템 크기/무게: {132 8 1 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:12:19] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:12:24] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[11:12:35] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[11:12:35] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[11:12:35] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[11:12:35] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:12:35] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:12:35] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[11:12:35] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:12:35] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:12:35] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:12:58] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[11:12:58] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[11:12:58] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[11:13:00] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[11:14:39] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:14:43] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:14:43] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:14:43] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:14:43] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:14:43] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:14:43] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:14:44] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:14:44] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:14:44] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:14:45] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:14:45] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:14:45] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:14:45] DEBUG: '[PLC_Sensor] 크기/무게 측정: {109 10 3 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:14:45] DEBUG: '[제어서버] 아이템 크기/무게: {109 10 3 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:14:45] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:14:51] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[11:15:03] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[11:15:03] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[11:15:03] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[11:15:03] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:15:03] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:15:03] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[11:15:03] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:15:03] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:15:03] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:15:12] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:15:16] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:15:16] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:15:16] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:15:16] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:15:16] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:15:16] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:15:17] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:15:17] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:15:17] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:15:18] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:15:18] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:15:18] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:15:18] DEBUG: '[PLC_Sensor] 크기/무게 측정: {45 2 10 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:15:18] DEBUG: '[제어서버] 아이템 크기/무게: {45 2 10 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:15:18] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:15:23] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[11:15:35] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[11:15:35] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[11:15:35] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[11:15:35] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:15:35] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:15:35] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[11:15:35] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:15:35] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:15:35] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:15:56] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[11:15:56] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[11:15:56] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[11:15:57] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[11:20:28] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:20:32] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:20:32] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:20:32] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:20:32] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:20:32] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:20:32] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:20:33] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:20:33] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:20:33] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:20:34] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:20:34] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:20:34] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:20:34] DEBUG: '[PLC_Sensor] 크기/무게 측정: {131 2 2 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:20:34] DEBUG: '[제어서버] 아이템 크기/무게: {131 2 2 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:20:34] DEBUG: '[웹핸들러] 최적 슬롯: slotId=0'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:20:40] TRACE: 'URL: /input/input_item_error?error=%EC%88%98%EB%82%A9%EA%B0%80%EB%8A%A5%ED%95%9C%20%EC%8A%AC%EB%A1%AF%EC%9D%B4%20%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4'
+func=apcs_refactored/webserver.InputItemError file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:134
+[11:20:51] TRACE: 'URL: /input/cancel_input_item'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:156
+[11:20:51] DEBUG: '[웹핸들러] 수납 취소'
+func=apcs_refactored/webserver.CancelInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:158
+[11:20:51] DEBUG: '입고취소'
+func=apcs_refactored/webserver.StopInput file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:458
+[11:20:51] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:20:51] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:20:51] DEBUG: '[PLC_로봇] 대기 상태 해제'
+func=apcs_refactored/plc/robot.JobDismiss file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:561
+[11:20:51] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=대기 해제, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:20:51] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:20:51] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:21:14] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[11:21:14] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[11:21:14] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[11:21:16] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[11:21:49] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:21:54] TRACE: 'tray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:21:54] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=20'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:21:54] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:21:54] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:21:54] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:21:54] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:21:55] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:21:55] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:21:55] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:21:56] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:21:56] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:21:56] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:21:56] DEBUG: '[PLC_Sensor] 크기/무게 측정: {223 8 2 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:21:56] DEBUG: '[제어서버] 아이템 크기/무게: {223 8 2 11}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:21:56] DEBUG: '[웹핸들러] 최적 슬롯: slotId=321'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:21:56] TRACE: 'URL: /input/complete_input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:151
+[11:21:57] DEBUG: '[웹핸들러] 아이템 수납'
+func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:442
+[11:21:57] DEBUG: '[PLC] 물품 수납. slotId=321'
+func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/plc.go:197
+[11:21:57] DEBUG: '[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=321'
+func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:233
+[11:21:57] DEBUG: '[PLC] 슬롯 점유 [321]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:89
+[11:21:57] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:21:57] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:21:57] DEBUG: '[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:94
+[11:21:57] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:21:57] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[11:21:57] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=321'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:54
+[11:21:58] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:21:58] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:21:58] DEBUG: '[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=321'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:84
+[11:21:58] DEBUG: '[PLC] 슬롯 점유 해제 [321]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:122
+[11:22:59] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:23:22] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[11:23:22] DEBUG: '[웹핸들러] 빈 트레이 회수'
+func=apcs_refactored/webserver.RetrieveEmptyTrayFromTableAndUpdateDb file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:130
+[11:23:22] WARN: '빈 슬롯 없음'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:229
+[11:23:24] DEBUG: '[PLC] 물품 정리'
+func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28
+[11:24:31] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:24:48] TRACE: 'tray buffer : [19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:24:48] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=19'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:24:48] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:24:48] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:24:48] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:24:48] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:24:48] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:24:48] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:24:48] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:24:49] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:24:49] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:24:49] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:24:49] DEBUG: '[PLC_Sensor] 크기/무게 측정: {113 4 1 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:24:49] DEBUG: '[제어서버] 아이템 크기/무게: {113 4 1 33}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:24:50] DEBUG: '[웹핸들러] 최적 슬롯: slotId=345'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:24:50] TRACE: 'URL: /input/complete_input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:151
+[11:24:50] DEBUG: '[웹핸들러] 아이템 수납'
+func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:442
+[11:24:50] DEBUG: '[PLC] 물품 수납. slotId=345'
+func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/plc.go:197
+[11:24:50] DEBUG: '[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=345'
+func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:233
+[11:24:50] DEBUG: '[PLC] 슬롯 점유 [345]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:89
+[11:24:50] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:24:50] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:24:50] DEBUG: '[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:94
+[11:24:51] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:24:51] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[11:24:51] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=345'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:54
+[11:24:51] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:24:51] DEBUG: '[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=345'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:84
+[11:24:52] DEBUG: '[PLC] 슬롯 점유 해제 [345]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:122
+[11:24:53] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:25:02] TRACE: 'tray buffer : [18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:25:02] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=18'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:25:02] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:25:02] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:25:02] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:25:02] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:25:03] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:25:03] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:25:03] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:25:04] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:25:04] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:25:04] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:25:04] DEBUG: '[PLC_Sensor] 크기/무게 측정: {193 7 6 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:25:04] DEBUG: '[제어서버] 아이템 크기/무게: {193 7 6 44}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:25:04] DEBUG: '[웹핸들러] 최적 슬롯: slotId=345'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:25:04] TRACE: 'URL: /input/complete_input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:151
+[11:25:05] DEBUG: '[웹핸들러] 아이템 수납'
+func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:442
+[11:25:05] DEBUG: '[PLC] 물품 수납. slotId=345'
+func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/plc.go:197
+[11:25:05] DEBUG: '[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=345'
+func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:233
+[11:25:05] DEBUG: '[PLC] 슬롯 점유 [345]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:89
+[11:25:05] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:25:05] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:25:05] DEBUG: '[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:94
+[11:25:05] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:25:06] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:25:06] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[11:25:06] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=345'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:54
+[11:25:06] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:25:06] DEBUG: '[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=345'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:84
+[11:25:07] DEBUG: '[PLC] 슬롯 점유 해제 [345]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:122
+[11:25:37] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:25:44] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:25:51] TRACE: 'tray buffer : [17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:25:51] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=17'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:25:51] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:25:51] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:25:51] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:25:51] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:25:51] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:25:51] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:25:51] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:25:52] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:25:52] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:25:52] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:25:52] DEBUG: '[PLC_Sensor] 크기/무게 측정: {96 7 10 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:25:52] DEBUG: '[제어서버] 아이템 크기/무게: {96 7 10 44}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:25:53] DEBUG: '[웹핸들러] 최적 슬롯: slotId=345'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:25:53] TRACE: 'URL: /input/complete_input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:151
+[11:25:54] DEBUG: '[웹핸들러] 아이템 수납'
+func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:442
+[11:25:54] DEBUG: '[PLC] 물품 수납. slotId=345'
+func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/plc.go:197
+[11:25:54] DEBUG: '[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=345'
+func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:233
+[11:25:54] DEBUG: '[PLC] 슬롯 점유 [345]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:89
+[11:25:54] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:25:54] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:25:54] DEBUG: '[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:94
+[11:25:54] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:25:54] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[11:25:54] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=345'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:54
+[11:25:54] TRACE: 'URL: /input/register_delivery'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:119
+[11:25:55] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:25:55] DEBUG: '[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=345'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:84
+[11:25:55] DEBUG: '[PLC] 슬롯 점유 해제 [345]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:122
+[11:26:14] TRACE: 'tray buffer : [16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:26:14] DEBUG: '[웹 핸들러] 테이블에 빈 트레이가 있어 사용. trayId=16'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:107
+[11:26:14] DEBUG: '[PLC_로봇_Job] 로봇 하나를 테이블 앞에 대기'
+func=apcs_refactored/plc/robot.JobWaitAtTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:541
+[11:26:14] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=테이블 앞 대기, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:26:14] DEBUG: '[PLC] 테이블 점유'
+func=apcs_refactored/plc/resource.ReserveTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:61
+[11:26:14] DEBUG: '[PLC_로봇_Step] 테이블로 이동. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).moveToTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:65
+[11:26:15] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:26:15] DEBUG: '[웹 핸들러] OwnerId=1'
+func=apcs_refactored/webserver.DeliveryInfoRequested file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:204
+[11:26:15] TRACE: 'URL: /input/input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:124
+[11:26:16] TRACE: 'URL: /input/sense_table_for_item'
+func=apcs_refactored/webserver.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/handler.go:239
+[11:26:16] DEBUG: '[PLC_Sensor] 테이블 물품 존재 여부 감지: true'
+func=apcs_refactored/plc/sensor.SenseTableForItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:28
+[11:26:16] DEBUG: '[PLC_Door] 도어 조작: DoorTypeFront, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:26:16] DEBUG: '[PLC_Sensor] 크기/무게 측정: {197 7 7 0}'
+func=apcs_refactored/plc/sensor.SenseItemInfo file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/sensor/sensor.go:47
+[11:26:16] DEBUG: '[제어서버] 아이템 크기/무게: {197 7 7 55}'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:240
+[11:26:16] DEBUG: '[웹핸들러] 최적 슬롯: slotId=345'
+func=apcs_refactored/webserver.ItemSubmitted file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:299
+[11:26:16] TRACE: 'URL: /input/complete_input_item?deliveryId=5&ownerId=1'
+func=apcs_refactored/webserver.CompleteInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:151
+[11:26:17] DEBUG: '[웹핸들러] 아이템 수납'
+func=apcs_refactored/webserver.Input file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/input.go:442
+[11:26:17] DEBUG: '[PLC] 물품 수납. slotId=345'
+func=apcs_refactored/plc.InputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/plc.go:197
+[11:26:17] DEBUG: '[PLC_로봇_Job] 테이블의 물건을 슬롯에 가져다 놓기. slotId=345'
+func=apcs_refactored/plc/robot.JobInputItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:233
+[11:26:17] DEBUG: '[PLC] 슬롯 점유 [345]'
+func=apcs_refactored/plc/resource.ReserveSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:89
+[11:26:17] DEBUG: '[PLC_Job] Job을 로봇에 배정했습니다. Job=물건 수납, RobotId=1'
+func=apcs_refactored/plc/robot.DistributeJob file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/job.go:75
+[11:26:17] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationOpen'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:26:17] DEBUG: '[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=1'
+func=apcs_refactored/plc/robot.(*robot).pullFromTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:94
+[11:26:17] DEBUG: '[PLC_Door] 도어 조작: DoorTypeBack, DoorOperationClose'
+func=apcs_refactored/plc/door.SetUpDoor file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/door/door.go:36
+[11:26:17] DEBUG: '[PLC_Buffer] 트레이 버퍼 조작: BufferOperationUp'
+func=apcs_refactored/plc/trayBuffer.SetUpTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/trayBuffer/trayBuffer.go:35
+[11:26:17] DEBUG: '[PLC_로봇_Step] 슬롯으로 이동. robotId=1, slotId=345'
+func=apcs_refactored/plc/robot.(*robot).moveToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:54
+[11:26:18] DEBUG: '[PLC] 테이블 점유 해제'
+func=apcs_refactored/plc/resource.ReleaseTable file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:113
+[11:26:18] DEBUG: '[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=1, slotId=345'
+func=apcs_refactored/plc/robot.(*robot).pushToSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/robot/robot.go:84
+[11:26:18] DEBUG: '[PLC] 슬롯 점유 해제 [345]'
+func=apcs_refactored/plc/resource.ReleaseSlot file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/plc/resource/resource.go:122
+[11:26:27] TRACE: 'URL: /'
+func=apcs_refactored/webserver.Home file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/template.go:105
+[11:26:48] DEBUG: '[PLC] 트레이 버퍼 정리'
+func=apcs_refactored/webserver.SortTrayBuffer file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:215
+[11:26:49] DEBUG: '[PLC] 물품 정리'
 func=apcs_refactored/webserver.SortItem file=C:/Users/line/Desktop/무인택배/workspace/websocket/apcs/webserver/sort.go:28

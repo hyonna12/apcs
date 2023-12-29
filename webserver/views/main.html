@@ -47,7 +47,6 @@
                 console.log("버퍼개수",response.data);
                 let count = JSON.parse(response.data);
                 if(count == 15){
-                    
                     clearInterval(intervalIdBuffer);
                     next = true;
                     intervalIdItem = setInterval(sortItem, 1000);

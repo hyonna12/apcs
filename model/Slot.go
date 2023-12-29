@@ -578,7 +578,7 @@ func UpdateTempSlotToEmptyTray(request SlotUpdateRequest, tx *sql.Tx) (int64, er
 	query := `
 			UPDATE TN_CTR_SLOT
 			SET 
-				slot_enabled = ?, 
+				slot_enabled = 1, 
 				tray_id = null
 			WHERE 
 				lane = ? 

@@ -279,6 +279,7 @@ func SortTrayBuffer(w http.ResponseWriter, r *http.Request) {
 		num := trayBuffer.Buffer.Count()
 		model.InsertBufferState(num)
 		plc.TrayIdOnTable.Int64 = trayId
+		trayBuffer.Buffer.Get()
 
 		err = plc.ServeEmptyTrayToTable(slotWithEmptyTray)
 		if err != nil {
