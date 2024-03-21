@@ -4,10 +4,11 @@ import (
 	"apcs_refactored/config"
 	"apcs_refactored/messenger"
 	"encoding/json"
-	"github.com/gorilla/mux"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
+	log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -39,6 +40,7 @@ func StartWebserver(n *messenger.Node) {
 
 	// 템플릿 엔진 초기화
 	initTemplate()
+	ConnWs()
 
 	r := mux.NewRouter()
 	Handler(r)

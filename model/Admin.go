@@ -23,3 +23,16 @@ func SelectAdminPassword() (int, error) {
 	}
 	return password, nil
 }
+
+func SelectIbId() (int, error) {
+	query := `SELECT ib_id From admin`
+
+	var ib_id int
+	row := DB.QueryRow(query)
+	err := row.Scan(&ib_id)
+	if err != nil {
+		log.Error(err)
+		return ib_id, err
+	}
+	return ib_id, nil
+}
