@@ -51,3 +51,21 @@ func SelectPasswordByItemId(itemId int64) (int, error) {
 	}
 	return password, nil
 }
+
+func SelectAddressByOwnerId(id interface{}) (string, error) {
+	query := `
+		SELECT address
+		FROM TN_INF_OWNER
+		WHERE owner_id = ?
+		`
+
+	var address string
+
+	row := DB.QueryRow(query, id)
+	err := row.Scan(&address)
+	if err != nil {
+		log.Error(err)
+		return address, err
+	}
+	return address, nil
+}

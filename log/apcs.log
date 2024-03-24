@@ -2609,3 +2609,922 @@ func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:50
 [17:20:40] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:61347->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:49
+[10:29:22] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[10:29:22] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:29:22] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:29:22] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:29:22] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:29:22] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:29:22] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:32:07] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:64002->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:49
+[10:32:15] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[10:32:15] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:32:15] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:32:15] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:32:15] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:32:15] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:32:16] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:32:16] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:64017->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:50
+[10:34:19] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[10:34:19] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:34:19] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:34:19] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:34:19] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:34:20] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:34:20] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:35:15] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:64026->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:50
+[10:35:21] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[10:35:21] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:35:21] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:35:21] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:35:21] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:35:21] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:35:22] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:35:22] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:64042->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:50
+[10:36:33] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[10:36:33] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:36:33] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:36:33] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:36:33] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:36:33] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:36:33] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:37:54] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:64108->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:50
+[10:38:01] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[10:38:01] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:38:01] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:38:01] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:38:01] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:38:01] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:38:01] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:39:09] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:64121->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:50
+[10:39:16] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[10:39:16] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:39:16] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:39:16] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:39:16] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:39:16] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:39:16] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:59:33] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:64134->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:50
+[15:28:39] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:28:39] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:28:40] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:28:40] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:28:40] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:28:40] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:28:40] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:28:40] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: {"requestId":"cb0a4496-12d4-4c53-836a-ed18468e3fb3","command":"11","payload":"msg"}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:53
+[15:29:50] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:51764->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:50
+[15:29:56] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:29:56] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:29:56] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:29:56] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:29:56] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:29:56] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:29:56] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:29:56] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: {"requestId":"d8ef3560-f878-468d-9720-b21f71c29cb8","command":"11","payload":"msg"}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:53
+[15:30:00] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: {"requestId":"5d1a1fb7-24b2-4f0b-9397-dcfed75854a0","command":"getOwnerList","payload":"1"}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:53
+[16:00:22] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:51814->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:50
+[16:00:30] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[16:00:30] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[16:00:30] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[16:00:30] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[16:00:30] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[16:00:30] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[16:00:30] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:00:30] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52853->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:55
+[16:01:02] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/template.go:105
+[16:01:16] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[16:01:16] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[16:01:16] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[16:01:16] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[16:01:16] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[16:01:16] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[16:01:16] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:01:16] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52902->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:55
+[16:04:03] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[16:04:03] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[16:04:03] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[16:04:03] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[16:04:03] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[16:04:03] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[16:04:03] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:04:03] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:61
+[16:04:27] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52990->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[16:04:34] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[16:04:34] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[16:04:34] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[16:04:34] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[16:04:34] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[16:04:34] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[16:04:34] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:04:34] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{ 11 msg}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[16:05:57] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:53011->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[16:06:04] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[16:06:04] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[16:06:04] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[16:06:04] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[16:06:04] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[16:06:04] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[16:06:04] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:06:37] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{ec32c9d9-0ec5-4bb6-98e5-4b730220e139 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[16:08:26] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{68ec2e77-041e-4671-b0b9-b0bf706245c8 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[16:08:27] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{09560546-9a21-46f8-a28a-138f96d49861 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[16:09:18] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{32da0fc1-4a6c-4595-9025-2bdc0dc627a1 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[16:36:46] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:53066->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[16:36:53] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[16:36:53] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[16:36:53] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[16:36:53] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[16:36:53] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[16:36:53] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[16:36:53] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:38:27] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a2fd3d8d-3c8b-4dba-9676-005b4cbdc48d getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[16:40:31] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{74b260cd-9d9a-497a-b1af-7c348d8cb85d getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[16:51:14] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c8e2497d-d5f5-49df-b5d4-dc320e13bfe0 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[16:51:14] [32mWARN[0m: '[36minvalid connection[0m'
+func=apcs_refactored/model.SelectAddressByOwnerId file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/Owner.go:67
+[17:21:26] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54219->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:21:47] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:21:47] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:21:47] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:21:47] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:21:47] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:21:47] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:21:47] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:21:47] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:51815->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:22:50] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:51815->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:106
+[13:22:55] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:22:55] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:22:55] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:22:55] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:22:55] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:22:55] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:22:55] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:23:53] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:51827->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:27:05] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:27:05] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:27:05] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:27:05] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:27:05] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:27:05] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:27:05] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:27:08] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{4f95e245-7fcd-4e60-ac9f-84a3d29bbfab  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[13:27:08] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:51964->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:30:03] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:30:03] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:30:03] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:30:03] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:30:03] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:30:03] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:30:03] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:30:04] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52081->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:32:47] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:32:47] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:32:47] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:32:47] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:32:47] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:32:47] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:32:47] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:32:49] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{0e2cedc1-3eba-44a9-bc40-08542a89bca9 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[13:32:49] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:52180->[::1]:8080: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:106
+[13:32:49] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52180->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:33:25] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:33:25] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:33:25] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:33:25] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:33:25] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:33:25] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:33:25] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:33:28] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{79f654fd-f9b1-4895-818a-cb32571332c7 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[13:33:28] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:52214->[::1]:8080: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:106
+[13:33:28] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52214->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:35:28] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:35:28] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:35:28] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:35:28] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:35:28] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:35:28] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:35:28] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:35:30] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52307->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:37:27] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:37:27] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:37:27] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:37:27] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:37:27] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:37:27] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:37:27] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:37:30] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52404->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:39:01] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:39:01] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:39:01] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:39:01] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:39:01] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:39:01] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:39:01] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:39:02] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{7bc93f11-3f24-4878-9790-9a941d04199f getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[13:39:02] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:52457->[::1]:8080: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:106
+[13:39:02] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52457->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[13:54:39] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:54:39] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:54:39] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:54:39] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:54:39] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:54:39] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:54:39] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:54:39] [32mERROR[0m: '[36m연결 실패:dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/webserver.ConnWs file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:39
+[13:54:50] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:54:50] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:54:50] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:54:50] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:54:50] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:54:50] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:54:50] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:54:50] [32mDEBUG[0m: '[36m[123 34 114 101 113 117 101 115 116 73 100 34 58 34 102 100 57 49 55 98 55 102 45 99 102 50 101 45 52 98 53 55 45 97 48 49 97 45 56 53 52 57 52 101 100 102 57 102 51 52 34 44 34 99 111 109 109 97 110 100 34 58 34 99 111 110 110 34 44 34 115 116 97 116 117 115 34 58 34 34 44 34 112 97 121 108 111 97 100 34 58 49 125][0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:102
+[13:55:17] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[13:55:17] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:55:17] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:55:17] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:55:17] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:55:17] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:55:17] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:55:22] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a4e797a9-9ece-4ff2-96bc-7ba7b5da8a85 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[13:55:22] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:52928->[::1]:8080: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:105
+[13:55:22] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52928->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:13:34] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:13:34] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:13:34] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:13:34] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:13:34] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:13:34] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:13:34] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:13:39] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{12d1549a-7ed5-4633-842b-33412adc30c0 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:13:51] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:53692->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:13:51] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:53692->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:105
+[14:14:23] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:14:23] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:14:23] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:14:23] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:14:23] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:14:23] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:14:23] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:14:26] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f8691b41-3ec4-4734-b44b-1685040f87bb getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:15:35] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:53719->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:16:19] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:16:19] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:16:19] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:16:19] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:16:19] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:16:19] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:16:19] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:16:21] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{d14cad79-1586-4f64-98da-dd70580e6295 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:16:21] [32mDEBUG[0m: '[36msendToServer:  {d14cad79-1586-4f64-98da-dd70580e6295 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:22:17] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:53776->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:22:26] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:22:26] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:22:26] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:22:26] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:22:26] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:22:26] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:22:26] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:22:29] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{e6c03fa1-dfc7-48e8-bf64-7f4216d30f8d getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:22:29] [32mDEBUG[0m: '[36msendToServer:  {e6c03fa1-dfc7-48e8-bf64-7f4216d30f8d getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:22:47] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54053->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:24:42] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:24:42] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:24:42] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:24:42] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:24:42] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:24:42] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:24:42] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:24:44] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{80e69832-a0b5-408e-a251-5f4e6997001b getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:24:44] [32mDEBUG[0m: '[36msendToServer:  {80e69832-a0b5-408e-a251-5f4e6997001b getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:25:55] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54140->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:26:02] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:26:02] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:26:02] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:26:02] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:26:02] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:26:02] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:26:02] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:26:05] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{3dd7ef5a-068e-4e3a-a7ac-dc14e6435580 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:26:05] [32mDEBUG[0m: '[36msendToServer:  {3dd7ef5a-068e-4e3a-a7ac-dc14e6435580 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:28:20] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54196->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:28:25] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:54196->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:105
+[14:28:34] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:28:34] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:28:34] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:28:34] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:28:34] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:28:34] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:28:34] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:28:36] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{1eaa47d3-0993-46c0-ae96-2f841bbfcc76 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:28:36] [32mDEBUG[0m: '[36msendToServer:  {1eaa47d3-0993-46c0-ae96-2f841bbfcc76 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:28:36] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:54269->[::1]:8080: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:105
+[14:28:36] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54269->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:29:46] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:29:46] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:29:46] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:29:46] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:29:46] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:29:46] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:29:46] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:29:48] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{0c0b76a0-53af-456b-8dcf-1e5cac9c8473 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:29:48] [32mDEBUG[0m: '[36msendToServer:  {0c0b76a0-53af-456b-8dcf-1e5cac9c8473 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:29:48] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:54315->[::1]:8080: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:105
+[14:29:48] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54315->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:34:04] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:34:04] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:34:04] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:34:04] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:34:04] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:34:04] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:34:04] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:34:07] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c0d7fbe3-2441-46e9-b17c-a61946d8f598 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:34:07] [32mDEBUG[0m: '[36msendToServer:  {c0d7fbe3-2441-46e9-b17c-a61946d8f598 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:34:07] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:54493->[::1]:8080: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:105
+[14:34:07] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54493->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:34:56] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:34:56] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:34:56] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:34:56] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:34:56] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:34:56] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:34:56] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:34:57] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{4207bd3d-9061-4361-b584-dbc21da8fcb4 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:34:57] [32mDEBUG[0m: '[36msendToServer:  {4207bd3d-9061-4361-b584-dbc21da8fcb4 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:35:49] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54524->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:35:55] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:35:55] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:35:55] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:35:55] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:35:55] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:35:55] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:35:55] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:35:57] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{0d494cd7-f390-4cea-8e48-a295efd76c8a getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:35:57] [32mDEBUG[0m: '[36msendToServer:  {0d494cd7-f390-4cea-8e48-a295efd76c8a getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:46:22] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{b9679a32-ccab-4329-aecd-c43d7e1a1f49 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:46:22] [32mWARN[0m: '[36minvalid connection[0m'
+func=apcs_refactored/model.SelectAddressByOwnerId file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/Owner.go:67
+[14:46:22] [32mDEBUG[0m: '[36msendToServer:  {b9679a32-ccab-4329-aecd-c43d7e1a1f49 getOwnerList ok }[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:50:59] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{bd96e75f-a1e3-49db-9997-e7bdcff04453 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:50:59] [32mDEBUG[0m: '[36msendToServer:  {bd96e75f-a1e3-49db-9997-e7bdcff04453 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:56:38] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54559->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:56:42] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:56:42] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:56:42] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:56:42] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:56:42] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:56:42] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:56:42] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:56:45] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{1bc19079-3910-43ef-ba77-835ccf56d57d getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:56:45] [32mDEBUG[0m: '[36msendToServer:  {1bc19079-3910-43ef-ba77-835ccf56d57d getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:57:15] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:55850->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:57:21] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:57:21] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:57:21] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:57:21] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:57:21] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:57:21] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:57:21] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:57:22] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{acb678e1-7ab5-4403-a0c5-3e424c58beb5 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:57:22] [32mDEBUG[0m: '[36msendToServer:  {acb678e1-7ab5-4403-a0c5-3e424c58beb5 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[14:59:05] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:55874->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[14:59:23] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:59:23] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:59:23] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:59:23] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:59:23] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:59:23] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:59:23] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:59:26] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{6100917f-1a7c-4833-b377-1ed2d8730dee getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[14:59:26] [32mDEBUG[0m: '[36msendToServer:  {6100917f-1a7c-4833-b377-1ed2d8730dee getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[15:00:33] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:55933->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[15:00:39] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:00:39] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:00:39] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:00:39] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:00:39] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:00:39] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:00:39] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:00:41] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{89663093-2330-4183-984a-079701f8553d getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[15:00:41] [32mDEBUG[0m: '[36msendToServer:  {89663093-2330-4183-984a-079701f8553d getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[15:05:47] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:05:47] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:05:48] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:05:48] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:05:48] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:05:48] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:05:48] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:05:52] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c7fb5304-42b6-481e-8995-d5b6c2e73ef8 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[15:05:52] [32mDEBUG[0m: '[36msendToServer:  {c7fb5304-42b6-481e-8995-d5b6c2e73ef8 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[15:06:15] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:50111->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[15:45:09] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:50111->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:105
+[15:45:21] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:45:21] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:45:21] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:45:21] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:45:21] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:45:21] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:45:21] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:47:21] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{135578e8-8b96-4742-a48c-e48883438a64 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[15:47:21] [32mDEBUG[0m: '[36msendToServer:  {135578e8-8b96-4742-a48c-e48883438a64 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[15:47:41] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{694a2beb-2ef8-4492-8191-c80e65b9a1f3 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[15:47:41] [32mDEBUG[0m: '[36msendToServer:  {694a2beb-2ef8-4492-8191-c80e65b9a1f3 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[15:57:49] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:51488->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[15:58:08] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:58:08] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:58:08] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:58:08] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:58:08] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:58:08] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:58:09] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:58:12] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{06ee553b-2a58-44e0-ba59-84add4644a31 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[15:58:12] [32mDEBUG[0m: '[36msendToServer:  {06ee553b-2a58-44e0-ba59-84add4644a31 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[17:02:21] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{881bb604-df5f-47ce-843a-3b45744c09a1 getOwnerList 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:62
+[17:02:21] [32mDEBUG[0m: '[36msendToServer:  {881bb604-df5f-47ce-843a-3b45744c09a1 getOwnerList ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:114
+[17:02:28] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:51661->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
+[17:03:56] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[17:03:56] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[17:03:56] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[17:03:56] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[17:03:56] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[17:03:56] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[17:03:56] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[17:58:26] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52270->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:56
