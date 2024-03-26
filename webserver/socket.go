@@ -86,7 +86,9 @@ func ConnWs() {
 				res := updateAdminPwd(reqMsg)
 				sendMsg(res)
 			case GET_ITEM_LIST:
-				getItemList(reqMsg)
+				res := getItemList(reqMsg)
+				sendMsg(res)
+
 			case GET_SLOT_LIST:
 				getSlotList(reqMsg)
 			case GET_TRAY_LIST:
@@ -152,9 +154,9 @@ func getOwnerAddress(data *ReqMsg) Message {
 	id := data.Payload
 
 	address, _ := model.SelectAddressByOwnerId(id)
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	msg := &Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
 	log.Println("sendToServer: ", msg)
-	return msg
+	return *msg
 }
 
 func insertAdminPwd(data *ReqMsg) Message {
@@ -170,58 +172,133 @@ func insertAdminPwd(data *ReqMsg) Message {
 	// log.Println(admin)
 	//h_pwd := sha256.Sum256([]byte(password.(string)))
 	bool, _ := model.SelectExistPassword()
-
+	msg := &Message{}
 	if bool == 0 {
 		log.Println("master 비밀번호가 존재합니다")
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: "master비밀번호가 이미 존재합니다"}
-		return msg
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "fail"
+		msg.Payload = "master비밀번호가 이미 존재합니다"
 	} else {
 		_, err := model.InsertAdminPwd(password)
 		if err != nil {
 			log.Error(err)
-			msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
-			return msg
+			msg.RequestId = data.RequestId
+			msg.Command = data.Command
+			msg.Status = "fail"
+			msg.Payload = err.Error()
 		}
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok"}
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "fail"
+		msg.Payload = "등록 완료"
 		log.Println("sendToServer: ", msg)
-		return msg
 	}
+	return *msg
 }
+
 func updateAdminPwd(data *ReqMsg) Message {
 	password := data.Payload
 
+	msg := &Message{}
 	_, err := model.InsertAdminPwd(password)
 	if err != nil {
 		log.Error(err)
 		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
 		return msg
 	}
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok"}
+	msg.RequestId = data.RequestId
+	msg.Command = data.Command
+	msg.Status = "ok"
+	msg.Payload = "수정완료"
+
 	log.Println("sendToServer: ", msg)
-	return msg
+	return *msg
 
 }
-func getItemList(data *ReqMsg) {
-	log.Println("getItemList")
+
+func getItemList(data *ReqMsg) Message {
+	option := data.Option
+	msg := &Message{}
+	var itemList []model.ItemListResponse
+	var err error
+
+	switch option {
+	case "input":
+		itemList, err = model.SelectInputItemList()
+	case "output":
+		itemList, err = model.SelectOutputItemList()
+	case "store":
+		itemList, err = model.SelectStoreItemList()
+	}
+	if err != nil {
+		log.Error(err)
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "fail"
+		msg.Payload = err.Error()
+	}
+	msg.RequestId = data.RequestId
+	msg.Command = data.Command
+	msg.Status = "ok"
+	msg.Payload = itemList
+	log.Println("sendToServer: ", msg)
+	return *msg
 }
-func getSlotList(data *ReqMsg) {
-	log.Println("getSlotList")
+
+func getSlotList(data *ReqMsg) Message {
+	id := data.Payload
+
+	address, _ := model.SelectAddressByOwnerId(id)
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	log.Println("sendToServer: ", msg)
+	return msg
 }
-func getTrayList(data *ReqMsg) {
-	log.Println("getTrayList")
+func getTrayList(data *ReqMsg) Message {
+	id := data.Payload
+
+	address, _ := model.SelectAddressByOwnerId(id)
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	log.Println("sendToServer: ", msg)
+	return msg
 }
-func getOwnerList(data *ReqMsg) {
-	log.Println("getOwnerList")
+func getOwnerList(data *ReqMsg) Message {
+	id := data.Payload
+
+	address, _ := model.SelectAddressByOwnerId(id)
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	log.Println("sendToServer: ", msg)
+	return msg
 }
-func insert_owner(data *ReqMsg) {
-	log.Println("insert_owner")
+func insert_owner(data *ReqMsg) Message {
+	id := data.Payload
+
+	address, _ := model.SelectAddressByOwnerId(id)
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	log.Println("sendToServer: ", msg)
+	return msg
 }
-func updateOwnerInfo(data *ReqMsg) {
-	log.Println("updateOwnerInfo")
+func updateOwnerInfo(data *ReqMsg) Message {
+	id := data.Payload
+
+	address, _ := model.SelectAddressByOwnerId(id)
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	log.Println("sendToServer: ", msg)
+	return msg
 }
-func getItemByUser(data *ReqMsg) {
-	log.Println("getItemByUser")
+func getItemByUser(data *ReqMsg) Message {
+	id := data.Payload
+
+	address, _ := model.SelectAddressByOwnerId(id)
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	log.Println("sendToServer: ", msg)
+	return msg
 }
-func getTrayBufferCnt(data *ReqMsg) {
-	log.Println("getTrayBufferCnt")
+func getTrayBufferCnt(data *ReqMsg) Message {
+	id := data.Payload
+
+	address, _ := model.SelectAddressByOwnerId(id)
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	log.Println("sendToServer: ", msg)
+	return msg
 }

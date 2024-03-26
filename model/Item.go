@@ -29,8 +29,12 @@ type ItemReadResponse struct {
 type ItemListResponse struct {
 	ItemId          int64     `json:"item_id"`
 	DeliveryCompany string    `json:"delivery_company"`
+	Address         string    `json:"address"`
 	TrackingNumber  int64     `json:"tracking_number"`
 	InputDate       time.Time `json:"input_date"`
+	OutPutDate      time.Time `json:"output_date"`
+	Lane            int       `json:"lane"`
+	Floor           int       `json:"floor"`
 }
 
 type ItemCreateRequest struct {
@@ -399,14 +403,20 @@ func SelectItemExistsByTrackingNum(trackingNumber string) (bool, error) {
 	return exists, err
 }
 
-func SelectSortItemList() ([]ItemReadResponse, error) {
+func SelectStoreItemList() ([]ItemListResponse, error) {
 	query := `
-			SELECT item_id, item_height 
-			FROM TN_CTR_ITEM 
-			WHERE output_date is null
+			SELECT i.item_id, tracking_number, INPUT_DATE, d.delivery_company, o.address, s.lane, s.floor
+			FROM TN_CTR_ITEM i
+			JOIN TN_INF_DELIVERY d
+			ON i.delivery_id = d.delivery_id
+			JOIN TN_INF_OWNER o
+			ON i.owner_id = o.owner_id
+			JOIN TN_CTR_SLOT s
+			ON s.item_id = i.item_id
+			WHERE output_date IS NULL
 			`
 
-	var itemReadResponses []ItemReadResponse
+	var itemListResponses []ItemListResponse
 
 	rows, err := DB.Query(query)
 	if err != nil {
@@ -414,18 +424,18 @@ func SelectSortItemList() ([]ItemReadResponse, error) {
 	}
 
 	for rows.Next() {
-		var itemReadResponse ItemReadResponse
-		err := rows.Scan(&itemReadResponse.ItemId, &itemReadResponse.ItemHeight)
+		var itemListResponse ItemListResponse
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.Lane, &itemListResponse.Floor)
 		if err != nil {
 			return nil, err
 		}
-		itemReadResponses = append(itemReadResponses, itemReadResponse)
+		itemListResponses = append(itemListResponses, itemListResponse)
 	}
 
 	if err != nil {
 		return nil, err
 	} else {
-		return itemReadResponses, nil
+		return itemListResponses, nil
 	}
 
 }
@@ -447,4 +457,71 @@ func SelectItemHeightByItemId(itemId int64) (ItemReadResponse, error) {
 	}
 
 	return itemReadResponses, nil
+}
+
+func SelectInputItemList() ([]ItemListResponse, error) {
+	query := `
+				SELECT item_id, tracking_number, INPUT_DATE, d.delivery_company, o.address
+				FROM TN_CTR_ITEM i
+				JOIN TN_INF_DELIVERY d
+				ON i.delivery_id = d.delivery_id
+				JOIN TN_INF_OWNER o
+				ON i.owner_id = o.owner_id
+			`
+
+	var itemListResponses []ItemListResponse
+
+	rows, err := DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var itemListResponse ItemListResponse
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address)
+		if err != nil {
+			return nil, err
+		}
+		itemListResponses = append(itemListResponses, itemListResponse)
+	}
+
+	if err != nil {
+		return nil, err
+	} else {
+		return itemListResponses, nil
+	}
+}
+
+func SelectOutputItemList() ([]ItemListResponse, error) {
+	query := `
+				SELECT item_id, tracking_number, INPUT_DATE, output_date, d.delivery_company, o.address
+				FROM TN_CTR_ITEM i
+				JOIN TN_INF_DELIVERY d
+				ON i.delivery_id = d.delivery_id
+				JOIN TN_INF_OWNER o
+				ON i.owner_id = o.owner_id
+				WHERE output_date IS NOT NULL
+			`
+
+	var itemListResponses []ItemListResponse
+
+	rows, err := DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var itemListResponse ItemListResponse
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutPutDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address)
+		if err != nil {
+			return nil, err
+		}
+		itemListResponses = append(itemListResponses, itemListResponse)
+	}
+
+	if err != nil {
+		return nil, err
+	} else {
+		return itemListResponses, nil
+	}
 }

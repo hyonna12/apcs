@@ -5587,3 +5587,516 @@ func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspa
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:73
 [10:14:58] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:56052->[::1]:8080: use of closed network connection[0m'
 func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:146
+[14:23:56] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:23:56] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:23:56] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:23:56] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:23:56] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:23:56] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:23:56] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:24:36] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:65515->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:73
+[14:24:39] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:65515->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:146
+[14:24:44] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:24:44] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:24:44] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:24:44] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:24:44] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:24:44] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:24:44] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:24:46] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{dcfc4056-298e-47dc-9a4f-15d2eb6325e2 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:24:46] [32mDEBUG[0m: '[36msendToServer:  &{dcfc4056-298e-47dc-9a4f-15d2eb6325e2 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:243
+[14:25:43] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:49164->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:73
+[14:25:51] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:25:51] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:25:51] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:25:51] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:25:51] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:25:51] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:25:51] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:25:53] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{2d710b3f-f2e8-42ee-842c-d561810be6c9 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:25:53] [32mDEBUG[0m: '[36msendToServer:  &{2d710b3f-f2e8-42ee-842c-d561810be6c9 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:243
+[14:26:30] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:49210->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:73
+[14:26:36] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:26:36] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:26:36] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:26:36] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:26:36] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:26:36] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:26:36] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:26:38] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{69f24c73-31fe-4218-be30-55bdabb7cd9c getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:26:38] [32mDEBUG[0m: '[36msendToServer:  &{69f24c73-31fe-4218-be30-55bdabb7cd9c getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:35:58] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{932a73dd-68c1-4f93-a85f-d06b07b309bb getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:35:58] [32mDEBUG[0m: '[36msendToServer:  &{932a73dd-68c1-4f93-a85f-d06b07b309bb getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:36:32] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{7f397338-61ca-4fc8-976f-9e8b76d3d443 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:36:32] [32mDEBUG[0m: '[36msendToServer:  &{7f397338-61ca-4fc8-976f-9e8b76d3d443 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:36:40] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{e7a6adac-2447-4017-ab40-dcd0feba3bf7 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:36:40] [32mDEBUG[0m: '[36msendToServer:  &{e7a6adac-2447-4017-ab40-dcd0feba3bf7 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:36:59] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{3426aa0c-5226-4617-8081-73bc9f9b5157 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:36:59] [32mDEBUG[0m: '[36msendToServer:  &{3426aa0c-5226-4617-8081-73bc9f9b5157 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:43:15] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c4bd936f-65d2-4c52-aad9-8ba3dcef8ca0 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:43:15] [32mDEBUG[0m: '[36msendToServer:  &{c4bd936f-65d2-4c52-aad9-8ba3dcef8ca0 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:43:34] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{6371a8b7-56d9-4a16-a224-c7e0a3258420 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:43:34] [32mDEBUG[0m: '[36msendToServer:  &{6371a8b7-56d9-4a16-a224-c7e0a3258420 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:44:06] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f9f09d51-89dc-4dfb-bbd6-fa32a7dd8d76 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:44:06] [32mDEBUG[0m: '[36msendToServer:  &{f9f09d51-89dc-4dfb-bbd6-fa32a7dd8d76 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:44:24] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:49245->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:73
+[14:44:26] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:49245->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:148
+[14:44:30] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:44:30] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:44:30] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:44:30] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:44:30] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:44:30] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:44:30] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:44:33] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{05034c80-c9d1-4b41-8a7b-a00f81972eed getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:44:33] [32mDEBUG[0m: '[36msendToServer:  &{05034c80-c9d1-4b41-8a7b-a00f81972eed getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:44:58] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{ad2bbb15-ac1f-4d6b-8ffb-ac7e8b23073a getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:44:58] [32mDEBUG[0m: '[36msendToServer:  &{ad2bbb15-ac1f-4d6b-8ffb-ac7e8b23073a getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:45:04] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a6d2a817-dbfc-4eaa-94a1-4bda7e8cfac5 getItemList output 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:45:04] [32mWARN[0m: '[36msql: expected 7 destination arguments in Scan, not 6[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:235
+[14:45:04] [32mDEBUG[0m: '[36msendToServer:  &{a6d2a817-dbfc-4eaa-94a1-4bda7e8cfac5 getItemList ok []}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:45:43] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:49915->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:73
+[14:45:48] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:45:48] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:45:48] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:45:48] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:45:48] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:45:48] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:45:48] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:45:49] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{48f4c5f0-e4d2-46a2-9892-99cf540cea7b getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:45:49] [32mDEBUG[0m: '[36msendToServer:  &{48f4c5f0-e4d2-46a2-9892-99cf540cea7b getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:46:25] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{684d8571-cbd4-4a41-8367-7c40d11bd63e getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:46:25] [32mDEBUG[0m: '[36msendToServer:  &{684d8571-cbd4-4a41-8367-7c40d11bd63e getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:46:41] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{66f76fa1-2845-4f67-a35b-b5b50db0a78e getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:46:41] [32mDEBUG[0m: '[36msendToServer:  &{66f76fa1-2845-4f67-a35b-b5b50db0a78e getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:47:02] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{0e19b570-4f62-435a-8173-08f3222994fd getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:47:02] [32mDEBUG[0m: '[36msendToServer:  &{0e19b570-4f62-435a-8173-08f3222994fd getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:47:35] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{1925b5e3-f7a6-422d-8eb2-23a9f94ce3b6 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:47:35] [32mDEBUG[0m: '[36msendToServer:  &{1925b5e3-f7a6-422d-8eb2-23a9f94ce3b6 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:48:15] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{29908d97-081c-431e-b1bd-c2797adafe06 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:48:15] [32mDEBUG[0m: '[36msendToServer:  &{29908d97-081c-431e-b1bd-c2797adafe06 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:48:25] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{1bc61ea8-cc2d-4c3a-b8d1-981c8c338179 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:48:25] [32mDEBUG[0m: '[36msendToServer:  &{1bc61ea8-cc2d-4c3a-b8d1-981c8c338179 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:52:02] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{fd9315ba-9fee-4900-87ab-c81e61fb5ca6 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:52:02] [32mDEBUG[0m: '[36msendToServer:  &{fd9315ba-9fee-4900-87ab-c81e61fb5ca6 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[14:52:24] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f706a6b1-069c-48ee-8365-e7a44c731e26 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[14:52:24] [32mDEBUG[0m: '[36msendToServer:  &{f706a6b1-069c-48ee-8365-e7a44c731e26 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:00:42] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{87b355d7-bf2b-499c-ba6d-cb0ae2c651a2 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:00:42] [32mDEBUG[0m: '[36msendToServer:  &{87b355d7-bf2b-499c-ba6d-cb0ae2c651a2 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:36:06] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{1ef792b1-1c1c-44a1-bba8-40442d750642 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:36:06] [32mDEBUG[0m: '[36msendToServer:  &{1ef792b1-1c1c-44a1-bba8-40442d750642 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:38:31] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{7f562ee0-8c8f-47d2-acfe-68cf5c54c2f6 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:38:31] [32mDEBUG[0m: '[36msendToServer:  &{7f562ee0-8c8f-47d2-acfe-68cf5c54c2f6 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:38:38] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{268dd793-aadc-4dba-8c72-e0af798c8e3c getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:38:38] [32mDEBUG[0m: '[36msendToServer:  &{268dd793-aadc-4dba-8c72-e0af798c8e3c getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:39:10] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{e4efdcb5-8312-4f94-85f8-2bd082effe99 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:39:10] [32mDEBUG[0m: '[36msendToServer:  &{e4efdcb5-8312-4f94-85f8-2bd082effe99 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:39:18] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{3ad99aa0-e73b-4ca6-aa9b-b841b955d0c9 getItemList output 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:39:18] [32mDEBUG[0m: '[36msendToServer:  &{3ad99aa0-e73b-4ca6-aa9b-b841b955d0c9 getItemList ok [{2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 2024-02-14 08:40:47 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:39:21] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{eeb2558b-20cb-48a3-91d5-0d7ab2d32f56 getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:39:21] [32mDEBUG[0m: '[36msendToServer:  &{eeb2558b-20cb-48a3-91d5-0d7ab2d32f56 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:39:23] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{434a1d31-47ab-4b07-b8bb-d3e0e1bdd3ae getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:39:23] [32mDEBUG[0m: '[36msendToServer:  &{434a1d31-47ab-4b07-b8bb-d3e0e1bdd3ae getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:39:25] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{ab75a6a4-1a0a-44bc-91d0-e63ca30ac343 getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:39:25] [32mDEBUG[0m: '[36msendToServer:  &{ab75a6a4-1a0a-44bc-91d0-e63ca30ac343 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:40:07] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{b3c31a31-9439-4eba-ab85-ea084fed94ee getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:40:07] [32mDEBUG[0m: '[36msendToServer:  &{b3c31a31-9439-4eba-ab85-ea084fed94ee getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:41:02] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{d2eea566-d23c-41f2-8494-46edc1e969cc getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:41:02] [32mDEBUG[0m: '[36msendToServer:  &{d2eea566-d23c-41f2-8494-46edc1e969cc getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:41:07] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{402f2eae-5470-40af-8aca-b5d8cf0a2e74 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:41:07] [32mDEBUG[0m: '[36msendToServer:  &{402f2eae-5470-40af-8aca-b5d8cf0a2e74 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:41:09] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a4cabb79-7770-4067-b1e9-b81917f2498a getItemList output 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:41:09] [32mDEBUG[0m: '[36msendToServer:  &{a4cabb79-7770-4067-b1e9-b81917f2498a getItemList ok [{2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 2024-02-14 08:40:47 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:41:11] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{871f6519-6054-4b33-a725-e70d895f16fb getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:41:11] [32mDEBUG[0m: '[36msendToServer:  &{871f6519-6054-4b33-a725-e70d895f16fb getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:41:34] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{9bed3d47-447f-4851-b005-6ba772617add getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:41:34] [32mDEBUG[0m: '[36msendToServer:  &{9bed3d47-447f-4851-b005-6ba772617add getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:41:36] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{676ab993-d216-4138-a618-5f126b564a4c getItemList output 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:41:36] [32mDEBUG[0m: '[36msendToServer:  &{676ab993-d216-4138-a618-5f126b564a4c getItemList ok [{2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 2024-02-14 08:40:47 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:41:38] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{6ed7b3e0-a2eb-4070-9ad8-12ee8e288a16 getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:41:38] [32mDEBUG[0m: '[36msendToServer:  &{6ed7b3e0-a2eb-4070-9ad8-12ee8e288a16 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:42:28] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:49975->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:73
+[15:42:33] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:42:33] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:42:33] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:42:33] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:42:33] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:42:33] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:42:33] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:42:36] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{27672cca-2709-4ff8-a36b-7e22a5e616bf getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:42:36] [32mDEBUG[0m: '[36msendToServer:  &{27672cca-2709-4ff8-a36b-7e22a5e616bf getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:42:59] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{dcdc22e7-48b5-42ca-9997-329d481551a5 getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:42:59] [32mDEBUG[0m: '[36msendToServer:  &{dcdc22e7-48b5-42ca-9997-329d481551a5 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:43:07] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{bf78c1da-5aaf-4a97-b6a5-38d647643e1f getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:43:07] [32mDEBUG[0m: '[36msendToServer:  &{bf78c1da-5aaf-4a97-b6a5-38d647643e1f getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:43:11] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{9975ae65-6f59-4a9f-8516-f043a565a9ad getItemList output 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:43:11] [32mDEBUG[0m: '[36msendToServer:  &{9975ae65-6f59-4a9f-8516-f043a565a9ad getItemList ok [{2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 2024-02-14 08:40:47 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:43:18] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{7124ab2d-ea1d-428f-a768-966a62b36fff getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:43:18] [32mDEBUG[0m: '[36msendToServer:  &{7124ab2d-ea1d-428f-a768-966a62b36fff getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:43:43] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{e80f4bf4-bba4-4532-a0fb-343f35bb21e0 getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:43:43] [32mDEBUG[0m: '[36msendToServer:  &{e80f4bf4-bba4-4532-a0fb-343f35bb21e0 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:44:10] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{1f9ea0ae-24f7-4859-a2a3-91c3c99c1ea4 getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:44:10] [32mDEBUG[0m: '[36msendToServer:  &{1f9ea0ae-24f7-4859-a2a3-91c3c99c1ea4 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:44:18] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c86a0e55-d631-4fa7-ba5e-a96a70f56bf9 getItemList output 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:44:18] [32mDEBUG[0m: '[36msendToServer:  &{c86a0e55-d631-4fa7-ba5e-a96a70f56bf9 getItemList ok [{2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 2024-02-14 08:40:47 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:44:26] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{09488828-9718-45ed-9c0d-2b41c4ac0eb5 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:44:26] [32mDEBUG[0m: '[36msendToServer:  &{09488828-9718-45ed-9c0d-2b41c4ac0eb5 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:44:29] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a6e1156e-cade-4582-ae71-6db872488a84 getItemList output 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:44:29] [32mDEBUG[0m: '[36msendToServer:  &{a6e1156e-cade-4582-ae71-6db872488a84 getItemList ok [{2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 2024-02-14 08:40:47 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:44:31] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{5323603e-8b5a-469f-b677-419eb09bcd7c getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:44:31] [32mDEBUG[0m: '[36msendToServer:  &{5323603e-8b5a-469f-b677-419eb09bcd7c getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[15:45:37] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{ccd5f003-fb77-4d95-b4e2-d3a2c2388305 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[15:45:37] [32mDEBUG[0m: '[36msendToServer:  &{ccd5f003-fb77-4d95-b4e2-d3a2c2388305 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:06:11] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{147a4d82-4059-46ec-958c-53ddf49d706a getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:06:11] [32mDEBUG[0m: '[36msendToServer:  &{147a4d82-4059-46ec-958c-53ddf49d706a getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:06:24] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{8e1e6d9e-9645-4ef3-a21a-c0c1e617600a getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:06:24] [32mDEBUG[0m: '[36msendToServer:  &{8e1e6d9e-9645-4ef3-a21a-c0c1e617600a getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:06:36] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{7a202a87-bb51-4121-b8c9-5f8b68925991 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:06:36] [32mDEBUG[0m: '[36msendToServer:  &{7a202a87-bb51-4121-b8c9-5f8b68925991 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:07:16] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c00316d6-390c-40ab-8d9f-d69721f880ef getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:07:16] [32mDEBUG[0m: '[36msendToServer:  &{c00316d6-390c-40ab-8d9f-d69721f880ef getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:07:36] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{65a81de4-100a-41fc-9b73-53e01175d692 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:07:36] [32mDEBUG[0m: '[36msendToServer:  &{65a81de4-100a-41fc-9b73-53e01175d692 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:09:28] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{54c03882-d4c1-48f4-b502-d8a1742bf58a getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:09:28] [32mDEBUG[0m: '[36msendToServer:  &{54c03882-d4c1-48f4-b502-d8a1742bf58a getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:14:02] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{df554372-d450-4035-b9d8-0e06db0bab2b getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:14:02] [32mDEBUG[0m: '[36msendToServer:  &{df554372-d450-4035-b9d8-0e06db0bab2b getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:14:20] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a046c24a-e994-49cf-b38d-72375833d7a8 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:14:20] [32mDEBUG[0m: '[36msendToServer:  &{a046c24a-e994-49cf-b38d-72375833d7a8 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:14:48] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{d96c12cf-1454-4d75-9eaa-70e22928f0a6 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:14:48] [32mDEBUG[0m: '[36msendToServer:  &{d96c12cf-1454-4d75-9eaa-70e22928f0a6 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:15:58] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{665b22fd-de8f-46ef-823f-f36ff7061877 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:15:58] [32mDEBUG[0m: '[36msendToServer:  &{665b22fd-de8f-46ef-823f-f36ff7061877 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:16:21] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f9849d64-aef0-441e-ba17-5068505f19c1 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:16:21] [32mDEBUG[0m: '[36msendToServer:  &{f9849d64-aef0-441e-ba17-5068505f19c1 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:16:35] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{1069b2cb-32ab-4a97-872e-2797cfb7b563 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:16:35] [32mDEBUG[0m: '[36msendToServer:  &{1069b2cb-32ab-4a97-872e-2797cfb7b563 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:17:32] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a3b20d4e-a1e2-4282-9672-721969f76b4a getOwnerAddress  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:17:32] [32mDEBUG[0m: '[36msendToServer:  &{a3b20d4e-a1e2-4282-9672-721969f76b4a getOwnerAddress ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerAddress file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:158
+[16:17:36] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{4caa82ba-0f4e-4013-9b78-4a47484bee96 insertAdminPwd  5aadb45520dcd8726b2822a7a78bb53d794f557199d5d4abdedd2c55a4bd6ca73607605c558de3db80c8e86c3196484566163ed1327e82e8b6757d1932113cb8}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:17:36] [32mDEBUG[0m: '[36mmaster 비밀번호가 존재합니다[0m'
+func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:177
+[16:18:15] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{592b9528-8d33-441b-922c-312096b4cf66 getOwnerAddress  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:18:15] [32mDEBUG[0m: '[36msendToServer:  &{592b9528-8d33-441b-922c-312096b4cf66 getOwnerAddress ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerAddress file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:158
+[16:18:18] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{49eadd10-9886-4875-bce6-57d5ebbff6c1 insertAdminPwd  4dff4ea340f0a823f15d3f4f01ab62eae0e5da579ccb851f8db9dfe84c58b2b37b89903a740e1ee172da793a6e79d560e5f7f9bd058a12a280433ed6fa46510a}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:18:18] [32mDEBUG[0m: '[36mmaster 비밀번호가 존재합니다[0m'
+func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:177
+[16:18:20] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{7f81f245-4fc1-40a9-a43d-fd397380e09a getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:18:20] [32mDEBUG[0m: '[36msendToServer:  &{7f81f245-4fc1-40a9-a43d-fd397380e09a getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:19:45] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{31d1698c-c6b0-413e-a815-22dc89daf9d1 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:19:45] [32mDEBUG[0m: '[36msendToServer:  &{31d1698c-c6b0-413e-a815-22dc89daf9d1 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:20:48] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{084f9712-ee65-42f6-8b64-f83445dfd2dc getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:20:48] [32mDEBUG[0m: '[36msendToServer:  &{084f9712-ee65-42f6-8b64-f83445dfd2dc getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:20:51] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{7c49cf05-cddc-446a-8241-7bc6add62317 getOwnerAddress  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:20:51] [32mDEBUG[0m: '[36msendToServer:  &{7c49cf05-cddc-446a-8241-7bc6add62317 getOwnerAddress ok 123}[0m'
+func=apcs_refactored/webserver.getOwnerAddress file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:158
+[16:21:18] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f85a60d2-50ce-4284-9806-6b9eec7bf037 insertAdminPwd  4dff4ea340f0a823f15d3f4f01ab62eae0e5da579ccb851f8db9dfe84c58b2b37b89903a740e1ee172da793a6e79d560e5f7f9bd058a12a280433ed6fa46510a}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:21:18] [32mDEBUG[0m: '[36mmaster 비밀번호가 존재합니다[0m'
+func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:177
+[16:22:59] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{5bad192b-b08e-4270-88ad-53d66d3b12ca getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:22:59] [32mDEBUG[0m: '[36msendToServer:  &{5bad192b-b08e-4270-88ad-53d66d3b12ca getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:23:02] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c618bf35-5e66-4d90-b259-20531a68bb95 getItemList output 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:23:02] [32mDEBUG[0m: '[36msendToServer:  &{c618bf35-5e66-4d90-b259-20531a68bb95 getItemList ok [{2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 2024-02-14 08:40:47 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:23:04] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{344e28b8-c34e-4178-8f40-1d4851b221e1 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:23:04] [32mDEBUG[0m: '[36msendToServer:  &{344e28b8-c34e-4178-8f40-1d4851b221e1 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:25:29] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{62aab576-5a55-4893-95a7-0cf4b886235f getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:25:29] [32mDEBUG[0m: '[36msendToServer:  &{62aab576-5a55-4893-95a7-0cf4b886235f getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:25:31] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{78d8e285-9077-4b8d-a49a-99c70c280e7a getItemList output 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:25:31] [32mDEBUG[0m: '[36msendToServer:  &{78d8e285-9077-4b8d-a49a-99c70c280e7a getItemList ok [{2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 2024-02-14 08:40:47 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:25:33] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{78c7306f-3f55-43ef-9d8a-40a52593f1ae getItemList store 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:25:33] [32mDEBUG[0m: '[36msendToServer:  &{78c7306f-3f55-43ef-9d8a-40a52593f1ae getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 2 1}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:25:35] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f563b3af-6636-42c3-a211-60007d949e87 getItemList input 1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:79
+[16:25:35] [32mDEBUG[0m: '[36msendToServer:  &{f563b3af-6636-42c3-a211-60007d949e87 getItemList ok [{1 COUPANG 123 1111 2024-02-14 08:39:56 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0} {2 COUPANG 123 2222 2024-02-14 08:40:15 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0 0}]}[0m'
+func=apcs_refactored/webserver.getItemList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:245
+[16:25:45] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52337->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:73
