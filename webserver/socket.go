@@ -39,6 +39,8 @@ const (
 	UPDATE_OWNER_INFO   = "updateOwnerInfo"
 	GET_ITEM_BY_USER    = "getItemByUser"
 	GET_TRAY_Buffer_Cnt = "getTrayBufferCnt"
+
+	GET_OWNER_ADDRESS = "getOwnerAddress"
 )
 
 // WebSocket 연결을 위한 주소
@@ -78,27 +80,31 @@ func ConnWs() {
 
 			switch reqMsg.Command {
 			case INSERT_ADMIN_PWD:
-				insertAdminPwd()
+				res := insertAdminPwd(reqMsg)
+				sendMsg(res)
 			case UPDATE_ADMIM_PWD:
-				updateAdminPwd()
+				res := updateAdminPwd(reqMsg)
+				sendMsg(res)
 			case GET_ITEM_LIST:
-				getItemList()
+				getItemList(reqMsg)
 			case GET_SLOT_LIST:
-				getSlotList()
+				getSlotList(reqMsg)
 			case GET_TRAY_LIST:
-				getTrayList()
+				getTrayList(reqMsg)
 			case GET_OWNER_LIST:
-				getOwnerList()
+				getOwnerList(reqMsg)
 			case INSERT_OWNER:
-				insert_owner()
+				insert_owner(reqMsg)
 			case UPDATE_OWNER_INFO:
-				updateOwnerInfo()
+				updateOwnerInfo(reqMsg)
 			case GET_ITEM_BY_USER:
-				getItemByUser()
+				getItemByUser(reqMsg)
 			case GET_TRAY_Buffer_Cnt:
-				getTrayBufferCnt()
-			case "getOwnerAddress":
-				getOwnerAddress(reqMsg)
+				getTrayBufferCnt(reqMsg)
+			case GET_OWNER_ADDRESS:
+				res := getOwnerAddress(reqMsg)
+				sendMsg(res)
+
 			}
 		}
 	}()
@@ -142,43 +148,80 @@ func sendMsg(msg Message) {
 	}
 }
 
-func getOwnerAddress(data *ReqMsg) {
+func getOwnerAddress(data *ReqMsg) Message {
 	id := data.Payload
+
 	address, _ := model.SelectAddressByOwnerId(id)
 	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
 	log.Println("sendToServer: ", msg)
-	sendMsg(msg)
+	return msg
 }
 
-func insertAdminPwd() {
-	log.Println("insertAdminPwd")
+func insertAdminPwd(data *ReqMsg) Message {
+	password := data.Payload
+
+	// result, _ := json.Marshal(payload)
+	// log.Println(result)
+
+	// err := mapstructure.Decode(payload, &admin)
+	// if err != nil {
+	// 	log.Error(err)
+	// }
+	// log.Println(admin)
+	//h_pwd := sha256.Sum256([]byte(password.(string)))
+	bool, _ := model.SelectExistPassword()
+
+	if bool == 0 {
+		log.Println("master 비밀번호가 존재합니다")
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: "master비밀번호가 이미 존재합니다"}
+		return msg
+	} else {
+		_, err := model.InsertAdminPwd(password)
+		if err != nil {
+			log.Error(err)
+			msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+			return msg
+		}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok"}
+		log.Println("sendToServer: ", msg)
+		return msg
+	}
 }
-func updateAdminPwd() {
-	log.Println("updateAdminPwd")
+func updateAdminPwd(data *ReqMsg) Message {
+	password := data.Payload
+
+	_, err := model.InsertAdminPwd(password)
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		return msg
+	}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok"}
+	log.Println("sendToServer: ", msg)
+	return msg
+
 }
-func getItemList() {
+func getItemList(data *ReqMsg) {
 	log.Println("getItemList")
 }
-func getSlotList() {
+func getSlotList(data *ReqMsg) {
 	log.Println("getSlotList")
 }
-func getTrayList() {
+func getTrayList(data *ReqMsg) {
 	log.Println("getTrayList")
 }
-func getOwnerList() {
+func getOwnerList(data *ReqMsg) {
 	log.Println("getOwnerList")
 }
-func insert_owner() {
+func insert_owner(data *ReqMsg) {
 	log.Println("insert_owner")
 }
-func updateOwnerInfo() {
+func updateOwnerInfo(data *ReqMsg) {
 	log.Println("updateOwnerInfo")
-
 }
-func getItemByUser() {
+func getItemByUser(data *ReqMsg) {
 	log.Println("getItemByUser")
-
 }
-func getTrayBufferCnt() {
+func getTrayBufferCnt(data *ReqMsg) {
 	log.Println("getTrayBufferCnt")
 }

@@ -5,8 +5,8 @@ import (
 )
 
 type Admin struct {
-	AdminId  int64
 	Password string
+	IbId     int
 }
 
 func SelectAdminPassword() (int, error) {
@@ -24,6 +24,21 @@ func SelectAdminPassword() (int, error) {
 	return password, nil
 }
 
+func SelectExistPassword() (int, error) {
+	query := `
+		select IF((SELECT password FROM admin) IS NULL, 1, 0);
+		`
+	var exists int
+
+	row := DB.QueryRow(query)
+	err := row.Scan(&exists)
+	if err != nil {
+		log.Error(err)
+		return exists, err
+	}
+	return exists, nil
+}
+
 func SelectIbId() (int, error) {
 	query := `SELECT ib_id From admin`
 
@@ -35,4 +50,22 @@ func SelectIbId() (int, error) {
 		return ib_id, err
 	}
 	return ib_id, nil
+}
+
+func InsertAdminPwd(password interface{}) (int64, error) {
+	query := `UPDATE admin
+				SET password = ?
+			`
+
+	result, err := DB.Exec(query, password)
+	if err != nil {
+		return 0, err
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
 }

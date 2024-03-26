@@ -20,5 +20,6 @@ require (
 	github.com/fatih/color v1.15.0
 	github.com/future-architect/go-mcprotocol v0.0.0-20210518065132-abfb4ef2fb9b
 	github.com/gorilla/mux v1.8.0
+	github.com/mitchellh/mapstructure v1.5.0
 	golang.org/x/sys v0.6.0 // indirect
 )
