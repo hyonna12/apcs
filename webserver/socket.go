@@ -90,7 +90,9 @@ func ConnWs() {
 				sendMsg(res)
 
 			case GET_SLOT_LIST:
-				getSlotList(reqMsg)
+				res := getSlotList(reqMsg)
+				sendMsg(res)
+
 			case GET_TRAY_LIST:
 				getTrayList(reqMsg)
 			case GET_OWNER_LIST:
@@ -153,7 +155,12 @@ func sendMsg(msg Message) {
 func getOwnerAddress(data *ReqMsg) Message {
 	id := data.Payload
 
-	address, _ := model.SelectAddressByOwnerId(id)
+	address, err := model.SelectAddressByOwnerId(id)
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		return msg
+	}
 	msg := &Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
 	log.Println("sendToServer: ", msg)
 	return *msg
@@ -247,10 +254,13 @@ func getItemList(data *ReqMsg) Message {
 }
 
 func getSlotList(data *ReqMsg) Message {
-	id := data.Payload
-
-	address, _ := model.SelectAddressByOwnerId(id)
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	slotList, err := model.SelectSlotList()
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		return msg
+	}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: slotList}
 	log.Println("sendToServer: ", msg)
 	return msg
 }
