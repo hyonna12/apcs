@@ -437,7 +437,6 @@ func SelectStoreItemList() ([]ItemListResponse, error) {
 	} else {
 		return itemListResponses, nil
 	}
-
 }
 
 func SelectItemHeightByItemId(itemId int64) (ItemReadResponse, error) {
@@ -524,4 +523,111 @@ func SelectOutputItemList() ([]ItemListResponse, error) {
 	} else {
 		return itemListResponses, nil
 	}
+}
+
+func SelectInputItemByUser(owner_id interface{}) ([]ItemListResponse, error) {
+	query := `
+				SELECT item_id, tracking_number, INPUT_DATE, d.delivery_company, o.address
+				FROM TN_CTR_ITEM i
+				JOIN TN_INF_DELIVERY d
+				ON i.delivery_id = d.delivery_id
+				JOIN TN_INF_OWNER o
+				ON i.owner_id = o.owner_id
+				WHERE i.owner_id = ?
+			`
+
+	var itemListResponses []ItemListResponse
+
+	rows, err := DB.Query(query, owner_id)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var itemListResponse ItemListResponse
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address)
+		if err != nil {
+			return nil, err
+		}
+		itemListResponses = append(itemListResponses, itemListResponse)
+	}
+
+	if err != nil {
+		return nil, err
+	} else {
+		return itemListResponses, nil
+	}
+}
+
+func SelectOutputItemByUser(owner_id interface{}) ([]ItemListResponse, error) {
+	query := `
+				SELECT item_id, tracking_number, INPUT_DATE, output_date, d.delivery_company, o.address
+				FROM TN_CTR_ITEM i
+				JOIN TN_INF_DELIVERY d
+				ON i.delivery_id = d.delivery_id
+				JOIN TN_INF_OWNER o
+				ON i.owner_id = o.owner_id
+				WHERE output_date IS NOT NULL
+				AND i.owner_id = ?
+			`
+
+	var itemListResponses []ItemListResponse
+
+	rows, err := DB.Query(query, owner_id)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var itemListResponse ItemListResponse
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutPutDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address)
+		if err != nil {
+			return nil, err
+		}
+		itemListResponses = append(itemListResponses, itemListResponse)
+	}
+
+	if err != nil {
+		return nil, err
+	} else {
+		return itemListResponses, nil
+	}
+}
+
+func SelectStoreItemByUser(owner_id interface{}) ([]ItemListResponse, error) {
+	query := `
+			SELECT i.item_id, tracking_number, INPUT_DATE, d.delivery_company, o.address, s.lane, s.floor
+			FROM TN_CTR_ITEM i
+			JOIN TN_INF_DELIVERY d
+			ON i.delivery_id = d.delivery_id
+			JOIN TN_INF_OWNER o
+			ON i.owner_id = o.owner_id
+			JOIN TN_CTR_SLOT s
+			ON s.item_id = i.item_id
+			WHERE output_date IS NULL
+			AND i.owner_id = ?
+			`
+
+	var itemListResponses []ItemListResponse
+
+	rows, err := DB.Query(query, owner_id)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var itemListResponse ItemListResponse
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.Lane, &itemListResponse.Floor)
+		if err != nil {
+			return nil, err
+		}
+		itemListResponses = append(itemListResponses, itemListResponse)
+	}
+
+	if err != nil {
+		return nil, err
+	} else {
+		return itemListResponses, nil
+	}
+
 }

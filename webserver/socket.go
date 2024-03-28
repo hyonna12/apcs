@@ -107,9 +107,9 @@ func ConnWs() {
 			case UPDATE_OWNER_INFO:
 				res := updateOwnerInfo(reqMsg)
 				sendMsg(res)
-
 			case GET_ITEM_BY_USER:
-				getItemByUser(reqMsg)
+				res := getItemByUser(reqMsg)
+				sendMsg(res)
 			case GET_TRAY_Buffer_Cnt:
 				res := getTrayBufferCnt(reqMsg)
 				sendMsg(res)
@@ -358,13 +358,34 @@ func updateOwnerInfo(data *ReqMsg) Message {
 	log.Println("sendToServer: ", msg)
 	return msg
 }
-func getItemByUser(data *ReqMsg) Message {
-	id := data.Payload
 
-	address, _ := model.SelectAddressByOwnerId(id)
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+func getItemByUser(data *ReqMsg) Message {
+	option := data.Option
+	msg := &Message{}
+	var itemList []model.ItemListResponse
+	var err error
+	owner_id := data.Payload
+	switch option {
+	case "input":
+		itemList, err = model.SelectInputItemByUser(owner_id)
+	case "output":
+		itemList, err = model.SelectOutputItemByUser(owner_id)
+	case "store":
+		itemList, err = model.SelectStoreItemByUser(owner_id)
+	}
+	if err != nil {
+		log.Error(err)
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "fail"
+		msg.Payload = err.Error()
+	}
+	msg.RequestId = data.RequestId
+	msg.Command = data.Command
+	msg.Status = "ok"
+	msg.Payload = itemList
 	log.Println("sendToServer: ", msg)
-	return msg
+	return *msg
 }
 
 type TrayInfo struct {
