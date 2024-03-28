@@ -103,9 +103,10 @@ func ConnWs() {
 			case INSERT_OWNER:
 				res := insertOwner(reqMsg)
 				sendMsg(res)
-
 			case UPDATE_OWNER_INFO:
-				updateOwnerInfo(reqMsg)
+				res := updateOwnerInfo(reqMsg)
+				sendMsg(res)
+
 			case GET_ITEM_BY_USER:
 				getItemByUser(reqMsg)
 			case GET_TRAY_Buffer_Cnt:
@@ -331,11 +332,27 @@ func insertOwner(data *ReqMsg) Message {
 		return msg
 	}
 }
-func updateOwnerInfo(data *ReqMsg) Message {
-	id := data.Payload
 
-	address, _ := model.SelectAddressByOwnerId(id)
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+func updateOwnerInfo(data *ReqMsg) Message {
+	payload, _ := json.Marshal(data.Payload)
+	owner := &Owner{}
+	err := json.Unmarshal(payload, owner)
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		return msg
+	}
+	log.Println("owner: ", owner)
+
+	// TODO - 해당 id를 가진 owner 있는지 확인
+	_, err = model.UpdateOwnerInfo(model.OwnerUpdateRequest{OwnerId: int64(owner.OwnerId), PhoneNum: owner.PhoneNum, Password: owner.Password})
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		return msg
+	}
+
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: "수정완료"}
 	log.Println("sendToServer: ", msg)
 	return msg
 }

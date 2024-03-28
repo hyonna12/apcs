@@ -20,6 +20,12 @@ type OwnerCreateRequest struct {
 	Password string `json:"password"`
 }
 
+type OwnerUpdateRequest struct {
+	OwnerId  int64  `json:"owner_id"`
+	PhoneNum string `json:"phoneNum"`
+	Password string `json:"password"`
+}
+
 func SelectOwnerIdByAddress(address string) (int64, error) {
 	query := `
 		SELECT owner_id
@@ -166,4 +172,26 @@ func SelectOwnerAddressList() ([]Owner, error) {
 	} else {
 		return ownerList, nil
 	}
+}
+
+func UpdateOwnerInfo(ownerUpdateRequest OwnerUpdateRequest) (int64, error) {
+	log.Println("UpdateOwnerInfo", ownerUpdateRequest)
+	query := `UPDATE TN_INF_OWNER
+				SET 
+					phone_num = ?, 
+					password = ?
+				WHERE owner_id = ?
+			`
+
+	result, err := DB.Exec(query, ownerUpdateRequest.PhoneNum, ownerUpdateRequest.Password, ownerUpdateRequest.OwnerId)
+	if err != nil {
+		return 0, err
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
 }

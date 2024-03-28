@@ -7073,3 +7073,303 @@ func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/wo
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
 [14:51:14] [32mDEBUG[0m: '[36msendToServer:  {a821ca42-f1ba-4e3d-a742-df6ee4c46642 getOwnerAddressList ok [{0  123} {0  124} {0  125} {0  126} {0  127}]}[0m'
 func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[14:52:02] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[14:52:02] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:52:03] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:52:03] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:52:03] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:52:03] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:52:03] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:52:04] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{eba45eb2-a9ea-46cd-98de-5a7200013485 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[14:52:04] [32mDEBUG[0m: '[36msendToServer:  {eba45eb2-a9ea-46cd-98de-5a7200013485 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[14:52:59] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{587ef6dd-2a39-4335-881a-dc2712297f61 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[14:52:59] [32mDEBUG[0m: '[36msendToServer:  {587ef6dd-2a39-4335-881a-dc2712297f61 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[14:54:50] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a91af783-b110-46a6-a48f-15ee474fb439 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[14:54:50] [32mDEBUG[0m: '[36msendToServer:  {a91af783-b110-46a6-a48f-15ee474fb439 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[14:56:46] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{b9d723c5-fa27-40f5-93d6-c4dd05432bf5 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[14:56:46] [32mDEBUG[0m: '[36msendToServer:  {b9d723c5-fa27-40f5-93d6-c4dd05432bf5 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[14:58:38] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{65837f46-e934-4dc9-92c0-ffa0ca5f8a78 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[14:58:38] [32mDEBUG[0m: '[36msendToServer:  {65837f46-e934-4dc9-92c0-ffa0ca5f8a78 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[15:01:51] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a8107c54-3897-4d9e-b423-ebf7e085f3fb getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:01:51] [32mDEBUG[0m: '[36msendToServer:  {a8107c54-3897-4d9e-b423-ebf7e085f3fb getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[15:02:28] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{53e90b5d-ab71-43ba-a9e2-86b3d3060cac getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:02:28] [32mDEBUG[0m: '[36msendToServer:  {53e90b5d-ab71-43ba-a9e2-86b3d3060cac getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[15:02:42] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{b9cb9235-a2eb-4f17-a543-c9dccb9c2604 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:02:42] [32mDEBUG[0m: '[36msendToServer:  {b9cb9235-a2eb-4f17-a543-c9dccb9c2604 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[15:04:58] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:55374->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:74
+[15:05:14] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:05:14] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:05:14] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:05:14] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:05:14] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:05:14] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:05:14] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:05:15] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{492e8c88-cb5b-4bfb-bec1-3ca0674028c7 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:05:15] [32mDEBUG[0m: '[36msendToServer:  {492e8c88-cb5b-4bfb-bec1-3ca0674028c7 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:367
+[15:14:14] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:55853->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:74
+[15:14:20] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:14:20] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:14:20] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:14:20] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:14:20] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:14:20] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:14:20] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:14:21] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{24274a36-615a-4016-ba02-3890847af2ff getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:14:21] [32mDEBUG[0m: '[36msendToServer:  {24274a36-615a-4016-ba02-3890847af2ff getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:14:25] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{da4faaa9-1b18-4cdd-b855-c48d51d05b72 insertOwner  map[address:123 id:%!s(float64=1) password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:123]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:14:25] [32mDEBUG[0m: '[36mowner:  &{1 123 3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 123}[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:315
+[15:14:25] [32mWARN[0m: '[36m해당 유저가 이미 존재합니다[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:320
+[15:14:38] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c7e24838-3865-4449-91c6-4b1da4ac8f37 insertOwner  map[id:1 password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:321]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:14:38] [32mWARN[0m: '[36mjson: cannot unmarshal string into Go struct field Owner.id of type int[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:311
+[15:15:37] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{defb50b1-d33b-4308-8fed-5383a70ca5a7 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:15:37] [32mDEBUG[0m: '[36msendToServer:  {defb50b1-d33b-4308-8fed-5383a70ca5a7 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:15:40] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{4bf1710d-3580-4a5f-8ec7-de5d339765b8 insertOwner  map[id:1 password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:321]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:15:40] [32mWARN[0m: '[36mjson: cannot unmarshal string into Go struct field Owner.id of type int[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:311
+[15:16:28] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{cea56f1f-b7c6-4d30-bce3-19cc2440570f getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:16:28] [32mDEBUG[0m: '[36msendToServer:  {cea56f1f-b7c6-4d30-bce3-19cc2440570f getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:16:32] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{8feb5bf0-654b-4844-adc4-8c3ae74a6a13 insertOwner  map[id:1 password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:123]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:16:32] [32mWARN[0m: '[36mjson: cannot unmarshal string into Go struct field Owner.id of type int[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:311
+[15:17:26] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f59f41f8-ece1-4cbc-90ff-00142f49c2a2 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:17:26] [32mDEBUG[0m: '[36msendToServer:  {f59f41f8-ece1-4cbc-90ff-00142f49c2a2 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:17:28] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{ef830046-e0b6-473b-87f6-d88525b86dbb insertOwner  map[id:1 password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:321]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:17:28] [32mWARN[0m: '[36mjson: cannot unmarshal string into Go struct field Owner.id of type int[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:311
+[15:17:36] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{0839a869-0172-4d80-b782-5d3fae90383a getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:17:36] [32mDEBUG[0m: '[36msendToServer:  {0839a869-0172-4d80-b782-5d3fae90383a getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:17:52] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f52195ab-39cb-4609-b859-2c54c44edfa4 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:17:52] [32mDEBUG[0m: '[36msendToServer:  {f52195ab-39cb-4609-b859-2c54c44edfa4 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:17:53] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{0b652935-51e0-4dd3-8401-bdcb93ec438d insertOwner  map[id:1 password:6de43471cd4967b1528662e43004956126065b7a678d5e56160b33029ac7e7a684e353fd8e8d0ed2f963fa8e7225ef1f61f613681bd70c50dbf7b0c1783983ad phoneNum:321]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:17:53] [32mWARN[0m: '[36mjson: cannot unmarshal string into Go struct field Owner.id of type int[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:311
+[15:19:48] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{7423b8d8-568c-4f8a-8a7c-33d5d9eadfa4 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:19:48] [32mDEBUG[0m: '[36msendToServer:  {7423b8d8-568c-4f8a-8a7c-33d5d9eadfa4 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:20:19] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{d1221d3f-be05-461f-beb0-7eb0b6c218e4 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:20:19] [32mDEBUG[0m: '[36msendToServer:  {d1221d3f-be05-461f-beb0-7eb0b6c218e4 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:21:05] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{26a42ec9-e75b-4a5c-b75b-41183066a66d getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:21:05] [32mDEBUG[0m: '[36msendToServer:  {26a42ec9-e75b-4a5c-b75b-41183066a66d getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:24:15] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f3ea2cbc-88c8-46c6-91db-52fee709ab9c getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:24:15] [32mDEBUG[0m: '[36msendToServer:  {f3ea2cbc-88c8-46c6-91db-52fee709ab9c getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:24:26] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{598efc3d-c861-40ac-8a39-18542b36b33b getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:24:26] [32mDEBUG[0m: '[36msendToServer:  {598efc3d-c861-40ac-8a39-18542b36b33b getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:24:43] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{69a8f221-e33a-487e-a241-cf12a58897d3 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:24:43] [32mDEBUG[0m: '[36msendToServer:  {69a8f221-e33a-487e-a241-cf12a58897d3 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:24:45] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{18e44f49-b89b-496c-b06d-12fdd533a5df insertOwner  map[id:%!s(float64=1) password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:321]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:24:45] [32mDEBUG[0m: '[36mowner:  &{1  3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 321}[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:315
+[15:24:45] [32mWARN[0m: '[36msql: no rows in result set[0m'
+func=apcs_refactored/model.SelectOwnerIdByAddress file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/Owner.go:40
+[15:26:54] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:56144->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:74
+[15:27:00] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:27:00] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:27:00] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:27:00] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:27:00] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:27:00] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:27:00] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:27:02] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{98ea62e0-02b5-4791-abe8-86592b213153 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:27:02] [32mDEBUG[0m: '[36msendToServer:  {98ea62e0-02b5-4791-abe8-86592b213153 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:27:06] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f2ad47c6-5b01-4efc-ba6f-eb4ad9ddf5c4 insertOwner  map[id:%!s(float64=1) password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:321]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:27:06] [32mDEBUG[0m: '[36mowner:  &{1  3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 321}[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:315
+[15:27:06] [32mWARN[0m: '[36msql: no rows in result set[0m'
+func=apcs_refactored/model.SelectOwnerIdByAddress file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/Owner.go:41
+[15:29:34] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:29:34] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:29:34] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:29:34] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:29:34] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:29:34] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:29:34] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:29:36] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{6be89b4e-d800-4a7c-aef0-b6fa4217a7a7 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:29:36] [32mDEBUG[0m: '[36msendToServer:  {6be89b4e-d800-4a7c-aef0-b6fa4217a7a7 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:382
+[15:29:38] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{82c4c0b5-38a4-405a-be79-f0884b6f0965 insertOwner  map[id:%!s(float64=1) password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:321]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:29:38] [32mDEBUG[0m: '[36mowner:  &{1  3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 321}[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:315
+[15:29:38] [32mWARN[0m: '[36msql: no rows in result set[0m'
+func=apcs_refactored/model.SelectOwnerIdByAddress file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/Owner.go:41
+[15:31:36] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:31:36] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:31:36] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:31:36] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:31:36] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:31:36] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:31:36] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:31:38] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{f53dc5df-e833-4cdf-b0fa-2a8c1e92148b getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:31:38] [32mDEBUG[0m: '[36msendToServer:  {f53dc5df-e833-4cdf-b0fa-2a8c1e92148b getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127} {10  }]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:383
+[15:31:43] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{29d7c554-51c0-4a70-a2a9-068212c6ba39 insertOwner  map[id:%!s(float64=1) password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:321]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:31:43] [32mDEBUG[0m: '[36mowner:  &{1  3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 321}[0m'
+func=apcs_refactored/webserver.insertOwner file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:316
+[15:33:03] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:56907->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:74
+[15:33:09] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[15:33:09] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:33:09] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:33:09] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:33:09] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:33:09] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:33:09] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:33:10] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{4050df39-f775-4f37-ac72-57b92ba00ecc getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:33:10] [32mDEBUG[0m: '[36msendToServer:  {4050df39-f775-4f37-ac72-57b92ba00ecc getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:383
+[15:33:11] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{91523b9a-9dbc-44b7-ba4e-20c17a04d832 updateOwnerInfo  map[id:%!s(float64=1) password:3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 phoneNum:321]}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
+[15:33:11] [32mDEBUG[0m: '[36mowner:  &{1  3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2 321}[0m'
+func=apcs_refactored/webserver.updateOwnerInfo file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:345
+[15:33:11] [32mDEBUG[0m: '[36mUpdateOwnerInfo {1 321 3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2}[0m'
+func=apcs_refactored/model.UpdateOwnerInfo file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/Owner.go:178
+[15:33:11] [32mDEBUG[0m: '[36msendToServer:  {91523b9a-9dbc-44b7-ba4e-20c17a04d832 updateOwnerInfo ok 수정완료}[0m'
+func=apcs_refactored/webserver.updateOwnerInfo file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:355
+[15:34:10] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:56968->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:74
