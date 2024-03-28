@@ -2,6 +2,7 @@ package webserver
 
 import (
 	"apcs_refactored/model"
+	"apcs_refactored/plc/trayBuffer"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -110,7 +111,8 @@ func ConnWs() {
 			case GET_ITEM_BY_USER:
 				getItemByUser(reqMsg)
 			case GET_TRAY_Buffer_Cnt:
-				getTrayBufferCnt(reqMsg)
+				res := getTrayBufferCnt(reqMsg)
+				sendMsg(res)
 			case GET_OWNER_ADDRESS:
 				res := getOwnerAddress(reqMsg)
 				sendMsg(res)
@@ -364,11 +366,18 @@ func getItemByUser(data *ReqMsg) Message {
 	log.Println("sendToServer: ", msg)
 	return msg
 }
-func getTrayBufferCnt(data *ReqMsg) Message {
-	id := data.Payload
 
-	address, _ := model.SelectAddressByOwnerId(id)
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+type TrayInfo struct {
+	TrayCount int         `json:"trayCnt"`
+	List      interface{} `json:"list"`
+}
+
+func getTrayBufferCnt(data *ReqMsg) Message {
+	list := trayBuffer.Buffer.Get()
+	tray_buffer, _ := model.SelectTrayBufferState()
+	payload := &TrayInfo{TrayCount: tray_buffer.Count, List: list}
+	log.Println(payload)
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: payload}
 	log.Println("sendToServer: ", msg)
 	return msg
 }

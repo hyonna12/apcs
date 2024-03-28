@@ -7373,3 +7373,172 @@ func=apcs_refactored/model.UpdateOwnerInfo file=C:/Users/Line/Desktop/workspace/
 func=apcs_refactored/webserver.updateOwnerInfo file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:355
 [15:34:10] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:56968->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:74
+[16:19:24] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[16:19:24] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[16:19:24] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[16:19:24] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[16:19:24] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[16:19:24] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[16:19:24] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:19:24] [32mERROR[0m: '[36m연결 실패:dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/webserver.ConnWs file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:58
+[16:19:52] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[16:19:52] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[16:19:52] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[16:19:52] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[16:19:52] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[16:19:52] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[16:19:52] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:19:53] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c19aa9c6-9264-4943-96a4-65aa457fcb40 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:19:53] [32mDEBUG[0m: '[36msendToServer:  {c19aa9c6-9264-4943-96a4-65aa457fcb40 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:386
+[16:19:53] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{bb640ad9-d528-44f3-8c86-dd5b636c22a3 getTrayBufferCnt  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:19:53] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:19:53] [32mDEBUG[0m: '[36m[20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:370
+[16:19:53] [32mDEBUG[0m: '[36m{18 {2024-02-14 08:39:56 +0000 UTC true}}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:372
+[16:25:11] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:59452->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:75
+[16:25:16] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[16:25:16] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[16:25:16] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[16:25:16] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[16:25:16] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[16:25:16] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[16:25:16] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:25:18] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{248093a5-a630-49dd-b8d6-b57a29c944cd getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:25:18] [32mDEBUG[0m: '[36msendToServer:  {248093a5-a630-49dd-b8d6-b57a29c944cd getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:393
+[16:25:19] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{036c0732-de23-4773-9dbf-737e1cf612f5 getTrayBufferCnt  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:25:19] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:25:19] [32mDEBUG[0m: '[36m&{18 [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:379
+[16:25:19] [32mDEBUG[0m: '[36msendToServer:  {036c0732-de23-4773-9dbf-737e1cf612f5 getTrayBufferCnt ok 0xc000388360}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:381
+[16:28:02] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{623643d9-b8d1-4344-a308-e8a782f97b0b getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:28:02] [32mDEBUG[0m: '[36msendToServer:  {623643d9-b8d1-4344-a308-e8a782f97b0b getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:393
+[16:28:03] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{40e0ba38-36c6-4c1b-aeff-bf925445fbae getTrayBufferCnt  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:28:03] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:28:03] [32mDEBUG[0m: '[36m&{18 [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:379
+[16:28:03] [32mDEBUG[0m: '[36msendToServer:  {40e0ba38-36c6-4c1b-aeff-bf925445fbae getTrayBufferCnt ok 0xc0003885b8}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:381
+[16:28:18] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{27636879-13bc-4721-967e-0e8e6e1104df getTrayBufferCnt  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:28:18] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:28:18] [32mDEBUG[0m: '[36m&{18 [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:379
+[16:28:18] [32mDEBUG[0m: '[36msendToServer:  {27636879-13bc-4721-967e-0e8e6e1104df getTrayBufferCnt ok 0xc000388678}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:381
+[16:28:25] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{cdada22b-d08e-4aa5-b67a-69cdc3296203 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:28:25] [32mDEBUG[0m: '[36msendToServer:  {cdada22b-d08e-4aa5-b67a-69cdc3296203 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:393
+[16:28:26] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{ef244f6a-01ae-46c8-832f-7fb565964459 getTrayBufferCnt  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:28:26] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:28:26] [32mDEBUG[0m: '[36m&{18 [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:379
+[16:28:26] [32mDEBUG[0m: '[36msendToServer:  {ef244f6a-01ae-46c8-832f-7fb565964459 getTrayBufferCnt ok 0xc000388840}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:381
+[16:28:34] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{dede435f-bd0f-40a8-932a-8baf61ac2e76 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:28:34] [32mDEBUG[0m: '[36msendToServer:  {dede435f-bd0f-40a8-932a-8baf61ac2e76 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:393
+[16:28:34] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{0ba160b5-ad42-4a7b-a611-d63244074640 getTrayBufferCnt  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:28:34] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:28:34] [32mDEBUG[0m: '[36m&{18 [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:379
+[16:28:34] [32mDEBUG[0m: '[36msendToServer:  {0ba160b5-ad42-4a7b-a611-d63244074640 getTrayBufferCnt ok 0xc000388a08}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:381
+[16:29:03] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{177bf964-71e1-49fd-a182-3f0612f1db64 getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:29:03] [32mDEBUG[0m: '[36msendToServer:  {177bf964-71e1-49fd-a182-3f0612f1db64 getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:393
+[16:29:03] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{95e95375-8a03-4bde-a356-2c81bca41abe getTrayBufferCnt  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:29:03] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:29:03] [32mDEBUG[0m: '[36m&{18 [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:379
+[16:29:03] [32mDEBUG[0m: '[36msendToServer:  {95e95375-8a03-4bde-a356-2c81bca41abe getTrayBufferCnt ok 0xc000388bd0}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:381
+[16:29:20] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{2e5b2838-fb35-4ecf-b3d8-d0b41632b45c getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:29:20] [32mDEBUG[0m: '[36msendToServer:  {2e5b2838-fb35-4ecf-b3d8-d0b41632b45c getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:393
+[16:29:21] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{c5369d6a-39dd-4bd3-adab-275d2859f494 getTrayBufferCnt  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:29:21] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:29:21] [32mDEBUG[0m: '[36m&{18 [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:379
+[16:29:21] [32mDEBUG[0m: '[36msendToServer:  {c5369d6a-39dd-4bd3-adab-275d2859f494 getTrayBufferCnt ok 0xc000388d98}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:381
+[16:29:27] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{bb63901e-ef9f-41c6-a536-a87640b2090f getOwnerAddressList  <nil>}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:29:27] [32mDEBUG[0m: '[36msendToServer:  {bb63901e-ef9f-41c6-a536-a87640b2090f getOwnerAddressList ok [{1  123} {2  124} {3  125} {4  126} {5  127}]}[0m'
+func=apcs_refactored/webserver.getOwnerAddressList file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:393
+[16:29:28] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{edbf6d66-390d-4a4c-a946-fc5339c41d71 getTrayBufferCnt  1}
+[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:81
+[16:29:28] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[16:29:28] [32mDEBUG[0m: '[36m&{18 [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1]}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:379
+[16:29:28] [32mDEBUG[0m: '[36msendToServer:  {edbf6d66-390d-4a4c-a946-fc5339c41d71 getTrayBufferCnt ok 0xc000388f60}[0m'
+func=apcs_refactored/webserver.getTrayBufferCnt file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:381
+[16:29:34] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:59707->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:75
