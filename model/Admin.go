@@ -26,7 +26,7 @@ func SelectAdminPassword() (int, error) {
 
 func SelectExistPassword() (int, error) {
 	query := `
-		select IF((SELECT password FROM admin) IS NULL, 1, 0);
+		select IF((SELECT password FROM admin) IS NULL, 0, 1);
 		`
 	var exists int
 

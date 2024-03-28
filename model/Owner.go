@@ -14,6 +14,12 @@ type Owner struct {
 	Address  string
 }
 
+type OwnerCreateRequest struct {
+	PhoneNum string `json:"phoneNum"`
+	Address  string `json:"address"`
+	Password string `json:"password"`
+}
+
 func SelectOwnerIdByAddress(address string) (int64, error) {
 	query := `
 		SELECT owner_id
@@ -86,6 +92,70 @@ func SelectOwnerList() ([]Owner, error) {
 	for rows.Next() {
 		var owner Owner
 		err := rows.Scan(&owner.OwnerId, &owner.PhoneNum, &owner.Address)
+		if err != nil {
+			return nil, err
+		}
+		ownerList = append(ownerList, owner)
+	}
+	if err != nil {
+		return nil, err
+	} else {
+		return ownerList, nil
+	}
+}
+
+func InsertOwner(ownerCreateRequest OwnerCreateRequest) (int64, error) {
+	query := `INSERT INTO TN_INF_OWNER(
+							phone_num, 
+							address, 
+							password)
+				VALUES(?, ?, ?)
+				`
+
+	result, err := DB.Exec(query, ownerCreateRequest.PhoneNum, ownerCreateRequest.Address, ownerCreateRequest.Password)
+	if err != nil {
+		return 0, err
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
+}
+
+func SelectExistOwner(address string) (int, error) {
+	query := `
+		select IF((SELECT owner_id FROM TN_INF_OWNER WHERE address = ?) IS NULL, 0, 1);
+		`
+	var exists int
+
+	row := DB.QueryRow(query, address)
+	err := row.Scan(&exists)
+	if err != nil {
+		log.Error(err)
+		return exists, err
+	}
+	return exists, nil
+}
+
+func SelectOwnerAddressList() ([]Owner, error) {
+	query := `
+		SELECT owner_id, address
+		FROM TN_INF_OWNER
+	`
+
+	var ownerList []Owner
+
+	rows, err := DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var owner Owner
+		err := rows.Scan(&owner.OwnerId, &owner.Address)
 		if err != nil {
 			return nil, err
 		}

@@ -40,7 +40,8 @@ const (
 	GET_ITEM_BY_USER    = "getItemByUser"
 	GET_TRAY_Buffer_Cnt = "getTrayBufferCnt"
 
-	GET_OWNER_ADDRESS = "getOwnerAddress"
+	GET_OWNER_ADDRESS      = "getOwnerAddress"
+	GET_OWNER_ADDRESS_LIST = "getOwnerAddressList"
 )
 
 // WebSocket 연결을 위한 주소
@@ -100,7 +101,9 @@ func ConnWs() {
 				res := getOwnerList(reqMsg)
 				sendMsg(res)
 			case INSERT_OWNER:
-				insert_owner(reqMsg)
+				res := insertOwner(reqMsg)
+				sendMsg(res)
+
 			case UPDATE_OWNER_INFO:
 				updateOwnerInfo(reqMsg)
 			case GET_ITEM_BY_USER:
@@ -109,6 +112,9 @@ func ConnWs() {
 				getTrayBufferCnt(reqMsg)
 			case GET_OWNER_ADDRESS:
 				res := getOwnerAddress(reqMsg)
+				sendMsg(res)
+			case GET_OWNER_ADDRESS_LIST:
+				res := getOwnerAddressList(reqMsg)
 				sendMsg(res)
 
 			}
@@ -182,7 +188,7 @@ func insertAdminPwd(data *ReqMsg) Message {
 	//h_pwd := sha256.Sum256([]byte(password.(string)))
 	bool, _ := model.SelectExistPassword()
 	msg := &Message{}
-	if bool == 0 {
+	if bool == 1 {
 		log.Println("master 비밀번호가 존재합니다")
 		msg.RequestId = data.RequestId
 		msg.Command = data.Command
@@ -277,19 +283,53 @@ func getSlotTrayList(data *ReqMsg) Message {
 	log.Println("sendToServer: ", msg)
 	return msg
 }
+
 func getOwnerList(data *ReqMsg) Message {
-	owner, _ := model.SelectOwnerList()
+	owner, err := model.SelectOwnerList()
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		return msg
+	}
 	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: owner}
 	log.Println("sendToServer: ", msg)
 	return msg
 }
-func insert_owner(data *ReqMsg) Message {
-	id := data.Payload
 
-	address, _ := model.SelectAddressByOwnerId(id)
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
-	log.Println("sendToServer: ", msg)
-	return msg
+type Owner struct {
+	OwnerId  int    `json:"id"`
+	Address  string `json:"address"`
+	Password string `json:"password"`
+	PhoneNum string `json:"phoneNum"`
+}
+
+func insertOwner(data *ReqMsg) Message {
+	payload, _ := json.Marshal(data.Payload)
+	owner := &Owner{}
+	err := json.Unmarshal(payload, owner)
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		return msg
+	}
+	log.Println("owner: ", owner)
+
+	bool, _ := model.SelectOwnerIdByAddress(owner.Address)
+	if bool == 1 {
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: "해당 유저가 이미 존재합니다"}
+		log.Error("해당 유저가 이미 존재합니다")
+		return msg
+	} else {
+		ownerCreateRequest := model.OwnerCreateRequest{PhoneNum: owner.PhoneNum, Address: owner.Address, Password: owner.Password}
+		_, err := model.InsertOwner(ownerCreateRequest)
+		if err != nil {
+			msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+			log.Error(err)
+			return msg
+		}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: "등록완료"}
+		return msg
+	}
 }
 func updateOwnerInfo(data *ReqMsg) Message {
 	id := data.Payload
@@ -312,6 +352,18 @@ func getTrayBufferCnt(data *ReqMsg) Message {
 
 	address, _ := model.SelectAddressByOwnerId(id)
 	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	log.Println("sendToServer: ", msg)
+	return msg
+}
+
+func getOwnerAddressList(data *ReqMsg) Message {
+	owner, err := model.SelectOwnerAddressList()
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		return msg
+	}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: owner}
 	log.Println("sendToServer: ", msg)
 	return msg
 }
