@@ -9,7 +9,7 @@ import (
 type Tray struct {
 	TrayId       int64
 	TrayOccupied bool
-	ItemId       int64
+	ItemId       *int64
 	CDatetime    time.Time
 	UDatetime    time.Time
 }
@@ -18,7 +18,7 @@ type TrayReadResponse struct {
 	TrayId int64
 	Lane   int
 	Floor  int
-	ItemId int64
+	ItemId *int64
 }
 
 type TrayUpdateRequest struct {
@@ -35,12 +35,14 @@ func SelectTrayList() ([]TrayReadResponse, error) {
 			    t.item_id 
 			FROM TN_CTR_TRAY t
 			JOIN TN_CTR_SLOT s
-				ON t.tray_id = s.tray_id
+			ON t.tray_id = s.tray_id
+			ORDER BY tray_id
 			`
 	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
+	//var item_id *int64
 
 	var trayReadResponses []TrayReadResponse
 
@@ -50,6 +52,7 @@ func SelectTrayList() ([]TrayReadResponse, error) {
 		if err != nil {
 			return nil, err
 		}
+
 		trayReadResponses = append(trayReadResponses, trayReadResponse)
 	}
 

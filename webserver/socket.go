@@ -33,7 +33,7 @@ const (
 	UPDATE_ADMIM_PWD    = "updateAdminPwd"
 	GET_ITEM_LIST       = "getItemList"
 	GET_SLOT_LIST       = "getSlotList"
-	GET_TRAY_LIST       = "getTrayList"
+	GET_SLOT_TRAY_LIST  = "getSlotTrayList"
 	GET_OWNER_LIST      = "getOwnerList"
 	INSERT_OWNER        = "insertOwner"
 	UPDATE_OWNER_INFO   = "updateOwnerInfo"
@@ -93,10 +93,12 @@ func ConnWs() {
 				res := getSlotList(reqMsg)
 				sendMsg(res)
 
-			case GET_TRAY_LIST:
-				getTrayList(reqMsg)
+			case GET_SLOT_TRAY_LIST:
+				res := getSlotTrayList(reqMsg)
+				sendMsg(res)
 			case GET_OWNER_LIST:
-				getOwnerList(reqMsg)
+				res := getOwnerList(reqMsg)
+				sendMsg(res)
 			case INSERT_OWNER:
 				insert_owner(reqMsg)
 			case UPDATE_OWNER_INFO:
@@ -221,7 +223,6 @@ func updateAdminPwd(data *ReqMsg) Message {
 
 	log.Println("sendToServer: ", msg)
 	return *msg
-
 }
 
 func getItemList(data *ReqMsg) Message {
@@ -264,19 +265,21 @@ func getSlotList(data *ReqMsg) Message {
 	log.Println("sendToServer: ", msg)
 	return msg
 }
-func getTrayList(data *ReqMsg) Message {
-	id := data.Payload
 
-	address, _ := model.SelectAddressByOwnerId(id)
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+func getSlotTrayList(data *ReqMsg) Message {
+	trayList, err := model.SelectTrayList()
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		return msg
+	}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: trayList}
 	log.Println("sendToServer: ", msg)
 	return msg
 }
 func getOwnerList(data *ReqMsg) Message {
-	id := data.Payload
-
-	address, _ := model.SelectAddressByOwnerId(id)
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	owner, _ := model.SelectOwnerList()
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: owner}
 	log.Println("sendToServer: ", msg)
 	return msg
 }

@@ -69,3 +69,31 @@ func SelectAddressByOwnerId(id interface{}) (string, error) {
 	}
 	return address, nil
 }
+
+func SelectOwnerList() ([]Owner, error) {
+	query := `
+		SELECT owner_id, phone_num, address
+		FROM TN_INF_OWNER
+	`
+
+	var ownerList []Owner
+
+	rows, err := DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var owner Owner
+		err := rows.Scan(&owner.OwnerId, &owner.PhoneNum, &owner.Address)
+		if err != nil {
+			return nil, err
+		}
+		ownerList = append(ownerList, owner)
+	}
+	if err != nil {
+		return nil, err
+	} else {
+		return ownerList, nil
+	}
+}
