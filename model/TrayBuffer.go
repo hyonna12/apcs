@@ -13,6 +13,7 @@ func SelectTrayBufferState() (TrayBuffer, error) {
 				tray_count, 
 				updatetime
 			FROM tray_buffer
+			ORDER BY updatetime DESC LIMIT 1
 			`
 
 	var trayBuffer TrayBuffer

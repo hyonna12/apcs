@@ -59,13 +59,13 @@ func TestSelectPasswordByItemId(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    int
+		want    string
 		wantErr bool
 	}{
 		{
 			name:    "password_test",
 			args:    args{itemId: 1},
-			want:    1234,
+			want:    "1234",
 			wantErr: false,
 		},
 	}

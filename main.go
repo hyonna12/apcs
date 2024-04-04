@@ -104,6 +104,8 @@ func main() {
 
 	resource.InitResources(slotIds)
 	event.StartEventServer(eventMsgNode)
+	go webserver.ConnWs()
+
 	// 웹소켓 서버 시작
 	webserver.StartWebserver(websocketserverMsgNode)
 }

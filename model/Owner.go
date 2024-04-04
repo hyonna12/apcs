@@ -44,7 +44,7 @@ func SelectOwnerIdByAddress(address string) (int64, error) {
 	return ownerId, nil
 }
 
-func SelectPasswordByItemId(itemId int64) (int, error) {
+func SelectPasswordByItemId(itemId int64) (string, error) {
 	query := `
 		SELECT password
 		FROM TN_INF_OWNER o
@@ -53,7 +53,7 @@ func SelectPasswordByItemId(itemId int64) (int, error) {
 		WHERE i.item_id = ?
 		`
 
-	var password int
+	var password string
 
 	row := DB.QueryRow(query, itemId)
 	err := row.Scan(&password)

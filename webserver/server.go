@@ -40,7 +40,6 @@ func StartWebserver(n *messenger.Node) {
 
 	// 템플릿 엔진 초기화
 	initTemplate()
-	ConnWs()
 
 	r := mux.NewRouter()
 	Handler(r)

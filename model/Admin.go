@@ -9,11 +9,11 @@ type Admin struct {
 	IbId     int
 }
 
-func SelectAdminPassword() (int, error) {
+func SelectAdminPassword() (string, error) {
 	query := `
 		SELECT password FROM admin
 		`
-	var password int
+	var password string
 
 	row := DB.QueryRow(query)
 	err := row.Scan(&password)

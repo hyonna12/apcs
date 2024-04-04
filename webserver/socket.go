@@ -395,6 +395,7 @@ type TrayInfo struct {
 
 func getTrayBufferCnt(data *ReqMsg) Message {
 	list := trayBuffer.Buffer.Get()
+	// TODO - 스택에 있는 개수와 DB개수 비교
 	tray_buffer, _ := model.SelectTrayBufferState()
 	payload := &TrayInfo{TrayCount: tray_buffer.Count, List: list}
 	log.Println(payload)

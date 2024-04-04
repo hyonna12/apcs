@@ -414,6 +414,7 @@ func SelectStoreItemList() ([]ItemListResponse, error) {
 			JOIN TN_CTR_SLOT s
 			ON s.item_id = i.item_id
 			WHERE output_date IS NULL
+			AND s.tray_id IS NOT null
 			`
 
 	var itemListResponses []ItemListResponse
@@ -605,6 +606,7 @@ func SelectStoreItemByUser(owner_id interface{}) ([]ItemListResponse, error) {
 			JOIN TN_CTR_SLOT s
 			ON s.item_id = i.item_id
 			WHERE output_date IS NULL
+			AND s.tray_id IS NOT null
 			AND i.owner_id = ?
 			`
 

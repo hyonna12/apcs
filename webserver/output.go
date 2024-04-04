@@ -9,7 +9,9 @@ import (
 	"apcs_refactored/plc/sensor"
 	"apcs_refactored/plc/trayBuffer"
 	"context"
+	"crypto/sha512"
 	"database/sql"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -323,8 +325,8 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
 
 	request := &struct {
-		ItemId   int64 `json:"item_id"`
-		Password int   `json:"password"`
+		ItemId   int64  `json:"item_id"`
+		Password string `json:"password"`
 	}{}
 	err := json.NewDecoder(r.Body).Decode(request)
 	if err != nil {
@@ -333,6 +335,11 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO - 비밀번호 해싱
+	hash := sha512.New()
+	hash.Write([]byte(request.Password))
+	//hash.Write([]byte("salt"))
+	hashPassword := hex.EncodeToString(hash.Sum(nil))
+
 	password, err := model.SelectPasswordByItemId(request.ItemId)
 	if err != nil {
 		// TODO - DB 에러 발생 시 에러처리
@@ -348,7 +355,7 @@ func ItemOutputCheckPassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 마스터 pw 값으로 수정***
-	if request.Password == password || request.Password == adminPassword {
+	if hashPassword == password || hashPassword == adminPassword {
 		if err = plc.SetUpDoor(door.DoorTypeFront, door.DoorOperationOpen); err != nil {
 			log.Error(err)
 			// TODO - PLC 에러처리

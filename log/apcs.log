@@ -4979,8 +4979,8 @@ func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
 [16:08:06] [32mDEBUG[0m: '[36m11[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:178
-[16:08:06] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
-�[0m'
+[16:08:06] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
+�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:179
 [16:08:06] [32mDEBUG[0m: '[36m1[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:182
@@ -5051,8 +5051,8 @@ func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop
 [16:11:35] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{2f6e2f5f-4825-4a5d-a60c-53e3cccd5951 insertAdminPwd  11}
 [0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
-[16:11:35] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
-�[0m'
+[16:11:35] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
+�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:181
 [16:11:35] [32mDEBUG[0m: '[36m11[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:184
@@ -5077,8 +5077,8 @@ func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop
 [16:25:41] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{06b4f0ba-8feb-4980-8e50-2245aea40775 insertAdminPwd  11}
 [0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
-[16:25:41] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
-�[0m'
+[16:25:41] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
+�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:172
 [16:25:41] [32mDEBUG[0m: '[36mmaster 비밀번호가 존재[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:176
@@ -5115,8 +5115,8 @@ func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop
 [16:27:51] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{2d16b02c-9f6d-48bc-894e-cf0ac74be419 insertAdminPwd  11}
 [0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
-[16:27:51] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
-�[0m'
+[16:27:51] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
+�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:172
 [16:27:51] [32mDEBUG[0m: '[36mmaster 비밀번호가 존재[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:176
@@ -5139,22 +5139,22 @@ func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop
 [16:28:23] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{e9e8ae99-4563-4b6d-84f1-7dd714a2631d insertAdminPwd  11}
 [0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
-[16:28:23] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
-�[0m'
+[16:28:23] [32mDEBUG[0m: '[36mO�+&��G҆�N��X2����l.�2,
+�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:172
 [16:28:23] [32mDEBUG[0m: '[36mmaster 비밀번호가 존재[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:176
 [16:29:42] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{e8a59349-34c8-4ed9-bb33-e1595ee57873 insertAdminPwd  999}
 [0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
-[16:29:42] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
+[16:29:42] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:172
 [16:29:42] [32mDEBUG[0m: '[36mmaster 비밀번호가 존재[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:176
 [16:30:06] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{7136e730-1f1c-4031-ad18-791dc56a8454 insertAdminPwd  999}
 [0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
-[16:30:06] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
+[16:30:06] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:172
 [16:30:06] [32mDEBUG[0m: '[36mmaster 비밀번호가 존재[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:176
@@ -5175,14 +5175,14 @@ func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop
 [16:39:26] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{eed93738-249e-4d12-b973-67740024b1ae insertAdminPwd  999}
 [0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
-[16:39:26] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
+[16:39:26] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:172
 [16:39:26] [32mDEBUG[0m: '[36mmaster 비밀번호가 존재합니다[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:176
 [16:39:44] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{a488dcb6-eef4-475f-8135-77234ea62d70 insertAdminPwd  999}
 [0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
-[16:39:44] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
+[16:39:44] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:172
 [16:39:44] [32mWARN[0m: '[36mError 1136 (21S01): Column count doesn't match value count at row 1[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:182
@@ -5203,7 +5203,7 @@ func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop
 [16:40:27] [32mDEBUG[0m: '[36m서버로부터 메시지 수신: &{0b0ddf0f-687c-4e02-9464-c9a247c7b851 insertAdminPwd  999}
 [0m'
 func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:80
-[16:40:27] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
+[16:40:27] [32mDEBUG[0m: '[36m�ϋ`�� 6�'{��a5u��#BVԶ[�3`e�[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:172
 [16:40:27] [32mDEBUG[0m: '[36msendToServer:  {0b0ddf0f-687c-4e02-9464-c9a247c7b851 insertAdminPwd ok <nil>}[0m'
 func=apcs_refactored/webserver.insertAdminPwd file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:187
