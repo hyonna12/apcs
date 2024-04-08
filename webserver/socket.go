@@ -3,8 +3,12 @@ package webserver
 import (
 	"apcs_refactored/model"
 	"apcs_refactored/plc/trayBuffer"
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 	"os/signal"
 
@@ -51,9 +55,17 @@ var url = "ws://localhost:8080"
 // var id string
 var conn *websocket.Conn
 
+const secretKey = "SecretKey"
+
 func ConnWs() {
+	// 헤더 설정
+	headers := http.Header{}
+	clientKey := generateClientKey(secretKey)
+	headers.Set("Origin", "https://apcs.com")
+	headers.Set("X-Client-Key", clientKey)
 	// WebSocket 연결
-	c, _, err := websocket.DefaultDialer.Dial(url, nil)
+	c, _, err := websocket.DefaultDialer.Dial(url, headers)
+
 	if err != nil {
 		log.Fatal("연결 실패:", err)
 	} else {
@@ -146,6 +158,12 @@ func ConnWs() {
 			sendMsg(msg)
 		}
 	}
+}
+
+func generateClientKey(secretKey string) string {
+	// HMAC-SHA256 해시 함수 사용하여 클라이언트 키 생성
+	h := hmac.New(sha256.New, []byte(secretKey))
+	return hex.EncodeToString(h.Sum(nil))
 }
 
 func sendMsg(msg Message) {
