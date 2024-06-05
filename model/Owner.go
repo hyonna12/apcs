@@ -9,9 +9,9 @@ type OwnerInfo struct {
 }
 
 type Owner struct {
-	OwnerId  int64
-	PhoneNum string
-	Address  string
+	OwnerId  int64  `json:"owner_id"`
+	PhoneNum string `json:"phone_num"`
+	Address  string `json:"address"`
 }
 
 type OwnerCreateRequest struct {
@@ -21,8 +21,12 @@ type OwnerCreateRequest struct {
 }
 
 type OwnerUpdateRequest struct {
-	OwnerId  int64  `json:"owner_id"`
 	PhoneNum string `json:"phoneNum"`
+	Address  string `json:"address"`
+}
+
+type OwnerPwdRequest struct {
+	Address  string `json:"address"`
 	Password string `json:"password"`
 }
 
@@ -86,6 +90,7 @@ func SelectOwnerList() ([]Owner, error) {
 	query := `
 		SELECT owner_id, phone_num, address
 		FROM TN_INF_OWNER
+		ORDER BY address
 	`
 
 	var ownerList []Owner
@@ -110,6 +115,25 @@ func SelectOwnerList() ([]Owner, error) {
 	}
 }
 
+func SelectOwnerDetail(address interface{}) (Owner, error) {
+	query := `
+		SELECT owner_id, phone_num, address
+		FROM TN_INF_OWNER
+		WHERE address = ?
+	`
+
+	var owner Owner
+
+	row := DB.QueryRow(query, address)
+	err := row.Scan(&owner.OwnerId, &owner.PhoneNum, &owner.Address)
+
+	if err != nil {
+		log.Error(err)
+		return owner, err
+	}
+	return owner, nil
+}
+
 func InsertOwner(ownerCreateRequest OwnerCreateRequest) (int64, error) {
 	query := `INSERT INTO TN_INF_OWNER(
 							phone_num, 
@@ -120,11 +144,13 @@ func InsertOwner(ownerCreateRequest OwnerCreateRequest) (int64, error) {
 
 	result, err := DB.Exec(query, ownerCreateRequest.PhoneNum, ownerCreateRequest.Address, ownerCreateRequest.Password)
 	if err != nil {
+		log.Error(err)
 		return 0, err
 	}
 
 	id, err := result.LastInsertId()
 	if err != nil {
+		log.Error(err)
 		return 0, err
 	}
 
@@ -178,12 +204,32 @@ func UpdateOwnerInfo(ownerUpdateRequest OwnerUpdateRequest) (int64, error) {
 	log.Println("UpdateOwnerInfo", ownerUpdateRequest)
 	query := `UPDATE TN_INF_OWNER
 				SET 
-					phone_num = ?, 
-					password = ?
-				WHERE owner_id = ?
+					phone_num = ?,
+					address = ?
+				WHERE address = ?
 			`
 
-	result, err := DB.Exec(query, ownerUpdateRequest.PhoneNum, ownerUpdateRequest.Password, ownerUpdateRequest.OwnerId)
+	result, err := DB.Exec(query, ownerUpdateRequest.PhoneNum, ownerUpdateRequest.Address, ownerUpdateRequest.Address)
+	if err != nil {
+		return 0, err
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
+}
+
+func ResetOwnerPassword(ownerPwdRequest OwnerPwdRequest) (int64, error) {
+	query := `UPDATE TN_INF_OWNER
+				SET 
+					password = ?
+				WHERE address = ?
+			`
+
+	result, err := DB.Exec(query, ownerPwdRequest.Password, ownerPwdRequest.Address)
 	if err != nil {
 		return 0, err
 	}

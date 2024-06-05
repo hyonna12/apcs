@@ -39,17 +39,17 @@ func SelectExistPassword() (int, error) {
 	return exists, nil
 }
 
-func SelectIbId() (int, error) {
-	query := `SELECT ib_id From admin`
+func SelectIbName() (string, error) {
+	query := `SELECT ib_name From admin`
 
-	var ib_id int
+	var ib_name string
 	row := DB.QueryRow(query)
-	err := row.Scan(&ib_id)
+	err := row.Scan(&ib_name)
 	if err != nil {
 		log.Error(err)
-		return ib_id, err
+		return ib_name, err
 	}
-	return ib_id, nil
+	return ib_name, nil
 }
 
 func InsertAdminPwd(password interface{}) (int64, error) {

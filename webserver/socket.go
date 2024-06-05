@@ -34,16 +34,18 @@ type ReqMsg struct {
 
 // 메시지 노드 이름
 const (
-	INSERT_ADMIN_PWD    = "insertAdminPwd"
-	UPDATE_ADMIM_PWD    = "updateAdminPwd"
-	GET_ITEM_LIST       = "getItemList"
-	GET_SLOT_LIST       = "getSlotList"
-	GET_SLOT_TRAY_LIST  = "getSlotTrayList"
-	GET_OWNER_LIST      = "getOwnerList"
-	INSERT_OWNER        = "insertOwner"
-	UPDATE_OWNER_INFO   = "updateOwnerInfo"
-	GET_ITEM_BY_USER    = "getItemByUser"
-	GET_TRAY_Buffer_Cnt = "getTrayBufferCnt"
+	INSERT_ADMIN_PWD     = "insertAdminPwd"
+	UPDATE_ADMIM_PWD     = "updateAdminPwd"
+	GET_ITEM_LIST        = "getItemList"
+	GET_SLOT_LIST        = "getSlotList"
+	GET_SLOT_TRAY_LIST   = "getSlotTrayList"
+	GET_OWNER_LIST       = "getOwnerList"
+	GET_OWNER_DETAIL     = "getOwnerDetail"
+	INSERT_OWNER         = "insertOwner"
+	UPDATE_OWNER_INFO    = "updateOwnerInfo"
+	RESET_OWNER_PASSWORD = "resetOwnerPassword"
+	GET_ITEM_BY_USER     = "getItemByUser"
+	GET_TRAY_Buffer_Cnt  = "getTrayBufferCnt"
 
 	GET_OWNER_ADDRESS      = "getOwnerAddress"
 	GET_OWNER_ADDRESS_LIST = "getOwnerAddressList"
@@ -70,10 +72,11 @@ func ConnWs() {
 		log.Fatal("연결 실패:", err)
 	} else {
 		conn = c
-		// 택배함 id 값 전송
+		// 택배함 name 값 전송
 		u := uuid.New()
-		id, _ := model.SelectIbId()
-		msg := Message{RequestId: u.String(), Command: "conn", Payload: id}
+		name, _ := model.SelectIbName()
+
+		msg := Message{RequestId: u.String(), Command: "conn", Payload: name}
 		sendMsg(msg)
 	}
 	defer c.Close()
@@ -113,6 +116,9 @@ func ConnWs() {
 			case GET_OWNER_LIST:
 				res := getOwnerList(reqMsg)
 				sendMsg(res)
+			case GET_OWNER_DETAIL:
+				res := getOwnerDetail(reqMsg)
+				sendMsg(res)
 			case INSERT_OWNER:
 				res := insertOwner(reqMsg)
 				sendMsg(res)
@@ -131,7 +137,9 @@ func ConnWs() {
 			case GET_OWNER_ADDRESS_LIST:
 				res := getOwnerAddressList(reqMsg)
 				sendMsg(res)
-
+			case RESET_OWNER_PASSWORD:
+				res := resetOwnerPassword(reqMsg)
+				sendMsg(res)
 			}
 		}
 	}()
@@ -161,7 +169,7 @@ func ConnWs() {
 }
 
 func generateClientKey(secretKey string) string {
-	// HMAC-SHA256 해시 함수 사용하여 클라이언트 키 생성
+	// HMAC-256 해시 함수 사용하여 클라이언트 키 생성
 	h := hmac.New(sha256.New, []byte(secretKey))
 	return hex.EncodeToString(h.Sum(nil))
 }
@@ -187,10 +195,10 @@ func getOwnerAddress(data *ReqMsg) Message {
 	address, err := model.SelectAddressByOwnerId(id)
 	if err != nil {
 		log.Error(err)
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
 		return msg
 	}
-	msg := &Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: address}
+	msg := &Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: address}
 	log.Println("sendToServer: ", msg)
 	return *msg
 }
@@ -213,7 +221,7 @@ func insertAdminPwd(data *ReqMsg) Message {
 		log.Println("master 비밀번호가 존재합니다")
 		msg.RequestId = data.RequestId
 		msg.Command = data.Command
-		msg.Status = "fail"
+		msg.Status = "FAIL"
 		msg.Payload = "master비밀번호가 이미 존재합니다"
 	} else {
 		_, err := model.InsertAdminPwd(password)
@@ -221,12 +229,12 @@ func insertAdminPwd(data *ReqMsg) Message {
 			log.Error(err)
 			msg.RequestId = data.RequestId
 			msg.Command = data.Command
-			msg.Status = "fail"
+			msg.Status = "FAIL"
 			msg.Payload = err.Error()
 		}
 		msg.RequestId = data.RequestId
 		msg.Command = data.Command
-		msg.Status = "fail"
+		msg.Status = "OK"
 		msg.Payload = "등록 완료"
 		log.Println("sendToServer: ", msg)
 	}
@@ -240,12 +248,12 @@ func updateAdminPwd(data *ReqMsg) Message {
 	_, err := model.InsertAdminPwd(password)
 	if err != nil {
 		log.Error(err)
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
 		return msg
 	}
 	msg.RequestId = data.RequestId
 	msg.Command = data.Command
-	msg.Status = "ok"
+	msg.Status = "OK"
 	msg.Payload = "수정완료"
 
 	log.Println("sendToServer: ", msg)
@@ -253,29 +261,41 @@ func updateAdminPwd(data *ReqMsg) Message {
 }
 
 func getItemList(data *ReqMsg) Message {
+
 	option := data.Option
+	payload, _ := json.Marshal(data.Payload)
+	itemOption := &model.ItemOption{}
+
+	erro := json.Unmarshal(payload, itemOption)
+	if erro != nil {
+		log.Error(erro)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: erro.Error()}
+		return msg
+	}
+	log.Println("itemOption: ", itemOption)
+
 	msg := &Message{}
 	var itemList []model.ItemListResponse
 	var err error
 
 	switch option {
 	case "input":
-		itemList, err = model.SelectInputItemList()
+		itemList, err = model.SelectInputItemList(itemOption)
 	case "output":
-		itemList, err = model.SelectOutputItemList()
+		itemList, err = model.SelectOutputItemList(itemOption)
 	case "store":
-		itemList, err = model.SelectStoreItemList()
+		itemList, err = model.SelectStoreItemList(itemOption)
 	}
 	if err != nil {
 		log.Error(err)
 		msg.RequestId = data.RequestId
 		msg.Command = data.Command
-		msg.Status = "fail"
+		msg.Status = "FAIL"
 		msg.Payload = err.Error()
 	}
 	msg.RequestId = data.RequestId
 	msg.Command = data.Command
-	msg.Status = "ok"
+	msg.Status = "OK"
 	msg.Payload = itemList
 	log.Println("sendToServer: ", msg)
 	return *msg
@@ -285,10 +305,10 @@ func getSlotList(data *ReqMsg) Message {
 	slotList, err := model.SelectSlotList()
 	if err != nil {
 		log.Error(err)
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
 		return msg
 	}
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: slotList}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: slotList}
 	log.Println("sendToServer: ", msg)
 	return msg
 }
@@ -297,10 +317,10 @@ func getSlotTrayList(data *ReqMsg) Message {
 	trayList, err := model.SelectTrayList()
 	if err != nil {
 		log.Error(err)
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
 		return msg
 	}
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: trayList}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: trayList}
 	log.Println("sendToServer: ", msg)
 	return msg
 }
@@ -309,10 +329,22 @@ func getOwnerList(data *ReqMsg) Message {
 	owner, err := model.SelectOwnerList()
 	if err != nil {
 		log.Error(err)
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
 		return msg
 	}
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: owner}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: owner}
+	log.Println("sendToServer: ", msg)
+	return msg
+}
+
+func getOwnerDetail(data *ReqMsg) Message {
+	owner, err := model.SelectOwnerDetail(data.Option)
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
+		return msg
+	}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: owner}
 	log.Println("sendToServer: ", msg)
 	return msg
 }
@@ -321,7 +353,7 @@ type Owner struct {
 	OwnerId  int    `json:"id"`
 	Address  string `json:"address"`
 	Password string `json:"password"`
-	PhoneNum string `json:"phoneNum"`
+	PhoneNum string `json:"phone_num"`
 }
 
 func insertOwner(data *ReqMsg) Message {
@@ -330,25 +362,27 @@ func insertOwner(data *ReqMsg) Message {
 	err := json.Unmarshal(payload, owner)
 	if err != nil {
 		log.Error(err)
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
 		return msg
 	}
 	log.Println("owner: ", owner)
 
-	bool, _ := model.SelectOwnerIdByAddress(owner.Address)
-	if bool == 1 {
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: "해당 유저가 이미 존재합니다"}
+	rslt, _ := model.SelectOwnerIdByAddress(owner.Address)
+	log.Println("owner: ", rslt)
+
+	if rslt != 0 {
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: "해당 유저가 이미 존재합니다"}
 		log.Error("해당 유저가 이미 존재합니다")
 		return msg
 	} else {
 		ownerCreateRequest := model.OwnerCreateRequest{PhoneNum: owner.PhoneNum, Address: owner.Address, Password: owner.Password}
 		_, err := model.InsertOwner(ownerCreateRequest)
 		if err != nil {
-			msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+			msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
 			log.Error(err)
 			return msg
 		}
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: "등록완료"}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: "등록완료"}
 		return msg
 	}
 }
@@ -359,22 +393,34 @@ func updateOwnerInfo(data *ReqMsg) Message {
 	err := json.Unmarshal(payload, owner)
 	if err != nil {
 		log.Error(err)
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
 		return msg
 	}
 	log.Println("owner: ", owner)
 
-	// TODO - 해당 id를 가진 owner 있는지 확인
-	_, err = model.UpdateOwnerInfo(model.OwnerUpdateRequest{OwnerId: int64(owner.OwnerId), PhoneNum: owner.PhoneNum, Password: owner.Password})
+	// rslt, _ := model.SelectOwnerIdByAddress(owner.Address)
+	// log.Println("owner: ", rslt)
+
+	// if rslt != 0 {
+	// 	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: "해당 유저가 이미 존재합니다"}
+	// 	log.Error("해당 유저가 이미 존재합니다")
+	// 	return msg
+
+	// } else {
+	_, err = model.UpdateOwnerInfo(model.OwnerUpdateRequest{PhoneNum: owner.PhoneNum, Address: owner.Address})
+
 	if err != nil {
 		log.Error(err)
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
+
 		return msg
 	}
 
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: "수정완료"}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: "수정완료"}
 	log.Println("sendToServer: ", msg)
+
 	return msg
+	//}
 }
 
 func getItemByUser(data *ReqMsg) Message {
@@ -395,12 +441,12 @@ func getItemByUser(data *ReqMsg) Message {
 		log.Error(err)
 		msg.RequestId = data.RequestId
 		msg.Command = data.Command
-		msg.Status = "fail"
+		msg.Status = "FAIL"
 		msg.Payload = err.Error()
 	}
 	msg.RequestId = data.RequestId
 	msg.Command = data.Command
-	msg.Status = "ok"
+	msg.Status = "OK"
 	msg.Payload = itemList
 	log.Println("sendToServer: ", msg)
 	return *msg
@@ -417,7 +463,7 @@ func getTrayBufferCnt(data *ReqMsg) Message {
 	tray_buffer, _ := model.SelectTrayBufferState()
 	payload := &TrayInfo{TrayCount: tray_buffer.Count, List: list}
 	log.Println(payload)
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: payload}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: payload}
 	log.Println("sendToServer: ", msg)
 	return msg
 }
@@ -426,10 +472,37 @@ func getOwnerAddressList(data *ReqMsg) Message {
 	owner, err := model.SelectOwnerAddressList()
 	if err != nil {
 		log.Error(err)
-		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "fail", Payload: err.Error()}
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
 		return msg
 	}
-	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "ok", Payload: owner}
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: owner}
 	log.Println("sendToServer: ", msg)
+	return msg
+}
+
+func resetOwnerPassword(data *ReqMsg) Message {
+	payload, _ := json.Marshal(data.Payload)
+
+	owner := &Owner{}
+	err := json.Unmarshal(payload, owner)
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
+		return msg
+	}
+	log.Println("owner: ", owner)
+
+	_, err = model.ResetOwnerPassword(model.OwnerPwdRequest{Password: owner.Password, Address: owner.Address})
+
+	if err != nil {
+		log.Error(err)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
+
+		return msg
+	}
+
+	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: "수정완료"}
+	log.Println("sendToServer: ", msg)
+
 	return msg
 }
