@@ -506,3 +506,21 @@ func resetOwnerPassword(data *ReqMsg) Message {
 
 	return msg
 }
+
+func SendEvent(data string) {
+	event := Message{RequestId: "0000", Command: "senseTrouble", Status: "FAIL", Payload: ""}
+	log.Println("sendEventToServer: ", event)
+
+	// JSON 인코딩
+	jsonMsg, err := json.Marshal(event)
+	if err != nil {
+		log.Println("JSON 인코딩 에러:", err)
+		return
+	}
+	// 메시지 전송
+	err = conn.WriteMessage(websocket.TextMessage, jsonMsg)
+	if err != nil {
+		log.Println("메시지 전송 에러:", err)
+		return
+	}
+}

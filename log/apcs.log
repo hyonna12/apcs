@@ -11895,3 +11895,433 @@ func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace
 func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:187
 [15:05:25] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:59137->[::1]:8080: use of closed network connection[0m'
 func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:187
+[10:33:08] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:33:08] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:33:08] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:33:08] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:33:08] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:33:08] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:33:08] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:33:08] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:33:15] [32mERROR[0m: '[36m연결 실패:dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/webserver.ConnWs file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:72
+[10:33:46] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:33:46] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:33:46] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:33:46] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:33:46] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:33:46] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:33:47] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:33:47] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:35:10] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54221->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:90
+[10:35:10] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:122
+[10:35:17] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:35:17] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:35:17] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:35:17] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:35:17] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:35:17] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:35:17] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:35:17] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:35:21] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:122
+[10:35:39] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:35:39] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:35:39] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:35:39] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:35:39] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:35:39] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:35:39] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:35:39] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:39:06] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54349->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:90
+[10:39:16] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:39:16] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:39:17] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:39:17] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:39:17] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:39:17] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:39:17] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:39:17] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:39:17] [32mERROR[0m: '[36mFailed to start websocket server: listen tcp 127.0.0.1:3000: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.[0m'
+func=apcs_refactored/webserver.StartWebserver file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/server.go:51
+[10:40:29] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:40:29] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:40:30] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:40:30] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:40:30] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:40:30] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:40:30] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:40:30] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:40:30] [32mERROR[0m: '[36mFailed to start websocket server: listen tcp 127.0.0.1:3000: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.[0m'
+func=apcs_refactored/webserver.StartWebserver file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/server.go:51
+[10:40:45] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:122
+[10:40:52] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:40:52] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:40:52] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:40:52] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:40:52] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:40:52] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:40:52] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:40:52] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:40:52] [32mERROR[0m: '[36mFailed to start websocket server: listen tcp 127.0.0.1:3000: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.[0m'
+func=apcs_refactored/webserver.StartWebserver file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/server.go:51
+[10:42:16] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:42:16] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:42:17] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:42:17] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:42:17] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:42:17] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:42:17] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:42:17] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:42:17] [32mERROR[0m: '[36mFailed to start websocket server: listen tcp 127.0.0.1:3000: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.[0m'
+func=apcs_refactored/webserver.StartWebserver file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/server.go:51
+[10:44:34] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:44:34] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:44:35] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:44:35] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:44:35] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:44:35] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:44:35] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:44:35] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:45:21] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:55015->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:90
+[10:45:34] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:45:34] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:45:34] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:45:34] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:45:34] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:45:34] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:45:34] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:45:34] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:45:34] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc000112990 0xc0002e8040}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:104
+[10:47:43] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:55101->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:90
+[10:47:46] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:124
+[10:47:54] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:47:54] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:47:54] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:47:54] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:47:54] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:47:54] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:47:54] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:47:54] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:102
+[10:47:54] [32mDEBUG[0m: '[36mConnecting to ws://localhost:6000[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:105
+[10:47:54] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc00011b440 0xc000120bc0}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:115
+[10:50:16] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:135
+[10:50:32] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:50:32] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:50:32] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:50:32] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:50:32] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:50:32] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:50:32] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:50:32] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[10:50:32] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc000112990 0xc0002ea040}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:104
+[10:53:26] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:124
+[10:53:35] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:53:35] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:53:35] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:53:35] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:53:35] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:53:35] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:53:35] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:53:35] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:102
+[10:53:35] [32mDEBUG[0m: '[36mConnecting to ws://localhost:6000[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:105
+[10:53:35] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc000112cf0 0xc0002ea100}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:115
+[10:55:47] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:135
+[10:55:55] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:55:55] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:55:55] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:55:55] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:55:55] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:55:55] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:55:55] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:55:55] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:102
+[10:55:55] [32mDEBUG[0m: '[36mConnecting to ws://localhost:6000[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:105
+[10:55:55] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc000112cf0 0xc0002ea100}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:115
+[10:56:43] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:135
+[10:59:50] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[10:59:50] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[10:59:50] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[10:59:50] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[10:59:50] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[10:59:50] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[10:59:50] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[10:59:50] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:98
+[11:02:26] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[11:02:26] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[11:02:27] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[11:02:27] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[11:02:27] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[11:02:27] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[11:02:27] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:02:27] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:98
+[11:04:12] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[11:04:12] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[11:04:12] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[11:04:12] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[11:04:12] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[11:04:12] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[11:04:12] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:04:12] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:98
+[13:58:24] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:56195->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:90
+[14:00:18] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[14:00:18] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:00:18] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:00:18] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:00:18] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:00:18] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:00:18] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:00:18] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[14:00:18] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc00028a990 0xc000366040}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:104
+[14:00:30] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:124
+[14:00:38] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[14:00:38] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:00:38] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:00:38] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:00:38] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:00:39] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:00:39] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:00:39] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[14:00:39] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc0001ba720 0xc000092fc0}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:104
+[14:01:14] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:58947->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:90
+[14:01:21] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[14:01:21] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:01:22] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:01:22] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:01:22] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:01:22] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:01:22] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:01:22] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[14:01:22] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc000112990 0xc0002ea040}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:104
+[14:01:24] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:59028->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:90
+[14:01:28] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:124
+[14:07:56] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[14:07:56] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:07:56] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:07:56] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:07:56] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:07:56] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:07:56] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:07:56] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[14:07:56] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc0001ba720 0xc000092fc0}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:104
+[14:10:03] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:59184->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:90
+[14:10:07] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:124
+[14:10:15] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[14:10:15] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:10:16] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:10:16] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:10:16] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:10:16] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:10:16] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:10:16] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:100
+[14:10:16] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc0002d6540 0xc000092f40}[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:104
+[14:42:35] [32mWARN[0m: '[36mdial tcp 127.0.0.1:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:124
+[14:55:19] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:59380->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:90
