@@ -22,4 +22,5 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/mitchellh/mapstructure v1.5.0
 	golang.org/x/sys v0.6.0 // indirect
+	nhooyr.io/websocket v1.8.11
 )

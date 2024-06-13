@@ -92,6 +92,7 @@ func ChangeKioskView(url string) error {
 			Url: url,
 		},
 	}
+
 	request, err := json.Marshal(KioskRequest)
 	if err != nil {
 		log.Error(err)

@@ -2,7 +2,6 @@ package webserver
 
 import (
 	"apcs_refactored/model"
-	"apcs_refactored/plc/trayBuffer"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
@@ -46,9 +45,12 @@ const (
 	RESET_OWNER_PASSWORD = "resetOwnerPassword"
 	GET_ITEM_BY_USER     = "getItemByUser"
 	GET_TRAY_Buffer_Cnt  = "getTrayBufferCnt"
+	GET_ITEM_CNT         = "getItemCnt"
 
 	GET_OWNER_ADDRESS      = "getOwnerAddress"
 	GET_OWNER_ADDRESS_LIST = "getOwnerAddressList"
+
+	SENSE_TROUBLE = "senseTrouble"
 )
 
 // WebSocket 연결을 위한 주소
@@ -139,6 +141,9 @@ func ConnWs() {
 				sendMsg(res)
 			case RESET_OWNER_PASSWORD:
 				res := resetOwnerPassword(reqMsg)
+				sendMsg(res)
+			case GET_ITEM_CNT:
+				res := getItemCnt(reqMsg)
 				sendMsg(res)
 			}
 		}
@@ -458,11 +463,13 @@ type TrayInfo struct {
 }
 
 func getTrayBufferCnt(data *ReqMsg) Message {
-	list := trayBuffer.Buffer.Get()
+	//list := trayBuffer.Buffer.Get()
 	// TODO - 스택에 있는 개수와 DB개수 비교
 	tray_buffer, _ := model.SelectTrayBufferState()
-	payload := &TrayInfo{TrayCount: tray_buffer.Count, List: list}
+	//payload := &TrayInfo{TrayCount: tray_buffer.Count, List: list}
+	payload := &TrayInfo{TrayCount: tray_buffer.Count}
 	log.Println(payload)
+
 	msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "OK", Payload: payload}
 	log.Println("sendToServer: ", msg)
 	return msg
@@ -507,8 +514,43 @@ func resetOwnerPassword(data *ReqMsg) Message {
 	return msg
 }
 
+func getItemCnt(data *ReqMsg) Message {
+	itemDate := &model.ItemCntReq{}
+
+	if data.Option != "" {
+		option, _ := json.Marshal(data.Option)
+
+		erro := json.Unmarshal(option, itemDate)
+		if erro != nil {
+			log.Error(erro)
+			msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: erro.Error()}
+			return msg
+		}
+		log.Println("itemDate: ", itemDate)
+	}
+
+	msg := &Message{}
+
+	itemCnt, err := model.SelectItemCnt(itemDate)
+
+	if err != nil {
+		log.Error(err)
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "FAIL"
+		msg.Payload = err.Error()
+	}
+
+	msg.RequestId = data.RequestId
+	msg.Command = data.Command
+	msg.Status = "OK"
+	msg.Payload = itemCnt
+	log.Println("sendToServer: ", msg)
+	return *msg
+}
+
 func SendEvent(data string) {
-	event := Message{RequestId: "0000", Command: "senseTrouble", Status: "FAIL", Payload: ""}
+	event := Message{RequestId: "0", Command: SENSE_TROUBLE, Status: "OK", Payload: data}
 	log.Println("sendEventToServer: ", event)
 
 	// JSON 인코딩

@@ -51,6 +51,17 @@ type ItemOption struct {
 	SearchText   string `json:"searchText"`
 }
 
+type ItemCntReq struct {
+	StartDate string `json:"startDate"`
+	LastDate  string `json:"lastDate"`
+}
+
+type ItemCntRes struct {
+	InputCnt  int `json:"input_cnt"`
+	OutputCnt int `json:"output_cnt"`
+	StoreCnt  int `json:"store_cnt"`
+}
+
 func SelectItemById(itemId int64) (Item, error) {
 
 	query :=
@@ -670,5 +681,37 @@ func SelectStoreItemByUser(owner_id interface{}) ([]ItemListResponse, error) {
 	} else {
 		return itemListResponses, nil
 	}
+
+}
+func SelectItemCnt(itemDate *ItemCntReq) (ItemCntRes, error) {
+	query := `
+			SELECT
+				SUM(CASE WHEN INPUT_DATE IS NOT NULL THEN 1 ELSE 0 END) AS input_cnt,
+				SUM(CASE WHEN INPUT_DATE IS NOT NULL AND OUTPUT_DATE IS NULL THEN 1 ELSE 0 END) AS store_cnt,
+				SUM(CASE WHEN OUTPUT_DATE IS NOT NULL THEN 1 ELSE 0 END) AS output_cnt
+			FROM TN_CTR_ITEM
+		`
+
+	var itemCntRes ItemCntRes
+	var err error
+	var row *sql.Row
+
+	if *itemDate == (ItemCntReq{}) {
+		row = DB.QueryRow(query)
+
+	} else {
+		query += `WHERE (INPUT_DATE BETWEEN ? AND ?)
+		OR (OUTPUT_DATE BETWEEN ? AND ?)`
+
+		row = DB.QueryRow(query, itemDate.StartDate, itemDate.LastDate, itemDate.StartDate, itemDate.LastDate)
+	}
+
+	err = row.Scan(&itemCntRes.InputCnt, &itemCntRes.OutputCnt, &itemCntRes.StoreCnt)
+	if err != nil {
+		return ItemCntRes{}, err
+	}
+	log.Println("cnt", itemCntRes)
+
+	return itemCntRes, err
 
 }

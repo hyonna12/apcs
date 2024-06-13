@@ -3,7 +3,10 @@ package conn
 import (
 	"apcs_refactored/webserver"
 	"net"
+	"net/url"
 	"time"
+
+	"github.com/gorilla/websocket"
 
 	mc "github.com/future-architect/go-mcprotocol/mcp"
 
@@ -60,7 +63,7 @@ func SenseTrouble(data string) {
 			log.Println("Error changing view:", err)
 		}
 		// TODO - 사업자에게 알림
-		webserver.SendEvent("화재 발생")
+		webserver.SendEvent("화재")
 		//return
 
 	case "물품 끼임":
@@ -70,7 +73,7 @@ func SenseTrouble(data string) {
 			log.Error(err)
 		}
 		// TODO - 사업자에게 알림
-
+		webserver.SendEvent("물품 끼임")
 		//return
 
 	case "물품 낙하":
@@ -80,6 +83,7 @@ func SenseTrouble(data string) {
 			log.Error(err)
 		}
 		// TODO - 사업자에게 알림
+		webserver.SendEvent("물품 낙하")
 
 		//return
 
@@ -90,6 +94,7 @@ func SenseTrouble(data string) {
 			log.Error(err)
 		}
 		// TODO - 사업자에게 알림
+		webserver.SendEvent("이물질 감지")
 
 		//return
 
@@ -97,7 +102,67 @@ func SenseTrouble(data string) {
 }
 
 func InitConnPlc() {
+
+	const addr = "ws://localhost:6000"
+
+	u, err := url.Parse(addr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// 웹소켓 연결
+	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer c.Close()
+
+	// 메시지 송신
+	err = c.WriteMessage(websocket.TextMessage, []byte("Hello, WebSocket Server!"))
+	if err != nil {
+		log.Println("Write error:", err)
+		return
+	}
+
+	// 메시지 수신 루프
+	for {
+		_, msg, err := c.ReadMessage()
+		if err != nil {
+			log.Println("Read error:", err)
+			return
+		}
+		SenseTrouble(string(msg))
+
+		log.Printf("Received message: %s\n", msg)
+	}
+}
+
+func CreateMcProtocolMessage() []byte {
+	// MC 프로토콜 메시지 작성
+	return []byte{
+		0x50, 0x00, // Subheader
+		0x00, 0xFF, // Network number, PC number
+		0xFF, 0x03, 0x00, // Request destination module I/O, station number
+		0x0A, 0x00, // Request data length
+		0x10, 0x00, // CPU monitoring timer
+		0x01, 0x04, // Command (read)
+		0x00, 0x00, // Subcommand
+		0x00, 0x00, 0x00, // Starting address
+		0x00, 0x10, // Number of points
+	}
+}
+
+func InitConnPlca() {
 	log.Debugf("plc conn started")
+
+	u := url.URL{Scheme: "ws", Host: "localhost:6000"}
+	log.Printf("Connecting to %s", u.String())
+
+	// c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	// if err != nil {
+	// 	log.Fatal("Dial error:", err)
+	// }
+	// defer c.Close()
 
 	// go-mcprotocol 라이브러리
 	client, err := mc.New3EClient("192.168.50.219", 6000, mc.NewLocalStation())
