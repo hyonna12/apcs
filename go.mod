@@ -11,12 +11,14 @@ require (
 )
 
 require (
+	github.com/Tnze/go-mc v1.16.5 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 )
 
 require (
+	github.com/BRA1L0R/go-mcproto v0.3.1
 	github.com/fatih/color v1.15.0
 	github.com/future-architect/go-mcprotocol v0.0.0-20210518065132-abfb4ef2fb9b
 	github.com/gorilla/mux v1.8.0

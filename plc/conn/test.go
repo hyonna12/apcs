@@ -18,9 +18,9 @@ type MCPacket struct {
 	Checksum byte
 }
 
-func InitConfig() {
+func InitPlc() {
 	// PLC 연결 설정
-	plcAddress := "192.168.50.219:6000"
+	plcAddress := "localhost:6000"
 	conn, err := net.Dial("tcp", plcAddress)
 	if err != nil {
 		fmt.Println("Failed to connect to PLC:", err)

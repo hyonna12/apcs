@@ -14121,3 +14121,1159 @@ func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace
 func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:192
 [10:06:05] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:62974->[::1]:8080: use of closed network connection[0m'
 func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:192
+[08:13:17] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[08:13:17] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[08:13:17] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[08:13:17] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[08:13:17] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[08:13:17] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[08:13:17] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[08:13:35] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:51702->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[08:13:41] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:49
+[08:13:41] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[08:13:41] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[08:13:41] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[08:13:41] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[08:13:41] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[08:13:41] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[08:16:05] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[08:16:05] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[08:16:05] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[08:16:05] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[08:16:05] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[08:16:05] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[08:16:05] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[08:16:15] [32mDEBUG[0m: '[36m[PLC] 물품 낙하[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:80
+[08:16:15] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 물품 낙하}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[08:16:15] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[08:16:15] [32mDEBUG[0m: '[36mReceived message: 물품 낙하
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:136
+[08:16:25] [32mDEBUG[0m: '[36m[PLC] 이물질 감지[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:91
+[08:16:25] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 이물질 감지}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[08:16:25] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[08:16:25] [32mDEBUG[0m: '[36mReceived message: 이물질 감지
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:136
+[08:16:27] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:51951->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:131
+[08:18:03] [32mTRACE[0m: '[36mURL: /input/register_delivery[0m'
+func=apcs_refactored/webserver.RegisterDelivery file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/template.go:119
+[08:19:04] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/template.go:105
+[08:19:25] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/sort.go:339
+[08:19:26] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/sort.go:339
+[09:13:02] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:51950->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[09:13:16] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[09:13:16] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[09:13:16] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[09:13:16] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[09:13:16] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[09:13:16] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[09:13:16] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:13:16] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlca file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:156
+[09:13:16] [32mDEBUG[0m: '[36mConnecting to ws://localhost:6000[0m'
+func=apcs_refactored/plc/conn.InitConnPlca file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:159
+[09:13:16] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc000032180 0xc000092040}[0m'
+func=apcs_refactored/plc/conn.InitConnPlca file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:169
+[09:13:31] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52579->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[09:13:37] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[09:13:37] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[09:13:37] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[09:13:37] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[09:13:37] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[09:13:37] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[09:13:37] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:13:37] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlca file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:156
+[09:13:37] [32mDEBUG[0m: '[36mConnecting to ws://localhost:6000[0m'
+func=apcs_refactored/plc/conn.InitConnPlca file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:159
+[09:13:37] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc00029c150 0xc0000924c0}[0m'
+func=apcs_refactored/plc/conn.InitConnPlca file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:169
+[09:33:55] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:52610->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[09:34:06] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[09:34:06] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[09:34:06] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[09:34:06] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[09:34:06] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[09:34:06] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[09:34:06] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[09:34:06] [32mTRACE[0m: '[36mplc conn started[0m'
+func=apcs_refactored/plc/conn.InitConnPlca file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:218
+[09:34:06] [32mDEBUG[0m: '[36mConnecting to ws://localhost:6000[0m'
+func=apcs_refactored/plc/conn.InitConnPlca file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:221
+[09:34:06] [32mDEBUG[0m: '[36mconnect to PLC: &{0xc0000335c0 0xc0000924c0}[0m'
+func=apcs_refactored/plc/conn.InitConnPlca file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:231
+[09:38:53] [32mWARN[0m: '[36mdial tcp 192.168.50.219:6000: connectex: No connection could be made because the target machine actively refused it.[0m'
+func=apcs_refactored/plc/conn.InitConnPlca.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:251
+[11:05:48] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:54372->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[11:06:31] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:54372->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:192
+[11:06:31] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:54372->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:192
+[11:06:39] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[11:06:39] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[11:06:40] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[11:06:40] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[11:06:40] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[11:06:40] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[11:06:40] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:06:40] [32mDEBUG[0m: '[36m[PLC] 물품 끼임[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:72
+[11:06:40] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 물품 끼임}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[11:06:40] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[11:06:40] [32mDEBUG[0m: '[36mReceived message: 물품 끼임
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc0 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:137
+[11:06:40] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:55760->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[11:06:46] [32mTRACE[0m: '[36mURL: /[0m'
+func=apcs_refactored/webserver.Home file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/template.go:105
+[11:07:07] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/sort.go:339
+[11:07:08] [32mDEBUG[0m: '[36m정리 미동작[0m'
+func=apcs_refactored/webserver.SortOff file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/sort.go:339
+[11:14:19] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:55760->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:192
+[11:14:19] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:55760->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:192
+[11:14:27] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[11:14:27] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[11:14:27] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[11:14:27] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[11:14:27] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[11:14:27] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[11:14:27] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:14:27] [32mDEBUG[0m: '[36m[PLC] 화재발생[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:62
+[11:14:27] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 화재}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[11:14:27] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[11:14:56] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[11:14:56] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[11:14:56] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[11:14:56] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[11:14:56] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[11:14:56] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[11:14:56] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[11:14:56] [32mDEBUG[0m: '[36m[PLC] 이물질 감지[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:93
+[11:14:56] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 이물질 감지}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[11:14:56] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[11:14:56] [32mDEBUG[0m: '[36mReceived message: 이물질 감지
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc0 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:137
+[11:14:56] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:55829->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[13:29:05] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:29:05] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:29:05] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:29:05] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:29:05] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:29:06] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:29:06] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:29:06] [32mDEBUG[0m: '[36m[PLC] 물품 끼임[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:72
+[13:29:06] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 물품 끼임}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[13:29:06] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[13:29:06] [32mDEBUG[0m: '[36mReceived message: 물품 끼임
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc0 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:137
+[13:29:06] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:56962->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[13:33:18] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:33:18] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:33:18] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:33:18] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:33:18] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:33:18] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:33:19] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:33:19] [32mDEBUG[0m: '[36m[PLC] 물품 끼임[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:72
+[13:33:19] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 물품 끼임}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[13:33:19] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[13:33:40] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:33:40] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:33:40] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:33:40] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:33:40] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:33:40] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:33:40] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:33:40] [32mDEBUG[0m: '[36m[PLC] 이물질 감지[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:93
+[13:33:40] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 이물질 감지}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[13:33:40] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[13:33:40] [32mDEBUG[0m: '[36mReceived message: 이물질 감지
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc0 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:137
+[13:35:05] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:57014->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[13:35:09] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:57014->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:192
+[13:35:09] [32mDEBUG[0m: '[36m메시지 전송 에러: write tcp [::1]:57014->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.sendMsg file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:192
+[13:35:20] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57015->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc0 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:132
+[13:35:30] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:35:30] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:35:30] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:35:30] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:35:30] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:35:30] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:35:30] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:35:30] [32mDEBUG[0m: '[36m[PLC] 물품 낙하[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:82
+[13:35:30] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 물품 낙하}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[13:35:30] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[13:35:30] [32mDEBUG[0m: '[36mReceived message: 물품 낙하
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc0 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:137
+[13:36:02] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:57034->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[13:39:06] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:39:06] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:39:06] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:39:06] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:39:06] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:39:06] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:39:07] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:44:19] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57063->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc0 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:132
+[13:44:21] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:57062->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[13:44:31] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:44:31] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:44:31] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:44:31] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:44:31] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:44:31] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:44:31] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:44:41] [32mDEBUG[0m: '[36m[PLC] 물품 끼임[0m'
+func=apcs_refactored/plc/conn.SenseTrouble file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:72
+[13:44:41] [32mDEBUG[0m: '[36msendEventToServer:  {0 senseTrouble OK 물품 끼임}[0m'
+func=apcs_refactored/webserver.SendEvent file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:554
+[13:44:41] [32mTRACE[0m: '[36mBroadcast message from public to private: {"request_type":"changeView","data":{"url":"/error/trouble"}}[0m'
+func=apcs_refactored/webserver.(*WsHub).run file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/wshub.go:54
+[13:44:41] [32mDEBUG[0m: '[36mReceived message: 물품 끼임
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc0 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:137
+[13:56:22] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:57101->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[13:56:27] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57102->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc0 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:132
+[13:57:04] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:57:04] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:57:04] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:57:04] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:57:04] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:57:04] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:57:04] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:57:04] [32mDEBUG[0m: '[36mConnected to PLC[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:261
+[13:57:04] [32mDEBUG[0m: '[36mwriteData [1 0 0][0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:265
+[13:57:04] [32mDEBUG[0m: '[36mData read from PLC: [72 84 84 80 47 49 46 49 32 52 48 48 32 66 97 100 32 82 101 113 117 101 115 116 13 10 67 111 110 110 101 99 116 105 111 110 58 32 99 108 111 115 101 13 10 13 10]
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:05] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:05] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:06] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:06] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:06] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:07] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:07] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:07] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:08] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:08] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:08] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:09] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:09] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:09] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:10] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:10] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:10] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:11] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:11] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:11] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:12] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:12] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:12] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:13] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:57187->[::1]:8080: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[13:57:13] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:13] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:13] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:14] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:14] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:14] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:15] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:15] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:15] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:16] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:16] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:16] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:17] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57188->[::1]:6000: wsasend: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:17] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57188->[::1]:6000: wsarecv: An established connection was aborted by the software in your host machine.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:17] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:27] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:57:27] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:57:27] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:57:27] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:57:27] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:57:27] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:57:27] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:57:27] [32mDEBUG[0m: '[36mConnected to PLC[0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:261
+[13:57:27] [32mDEBUG[0m: '[36mwriteData [1 0 0][0m'
+func=apcs_refactored/plc/conn.InitConnPlc file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:265
+[13:57:27] [32mDEBUG[0m: '[36mData read from PLC: [72 84 84 80 47 49 46 49 32 52 48 48 32 66 97 100 32 82 101 113 117 101 115 116 13 10 67 111 110 110 101 99 116 105 111 110 58 32 99 108 111 115 101 13 10 13 10]
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:28] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:28] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:28] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:29] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:29] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:29] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:30] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:30] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:30] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:31] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:31] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:31] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:32] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:32] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:32] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:33] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:33] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:33] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:34] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:34] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:34] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:35] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:57195->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[13:57:35] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:35] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:35] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:36] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:36] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:36] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:37] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:37] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:37] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:38] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:38] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:38] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:39] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:39] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:39] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:40] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:40] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:40] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:41] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:41] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:41] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:42] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:42] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:42] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:43] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:43] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:43] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:44] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:44] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:44] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:45] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:45] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:45] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:46] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:46] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:46] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:47] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:47] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:47] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:48] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:48] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:48] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:49] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:49] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:49] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:50] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:50] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:50] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:51] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:51] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:51] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:52] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:52] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:52] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:53] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:53] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:53] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:55] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:55] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:55] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:56] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:56] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:56] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:57] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:57] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:57] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:58] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:58] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:58] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:57:59] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:57:59] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:57:59] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:00] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:00] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:00] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:01] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:01] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:01] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:02] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:02] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:02] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:03] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:03] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:03] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:04] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:04] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:04] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:05] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:05] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:05] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:06] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:06] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:06] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:07] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:07] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:07] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:08] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:08] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:08] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:09] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:09] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:09] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:10] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:10] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:10] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:11] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:11] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:11] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:12] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:12] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:12] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:13] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:13] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:13] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:14] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:14] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:14] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:15] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:15] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:15] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:16] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:16] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:16] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:17] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:17] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:17] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:18] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:18] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:18] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:19] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:19] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:19] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:20] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:20] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:20] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:21] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:21] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:21] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:22] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:22] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:22] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:23] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:23] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:23] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:24] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:24] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:24] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:58:25] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57196->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[13:58:25] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57196->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[13:58:25] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[13:59:30] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:59:30] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:59:30] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:59:30] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:59:30] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:59:30] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:59:30] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[13:59:46] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:57217->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[13:59:51] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[13:59:51] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[13:59:51] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[13:59:51] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[13:59:51] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[13:59:51] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[13:59:51] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:00:06] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:57232->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[14:00:10] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[14:00:10] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:00:11] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:00:11] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:00:11] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:00:11] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:00:11] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:00:11] [32mDEBUG[0m: '[36mConnected to PLC[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:261
+[14:00:11] [32mDEBUG[0m: '[36mwriteData [1 0 0][0m'
+func=apcs_refactored/plc/conn.InitConnPlc4 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:265
+[14:00:11] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:11] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:12] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:12] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:12] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:13] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:13] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:13] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:14] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:14] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:14] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:15] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:15] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:15] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:16] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:16] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:16] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:17] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:17] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:17] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:18] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:18] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:18] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:19] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:19] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:19] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:20] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:20] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:20] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:21] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:21] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:21] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:22] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57240->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:22] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57240->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:22] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:26] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:50
+[14:00:26] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:00:26] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:00:26] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:00:26] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:00:26] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:00:26] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:00:26] [32mDEBUG[0m: '[36mConnected to PLC[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:261
+[14:00:26] [32mDEBUG[0m: '[36mwriteData [1 0 0][0m'
+func=apcs_refactored/plc/conn.InitConnPlc4 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:265
+[14:00:26] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57245->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:26] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:27] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57245->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:27] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57245->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:27] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:28] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57245->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:28] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57245->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:28] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:00:29] [32mDEBUG[0m: '[36mRead request error: write tcp [::1]:57245->[::1]:6000: wsasend: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:277
+[14:00:29] [32mDEBUG[0m: '[36mRead error: read tcp [::1]:57245->[::1]:6000: wsarecv: An existing connection was forcibly closed by the remote host.[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:283
+[14:00:29] [32mDEBUG[0m: '[36mData read from PLC: []
+[0m'
+func=apcs_refactored/plc/conn.InitConnPlc4.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/conn/conn.go:285
+[14:18:52] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:51
+[14:18:52] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:18:52] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:18:52] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:18:52] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:18:52] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:18:52] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:19:06] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:51
+[14:19:06] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:19:06] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:19:06] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:19:06] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:19:07] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:19:07] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:25:23] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:51
+[14:25:23] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:25:23] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:25:23] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:25:23] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:25:23] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:25:23] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:26:48] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:51
+[14:26:48] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[14:26:48] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[14:26:48] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[14:26:48] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[14:26:48] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[14:26:48] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[14:27:32] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:57532->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
+[15:54:10] [32mDEBUG[0m: '[36mControl server started[0m'
+func=main.main file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/main.go:51
+[15:54:10] [32mDEBUG[0m: '[36mStarted initializing database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:17
+[15:54:10] [32mDEBUG[0m: '[36mSuccessfully initialized database connection[0m'
+func=apcs_refactored/model.InitDB file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/model/database.go:30
+[15:54:10] [32mTRACE[0m: '[36mMessenger started[0m'
+func=apcs_refactored/messenger.StartMessengerServer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/messenger/messenger.go:71
+[15:54:10] [32mDEBUG[0m: '[36m[PLC_로봇] 로봇 통신 테스트 및 초기화[0m'
+func=apcs_refactored/plc/robot.InitRobots file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/robot/robot.go:39
+[15:54:10] [32mTRACE[0m: '[36mTrayBuffer created[0m'
+func=apcs_refactored/plc/trayBuffer.NewTrayBuffer file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:64
+[15:54:10] [32mTRACE[0m: '[36mtray buffer : [20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1][0m'
+func=apcs_refactored/plc/trayBuffer.(*TrayBuffer).Get file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/plc/trayBuffer/trayBuffer.go:108
+[15:54:51] [32mDEBUG[0m: '[36m메시지 수신 에러: read tcp [::1]:58033->[::1]:8080: use of closed network connection[0m'
+func=apcs_refactored/webserver.ConnWs.func1 file=C:/Users/Line/Desktop/workspace/무인택배함/apcs/webserver/socket.go:92
