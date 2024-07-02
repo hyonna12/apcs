@@ -4,7 +4,6 @@ import (
 	"apcs_refactored/customerror"
 	"database/sql"
 	"log"
-	"reflect"
 	"time"
 )
 
@@ -29,14 +28,15 @@ type ItemReadResponse struct {
 }
 
 type ItemListResponse struct {
-	ItemId          int64     `json:"item_id"`
-	DeliveryCompany string    `json:"delivery_company"`
-	Address         string    `json:"address"`
-	TrackingNumber  int64     `json:"tracking_number"`
-	InputDate       time.Time `json:"input_date"`
-	OutPutDate      time.Time `json:"output_date"`
-	Lane            int       `json:"lane"`
-	Floor           int       `json:"floor"`
+	ItemId          int64        `json:"item_id"`
+	DeliveryCompany string       `json:"delivery_company"`
+	Address         string       `json:"address"`
+	PhoneNum        string       `json:"phone_num"`
+	TrackingNumber  int64        `json:"tracking_number"`
+	InputDate       time.Time    `json:"input_date"`
+	OutputDate      sql.NullTime `json:"output_date"`
+	Lane            int          `json:"lane"`
+	Floor           int          `json:"floor"`
 }
 
 type ItemCreateRequest struct {
@@ -426,7 +426,7 @@ func SelectStoreItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 	searchText := itemOption.SearchText
 
 	query := `
-			SELECT i.item_id, tracking_number, INPUT_DATE, d.delivery_company, o.address, s.lane, s.floor
+			SELECT i.item_id, tracking_number, INPUT_DATE, d.delivery_company, o.address, o.phone_num, s.lane, s.floor
 			FROM TN_CTR_ITEM i
 			JOIN TN_INF_DELIVERY d
 			ON i.delivery_id = d.delivery_id
@@ -438,22 +438,25 @@ func SelectStoreItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 			AND s.tray_id IS NOT NULL
 			`
 
-	if searchOption == "0" {
-		query += "WHERE i.tracking_number = ?"
-	} else if searchOption == "1" {
-		query += "WHERE o.address = ?"
+	if searchText != "" {
+		log.Println("search==========", searchText)
+		if searchOption == "0" {
+			query += "AND i.tracking_number LIKE '%" + searchText + "%'"
+		} else if searchOption == "1" {
+			query += "AND o.address LIKE '%" + searchText + "%'"
+		}
 	}
 
 	var itemListResponses []ItemListResponse
 
-	rows, err := DB.Query(query, searchText)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
 
 	for rows.Next() {
 		var itemListResponse ItemListResponse
-		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.Lane, &itemListResponse.Floor)
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.PhoneNum, &itemListResponse.Lane, &itemListResponse.Floor)
 		if err != nil {
 			return nil, err
 		}
@@ -487,14 +490,12 @@ func SelectItemHeightByItemId(itemId int64) (ItemReadResponse, error) {
 	return itemReadResponses, nil
 }
 
-func SelectInputItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
+func SelectItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 	searchOption := itemOption.SearchOption
 	searchText := itemOption.SearchText
 
-	log.Println("option=========", searchOption, searchText, reflect.TypeOf(searchText))
-
 	query := `
-				SELECT item_id, tracking_number, INPUT_DATE, d.delivery_company, o.address
+				SELECT item_id, tracking_number, INPUT_DATE, d.delivery_company, o.address, output_date, o.phone_num
 				FROM TN_CTR_ITEM i
 				JOIN TN_INF_DELIVERY d
 				ON i.delivery_id = d.delivery_id
@@ -504,9 +505,9 @@ func SelectInputItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 	if searchText != "" {
 		log.Println("search==========", searchText)
 		if searchOption == "0" {
-			query += "WHERE i.tracking_number = " + searchText
+			query += "WHERE i.tracking_number LIKE '%" + searchText + "%'"
 		} else if searchOption == "1" {
-			query += "WHERE o.address = " + searchText
+			query += "WHERE o.address LIKE '%" + searchText + "%'"
 		}
 	}
 
@@ -519,7 +520,7 @@ func SelectInputItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 
 	for rows.Next() {
 		var itemListResponse ItemListResponse
-		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address)
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.OutputDate, &itemListResponse.PhoneNum)
 		if err != nil {
 			return nil, err
 		}
@@ -538,7 +539,7 @@ func SelectOutputItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 	searchText := itemOption.SearchText
 
 	query := `
-				SELECT item_id, tracking_number, INPUT_DATE, output_date, d.delivery_company, o.address
+				SELECT item_id, tracking_number, INPUT_DATE, output_date, d.delivery_company, o.address, o.phone_num
 				FROM TN_CTR_ITEM i
 				JOIN TN_INF_DELIVERY d
 				ON i.delivery_id = d.delivery_id
@@ -547,22 +548,25 @@ func SelectOutputItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 				WHERE output_date IS NOT NULL
 			`
 
-	if searchOption == "0" {
-		query += "AND i.tracking_number = ?"
-	} else if searchOption == "1" {
-		query += "AND o.address = ?"
+	if searchText != "" {
+		log.Println("search==========", searchText)
+		if searchOption == "0" {
+			query += "AND i.tracking_number LIKE '%" + searchText + "%'"
+		} else if searchOption == "1" {
+			query += "AND o.address LIKE '%" + searchText + "%'"
+		}
 	}
 
 	var itemListResponses []ItemListResponse
 
-	rows, err := DB.Query(query, searchText)
+	rows, err := DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
 
 	for rows.Next() {
 		var itemListResponse ItemListResponse
-		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutPutDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address)
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.PhoneNum)
 		if err != nil {
 			return nil, err
 		}
@@ -631,7 +635,7 @@ func SelectOutputItemByUser(owner_id interface{}) ([]ItemListResponse, error) {
 
 	for rows.Next() {
 		var itemListResponse ItemListResponse
-		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutPutDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address)
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address)
 		if err != nil {
 			return nil, err
 		}

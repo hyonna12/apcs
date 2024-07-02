@@ -27,7 +27,7 @@ type Message struct {
 type ReqMsg struct {
 	RequestId string      `json:"requestId"`
 	Command   string      `json:"command"`
-	Option    string      `json:"option"`
+	Option    interface{} `json:"option"`
 	Payload   interface{} `json:"payload"`
 }
 
@@ -265,10 +265,16 @@ func updateAdminPwd(data *ReqMsg) Message {
 	return *msg
 }
 
+type ItemStatus struct {
+	Input  bool `json:"input"`
+	Output bool `json:"output"`
+}
+
 func getItemList(data *ReqMsg) Message {
 
-	option := data.Option
+	option, _ := json.Marshal(data.Option)
 	payload, _ := json.Marshal(data.Payload)
+
 	itemOption := &model.ItemOption{}
 
 	erro := json.Unmarshal(payload, itemOption)
@@ -277,20 +283,47 @@ func getItemList(data *ReqMsg) Message {
 		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: erro.Error()}
 		return msg
 	}
+
 	log.Println("itemOption: ", itemOption)
+
+	itemStatus := &ItemStatus{}
+
+	erro = json.Unmarshal(option, itemStatus)
+	if erro != nil {
+		log.Error(erro)
+		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: erro.Error()}
+		return msg
+	}
+
+	log.Println("option: ", itemStatus)
 
 	msg := &Message{}
 	var itemList []model.ItemListResponse
 	var err error
 
-	switch option {
-	case "input":
-		itemList, err = model.SelectInputItemList(itemOption)
-	case "output":
+	if !itemStatus.Input && itemStatus.Output {
+		log.Println("SelectOutputItemList")
+
 		itemList, err = model.SelectOutputItemList(itemOption)
-	case "store":
+
+	} else if itemStatus.Input && !itemStatus.Output {
+		log.Println("SelectStoreItemList")
+
 		itemList, err = model.SelectStoreItemList(itemOption)
+	} else {
+		log.Println("SelectItemList")
+
+		itemList, err = model.SelectItemList(itemOption)
 	}
+	// switch option {
+	// case "input":
+	// 	itemList, err = model.SelectInputItemList(itemOption)
+	// case "output":
+	// 	itemList, err = model.SelectOutputItemList(itemOption)
+	// case "store":
+	// 	itemList, err = model.SelectStoreItemList(itemOption)
+	// }
+
 	if err != nil {
 		log.Error(err)
 		msg.RequestId = data.RequestId
