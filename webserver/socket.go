@@ -388,7 +388,8 @@ func getOwnerDetail(data *ReqMsg) Message {
 }
 
 type Owner struct {
-	OwnerId  int    `json:"id"`
+	OwnerId  int    `json:"owner_id"`
+	Nm       string `json:"nm"`
 	Address  string `json:"address"`
 	Password string `json:"password"`
 	PhoneNum string `json:"phone_num"`
@@ -413,7 +414,7 @@ func insertOwner(data *ReqMsg) Message {
 		log.Error("해당 유저가 이미 존재합니다")
 		return msg
 	} else {
-		ownerCreateRequest := model.OwnerCreateRequest{PhoneNum: owner.PhoneNum, Address: owner.Address, Password: owner.Password}
+		ownerCreateRequest := model.OwnerCreateRequest{Nm: owner.Nm, PhoneNum: owner.PhoneNum, Address: owner.Address, Password: owner.Password}
 		_, err := model.InsertOwner(ownerCreateRequest)
 		if err != nil {
 			msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
@@ -427,8 +428,11 @@ func insertOwner(data *ReqMsg) Message {
 
 func updateOwnerInfo(data *ReqMsg) Message {
 	payload, _ := json.Marshal(data.Payload)
+
 	owner := &Owner{}
 	err := json.Unmarshal(payload, owner)
+	log.Println("=====: ", owner)
+
 	if err != nil {
 		log.Error(err)
 		msg := Message{RequestId: data.RequestId, Command: data.Command, Status: "FAIL", Payload: err.Error()}
@@ -445,7 +449,7 @@ func updateOwnerInfo(data *ReqMsg) Message {
 	// 	return msg
 
 	// } else {
-	_, err = model.UpdateOwnerInfo(model.OwnerUpdateRequest{PhoneNum: owner.PhoneNum, Address: owner.Address})
+	_, err = model.UpdateOwnerInfo(model.OwnerUpdateRequest{Nm: owner.Nm, PhoneNum: owner.PhoneNum, Address: owner.Address, OwnerId: int64(owner.OwnerId)})
 
 	if err != nil {
 		log.Error(err)
@@ -532,7 +536,7 @@ func resetOwnerPassword(data *ReqMsg) Message {
 	}
 	log.Println("owner: ", owner)
 
-	_, err = model.ResetOwnerPassword(model.OwnerPwdRequest{Password: owner.Password, Address: owner.Address})
+	_, err = model.ResetOwnerPassword(model.OwnerPwdRequest{Password: owner.Password, OwnerId: owner.OwnerId})
 
 	if err != nil {
 		log.Error(err)

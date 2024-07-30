@@ -9,24 +9,28 @@ type OwnerInfo struct {
 }
 
 type Owner struct {
+	Nm       string `json:"nm"`
 	OwnerId  int64  `json:"owner_id"`
 	PhoneNum string `json:"phone_num"`
 	Address  string `json:"address"`
 }
 
 type OwnerCreateRequest struct {
+	Nm       string `json:"nm"`
 	PhoneNum string `json:"phoneNum"`
 	Address  string `json:"address"`
 	Password string `json:"password"`
 }
 
 type OwnerUpdateRequest struct {
+	Nm       string `json:"nm"`
 	PhoneNum string `json:"phoneNum"`
 	Address  string `json:"address"`
+	OwnerId  int64  `json:"owner_id"`
 }
 
 type OwnerPwdRequest struct {
-	Address  string `json:"address"`
+	OwnerId  int    `json:"owner_id"`
 	Password string `json:"password"`
 }
 
@@ -88,7 +92,7 @@ func SelectAddressByOwnerId(id interface{}) (string, error) {
 
 func SelectOwnerList() ([]Owner, error) {
 	query := `
-		SELECT owner_id, phone_num, address
+		SELECT nm, owner_id, phone_num, address
 		FROM TN_INF_OWNER
 		ORDER BY address
 	`
@@ -102,7 +106,7 @@ func SelectOwnerList() ([]Owner, error) {
 
 	for rows.Next() {
 		var owner Owner
-		err := rows.Scan(&owner.OwnerId, &owner.PhoneNum, &owner.Address)
+		err := rows.Scan(&owner.Nm, &owner.OwnerId, &owner.PhoneNum, &owner.Address)
 		if err != nil {
 			return nil, err
 		}
@@ -115,17 +119,17 @@ func SelectOwnerList() ([]Owner, error) {
 	}
 }
 
-func SelectOwnerDetail(address interface{}) (Owner, error) {
+func SelectOwnerDetail(userId interface{}) (Owner, error) {
 	query := `
-		SELECT owner_id, phone_num, address
+		SELECT nm, owner_id, phone_num, address
 		FROM TN_INF_OWNER
-		WHERE address = ?
+		WHERE owner_id = ?
 	`
 
 	var owner Owner
 
-	row := DB.QueryRow(query, address)
-	err := row.Scan(&owner.OwnerId, &owner.PhoneNum, &owner.Address)
+	row := DB.QueryRow(query, userId)
+	err := row.Scan(&owner.Nm, &owner.OwnerId, &owner.PhoneNum, &owner.Address)
 
 	if err != nil {
 		log.Error(err)
@@ -136,13 +140,14 @@ func SelectOwnerDetail(address interface{}) (Owner, error) {
 
 func InsertOwner(ownerCreateRequest OwnerCreateRequest) (int64, error) {
 	query := `INSERT INTO TN_INF_OWNER(
+							nm,
 							phone_num, 
 							address, 
 							password)
-				VALUES(?, ?, ?)
+				VALUES(?, ?, ?, ?)
 				`
 
-	result, err := DB.Exec(query, ownerCreateRequest.PhoneNum, ownerCreateRequest.Address, ownerCreateRequest.Password)
+	result, err := DB.Exec(query, ownerCreateRequest.Nm, ownerCreateRequest.PhoneNum, ownerCreateRequest.Address, ownerCreateRequest.Password)
 	if err != nil {
 		log.Error(err)
 		return 0, err
@@ -204,12 +209,12 @@ func UpdateOwnerInfo(ownerUpdateRequest OwnerUpdateRequest) (int64, error) {
 	log.Println("UpdateOwnerInfo", ownerUpdateRequest)
 	query := `UPDATE TN_INF_OWNER
 				SET 
-					phone_num = ?,
-					address = ?
-				WHERE address = ?
+					nm = ?,
+					phone_num = ?
+				WHERE owner_id = ?
 			`
 
-	result, err := DB.Exec(query, ownerUpdateRequest.PhoneNum, ownerUpdateRequest.Address, ownerUpdateRequest.Address)
+	result, err := DB.Exec(query, ownerUpdateRequest.Nm, ownerUpdateRequest.PhoneNum, ownerUpdateRequest.OwnerId)
 	if err != nil {
 		return 0, err
 	}
@@ -226,10 +231,10 @@ func ResetOwnerPassword(ownerPwdRequest OwnerPwdRequest) (int64, error) {
 	query := `UPDATE TN_INF_OWNER
 				SET 
 					password = ?
-				WHERE address = ?
+				WHERE owner_id = ?
 			`
 
-	result, err := DB.Exec(query, ownerPwdRequest.Password, ownerPwdRequest.Address)
+	result, err := DB.Exec(query, ownerPwdRequest.Password, ownerPwdRequest.OwnerId)
 	if err != nil {
 		return 0, err
 	}
