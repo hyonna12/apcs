@@ -62,6 +62,16 @@ type ItemCntRes struct {
 	StoreCnt  int `json:"store_cnt"`
 }
 
+type ItemCntDateRes struct {
+	Date       time.Time `json:"date"`
+	InputCnt   int       `json:"input_cnt"`
+	OutputCnt  int       `json:"output_cnt"`
+	StoreCnt   int       `json:"store_cnt"`
+	InputDiff  int       `json:"input_diff"`
+	OutputDiff int       `json:"output_diff"`
+	StoreDiff  int       `json:"store_diff"`
+}
+
 func SelectItemById(itemId int64) (Item, error) {
 
 	query :=
@@ -495,12 +505,14 @@ func SelectItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 	searchText := itemOption.SearchText
 
 	query := `
-				SELECT item_id, tracking_number, INPUT_DATE, d.delivery_company, o.address, output_date, o.phone_num
+				SELECT i.item_id, i.tracking_number, i.INPUT_DATE, d.delivery_company, o.address, i.output_date, o.phone_num, s.lane, s.floor
 				FROM TN_CTR_ITEM i
 				JOIN TN_INF_DELIVERY d
 				ON i.delivery_id = d.delivery_id
 				JOIN TN_INF_OWNER o
 				ON i.owner_id = o.owner_id
+				JOIN TN_CTR_SLOT s
+				ON i.item_id = s.item_id AND tray_id IS NOT null
 			`
 	if searchText != "" {
 		log.Println("search==========", searchText)
@@ -520,7 +532,7 @@ func SelectItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 
 	for rows.Next() {
 		var itemListResponse ItemListResponse
-		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.OutputDate, &itemListResponse.PhoneNum)
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.OutputDate, &itemListResponse.PhoneNum, &itemListResponse.Lane, &itemListResponse.Floor)
 		if err != nil {
 			return nil, err
 		}
@@ -539,12 +551,14 @@ func SelectOutputItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 	searchText := itemOption.SearchText
 
 	query := `
-				SELECT item_id, tracking_number, INPUT_DATE, output_date, d.delivery_company, o.address, o.phone_num
+				SELECT i.item_id, i.tracking_number, i.INPUT_DATE, i.output_date, d.delivery_company, o.address, o.phone_num, s.lane, s.floor
 				FROM TN_CTR_ITEM i
 				JOIN TN_INF_DELIVERY d
 				ON i.delivery_id = d.delivery_id
 				JOIN TN_INF_OWNER o
 				ON i.owner_id = o.owner_id
+				JOIN TN_CTR_SLOT s
+				ON i.item_id = s.item_id AND tray_id IS NOT null
 				WHERE output_date IS NOT NULL
 			`
 
@@ -566,7 +580,7 @@ func SelectOutputItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 
 	for rows.Next() {
 		var itemListResponse ItemListResponse
-		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.PhoneNum)
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.PhoneNum, &itemListResponse.Lane, &itemListResponse.Floor)
 		if err != nil {
 			return nil, err
 		}
@@ -717,5 +731,158 @@ func SelectItemCnt(itemDate *ItemCntReq) (ItemCntRes, error) {
 	log.Println("cnt", itemCntRes)
 
 	return itemCntRes, err
+
+}
+func SelectItemCntByDate() ([]ItemCntDateRes, error) {
+
+	query := `
+			WITH RECURSIVE dates(date) AS (
+				SELECT CURDATE()
+				UNION ALL
+				SELECT DATE_SUB(date, INTERVAL 1 DAY)
+				FROM dates
+				WHERE date > DATE_SUB(CURDATE(), INTERVAL 2 DAY)
+			),
+			daily_counts AS (
+				SELECT
+					d.date,
+					(SELECT COUNT(*) FROM TN_CTR_ITEM WHERE DATE(INPUT_DATE) = d.date) AS input_cnt,
+					(SELECT COUNT(*) FROM TN_CTR_ITEM WHERE DATE(OUTPUT_DATE) = d.date) AS output_cnt,
+					(SELECT COUNT(*) FROM TN_CTR_ITEM WHERE DATE(INPUT_DATE) <= d.date 
+						AND (OUTPUT_DATE IS NULL OR DATE(OUTPUT_DATE) > d.date)) AS store_cnt
+				FROM dates d
+			)
+			SELECT 
+				c.date,
+				c.input_cnt,
+				c.output_cnt,
+				c.store_cnt,
+				c.input_cnt - COALESCE(p.input_cnt, 0) AS input_diff,
+				c.output_cnt - COALESCE(p.output_cnt, 0) AS output_diff,
+				c.store_cnt - COALESCE(p.store_cnt, 0) AS store_diff
+			FROM daily_counts c
+			LEFT JOIN daily_counts p ON p.date = DATE_SUB(c.date, INTERVAL 1 DAY)
+			ORDER BY c.date DESC
+		`
+
+	var itemCntDateResList []ItemCntDateRes
+	rows, err := DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var item ItemCntDateRes
+		err := rows.Scan(&item.Date, &item.InputCnt, &item.OutputCnt, &item.StoreCnt,
+			&item.InputDiff, &item.OutputDiff, &item.StoreDiff)
+		if err != nil {
+			return nil, err
+		}
+		itemCntDateResList = append(itemCntDateResList, item)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	log.Println("cnt", itemCntDateResList)
+	return itemCntDateResList, nil
+
+}
+func SelectItemCntWeekly() ([]ItemCntDateRes, error) {
+
+	query := `
+			WITH RECURSIVE dates(date) AS (
+				SELECT CURDATE()
+				UNION ALL
+				SELECT DATE_SUB(date, INTERVAL 1 DAY)
+				FROM dates
+				WHERE date > DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+			),
+			daily_counts AS (
+				SELECT
+					d.date,
+					(SELECT COUNT(*) FROM TN_CTR_ITEM WHERE DATE(INPUT_DATE) = d.date) AS input_cnt,
+					(SELECT COUNT(*) FROM TN_CTR_ITEM WHERE DATE(OUTPUT_DATE) = d.date) AS output_cnt
+				FROM dates d
+			)
+			SELECT 
+				c.date,
+				c.input_cnt,
+				c.output_cnt
+			FROM daily_counts c
+			LEFT JOIN daily_counts p ON p.date = DATE_SUB(c.date, INTERVAL 1 DAY)
+			ORDER BY c.date DESC
+		`
+
+	var itemCntDateResList []ItemCntDateRes
+	rows, err := DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var item ItemCntDateRes
+		err := rows.Scan(&item.Date, &item.InputCnt, &item.OutputCnt)
+		if err != nil {
+			return nil, err
+		}
+		itemCntDateResList = append(itemCntDateResList, item)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return itemCntDateResList, nil
+
+}
+func SelectItemCntMonthly() ([]ItemCntDateRes, error) {
+
+	query := `
+			WITH RECURSIVE months(date) AS (
+				SELECT DATE_FORMAT(CURDATE(), '%Y-%m-01')
+				UNION ALL
+				SELECT DATE_SUB(date, INTERVAL 1 MONTH)
+				FROM months
+				WHERE date > DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-01'), INTERVAL 4 MONTH)
+			),
+			monthly_counts AS (
+				SELECT
+					m.date,
+					(SELECT COUNT(*) FROM TN_CTR_ITEM WHERE DATE_FORMAT(INPUT_DATE, '%Y-%m-01') = m.date) AS input_cnt,
+					(SELECT COUNT(*) FROM TN_CTR_ITEM WHERE DATE_FORMAT(OUTPUT_DATE, '%Y-%m-01') = m.date) AS output_cnt
+				FROM months m
+			)
+			SELECT 
+				DATE(c.date) AS date,
+				c.input_cnt,
+				c.output_cnt
+			FROM monthly_counts c
+			LEFT JOIN monthly_counts p ON p.date = DATE_SUB(c.date, INTERVAL 1 MONTH)
+			ORDER BY c.date DESC
+		`
+
+	var itemCntDateResList []ItemCntDateRes
+	rows, err := DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var item ItemCntDateRes
+		err := rows.Scan(&item.Date, &item.InputCnt, &item.OutputCnt)
+		if err != nil {
+			return nil, err
+		}
+		itemCntDateResList = append(itemCntDateResList, item)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	log.Println("cnt", itemCntDateResList)
+	return itemCntDateResList, nil
 
 }

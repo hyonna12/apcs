@@ -7,7 +7,11 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
+	"net/url"
+	"time"
+
 	"os"
 	"os/signal"
 
@@ -46,6 +50,9 @@ const (
 	GET_ITEM_BY_USER     = "getItemByUser"
 	GET_TRAY_Buffer_Cnt  = "getTrayBufferCnt"
 	GET_ITEM_CNT         = "getItemCnt"
+	GET_ITEM_CNT_BY_DATE = "getItemCntByDate"
+	GET_ITEM_CNT_WEEKLY  = "getItemCntWeekly"
+	GET_ITEM_CNT_MONTHLY = "getItemCntMonthly"
 
 	GET_OWNER_ADDRESS      = "getOwnerAddress"
 	GET_OWNER_ADDRESS_LIST = "getOwnerAddressList"
@@ -54,7 +61,9 @@ const (
 )
 
 // WebSocket 연결을 위한 주소
-var url = "ws://localhost:8080"
+var host = "apms.mipllab.com"
+
+//var host = "localhost:2990"
 
 // var id string
 var conn *websocket.Conn
@@ -62,115 +71,146 @@ var conn *websocket.Conn
 const secretKey = "SecretKey"
 
 func ConnWs() {
-	// 헤더 설정
+	url := url.URL{Scheme: "wss", Host: host, Path: "/ws"}
 	headers := http.Header{}
 	clientKey := generateClientKey(secretKey)
 	headers.Set("Origin", "https://apcs.com")
 	headers.Set("X-Client-Key", clientKey)
+
 	// WebSocket 연결
-	c, _, err := websocket.DefaultDialer.Dial(url, headers)
-
+	c, resp, err := websocket.DefaultDialer.Dial(url.String(), headers)
 	if err != nil {
-		log.Fatal("연결 실패:", err)
-	} else {
-		conn = c
-		// 택배함 name 값 전송
-		u := uuid.New()
-		name, _ := model.SelectIbName()
-
-		msg := Message{RequestId: u.String(), Command: "conn", Payload: name}
-		sendMsg(msg)
+		if resp != nil {
+			log.Printf("HTTP Response: %d", resp.StatusCode)
+			body, _ := ioutil.ReadAll(resp.Body)
+			log.Printf("Response Body: %s", body)
+		}
+		log.Printf("Dial error: %v", err)
+		return
 	}
+	conn = c
 	defer c.Close()
 
-	// 비동기적인 메시지 수신을 위한 고루틴 실행
-	go func() {
-		defer c.Close()
-		for {
-			_, message, err := c.ReadMessage()
-			if err != nil {
-				log.Println("메시지 수신 에러:", err)
-				return
-			}
+	// 초기 연결 메시지 전송
+	sendInitialConnectionMessage()
 
-			reqMsg := &ReqMsg{}
-			json.Unmarshal(message, reqMsg)
-			log.Printf("서버로부터 메시지 수신: %s\n", reqMsg)
-
-			switch reqMsg.Command {
-			case INSERT_ADMIN_PWD:
-				res := insertAdminPwd(reqMsg)
-				sendMsg(res)
-			case UPDATE_ADMIM_PWD:
-				res := updateAdminPwd(reqMsg)
-				sendMsg(res)
-			case GET_ITEM_LIST:
-				res := getItemList(reqMsg)
-				sendMsg(res)
-
-			case GET_SLOT_LIST:
-				res := getSlotList(reqMsg)
-				sendMsg(res)
-
-			case GET_SLOT_TRAY_LIST:
-				res := getSlotTrayList(reqMsg)
-				sendMsg(res)
-			case GET_OWNER_LIST:
-				res := getOwnerList(reqMsg)
-				sendMsg(res)
-			case GET_OWNER_DETAIL:
-				res := getOwnerDetail(reqMsg)
-				sendMsg(res)
-			case INSERT_OWNER:
-				res := insertOwner(reqMsg)
-				sendMsg(res)
-			case UPDATE_OWNER_INFO:
-				res := updateOwnerInfo(reqMsg)
-				sendMsg(res)
-			case GET_ITEM_BY_USER:
-				res := getItemByUser(reqMsg)
-				sendMsg(res)
-			case GET_TRAY_Buffer_Cnt:
-				res := getTrayBufferCnt(reqMsg)
-				sendMsg(res)
-			case GET_OWNER_ADDRESS:
-				res := getOwnerAddress(reqMsg)
-				sendMsg(res)
-			case GET_OWNER_ADDRESS_LIST:
-				res := getOwnerAddressList(reqMsg)
-				sendMsg(res)
-			case RESET_OWNER_PASSWORD:
-				res := resetOwnerPassword(reqMsg)
-				sendMsg(res)
-			case GET_ITEM_CNT:
-				res := getItemCnt(reqMsg)
-				sendMsg(res)
-			}
-		}
-	}()
-
-	// signal 받을 채널 생성 및 등록
+	// 채널 및 타이머 설정
+	pingTicker := time.NewTicker(30 * time.Second)
+	defer pingTicker.Stop()
+	inputChan := make(chan string)
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 
+	// 고루틴 실행
+	go handleUserInput(inputChan)
+	go receiveMessages(c)
+
 	for {
 		select {
-		// signal 받으면 프로세스 종료
 		case <-interrupt:
 			fmt.Println("CTRL+C가 입력되어 종료합니다.")
 			return
-		// 사용자 입력을 받아 서버에 메시지 전송
-		default:
-			var payload string
-			//fmt.Print("전송할 메시지를 입력하세요: ")
-			fmt.Scanln(&payload)
-
-			// 메시지 생성
-			msg := Message{RequestId: "id", Command: "insert", Payload: payload}
-
-			sendMsg(msg)
+		case <-pingTicker.C:
+			sendPing(c)
+		case payload := <-inputChan:
+			handleUserMessage(payload)
 		}
 	}
+}
+
+// Ping 메시지 전송
+func sendPing(c *websocket.Conn) {
+	if err := c.WriteMessage(websocket.PingMessage, nil); err != nil {
+		log.Printf("ping 전송 실패: %v", err)
+	}
+}
+
+// 사용자 메시지 처리
+func handleUserMessage(payload string) {
+	log.Println("Received user input")
+	msg := Message{RequestId: "id", Command: "insert", Payload: payload}
+	sendMsg(msg)
+}
+
+// 사용자 입력 처리 고루틴
+func handleUserInput(inputChan chan<- string) {
+	for {
+		var payload string
+		fmt.Scanln(&payload)
+		inputChan <- payload
+	}
+}
+
+// 메시지 수신 고루틴
+func receiveMessages(c *websocket.Conn) {
+	defer c.Close()
+	for {
+		_, message, err := c.ReadMessage()
+		if err != nil {
+			log.Println("메시지 수신 에러:", err)
+			return
+		}
+		reqMsg := &ReqMsg{}
+		json.Unmarshal(message, reqMsg)
+		log.Printf("서버로부터 메시지 수신: %s\n", reqMsg)
+		handleMessage(reqMsg)
+	}
+}
+
+// 초기 연결 메시지 전송
+func sendInitialConnectionMessage() {
+	u := uuid.New()
+	name, _ := model.SelectIbName()
+	msg := Message{RequestId: u.String(), Command: "conn", Payload: name}
+	sendMsg(msg)
+}
+
+func handleMessage(reqMsg *ReqMsg) {
+	var res Message
+
+	switch reqMsg.Command {
+	case INSERT_ADMIN_PWD:
+		res = insertAdminPwd(reqMsg)
+	case UPDATE_ADMIM_PWD:
+		res = updateAdminPwd(reqMsg)
+	case GET_ITEM_LIST:
+		res = getItemList(reqMsg)
+	case GET_SLOT_LIST:
+		res = getSlotList(reqMsg)
+	case GET_SLOT_TRAY_LIST:
+		res = getSlotTrayList(reqMsg)
+	case GET_OWNER_LIST:
+		res = getOwnerList(reqMsg)
+	case GET_OWNER_DETAIL:
+		res = getOwnerDetail(reqMsg)
+	case INSERT_OWNER:
+		res = insertOwner(reqMsg)
+	case UPDATE_OWNER_INFO:
+		res = updateOwnerInfo(reqMsg)
+	case GET_ITEM_BY_USER:
+		res = getItemByUser(reqMsg)
+	case GET_TRAY_Buffer_Cnt:
+		res = getTrayBufferCnt(reqMsg)
+	case GET_OWNER_ADDRESS:
+		res = getOwnerAddress(reqMsg)
+	case GET_OWNER_ADDRESS_LIST:
+		res = getOwnerAddressList(reqMsg)
+	case RESET_OWNER_PASSWORD:
+		res = resetOwnerPassword(reqMsg)
+	case GET_ITEM_CNT:
+		res = getItemCnt(reqMsg)
+	case GET_ITEM_CNT_BY_DATE:
+		res = getItemCntByDate(reqMsg)
+	case GET_ITEM_CNT_WEEKLY:
+		res = getItemCntWeekly(reqMsg)
+	case GET_ITEM_CNT_MONTHLY:
+		res = getItemCntMonthly(reqMsg)
+	default:
+		log.Printf("Unknown command: %s", reqMsg.Command)
+		return
+	}
+
+	sendMsg(res)
 }
 
 func generateClientKey(secretKey string) string {
@@ -602,4 +642,71 @@ func SendEvent(data string) {
 		log.Println("메시지 전송 에러:", err)
 		return
 	}
+}
+
+func getItemCntByDate(data *ReqMsg) Message {
+
+	msg := &Message{}
+
+	itemCntList, err := model.SelectItemCntByDate()
+
+	if err != nil {
+		log.Error(err)
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "FAIL"
+		msg.Payload = err.Error()
+	} else {
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "OK"
+		msg.Payload = itemCntList
+	}
+
+	log.Println("sendToServer: ", msg)
+	return *msg
+}
+func getItemCntWeekly(data *ReqMsg) Message {
+
+	msg := &Message{}
+
+	itemCntList, err := model.SelectItemCntWeekly()
+
+	if err != nil {
+		log.Error(err)
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "FAIL"
+		msg.Payload = err.Error()
+	} else {
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "OK"
+		msg.Payload = itemCntList
+	}
+
+	log.Println("sendToServer: ", msg)
+	return *msg
+}
+func getItemCntMonthly(data *ReqMsg) Message {
+
+	msg := &Message{}
+
+	itemCntList, err := model.SelectItemCntMonthly()
+
+	if err != nil {
+		log.Error(err)
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "FAIL"
+		msg.Payload = err.Error()
+	} else {
+		msg.RequestId = data.RequestId
+		msg.Command = data.Command
+		msg.Status = "OK"
+		msg.Payload = itemCntList
+	}
+
+	log.Println("sendToServer: ", msg)
+	return *msg
 }
