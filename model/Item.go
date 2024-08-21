@@ -28,15 +28,15 @@ type ItemReadResponse struct {
 }
 
 type ItemListResponse struct {
-	ItemId          int64        `json:"item_id"`
-	DeliveryCompany string       `json:"delivery_company"`
-	Address         string       `json:"address"`
-	PhoneNum        string       `json:"phone_num"`
-	TrackingNumber  int64        `json:"tracking_number"`
-	InputDate       time.Time    `json:"input_date"`
-	OutputDate      sql.NullTime `json:"output_date"`
-	Lane            int          `json:"lane"`
-	Floor           int          `json:"floor"`
+	ItemId          int64         `json:"item_id"`
+	DeliveryCompany string        `json:"delivery_company"`
+	Address         string        `json:"address"`
+	PhoneNum        string        `json:"phone_num"`
+	TrackingNumber  int64         `json:"tracking_number"`
+	InputDate       time.Time     `json:"input_date"`
+	OutputDate      sql.NullTime  `json:"output_date"`
+	Lane            sql.NullInt64 `json:"lane"`
+	Floor           sql.NullInt64 `json:"floor"`
 }
 
 type ItemCreateRequest struct {
@@ -57,9 +57,9 @@ type ItemCntReq struct {
 }
 
 type ItemCntRes struct {
-	InputCnt  int `json:"input_cnt"`
-	OutputCnt int `json:"output_cnt"`
-	StoreCnt  int `json:"store_cnt"`
+	InputCnt  int64 `json:"input_cnt"`
+	OutputCnt int64 `json:"output_cnt"`
+	StoreCnt  int64 `json:"store_cnt"`
 }
 
 type ItemCntDateRes struct {
@@ -511,7 +511,7 @@ func SelectItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 				ON i.delivery_id = d.delivery_id
 				JOIN TN_INF_OWNER o
 				ON i.owner_id = o.owner_id
-				JOIN TN_CTR_SLOT s
+				LEFT OUTER JOIN TN_CTR_SLOT s
 				ON i.item_id = s.item_id AND tray_id IS NOT null
 			`
 	if searchText != "" {
@@ -551,14 +551,12 @@ func SelectOutputItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 	searchText := itemOption.SearchText
 
 	query := `
-				SELECT i.item_id, i.tracking_number, i.INPUT_DATE, i.output_date, d.delivery_company, o.address, o.phone_num, s.lane, s.floor
+				SELECT i.item_id, i.tracking_number, i.INPUT_DATE, i.output_date, d.delivery_company, o.address, o.phone_num
 				FROM TN_CTR_ITEM i
 				JOIN TN_INF_DELIVERY d
 				ON i.delivery_id = d.delivery_id
 				JOIN TN_INF_OWNER o
 				ON i.owner_id = o.owner_id
-				JOIN TN_CTR_SLOT s
-				ON i.item_id = s.item_id AND tray_id IS NOT null
 				WHERE output_date IS NOT NULL
 			`
 
@@ -580,7 +578,7 @@ func SelectOutputItemList(itemOption *ItemOption) ([]ItemListResponse, error) {
 
 	for rows.Next() {
 		var itemListResponse ItemListResponse
-		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.PhoneNum, &itemListResponse.Lane, &itemListResponse.Floor)
+		err := rows.Scan(&itemListResponse.ItemId, &itemListResponse.TrackingNumber, &itemListResponse.InputDate, &itemListResponse.OutputDate, &itemListResponse.DeliveryCompany, &itemListResponse.Address, &itemListResponse.PhoneNum)
 		if err != nil {
 			return nil, err
 		}
@@ -704,9 +702,9 @@ func SelectStoreItemByUser(owner_id interface{}) ([]ItemListResponse, error) {
 func SelectItemCnt(itemDate *ItemCntReq) (ItemCntRes, error) {
 	query := `
 			SELECT
-				SUM(CASE WHEN INPUT_DATE IS NOT NULL THEN 1 ELSE 0 END) AS input_cnt,
-				SUM(CASE WHEN INPUT_DATE IS NOT NULL AND OUTPUT_DATE IS NULL THEN 1 ELSE 0 END) AS store_cnt,
-				SUM(CASE WHEN OUTPUT_DATE IS NOT NULL THEN 1 ELSE 0 END) AS output_cnt
+				COALESCE(SUM(CASE WHEN INPUT_DATE IS NOT NULL THEN 1 ELSE 0 END), 0) AS input_cnt,
+				COALESCE(SUM(CASE WHEN INPUT_DATE IS NOT NULL AND OUTPUT_DATE IS NULL THEN 1 ELSE 0 END), 0) AS store_cnt,
+				COALESCE(SUM(CASE WHEN OUTPUT_DATE IS NOT NULL THEN 1 ELSE 0 END), 0) AS output_cnt
 			FROM TN_CTR_ITEM
 		`
 
@@ -718,13 +716,13 @@ func SelectItemCnt(itemDate *ItemCntReq) (ItemCntRes, error) {
 		row = DB.QueryRow(query)
 
 	} else {
-		query += `WHERE (INPUT_DATE BETWEEN ? AND ?)
-		OR (OUTPUT_DATE BETWEEN ? AND ?)`
+		query += `WHERE (DATE(INPUT_DATE) BETWEEN ? AND ?)
+		OR (DATE(OUTPUT_DATE) BETWEEN ? AND ?)`
 
 		row = DB.QueryRow(query, itemDate.StartDate, itemDate.LastDate, itemDate.StartDate, itemDate.LastDate)
 	}
 
-	err = row.Scan(&itemCntRes.InputCnt, &itemCntRes.OutputCnt, &itemCntRes.StoreCnt)
+	err = row.Scan(&itemCntRes.InputCnt, &itemCntRes.StoreCnt, &itemCntRes.OutputCnt)
 	if err != nil {
 		return ItemCntRes{}, err
 	}

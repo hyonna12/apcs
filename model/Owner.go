@@ -246,3 +246,40 @@ func ResetOwnerPassword(ownerPwdRequest OwnerPwdRequest) (int64, error) {
 
 	return id, nil
 }
+
+func SelectPasswordByAddress(address string) (string, error) {
+	query := `
+		SELECT password
+		FROM TN_INF_OWNER
+		WHERE address = ?
+		`
+
+	var password string
+
+	row := DB.QueryRow(query, address)
+	err := row.Scan(&password)
+	if err != nil {
+		log.Error(err)
+		return password, err
+	}
+	return password, nil
+}
+
+func SelectOwnerDetailByAddress(address string) (Owner, error) {
+	query := `
+		SELECT nm, owner_id, phone_num, address
+		FROM TN_INF_OWNER
+		WHERE address = ?
+	`
+
+	var owner Owner
+
+	row := DB.QueryRow(query, address)
+	err := row.Scan(&owner.Nm, &owner.OwnerId, &owner.PhoneNum, &owner.Address)
+
+	if err != nil {
+		log.Error(err)
+		return owner, err
+	}
+	return owner, nil
+}

@@ -1,0 +1,87 @@
+{{template "layout.html" .}}
+{{define "content"}}
+<style>
+    /* .modal-content {
+        background-color: rgb(2, 26, 2);
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        margin: 15% auto;
+        padding: 40px;
+        border: 1px solid #888;
+        width: 55%;
+        transform: translate(-50%, -50%);
+    }
+
+    .modal-msg {
+        text-align: center;
+        color: rgb(255, 174, 0);
+        font-size: 2.8rem;
+        font-weight: 700;
+        word-break: keep-all;
+        line-height: 140%;
+        width: 80%;
+        margin: 0 auto;
+        padding: 30px 0;
+    } */
+
+    .list-box .list-top.tracking_num .value img {
+        width:50px
+    }
+
+</style>
+        <main id="main">
+            <div class="content-wrap">
+                <div class="setting-wrap">
+                    <div class="setting-body">
+                        <div class="setting-title">설정</div>
+                        <p class="setting-list" id="user_info">회원정보</p>
+                    </div>
+                    <div class="setting-footer">
+                        <div class="btn-wrap">
+                            <button class="btn-green" id="cancel_btn">취소</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+    /* 남은 시간 확인 */
+    const timeLimit = 600;
+    let counter = 0;
+    count();
+    let intervalTimer = setInterval(count, 1000);
+
+    function count(){
+        if (counter > timeLimit) {
+            clearInterval(intervalTimer);
+            location.href='/';
+        }
+        counter += 1;
+    }
+
+
+
+    /* 첫 화면으로 */
+    $('#cancel_btn').click(function () {
+        location.href='/';
+    });
+
+    /* 회원 정보관리 화면으로 */
+    $('#user_info').click(function () {
+        location.href='/setting/password_form';
+    });
+
+    // /* 입력완료 버튼 선택시 */
+    // cancel_btn.onclick = () => {
+    //     // 타이머 리셋
+    //     counter = 0;
+
+    //     send_delivery_info();
+    // };
+    
+</script>
+{{end}}

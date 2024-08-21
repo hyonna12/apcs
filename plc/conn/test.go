@@ -1,106 +1,185 @@
 package conn
 
 import (
+	"encoding/binary"
 	"fmt"
 	"net"
+
+	log "github.com/sirupsen/logrus"
 )
 
-type MCHeader struct {
-	ProtocolVersion byte
-	AddressType     byte
-	Address         uint16
-	Length          uint16
+type PCClient struct {
+	conn net.Conn
 }
 
-type MCPacket struct {
-	Header   MCHeader
-	Data     []byte
-	Checksum byte
+type PLCData struct {
+	TaskName string
+	Address  uint32
+	Value    uint16
+	IsRead   bool
 }
 
-func InitPlc() {
-	// PLC 연결 설정
-	plcAddress := "localhost:6000"
-	conn, err := net.Dial("tcp", plcAddress)
-	if err != nil {
-		fmt.Println("Failed to connect to PLC:", err)
-		return
-	}
-	defer conn.Close()
-	fmt.Println(conn)
-
-	// MC 프로토콜 패킷 생성
-	packet := MCPacket{
-		Header: MCHeader{
-			ProtocolVersion: 0,
-			AddressType:     0,
-			Address:         1000,
-			Length:          3,
-		},
-		Data:     []byte{1, 2, 3},
-		Checksum: 0, // 체크섘 계산 로직 추가 필요
-	}
-
-	// MC 프로토콜 패킷을 PLC로 전송
-	packetBytes := encodePacket(packet)
-	_, err = conn.Write(packetBytes)
-	if err != nil {
-		fmt.Println("Failed to send packet to PLC:", err)
-		return
-	}
-
-	// PLC로부터 응답 수신 및 처리
-	response := make([]byte, 1024)
-	_, err = conn.Read(response)
-	if err != nil {
-		fmt.Println("Failed to read response from PLC:", err)
-		return
-	}
-
-	// 응답 데이터 처리
-	packet, err = decodePacket(response)
-	if err != nil {
-		fmt.Println("Failed to decode packet:", err)
-		return
-	}
-
-	fmt.Printf("Received packet: %+v\n", packet)
+var taskList = map[string]PLCData{
+	"OpenDoor":       {"OpenDoor", 100, 1, false},
+	"CloseDoor":      {"CloseDoor", 101, 0, false},
+	"TurnOnLight":    {"TurnOnLight", 102, 1, false},
+	"TurnOffLight":   {"TurnOffLight", 103, 0, false},
+	"SetTemperature": {"SetTemperature", 104, 25, false},
+	"DetectFire":     {"DetectFire", 105, 0, true},
+	"Weight":         {"Weight", 106, 0, true},
+	"Height":         {"Height", 107, 0, true},
 }
 
-func encodePacket(packet MCPacket) []byte {
-	// MC 프로토콜 패킷 인코딩 로직 구현 필요
-	// 예시에서는 단순히 패킷 구조체를 바이트 슬라이스로 변환
-	packetBytes := []byte{
-		packet.Header.ProtocolVersion,
-		packet.Header.AddressType,
-		byte(packet.Header.Address >> 8),
-		byte(packet.Header.Address),
-		byte(packet.Header.Length >> 8),
-		byte(packet.Header.Length),
+func NewPCClient(address string) (*PCClient, error) {
+	conn, err := net.Dial("tcp", address)
+	if err != nil {
+		return nil, err
 	}
-	packetBytes = append(packetBytes, packet.Data...)
-	packetBytes = append(packetBytes, packet.Checksum)
-
-	return packetBytes
+	return &PCClient{conn: conn}, nil
 }
 
-func decodePacket(packetBytes []byte) (MCPacket, error) {
-	// MC 프로토콜 패킷 디코딩 로직 구현 필요
-	// 예시에서는 단순히 바이트 슬라이스를 패킷 구조체로 변환
-	if len(packetBytes) < 8 {
-		return MCPacket{}, fmt.Errorf("invalid packet length")
+func (pc *PCClient) Close() {
+	pc.conn.Close()
+}
+
+func (pc *PCClient) WriteDataRegister(address uint16, value uint16) error {
+	command := make([]byte, 21)
+	copy(command, []byte{
+		0x50, 0x00, // 서브헤더
+		0x00,       // 네트워크 번호
+		0xFF,       // PC 번호
+		0xFF, 0x03, // 요청 대상 모듈 I/O 번호
+		0x00,       // 요청 대상 모듈 국번
+		0x0E, 0x00, // 요청 데이터 길이 (14바이트)
+		0x14, 0x01, // 쓰기 명령
+		0x00, // 서브 명령
+		'D',  // 디바이스 코드
+	})
+
+	// 주소 설정 (Big Endian)
+	binary.BigEndian.PutUint16(command[13:15], address)
+
+	// 디바이스 점수 설정 (1개)
+	binary.BigEndian.PutUint16(command[15:17], 1)
+
+	// 데이터 추가 (Little Endian)
+	binary.LittleEndian.PutUint16(command[17:19], value)
+
+	log.Printf("Sending Write command: Address %d, Value %d\n", address, value)
+	log.Printf("Command bytes: %X\n", command)
+
+	_, err := pc.conn.Write(command)
+	if err != nil {
+		return err
 	}
 
-	packet := MCPacket{
-		Header: MCHeader{
-			ProtocolVersion: packetBytes[0],
-			AddressType:     packetBytes[1],
-			Address:         uint16(packetBytes[2])<<8 | uint16(packetBytes[3]),
-			Length:          uint16(packetBytes[4])<<8 | uint16(packetBytes[5]),
-		},
-		Data:     packetBytes[6 : len(packetBytes)-1],
-		Checksum: packetBytes[len(packetBytes)-1],
+	// 응답 읽기
+	response := make([]byte, 11)
+	_, err = pc.conn.Read(response)
+	if err != nil {
+		return err
 	}
 
-	return packet, nil
+	log.Printf("Received response: %X\n", response)
+
+	if response[0] != 0xD0 || response[10] != 0x00 {
+		return fmt.Errorf("error response: %02X", response[10])
+	}
+
+	return nil
+}
+
+func (pc *PCClient) ReadDataRegister(address uint16, count uint16) ([]uint16, error) {
+	command := make([]byte, 17)
+	copy(command, []byte{
+		0x50, 0x00, // 서브헤더
+		0x00,       // 네트워크 번호
+		0xFF,       // PC 번호
+		0xFF, 0x03, // 요청 대상 모듈 I/O 번호
+		0x00,       // 요청 대상 모듈 국번
+		0x0B, 0x00, // 요청 데이터 길이 (11바이트)
+		0x04, 0x01, // 읽기 명령
+		0x00, // 서브 명령
+		'D',  // 디바이스 코드
+	})
+
+	// 주소 설정 (Big Endian)
+	binary.BigEndian.PutUint16(command[13:15], address)
+
+	// 디바이스 점수 설정
+	binary.BigEndian.PutUint16(command[15:17], count)
+
+	log.Printf("Sending Read command: Address %d, Count %d\n", address, count)
+	log.Printf("Command bytes: %X\n", command)
+
+	_, err := pc.conn.Write(command)
+	if err != nil {
+		return nil, err
+	}
+
+	// 응답 읽기
+	header := make([]byte, 11)
+	_, err = pc.conn.Read(header)
+	if err != nil {
+		return nil, err
+	}
+
+	if header[0] != 0xD0 || header[10] != 0x00 {
+		return nil, fmt.Errorf("error response: %02X", header[10])
+	}
+
+	dataLength := binary.BigEndian.Uint16(header[7:9])
+	data := make([]byte, dataLength)
+	_, err = pc.conn.Read(data)
+	if err != nil {
+		return nil, err
+	}
+
+	log.Printf("Received response header: %X\n", header)
+	log.Printf("Received response data: %X\n", data)
+
+	values := make([]uint16, count)
+	for i := uint16(0); i < count; i++ {
+		values[i] = binary.LittleEndian.Uint16(data[i*2 : (i+1)*2])
+	}
+
+	return values, nil
+}
+
+func (pc *PCClient) ExecuteTask(taskName string) error {
+	log.Println(taskName, "실행")
+	task, exists := taskList[taskName]
+	if !exists {
+		return fmt.Errorf("task %s not found", taskName)
+	}
+
+	if task.IsRead {
+		// 읽기 작업 수행
+		values, err := pc.ReadDataRegister(uint16(task.Address), 1)
+		if err != nil {
+			return fmt.Errorf("error reading %s (Address: %d): %v", taskName, task.Address, err)
+		}
+		log.Printf("Read value for %s (Address: %d): %v", taskName, task.Address, values[0])
+	} else {
+		// 쓰기 작업 수행
+		err := pc.WriteDataRegister(uint16(task.Address), task.Value)
+		if err != nil {
+			return fmt.Errorf("error writing %s (Address: %d, Value: %d): %v", taskName, task.Address, task.Value, err)
+		}
+		log.Printf("Successfully wrote %s (Address: %d, Value: %d)", taskName, task.Address, task.Value)
+	}
+
+	return nil
+}
+
+func InitConn() {
+	client, err := NewPCClient("localhost:6060")
+	if err != nil {
+		log.Printf("Error connecting to PLC: %v\n", err)
+		return
+	}
+	defer client.Close()
+
+	client.ExecuteTask("OpenDoor")
+	client.ExecuteTask("Height")
 }

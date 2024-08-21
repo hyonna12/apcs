@@ -101,8 +101,9 @@ func main() {
 	// 트레이버퍼 초기 설정
 	trayBuffer.InitTrayBuffer()
 
-	//go conn.InitConnPlc0()
+	//go conn.InitConnPlc2()
 	//go conn.InitPlc()
+	//go conn.InitConn()
 
 	resource.InitResources(slotIds)
 	event.StartEventServer(eventMsgNode)

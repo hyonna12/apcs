@@ -1,0 +1,124 @@
+{{template "layout.html" .}}
+{{define "content"}}
+<style>
+    #popup_ready_input {
+        position: absolute;
+        z-index: 9998;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: block;
+    }
+
+    .popup-box.msg-box .img {
+        text-align: center;
+    }
+    .popup-box.msg-box .img img {
+        width:400px
+    }
+    .popup-layer input{
+        padding: 20px; 
+        font-size: 60px;
+        text-align: center;
+        width: 450px;
+        border: 1px solid #ccc;
+        background-color: #ddd;
+    }
+    .popup-layer{
+        height: 130%;
+    }   
+
+</style>
+        <main id="main">
+            <div class="content-wrap">
+                <div class="setting-wrap">
+                    <div class="setting-body">
+                        <div class="setting-title">회원 정보</div>
+                        <div class="setting-content">
+                            <div class="info-row">
+                                <span class="info-label">회원명</span>
+                                <p class="info-value">홍길동</p>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">회원 PW</span>
+                                <p class="info-value">****</p>
+                                <button class="btn" id="change_btn">변경</button>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">휴대전화</span>
+                                <p class="info-value">000-0000-0000</p>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">주소</span>
+                                <p class="info-value"><span class="address_info"></span>호</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="msg-footer">
+                        <div class="btn-wrap">
+                            <button class="btn-green" id="ok_btn">확인</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+    /* 남은 시간 확인 */
+    const timeLimit = 600;
+    let counter = 0;
+    count();
+    let intervalTimer = setInterval(count, 1000);
+
+    function count(){
+        if (counter > timeLimit) {
+            clearInterval(intervalTimer);
+            location.href='/';
+        }
+        counter += 1;
+    }
+
+    const url = new URL(window.location.href);
+    const address = url.searchParams.get("address");
+
+    /* 수령 버튼 선택시 */
+    $output_btn.onclick = () => {
+        window.location.replace('/output/password/form?address=' + address);
+    }
+    function getUserInfo() {
+        axios.get('/setting/user', {
+            address: address,
+        })
+            .then(axiosResult => {
+                let response = axiosResult.data;
+                console.log(response);
+            })
+            .catch(err => {
+                alert('비밀번호가 올바르지 않습니다.');
+                console.error(err);
+            })
+    }
+
+
+
+    change_btn.onclick = () => {
+        // 타이머 리셋
+        counter = 0;
+        location.replace('/setting/update_password_form?address='+address);
+           
+    }
+
+
+    ok_btn.onclick = () => {
+        console.log("--")
+
+        location.href='/';
+    };
+    
+</script>
+{{end}}

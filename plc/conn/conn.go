@@ -2,15 +2,11 @@ package conn
 
 import (
 	"apcs_refactored/webserver"
-	"fmt"
+	"encoding/binary"
 	"net"
-	"net/url"
 	"time"
 
-	"github.com/BRA1L0R/go-mcproto"
-	"github.com/BRA1L0R/go-mcproto/packets/models"
 	mc "github.com/future-architect/go-mcprotocol/mcp"
-	"github.com/gorilla/websocket"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -24,14 +20,20 @@ type PLC struct {
 type State struct {
 	D0 int
 	D1 int
+	D2 int
 }
 
 // MC 프레임 구조체
 type MCFrame struct {
-	Command byte
-	Header  Header
-	Packet  Packet
+	SubHeader       [4]byte
+	AccessRoute     [2]byte
+	DataLength      [2]byte
+	MonitoringTimer [2]byte
+	Command         [2]byte
+	SubCommand      [2]byte
+	Data            []byte
 }
+
 type Header struct {
 	Protocol byte // 프로토콜 종류
 	Address  int  // 주소
@@ -46,6 +48,7 @@ type Packet struct {
 
 // 트러블 감지
 func SenseTrouble(data string) {
+	log.Println(data)
 
 	/* if state.D0 == 1 {
 		SenseTrouble(data)
@@ -103,240 +106,125 @@ func SenseTrouble(data string) {
 	}
 }
 
-func InitConnPlc0() {
-	const addr = "ws://localhost:6000"
+// func InitConnPlc0() {
+// 	const addr = "ws://localhost:6000"
 
-	u, err := url.Parse(addr)
-	if err != nil {
-		log.Fatal(err)
-	}
+// 	u, err := url.Parse(addr)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
 
-	// 웹소켓 연결
-	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer c.Close()
+// 	// 웹소켓 연결
+// 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	defer c.Close()
 
-	// 메시지 송신
-	err = c.WriteMessage(websocket.TextMessage, []byte("Hello, WebSocket Server!"))
-	if err != nil {
-		log.Println("Write error:", err)
-		return
-	}
+// 	// 메시지 송신
+// 	err = c.WriteMessage(websocket.TextMessage, []byte("Hello, WebSocket Server!"))
+// 	if err != nil {
+// 		log.Println("Write error:", err)
+// 		return
+// 	}
 
-	// 메시지 수신 루프
-	for {
-		_, msg, err := c.ReadMessage()
-		if err != nil {
-			log.Println("Read error:", err)
-			return
-		}
-		SenseTrouble(string(msg))
+// 	// 메시지 수신 루프
+// 	for {
+// 		_, msg, err := c.ReadMessage()
+// 		if err != nil {
+// 			log.Println("Read error:", err)
+// 			return
+// 		}
+// 		SenseTrouble(string(msg))
 
-		log.Printf("Received message: %s\n", msg)
-	}
-}
-
-func InitConnPlc1() {
-	// "github.com/BRA1L0R/go-mcproto"
-	// "github.com/BRA1L0R/go-mcproto/packets/models"
-
-	client := mcproto.Client{}
-	client.Initialize("192.168.50.219", 6000, 755, "apcs")
-
-	for {
-		packet, err := client.ReceivePacket()
-		if err != nil {
-			log.Error(err)
-		}
-
-		log.Println("ReceivePacket: ", packet)
-
-		if packet.PacketID == 0x1F { // clientbound keepalive packetid
-			receivedKeepalive := new(models.KeepAlivePacket)
-			err := packet.DeserializeData(receivedKeepalive)
-			if err != nil {
-				log.Error(err)
-			}
-
-			serverBoundKeepalive := new(models.KeepAlivePacket)
-			serverBoundKeepalive.KeepAliveID = receivedKeepalive.KeepAliveID
-			serverBoundKeepalive.PacketID = 0x10 // serverbound keepaliveid
-
-			log.Println("ReceivePacket: ", serverBoundKeepalive)
-
-			err = client.WritePacket(serverBoundKeepalive)
-			if err != nil {
-				log.Error(err)
-			}
-		}
-	}
-}
+// 		log.Printf("Received message: %s\n", msg)
+// 	}
+// }
 
 func InitConnPlc2() {
 	//	mc "github.com/future-architect/go-mcprotocol/mcp"
 
 	log.Debugf("plc conn started")
 
-	// go-mcprotocol 라이브러리
-	client, err := mc.New3EClient("192.168.50.219", 6000, mc.NewLocalStation())
+	client, err := mc.New3EClient("localhost", 6060, mc.NewLocalStation())
+
+	if err != nil {
+		log.Fatal("Failed to connect to PLC:", err)
+		return
+	}
+
 	log.Println("connect to PLC:", client)
 
+	// 초기 상태 쓰기
+	err = WriteToPLC(client, 1000, []uint16{0, 0, 0})
 	if err != nil {
-		log.Error("Failed to connect to PLC:", err)
+		log.Error("Failed to write initial state to PLC:", err)
 		return
 	}
 
-	b := []byte("1")
-	// deviceName: device code name 'D' register/ offset: device offset addr/ numPoints: number of read device pointes
-	client.Write("D", 1000, 3, b)
-
+	// 주기적인 읽기 작업을 위한 타이머 설정
+	ticker := time.NewTicker(1 * time.Second)
 	go func() {
-		for {
-			read, err := client.Read("D", 1000, 3)
-			data := string(read)
-			//fmt.Println("response:", string(read))
-			// registerBinary, _ := mcp.NewParser().Do(read)
-			// fmt.Println(string(registerBinary.Payload))
-
-			if err != nil {
-				log.Error(err)
-				// 알림
-				return
-			}
-			SenseTrouble(data)
-			//time.Sleep(100 * time.Millisecond)
-			time.Sleep(1 * time.Second)
-		}
-	}()
-}
-
-func InitConnPlc3() {
-	// PLC 주소 및 포트 설정
-	plcAddress := "localhost:6000"
-	conn, err := net.Dial("tcp", plcAddress)
-	if err != nil {
-		fmt.Println("Failed to connect to PLC:", err)
-		return
-	}
-	defer conn.Close()
-
-	fmt.Println("Connected to PLC")
-
-	// MC 프레임 생성
-	frame := MCFrame{
-		Command: 68,
-		// 다른 필드 초기화
-	}
-
-	// MC 프레임을 PLC로 전송
-	_, err = conn.Write([]byte{frame.Command}) // 예시: 실제 프레임 전송 방식 사용
-	if err != nil {
-		fmt.Println("Failed to send MC frame:", err)
-		return
-	}
-
-	// PLC로부터 응답 수신 및 처리
-	response := make([]byte, 1024)
-	_, err = conn.Read(response)
-	if err != nil {
-		fmt.Println("Failed to read response:", err)
-		return
-	}
-
-	// 응답 데이터 처리
-	// 실제 MC 프로토콜에 따라 데이터 파싱
-	data := string(response)
-	fmt.Println("Received response:", data)
-}
-
-func InitConnPlc4() {
-	conn, err := net.Dial("tcp", "localhost:6000")
-	if err != nil {
-		log.Printf("Failed to connect to PLC: %v", err)
-	}
-	defer conn.Close()
-
-	log.Println("Connected to PLC")
-
-	// 쓰기 예제
-	writeData := []byte{0x01, 0x00, 0x00}
-	log.Println("writeData", writeData)
-
-	_, err = conn.Write(append([]byte{0x14, 0x01, 0x00, 0x00}, writeData...))
-	if err != nil {
-		log.Printf("Write error: %v", err)
-	}
-
-	go func() {
-		for {
-			// 읽기 예제
-			_, err := conn.Write([]byte{0x04, 0x01, 0x00, 0x00, 0x00, 0x03})
-			if err != nil {
-				log.Printf("Read request error: %v", err)
-			}
-
-			readBuffer := make([]byte, 1024)
-			n, err := conn.Read(readBuffer)
-			if err != nil {
-				log.Printf("Read error: %v", err)
-			}
-			log.Printf("Data read from PLC: %v\n", readBuffer[:n])
-			time.Sleep(1 * time.Second)
+		for range ticker.C {
+			ReadFromPLC(client)
 		}
 	}()
 
-	// Keep the main function running
-	select {}
+	// go func() {
+	// 	for {
+	// 		read, err := client.Read("D", 1000, 3)
+	// 		data := string(read)
+	// 		//fmt.Println("response:", string(read))
+	// 		// registerBinary, _ := mcp.NewParser().Do(read)
+	// 		// fmt.Println(string(registerBinary.Payload))
+
+	// 		if err != nil {
+	// 			log.Error(err)
+	// 			// 알림
+	// 			return
+	// 		}
+	// 		SenseTrouble(data)
+	// 		//time.Sleep(100 * time.Millisecond)
+	// 		time.Sleep(1 * time.Second)
+	// 	}
+	// }()
 }
 
-// func InitConnPlc5() {
-// 	log.Println("plc conn started")
+func WriteToPLC(client mc.Client, startAddress uint32, values []uint16) error {
+	data := make([]byte, len(values)*2)
+	for i, v := range values {
+		binary.LittleEndian.PutUint16(data[i*2:], v)
+	}
 
-// 	client, err := mcproto.New3EClient("localhost", 6000, mcproto.NewLocalStation())
-// 	if err != nil {
-// 		log.Fatal("Failed to connect to PLC:", err)
-// 		return
-// 	}
-// 	defer client.Close()
+	_, err := client.Write("D", int64(startAddress), int64(len(values)), data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
-// 	log.Println("Connected to PLC:", client)
+func ReadFromPLC(client mc.Client) {
+	read, err := client.Read("D", int64(1000), int64(3))
+	if err != nil {
+		log.Fatal("Failed to read from PLC:", err)
+		return
+	}
 
-// 	// 쓰기 예제
-// 	writeData := []byte{0x01, 0x00, 0x00}
-// 	err = client.Write("D", 1000, 3, writeData)
-// 	if err != nil {
-// 		log.Fatal("Write error:", err)
-// 	}
+	if len(read) >= 6 {
+		state := State{
+			D0: int(binary.LittleEndian.Uint16(read[0:2])),
+			D1: int(binary.LittleEndian.Uint16(read[2:4])),
+			D2: int(binary.LittleEndian.Uint16(read[4:6])),
+		}
 
-// 	go func() {
-// 		for {
-// 			// 읽기 예제
-// 			read, err := client.Read("D", 1000, 3)
-// 			if err != nil {
-// 				log.Fatal("Read error:", err)
-// 			}
-// 			log.Println("Data read from PLC:", read)
-// 			time.Sleep(1 * time.Second)
-// 		}
-// 	}()
+		log.Printf("Read state: D0=%d, D1=%d, D2=%d", state.D0, state.D1, state.D2)
 
-// 	// Keep the main function running
-// 	select {}
-// }
-
-func CreateMcProtocolMessage() []byte {
-	// MC 프로토콜 메시지 작성
-	return []byte{
-		0x50, 0x00, // Subheader
-		0x00, 0xFF, // Network number, PC number
-		0xFF, 0x03, 0x00, // Request destination module I/O, station number
-		0x0A, 0x00, // Request data length
-		0x10, 0x00, // CPU monitoring timer
-		0x01, 0x04, // Command (read)
-		0x00, 0x00, // Subcommand
-		0x00, 0x00, 0x00, // Starting address
-		0x00, 0x10, // Number of points
+		// 상태에 따른 처리
+		if state.D0 != 0 || state.D1 != 0 || state.D2 != 0 {
+			troubleState := string([]rune{rune(state.D0), rune(state.D1), rune(state.D2)})
+			SenseTrouble(troubleState)
+		}
+	} else {
+		log.Error("Insufficient data read from PLC")
 	}
 }

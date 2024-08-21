@@ -27,9 +27,9 @@ var sortInfo Sort
 func SortItem(w http.ResponseWriter, r *http.Request) {
 	log.Info("[PLC] 물품 정리")
 
-	resp, err := http.Get("https://asrsp.mipllab.com/get/sort_item")
+	//resp, err := http.Get("https://asrsp.mipllab.com/get/sort_item")
 
-	//resp, err := http.Get("http://localhost:8010/get/sort_item")
+	resp, err := http.Get("http://localhost:8010/get/sort_item")
 
 	if err != nil {
 		log.Error(err)

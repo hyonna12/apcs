@@ -20,6 +20,15 @@ func Handler(r *mux.Router) {
 		ServeWs(wsHub, w, r)
 	})
 
+	/* setting */
+	r.HandleFunc("/setting", Setting).Methods(http.MethodGet)
+	r.HandleFunc("/setting/password_form", PasswordForm).Methods(http.MethodGet)
+	r.HandleFunc("/setting/user_info", UserInfo).Methods(http.MethodGet)
+	r.HandleFunc("/setting/update_password_form", UpdatePasswordForm).Methods(http.MethodPost)
+
+	r.HandleFunc("/setting/password/check", CheckAddressPassword).Methods(http.MethodPost)
+	r.HandleFunc("/setting/user", GetUserInfo).Methods(http.MethodGet)
+
 	/* input */
 	// [View] 택배 입고 버튼을 누른 경우 호출
 	r.HandleFunc("/input/register_delivery", RegisterDelivery).Methods(http.MethodGet)

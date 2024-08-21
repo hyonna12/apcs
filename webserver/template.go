@@ -114,6 +114,27 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+/* setting */
+func Setting(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	render(w, "setting/setting.html", nil)
+}
+
+func PasswordForm(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	render(w, "setting/password_form.html", nil)
+}
+
+func UpdatePasswordForm(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	render(w, "setting/update_password_form.html", nil)
+}
+
+func UserInfo(w http.ResponseWriter, r *http.Request) {
+	log.Debugf("URL: %v", r.URL)
+	render(w, "setting/user_info.html", nil)
+}
+
 /* Input_Item */
 func RegisterDelivery(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)
