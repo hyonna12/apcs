@@ -46,6 +46,8 @@ func StartWebserver(n *messenger.Node) {
 	http.Handle("/", r)
 
 	address := webConfig.Server.Host + ":" + strconv.Itoa(webConfig.Server.Port)
+	log.Info("Web server started : ", address)
+
 	err := http.ListenAndServe(address, nil)
 	if err != nil {
 		log.Fatalf("Failed to start websocket server: %v", err)

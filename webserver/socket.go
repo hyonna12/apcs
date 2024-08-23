@@ -97,12 +97,12 @@ func ConnWs() {
 	// 채널 및 타이머 설정
 	pingTicker := time.NewTicker(30 * time.Second)
 	defer pingTicker.Stop()
-	inputChan := make(chan string)
+	//inputChan := make(chan string)
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 
 	// 고루틴 실행
-	go handleUserInput(inputChan)
+	//go handleUserInput(inputChan)
 	go receiveMessages(c)
 
 	for {
@@ -112,8 +112,8 @@ func ConnWs() {
 			return
 		case <-pingTicker.C:
 			sendPing(c)
-		case payload := <-inputChan:
-			handleUserMessage(payload)
+			// case payload := <-inputChan:
+			// 	handleUserMessage(payload)
 		}
 	}
 }
@@ -125,21 +125,38 @@ func sendPing(c *websocket.Conn) {
 	}
 }
 
-// 사용자 메시지 처리
-func handleUserMessage(payload string) {
-	log.Println("Received user input")
-	msg := Message{RequestId: "id", Command: "insert", Payload: payload}
-	sendMsg(msg)
-}
+// var rateLimiter = time.Tick(time.Second / 10) // 초당 최대 10개의 요청으로 제한
 
-// 사용자 입력 처리 고루틴
-func handleUserInput(inputChan chan<- string) {
-	for {
-		var payload string
-		fmt.Scanln(&payload)
-		inputChan <- payload
-	}
-}
+// // 사용자 메시지 처리
+// func handleUserMessage(payload string) {
+// 	<-rateLimiter // 요청 제한 적용
+
+// 	log.Println("Received user input:", payload)
+
+// 	msg := Message{RequestId: "id", Command: "insert", Payload: payload}
+// 	err := sendMsg(msg)
+// 	if err != nil {
+// 		log.Errorf("Failed to send message: %v", err)
+// 	}
+// }
+
+// var lastInput time.Time
+// var inputDebounceTime = 500 * time.Millisecond
+
+// // 사용자 입력 처리 고루틴
+// func handleUserInput(inputChan chan<- string) {
+// 	for {
+// 		var payload string
+// 		fmt.Scanln(&payload)
+// 		now := time.Now()
+// 		if now.Sub(lastInput) < inputDebounceTime {
+// 			continue
+// 		}
+// 		lastInput = now
+
+// 		inputChan <- payload
+// 	}
+// }
 
 // 메시지 수신 고루틴
 func receiveMessages(c *websocket.Conn) {
@@ -153,7 +170,7 @@ func receiveMessages(c *websocket.Conn) {
 		reqMsg := &ReqMsg{}
 		json.Unmarshal(message, reqMsg)
 		log.Printf("서버로부터 메시지 수신: %s\n", reqMsg)
-		handleMessage(reqMsg)
+		go handleMessage(reqMsg)
 	}
 }
 
@@ -219,19 +236,20 @@ func generateClientKey(secretKey string) string {
 	return hex.EncodeToString(h.Sum(nil))
 }
 
-func sendMsg(msg Message) {
+func sendMsg(msg Message) error {
 	// JSON 인코딩
 	jsonMsg, err := json.Marshal(msg)
 	if err != nil {
 		log.Println("JSON 인코딩 에러:", err)
-		return
+		return err
 	}
 	// 메시지 전송
 	err = conn.WriteMessage(websocket.TextMessage, jsonMsg)
 	if err != nil {
 		log.Println("메시지 전송 에러:", err)
-		return
+		return err
 	}
+	return err
 }
 
 func getOwnerAddress(data *ReqMsg) Message {

@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  apcs:
+    image: 'harbor.mipllab.com/lw/apcs:latest'
+    pull_policy: always
+    restart: always
+    container_name: apcs
+    ports:
+      - "3000:3000"
