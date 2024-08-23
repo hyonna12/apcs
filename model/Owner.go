@@ -31,6 +31,7 @@ type OwnerUpdateRequest struct {
 
 type OwnerPwdRequest struct {
 	OwnerId  int    `json:"owner_id"`
+	Address  string `json:"address"`
 	Password string `json:"password"`
 }
 
@@ -282,4 +283,24 @@ func SelectOwnerDetailByAddress(address string) (Owner, error) {
 		return owner, err
 	}
 	return owner, nil
+}
+
+func UpdateOwnerPassword(ownerPwdRequest OwnerPwdRequest) (int64, error) {
+	query := `UPDATE TN_INF_OWNER
+				SET 
+					password = ?
+				WHERE address = ?
+			`
+
+	result, err := DB.Exec(query, ownerPwdRequest.Password, ownerPwdRequest.Address)
+	if err != nil {
+		return 0, err
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
 }

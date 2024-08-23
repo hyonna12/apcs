@@ -130,11 +130,6 @@ func UpdatePasswordForm(w http.ResponseWriter, r *http.Request) {
 	render(w, "setting/update_password_form.html", nil)
 }
 
-func UserInfo(w http.ResponseWriter, r *http.Request) {
-	log.Debugf("URL: %v", r.URL)
-	render(w, "setting/user_info.html", nil)
-}
-
 /* Input_Item */
 func RegisterDelivery(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("URL: %v", r.URL)

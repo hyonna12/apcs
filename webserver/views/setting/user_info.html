@@ -40,7 +40,7 @@
                         <div class="setting-content">
                             <div class="info-row">
                                 <span class="info-label">회원명</span>
-                                <p class="info-value">홍길동</p>
+                                <p class="info-value" id="user_name">{{.Owner.Nm}}</p>
                             </div>
                             <div class="info-row">
                                 <span class="info-label">회원 PW</span>
@@ -49,11 +49,11 @@
                             </div>
                             <div class="info-row">
                                 <span class="info-label">휴대전화</span>
-                                <p class="info-value">000-0000-0000</p>
+                                <p class="info-value" id="user_tel">{{.Owner.PhoneNum}}</p>
                             </div>
                             <div class="info-row">
                                 <span class="info-label">주소</span>
-                                <p class="info-value"><span class="address_info"></span>호</p>
+                                <p class="info-value"><span id="user_address">{{.Owner.Address}}</span>호</p>
                             </div>
                         </div>
                     </div>
@@ -86,29 +86,29 @@
     const url = new URL(window.location.href);
     const address = url.searchParams.get("address");
 
-    /* 수령 버튼 선택시 */
-    $output_btn.onclick = () => {
-        window.location.replace('/output/password/form?address=' + address);
-    }
-    function getUserInfo() {
-        axios.get('/setting/user', {
-            address: address,
-        })
-            .then(axiosResult => {
-                let response = axiosResult.data;
-                console.log(response);
-            })
-            .catch(err => {
-                alert('비밀번호가 올바르지 않습니다.');
-                console.error(err);
-            })
-    }
+    // function getUserInfo() {
+    //     axios.get('/setting/user?address='+address)
+    //         .then(axiosResult => {
+    //             let response = axiosResult.data.data;
 
+    //             document.getElementsById("user_name").val = response.nm;
+    //             document.getElementsById("user_tel").value = response.phone_num;
+    //             document.getElementsById("user_address").val = response.address;
+
+    //             console.log(response);
+    //         })
+    //         .catch(err => {
+    //             alert('회원정보가 올바르지 않습니다.');
+    //             console.error(err);
+    //         })
+    // }
+    // getUserInfo()
 
 
     change_btn.onclick = () => {
         // 타이머 리셋
         counter = 0;
+        
         location.replace('/setting/update_password_form?address='+address);
            
     }
