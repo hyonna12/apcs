@@ -7,9 +7,10 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
+	"sync"
 	"time"
 
 	"os"
@@ -61,68 +62,103 @@ const (
 )
 
 // WebSocket 연결을 위한 주소
-var host = "apms.mipllab.com"
-
-//var host = "localhost:2990"
-
-// var id string
-var conn *websocket.Conn
+var (
+	host        = "apms.mipllab.com"
+	conn        *websocket.Conn
+	connMutex   sync.Mutex
+	isConnected bool
+)
 
 const secretKey = "SecretKey"
 
 func ConnWs() {
-	url := url.URL{Scheme: "wss", Host: host, Path: "/ws"}
+	backoff := time.Second
+	for {
+		err := connectAndListen()
+		if err == nil {
+			break
+		}
+		log.Printf("Connection error: %v. Retrying in %v...", err, backoff)
+		time.Sleep(backoff)
+		if backoff < time.Minute {
+			backoff *= 2
+		}
+	}
+}
+
+func connectAndListen() error {
+	u := url.URL{Scheme: "wss", Host: host, Path: "/ws"}
+	log.Printf("Connecting to WebSocket: %s", u.String())
+
 	headers := http.Header{}
 	clientKey := generateClientKey(secretKey)
 	headers.Set("Origin", "https://apcs.com")
 	headers.Set("X-Client-Key", clientKey)
 
-	// WebSocket 연결
-	c, resp, err := websocket.DefaultDialer.Dial(url.String(), headers)
+	c, resp, err := websocket.DefaultDialer.Dial(u.String(), headers)
 	if err != nil {
 		if resp != nil {
 			log.Printf("HTTP Response: %d", resp.StatusCode)
-			body, _ := ioutil.ReadAll(resp.Body)
+			body, _ := io.ReadAll(resp.Body)
 			log.Printf("Response Body: %s", body)
+			resp.Body.Close()
 		}
-		log.Printf("Dial error: %v", err)
-		return
+		return fmt.Errorf("dial error: %v", err)
 	}
+
+	connMutex.Lock()
 	conn = c
-	defer c.Close()
+	isConnected = true
+	connMutex.Unlock()
 
-	// 초기 연결 메시지 전송
-	sendInitialConnectionMessage()
+	defer func() {
+		connMutex.Lock()
+		conn.Close()
+		isConnected = false
+		connMutex.Unlock()
+	}()
 
-	// 채널 및 타이머 설정
+	if err := sendInitialConnectionMessage(); err != nil {
+		return fmt.Errorf("failed to send initial message: %v", err)
+	}
+
 	pingTicker := time.NewTicker(30 * time.Second)
 	defer pingTicker.Stop()
-	//inputChan := make(chan string)
+
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 
-	// 고루틴 실행
-	//go handleUserInput(inputChan)
-	go receiveMessages(c)
+	errChan := make(chan error, 1)
+	go receiveMessages(c, errChan)
 
 	for {
 		select {
 		case <-interrupt:
-			fmt.Println("CTRL+C가 입력되어 종료합니다.")
-			return
+			log.Println("Interrupt received, closing connection...")
+			return nil
 		case <-pingTicker.C:
-			sendPing(c)
-			// case payload := <-inputChan:
-			// 	handleUserMessage(payload)
+			if err := sendPing(c); err != nil {
+				return fmt.Errorf("ping failed: %v", err)
+			}
+		case err := <-errChan:
+			return fmt.Errorf("receive error: %v", err)
 		}
 	}
 }
 
-// Ping 메시지 전송
-func sendPing(c *websocket.Conn) {
-	if err := c.WriteMessage(websocket.PingMessage, nil); err != nil {
-		log.Printf("ping 전송 실패: %v", err)
+func sendPing(c *websocket.Conn) error {
+	connMutex.Lock()
+	defer connMutex.Unlock()
+
+	if !isConnected {
+		return fmt.Errorf("connection is closed")
 	}
+
+	if err := c.WriteMessage(websocket.PingMessage, nil); err != nil {
+		log.Printf("Ping 전송 실패: %v", err)
+		return err
+	}
+	return nil
 }
 
 // var rateLimiter = time.Tick(time.Second / 10) // 초당 최대 10개의 요청으로 제한
@@ -158,28 +194,31 @@ func sendPing(c *websocket.Conn) {
 // 	}
 // }
 
-// 메시지 수신 고루틴
-func receiveMessages(c *websocket.Conn) {
-	defer c.Close()
+func receiveMessages(c *websocket.Conn, errChan chan<- error) {
 	for {
 		_, message, err := c.ReadMessage()
 		if err != nil {
-			log.Println("메시지 수신 에러:", err)
+			errChan <- fmt.Errorf("메시지 수신 에러: %v", err)
 			return
 		}
 		reqMsg := &ReqMsg{}
-		json.Unmarshal(message, reqMsg)
+		if err := json.Unmarshal(message, reqMsg); err != nil {
+			log.Printf("JSON 파싱 에러: %v", err)
+			continue
+		}
 		log.Printf("서버로부터 메시지 수신: %s\n", reqMsg)
 		go handleMessage(reqMsg)
 	}
 }
 
-// 초기 연결 메시지 전송
-func sendInitialConnectionMessage() {
+func sendInitialConnectionMessage() error {
 	u := uuid.New()
-	name, _ := model.SelectIbName()
+	name, err := model.SelectIbName()
+	if err != nil {
+		return fmt.Errorf("failed to select IB name: %v", err)
+	}
 	msg := Message{RequestId: u.String(), Command: "conn", Payload: name}
-	sendMsg(msg)
+	return sendMsg(msg)
 }
 
 func handleMessage(reqMsg *ReqMsg) {
@@ -237,19 +276,23 @@ func generateClientKey(secretKey string) string {
 }
 
 func sendMsg(msg Message) error {
-	// JSON 인코딩
+	connMutex.Lock()
+	defer connMutex.Unlock()
+
+	if !isConnected {
+		return fmt.Errorf("connection is closed")
+	}
+
 	jsonMsg, err := json.Marshal(msg)
 	if err != nil {
-		log.Println("JSON 인코딩 에러:", err)
-		return err
+		return fmt.Errorf("JSON 인코딩 에러: %v", err)
 	}
-	// 메시지 전송
+
 	err = conn.WriteMessage(websocket.TextMessage, jsonMsg)
 	if err != nil {
-		log.Println("메시지 전송 에러:", err)
-		return err
+		return fmt.Errorf("메시지 전송 에러: %v", err)
 	}
-	return err
+	return nil
 }
 
 func getOwnerAddress(data *ReqMsg) Message {
