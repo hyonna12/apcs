@@ -213,11 +213,11 @@ func receiveMessages(c *websocket.Conn, errChan chan<- error) {
 
 func sendInitialConnectionMessage() error {
 	u := uuid.New()
-	name, err := model.SelectIbName()
-	if err != nil {
-		return fmt.Errorf("failed to select IB name: %v", err)
-	}
-	msg := Message{RequestId: u.String(), Command: "conn", Payload: name}
+	// name, err := model.SelectIbName()
+	// if err != nil {
+	// 	return fmt.Errorf("failed to select IB name: %v", err)
+	// }
+	msg := Message{RequestId: u.String(), Command: "conn", Payload: "택배함6"}
 	return sendMsg(msg)
 }
 

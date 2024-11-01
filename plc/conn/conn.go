@@ -3,47 +3,25 @@ package conn
 import (
 	"apcs_refactored/webserver"
 	"encoding/binary"
-	"net"
-	"time"
+	"fmt"
+	"strconv"
 
-	mc "github.com/future-architect/go-mcprotocol/mcp"
-
+	"github.com/future-architect/go-mcprotocol/mcp"
 	log "github.com/sirupsen/logrus"
 )
 
-// PLC
-type PLC struct {
-	addr string // 주소
-	conn net.Conn
+type Task struct {
+	TaskName string
+	Address  string
 }
 
-type State struct {
-	D0 int
-	D1 int
-	D2 int
-}
-
-// MC 프레임 구조체
-type MCFrame struct {
-	SubHeader       [4]byte
-	AccessRoute     [2]byte
-	DataLength      [2]byte
-	MonitoringTimer [2]byte
-	Command         [2]byte
-	SubCommand      [2]byte
-	Data            []byte
-}
-
-type Header struct {
-	Protocol byte // 프로토콜 종류
-	Address  int  // 주소
-	Length   int  // 길이
-}
-
-type Packet struct {
-	Header   Header // 헤더
-	Data     []byte // 데이터
-	Checksum byte   // 체크섬
+var TaskList = map[string]Task{
+	"Door":           {"Door", "D100"},  // (0: closed, 1: open)
+	"Light":          {"Light", "D101"}, // (0: off, 1: on)
+	"SetTemperature": {"SetTemperature", "D102"},
+	"DetectFire":     {"DetectFire", "D103"}, // (0: no fire, 1: fire detected)
+	"Weight":         {"Weight", "D104"},
+	"Height":         {"Height", "D105"},
 }
 
 // 트러블 감지
@@ -106,125 +84,115 @@ func SenseTrouble(data string) {
 	}
 }
 
-// func InitConnPlc0() {
-// 	const addr = "ws://localhost:6000"
+var mcClient mcp.Client
 
-// 	u, err := url.Parse(addr)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
+func InitConnPlc() {
+	var err error
 
-// 	// 웹소켓 연결
-// 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	defer c.Close()
-
-// 	// 메시지 송신
-// 	err = c.WriteMessage(websocket.TextMessage, []byte("Hello, WebSocket Server!"))
-// 	if err != nil {
-// 		log.Println("Write error:", err)
-// 		return
-// 	}
-
-// 	// 메시지 수신 루프
-// 	for {
-// 		_, msg, err := c.ReadMessage()
-// 		if err != nil {
-// 			log.Println("Read error:", err)
-// 			return
-// 		}
-// 		SenseTrouble(string(msg))
-
-// 		log.Printf("Received message: %s\n", msg)
-// 	}
-// }
-
-func InitConnPlc2() {
-	//	mc "github.com/future-architect/go-mcprotocol/mcp"
-
-	log.Debugf("plc conn started")
-
-	client, err := mc.New3EClient("localhost", 6060, mc.NewLocalStation())
-
+	mcClient, err = mcp.New3EClient("localhost", 6060, mcp.NewLocalStation())
 	if err != nil {
-		log.Fatal("Failed to connect to PLC:", err)
-		return
+		panic(err)
 	}
 
-	log.Println("connect to PLC:", client)
+	fmt.Println("Start connection")
 
-	// 초기 상태 쓰기
-	err = WriteToPLC(client, 1000, []uint16{0, 0, 0})
+	err = read("Door")
 	if err != nil {
-		log.Error("Failed to write initial state to PLC:", err)
-		return
+		fmt.Printf("Error reading Door: %v\n", err)
 	}
 
-	// 주기적인 읽기 작업을 위한 타이머 설정
-	ticker := time.NewTicker(1 * time.Second)
-	go func() {
-		for range ticker.C {
-			ReadFromPLC(client)
-		}
-	}()
+	err = read("Weight")
+	if err != nil {
+		fmt.Printf("Error reading Weight: %v\n", err)
+	}
 
-	// go func() {
-	// 	for {
-	// 		read, err := client.Read("D", 1000, 3)
-	// 		data := string(read)
-	// 		//fmt.Println("response:", string(read))
-	// 		// registerBinary, _ := mcp.NewParser().Do(read)
-	// 		// fmt.Println(string(registerBinary.Payload))
+	err = write("Door", 1)
+	if err != nil {
+		fmt.Printf("Error executing Door: %v\n", err)
+	}
 
-	// 		if err != nil {
-	// 			log.Error(err)
-	// 			// 알림
-	// 			return
-	// 		}
-	// 		SenseTrouble(data)
-	// 		//time.Sleep(100 * time.Millisecond)
-	// 		time.Sleep(1 * time.Second)
-	// 	}
-	// }()
+	err = read("Door")
+	if err != nil {
+		fmt.Printf("Error reading Door: %v\n", err)
+	}
 }
 
-func WriteToPLC(client mc.Client, startAddress uint32, values []uint16) error {
-	data := make([]byte, len(values)*2)
-	for i, v := range values {
-		binary.LittleEndian.PutUint16(data[i*2:], v)
+func parseAddress(address string) (string, int64, error) {
+	deviceName := string(address[0])
+	offset, err := strconv.ParseInt(address[1:], 10, 64)
+	if err != nil {
+		return "", 0, fmt.Errorf("invalid address format: %s", address)
 	}
+	return deviceName, offset, nil
+}
 
-	_, err := client.Write("D", int64(startAddress), int64(len(values)), data)
+func read(taskName string) error {
+	task, exists := TaskList[taskName]
+	if !exists {
+		return fmt.Errorf("task %s not found", taskName)
+	}
+	fmt.Printf("Start Task: %s\n", taskName)
+
+	deviceName, offset, err := parseAddress(task.Address)
 	if err != nil {
 		return err
 	}
+
+	response, err := mcClient.Read(deviceName, offset, 1)
+	if err != nil {
+		return fmt.Errorf("error reading from address %s: %v", task.Address, err)
+	}
+
+	if len(response) < 2 {
+		return fmt.Errorf("invalid response length")
+	}
+
+	value := binary.LittleEndian.Uint16(response[11:13])
+	//value := binary.LittleEndian.Uint16(response)
+	fmt.Printf("Read value from address %s[%s]: %v\n", taskName, task.Address, value)
 	return nil
 }
 
-func ReadFromPLC(client mc.Client) {
-	read, err := client.Read("D", int64(1000), int64(3))
+func write(taskName string, value uint16) error {
+	task, exists := TaskList[taskName]
+	if !exists {
+		return fmt.Errorf("task %s not found", taskName)
+	}
+
+	fmt.Printf("Start Task: %s\n", task.TaskName)
+
+	deviceName, offset, err := parseAddress(task.Address)
 	if err != nil {
-		log.Fatal("Failed to read from PLC:", err)
-		return
+		return err
 	}
 
-	if len(read) >= 6 {
-		state := State{
-			D0: int(binary.LittleEndian.Uint16(read[0:2])),
-			D1: int(binary.LittleEndian.Uint16(read[2:4])),
-			D2: int(binary.LittleEndian.Uint16(read[4:6])),
-		}
+	data := make([]byte, 2)
+	binary.LittleEndian.PutUint16(data, value)
 
-		log.Printf("Read state: D0=%d, D1=%d, D2=%d", state.D0, state.D1, state.D2)
-
-		// 상태에 따른 처리
-		if state.D0 != 0 || state.D1 != 0 || state.D2 != 0 {
-			troubleState := string([]rune{rune(state.D0), rune(state.D1), rune(state.D2)})
-			SenseTrouble(troubleState)
-		}
-	} else {
-		log.Error("Insufficient data read from PLC")
+	_, err = mcClient.Write(deviceName, offset, 1, data)
+	if err != nil {
+		return fmt.Errorf("error writing %s: %v", task.TaskName, err)
 	}
+
+	// Process the response
+	fmt.Printf("Successfully write %s: %d\n", task.TaskName, value)
+
+	// Verify the write operation if needed
+	response, err := mcClient.Read(deviceName, offset, 1)
+	if err != nil {
+		return fmt.Errorf("error verifying write for %s: %v", task.TaskName, err)
+	}
+
+	if len(response) < 2 {
+		return fmt.Errorf("invalid response length during verification")
+	}
+
+	readValue := binary.LittleEndian.Uint16(response[11:13])
+	//readValue := binary.LittleEndian.Uint16(response)
+
+	if readValue != value {
+		return fmt.Errorf("write verification failed for %s: expected %d, got %d", task.TaskName, value, readValue)
+	}
+
+	return nil
 }
