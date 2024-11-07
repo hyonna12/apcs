@@ -72,3 +72,9 @@ APCS
 └─ go.sum --> 종속성 관리를 위한 체크섬 정보 저장  
 │  
 └─ main.go  
+
+
+# 서버
+- username : tomcat
+- computer name : apcs
+- pw : linetom
