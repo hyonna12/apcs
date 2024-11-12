@@ -298,6 +298,11 @@ func JobInputItem(slot model.Slot) error {
 
 	resource.ReleaseSlot(slot.SlotId)
 
+	// 직접 호출하는 대신 completeJob 사용
+	if err := robot.completeJob(); err != nil {
+		return err
+	}
+
 	robot.changeStatus(robotStatusAvailable)
 
 	return nil
@@ -401,6 +406,10 @@ func JobOutputItem(slot model.Slot) error {
 			log.Infof("[PLC_로봇_Job] 불출 Job 완료. slotId=%v", slot.SlotId)
 		}
 	} else {
+		// 불출 취소된 경우 대기 위치로 복귀
+		if err := robot.returnToHome(); err != nil {
+			return err
+		}
 		robot.changeStatus(robotStatusAvailable)
 	}
 
@@ -526,6 +535,10 @@ func JobMoveTray(from, to model.Slot) error {
 
 	resource.ReleaseSlot(to.SlotId)
 
+	if err := robot.completeJob(); err != nil {
+		return err
+	}
+
 	robot.changeStatus(robotStatusAvailable)
 
 	return nil
@@ -564,10 +577,13 @@ func JobDismiss() error {
 				return err
 			}
 			resource.ReleaseTable()
+			// 여기에 대기 위치로 복귀 추가
+			if err := robot.returnToHome(); err != nil {
+				return err
+			}
 			robot.changeStatus(robotStatusAvailable)
 		}
 	}
-
 	return nil
 }
 
@@ -601,6 +617,16 @@ func CheckCompletePlc(data interface{}) error {
 		}
 		//time.Sleep(1 * time.Second)
 	}
+}
+
+func (r *robot) completeJob() error {
+	// 작업 완료 후 대기 위치로 복귀
+	if r.status != robotStatusWaiting { // 대기 상태가 아닐 때만 복귀
+		if err := r.returnToHome(); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // // PLC

@@ -27,6 +27,15 @@ plc:
     robot:
       # 로봇 개수
       number: 2
+      robots:
+        - id: 1
+          home:
+            x: 0
+            z: 0
+        - id: 2
+          home:
+            x: 10
+            z: 0
     # 데드락 상태를 확인하는 주기
     deadlock-check-period: 10
   simulation:

@@ -53,7 +53,8 @@ type Configuration struct {
 	Plc struct {
 		Resource struct {
 			Robot struct {
-				Number int `yaml:"number"`
+				Number int           `yaml:"number"`
+				Robots []RobotConfig `yaml:"robots"`
 			} `yaml:"robot"`
 			DeadlockCheckPeriod int `yaml:"deadlock-check-period"`
 		} `yaml:"resource"`
@@ -72,6 +73,16 @@ type Configuration struct {
 	Kiosk struct {
 		Ad string `yaml:"ad"`
 	} `yaml:"kiosk"`
+}
+
+type RobotConfig struct {
+	ID   int      `yaml:"id"`
+	Home Position `yaml:"home"`
+}
+
+type Position struct {
+	X int `yaml:"x"`
+	Z int `yaml:"z"`
 }
 
 func InitConfig() {

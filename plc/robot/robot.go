@@ -21,7 +21,13 @@ type robot struct {
 	id     int
 	status robotStatus
 	// job - 현재 수행하고 있는 job
-	job *job
+	job          *job
+	homePosition Position // 대기 위치 추가
+}
+
+type Position struct {
+	x int
+	z int
 }
 
 var (
@@ -38,9 +44,14 @@ func InitRobots() {
 	// TODO - 각 로봇과 통신 후 로봇 인스턴스 생성 및 등록
 	log.Infof("[PLC_로봇] 로봇 통신 테스트 및 초기화")
 	for i := range robots {
+		robotConfig := config.Config.Plc.Resource.Robot.Robots[i]
 		robots[i] = &robot{
-			id:     i + 1, // TODO - temp robot id
+			id:     robotConfig.ID,
 			status: robotStatusAvailable,
+			homePosition: Position{
+				x: robotConfig.Home.X,
+				z: robotConfig.Home.Z,
+			},
 		}
 	}
 }
@@ -117,4 +128,14 @@ func (r *robot) scanTray() (int, error) {
 	time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return TrayId, nil
+}
+
+// 대기 위치로 복귀
+func (r *robot) returnToHome() error {
+	log.Infof("[PLC_로봇_Step] 대기 위치로 복귀. robotId=%v, target=(x:%v,z:%v)", r.id, r.homePosition.x, r.homePosition.z)
+
+	// 대기 위치로 이동
+	time.Sleep(simulatorDelay * 500 * time.Millisecond)
+
+	return nil
 }
