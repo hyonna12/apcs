@@ -407,7 +407,7 @@ func JobOutputItem(slot model.Slot) error {
 		}
 	} else {
 		// 불출 취소된 경우 대기 위치로 복귀
-		if err := robot.returnToHome(); err != nil {
+		if err := robot.completeJob(); err != nil {
 			return err
 		}
 		robot.changeStatus(robotStatusAvailable)
@@ -486,6 +486,12 @@ func JobReturnItem(slot model.Slot, robotId int) error {
 	}
 
 	resource.ReleaseSlot(slot.SlotId)
+	robot.changeStatus(robotStatusAvailable)
+
+	if err := robot.completeJob(); err != nil {
+		return err
+	}
+
 	robot.changeStatus(robotStatusAvailable)
 
 	return nil
@@ -578,7 +584,7 @@ func JobDismiss() error {
 			}
 			resource.ReleaseTable()
 			// 여기에 대기 위치로 복귀 추가
-			if err := robot.returnToHome(); err != nil {
+			if err := robot.completeJob(); err != nil {
 				return err
 			}
 			robot.changeStatus(robotStatusAvailable)
