@@ -48,7 +48,6 @@ func (s *MCServer) handleConnection(conn net.Conn) {
 
 	buf := make([]byte, 1024)
 	for {
-		// 요청 읽기
 		n, err := conn.Read(buf)
 		if err != nil {
 			log.Errorf("Read error: %v", err)
@@ -57,12 +56,14 @@ func (s *MCServer) handleConnection(conn net.Conn) {
 
 		log.Infof("Received request: %X", buf[:n])
 
-		// 명령 코드 확인 (0x0401: 읽기, 0x1401: 쓰기)
-		cmd := binary.BigEndian.Uint16(buf[11:13])
+		cmd := binary.BigEndian.Uint16(buf[12:14])
+		subCmd := binary.BigEndian.Uint16(buf[13:15])
+		log.Infof("Command: 0x%04X, SubCommand: 0x%04X", cmd, subCmd)
+
 		switch cmd {
-		case 0x0401: // 읽기
+		case 0x0104: // 읽기 명령
 			s.handleRead(conn, buf[:n])
-		case 0x1401: // 쓰기
+		case 0x0114: // 쓰기 명령
 			s.handleWrite(conn, buf[:n])
 		default:
 			log.Warnf("Unknown command: %04X", cmd)
