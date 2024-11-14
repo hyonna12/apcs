@@ -4,11 +4,18 @@ import (
 	"net"
 )
 
+// 프로토콜 모드
+const (
+	MODE_ASCII  = 1
+	MODE_BINARY = 2
+)
+
 // MC Protocol 클라이언트
 type MCClient struct {
 	host string
 	port int
 	conn net.Conn
+	mode int // 통신 모드 (ASCII/Binary)
 }
 
 // MC Protocol 3E 프레임 헤더
