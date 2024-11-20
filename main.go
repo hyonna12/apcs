@@ -110,7 +110,4 @@ func main() {
 
 	// 웹소켓 서버 시작
 	webserver.StartWebserver(websocketserverMsgNode)
-
-	// 메인 스레드가 종료되지 않도록 대기
-	select {}
 }

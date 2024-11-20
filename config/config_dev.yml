@@ -1,3 +1,10 @@
+# database:
+#   driver-name: mysql
+#   username: root
+#   password: line1234
+#   host: 127.0.0.1
+#   port: 3306
+#   db-name: apcs
 database:
   driver-name: mysql
   username: apcs_dev
