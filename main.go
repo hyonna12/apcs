@@ -6,7 +6,7 @@ import (
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
-	conn "apcs_refactored/plc/conn/test"
+	conn "apcs_refactored/plc/conn"
 	"apcs_refactored/plc/resource"
 
 	"apcs_refactored/plc/trayBuffer"
