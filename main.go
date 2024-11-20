@@ -6,12 +6,14 @@ import (
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
+	"apcs_refactored/plc/conn"
 	"apcs_refactored/plc/resource"
 
 	"apcs_refactored/plc/trayBuffer"
 	"apcs_refactored/webserver"
 	"io"
 	"os"
+	"time"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -101,26 +103,26 @@ func main() {
 	trayBuffer.InitTrayBuffer()
 	resource.InitResources(slotIds)
 
+	// 웹소켓 연결 시작 (먼저 시작)
+	go webserver.ConnWs()
+
 	// 웹소켓 서버 시작
 	webserver.StartWebserver(websocketserverMsgNode)
 
-	// 웹소켓 연결 시작
-	go webserver.ConnWs()
+	// 웹소켓 연결이 될 때까지 대기
+	for i := 0; i < 30; i++ {
+		if webserver.IsConnected() {
+			log.Info("Websocket connected successfully")
+			break
+		}
+		time.Sleep(time.Second)
+		if i == 29 {
+			log.Warn("Timeout waiting for websocket connection")
+		}
+	}
 
-	// // 웹소켓 연결이 될 때까지 대기
-	// for i := 0; i < 30; i++ {
-	// 	if webserver.IsConnected() {
-	// 		log.Info("Websocket connected successfully")
-	// 		break
-	// 	}
-	// 	time.Sleep(time.Second)
-	// 	if i == 29 {
-	// 		log.Warn("Timeout waiting for websocket connection")
-	// 	}
-	// }
-
-	// // PLC 서버 연결 시작
-	// go conn.ConnectPlcServer()
+	// PLC 서버 연결 시작
+	go conn.ConnectPlcServer()
 
 	// 이벤트 서버 시작
 	event.StartEventServer(eventMsgNode)
