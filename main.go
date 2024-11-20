@@ -6,7 +6,7 @@ import (
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
-	"apcs_refactored/plc/conn"
+	conn "apcs_refactored/plc/conn/test"
 	"apcs_refactored/plc/resource"
 
 	"apcs_refactored/plc/trayBuffer"
@@ -14,11 +14,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/goburrow/modbus"
 	log "github.com/sirupsen/logrus"
 )
-
-var modbusClient modbus.Client
 
 func main() {
 	// 설정 변수 초기화
@@ -105,17 +102,19 @@ func main() {
 	// 트레이버퍼 초기 설정
 	trayBuffer.InitTrayBuffer()
 
+	go conn.ConnectPlcServer()
+
 	resource.InitResources(slotIds)
 	event.StartEventServer(eventMsgNode)
+	// 웹소켓 연결 시작
 	go webserver.ConnWs()
+
+	// PLC 연결 초기화
+	// conn.InitConnPlc()
 
 	// 웹소켓 서버 시작
 	webserver.StartWebserver(websocketserverMsgNode)
 
-	// Modbus 클라이언트 초기화
-	if err := conn.InitModbusClient(); err != nil {
-		log.Fatalf("Failed to initialize Modbus connection: %v", err)
-	}
-	defer conn.CloseModbusClient()
-
+	// 메인 스레드가 종료되지 않도록 대기
+	select {}
 }

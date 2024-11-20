@@ -213,11 +213,11 @@ func receiveMessages(c *websocket.Conn, errChan chan<- error) {
 
 func sendInitialConnectionMessage() error {
 	u := uuid.New()
-	// name, err := model.SelectIbName()
-	// if err != nil {
-	// 	return fmt.Errorf("failed to select IB name: %v", err)
-	// }
-	msg := Message{RequestId: u.String(), Command: "conn", Payload: "택배함6"}
+	name, err := model.SelectIbName()
+	if err != nil {
+		return fmt.Errorf("failed to select IB name: %v", err)
+	}
+	msg := Message{RequestId: u.String(), Command: "conn", Payload: name}
 	return sendMsg(msg)
 }
 
@@ -770,4 +770,11 @@ func getItemCntMonthly(data *ReqMsg) Message {
 
 	log.Println("sendToServer: ", msg)
 	return *msg
+}
+
+// IsConnected returns true if websocket is connected
+func IsConnected() bool {
+	connMutex.Lock()
+	defer connMutex.Unlock()
+	return isConnected
 }
