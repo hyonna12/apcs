@@ -26,7 +26,7 @@ type Configuration struct {
 		Password   string `yaml:"password"`
 		Host       string `yaml:"host"`
 		Port       int    `yaml:"port"`
-		DbName     string `yaml:"db-name"`
+		DbName     string `yaml:"dbname"`
 	} `yaml:"database"`
 
 	Logging struct {

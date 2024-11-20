@@ -68,9 +68,8 @@ func main() {
 	// DB connection close 지연 호출
 	defer model.CloseDB()
 
-	// 각 메시지 노드 및 노드별 리프(끝단 노드) 등록
+	// 메신저 노드 설정
 	msgNodes := make(map[*messenger.Node]struct{})
-
 	eventMsgNode := messenger.NewNode(messenger.NodeEventServer)
 	eventMsgNode.Leaves[messenger.LeafEvent] = struct{}{}
 
@@ -91,7 +90,7 @@ func main() {
 	// PLC 리소스 초기화
 	slots, err := model.SelectSlotList()
 	if err != nil {
-		log.Panicf("Failed to initialize PLC resources. %v", err)
+		log.Panicf("Failed to initialize PLC resources. Error: %v", err)
 	}
 	slotIds := make([]int64, 0)
 	for _, slot := range slots {
@@ -100,14 +99,32 @@ func main() {
 
 	// 트레이버퍼 초기 설정
 	trayBuffer.InitTrayBuffer()
-
-	// go conn.ConnectPlcServer()
-
 	resource.InitResources(slotIds)
-	event.StartEventServer(eventMsgNode)
-	// 웹소켓 연결 시작
-	go webserver.ConnWs()
 
 	// 웹소켓 서버 시작
 	webserver.StartWebserver(websocketserverMsgNode)
+
+	// 웹소켓 연결 시작
+	go webserver.ConnWs()
+
+	// // 웹소켓 연결이 될 때까지 대기
+	// for i := 0; i < 30; i++ {
+	// 	if webserver.IsConnected() {
+	// 		log.Info("Websocket connected successfully")
+	// 		break
+	// 	}
+	// 	time.Sleep(time.Second)
+	// 	if i == 29 {
+	// 		log.Warn("Timeout waiting for websocket connection")
+	// 	}
+	// }
+
+	// // PLC 서버 연결 시작
+	// go conn.ConnectPlcServer()
+
+	// 이벤트 서버 시작
+	event.StartEventServer(eventMsgNode)
+
+	// 메인 스레드가 종료되지 않도록 대기
+	select {}
 }
