@@ -6,7 +6,6 @@ import (
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
-	conn "apcs_refactored/plc/conn"
 	"apcs_refactored/plc/resource"
 
 	"apcs_refactored/plc/trayBuffer"
@@ -102,15 +101,12 @@ func main() {
 	// 트레이버퍼 초기 설정
 	trayBuffer.InitTrayBuffer()
 
-	go conn.ConnectPlcServer()
+	// go conn.ConnectPlcServer()
 
 	resource.InitResources(slotIds)
 	event.StartEventServer(eventMsgNode)
 	// 웹소켓 연결 시작
 	go webserver.ConnWs()
-
-	// PLC 연결 초기화
-	// conn.InitConnPlc()
 
 	// 웹소켓 서버 시작
 	webserver.StartWebserver(websocketserverMsgNode)
