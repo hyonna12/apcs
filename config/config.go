@@ -76,8 +76,9 @@ type Configuration struct {
 }
 
 type RobotConfig struct {
-	ID   int      `yaml:"id"`
-	Home Position `yaml:"home"`
+	ID    int      `yaml:"id"`
+	Home  Position `yaml:"home"`
+	Speed int      `yaml:"speed"`
 }
 
 type Position struct {

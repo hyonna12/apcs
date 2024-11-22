@@ -4,6 +4,7 @@ import (
 	"apcs_refactored/config"
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
+	"apcs_refactored/plc/conn"
 	"apcs_refactored/plc/door"
 	"apcs_refactored/plc/robot"
 	"apcs_refactored/plc/sensor"
@@ -44,6 +45,9 @@ func StartPlcClient(n *messenger.Node) {
 	// 시뮬레이터 딜레이 설정
 	simulatorDelay = time.Duration(config.Config.Plc.Simulation.Delay)
 
+	// PLC 서버(plc_protocol) 연결 시작
+	go conn.ConnectPlcServer()
+
 	robot.InitRobots()
 
 	// TODO - 삭제
@@ -67,8 +71,13 @@ func StartPlcClient(n *messenger.Node) {
 // - door.DoorType: 조작할 도어
 // - door.DoorOperation: 조작 명령
 func SetUpDoor(doorType door.DoorType, doorOperation door.DoorOperation) error {
-	err := door.SetUpDoor(doorType, doorOperation)
+	commandId := robot.GenerateCommandId() // commandId 생성
+	err := door.SetUpDoor(doorType, doorOperation, commandId)
 	if err != nil {
+		return err
+	}
+	// 완료 대기
+	if err := robot.CheckCompletePlc(commandId); err != nil {
 		return err
 	}
 	return nil
@@ -80,10 +89,14 @@ func SetUpDoor(doorType door.DoorType, doorOperation door.DoorOperation) error {
 //
 // - tray.BufferOperation: 조작 명령
 func SetUpTrayBuffer(bufferOperation trayBuffer.BufferOperation) error {
-	err := trayBuffer.SetUpTrayBuffer(bufferOperation)
+	commandId := robot.GenerateCommandId() // commandId 생성
+	err := trayBuffer.SetUpTrayBuffer(bufferOperation, commandId)
 	if err != nil {
 		log.Error("버퍼 조작 에러", err)
-
+		return err
+	}
+	// 완료 대기
+	if err := robot.CheckCompletePlc(commandId); err != nil {
 		return err
 	}
 	return nil

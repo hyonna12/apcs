@@ -3,6 +3,7 @@ package trayBuffer
 import (
 	"apcs_refactored/config"
 	"apcs_refactored/model"
+	"apcs_refactored/plc/conn"
 	"container/list"
 	"time"
 
@@ -31,12 +32,16 @@ type TrayBuffer struct {
 // 트레이 버퍼 조작.
 //
 // - trayBuffer.BufferOperation: 조작 명령
-func SetUpTrayBuffer(BufferOperation BufferOperation) error {
+func SetUpTrayBuffer(BufferOperation BufferOperation, commandId string) error {
 	log.Infof("[PLC_Buffer] 트레이 버퍼 조작: %v", BufferOperation)
-	// TODO - PLC 트레이 버퍼 조작 로직
 
+	err := conn.SendTrayBufferOperation(string(BufferOperation), commandId)
+	if err != nil {
+		log.Errorf("[PLC_Buffer] 버퍼 조작 실패: %v", err)
+		return err
+	}
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 500 * time.Millisecond)
+	// time.Sleep(simulatorDelay * 500 * time.Millisecond)
 	return nil
 }
 

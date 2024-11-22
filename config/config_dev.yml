@@ -1,17 +1,17 @@
-# database:
-#   driver-name: mysql
-#   username: root
-#   password: line1234
-#   host: 127.0.0.1
-#   port: 3306
-#   dbname: apcs
 database:
   driver-name: mysql
-  username: apcs_dev
-  password: apcs@123
-  host: lineworldap.iptime.org
-  port: 33306
-  dbname: apcs_dev
+  username: root
+  password: line1234
+  host: 127.0.0.1
+  port: 3306
+  dbname: apcs
+# database:
+#   driver-name: mysql
+#   username: apcs_dev
+#   password: apcs@123
+#   host: lineworldap.iptime.org
+#   port: 33306
+#   dbname: apcs_dev
 
 logging:
   level: debug
@@ -39,10 +39,12 @@ plc:
           home:
             x: 0
             z: 0
+          speed: 30000
         - id: 2
           home:
             x: 10
             z: 0
+          speed: 30000
     # 데드락 상태를 확인하는 주기
     deadlock-check-period: 10
   simulation:

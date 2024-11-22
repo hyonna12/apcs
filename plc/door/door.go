@@ -1,6 +1,7 @@
 package door
 
 import (
+	"apcs_refactored/plc/conn"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -32,11 +33,14 @@ type Door struct {
 //
 // - door.DoorType: 조작할 도어
 // - door.DoorOperation: 조작 명령
-func SetUpDoor(DoorType DoorType, DoorOperation DoorOperation) error {
+func SetUpDoor(DoorType DoorType, DoorOperation DoorOperation, commandId string) error {
 	log.Infof("[PLC_Door] 도어 조작: %v, %v", DoorType, DoorOperation)
-	// TODO - PLC 도어 조작 로직
 
-	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 500 * time.Millisecond)
+	err := conn.SendDoorOperation(string(DoorType), string(DoorOperation), commandId)
+	if err != nil {
+		log.Errorf("[PLC_Door] 도어 조작 실패: %v", err)
+		return err
+	}
+
 	return nil
 }

@@ -3,6 +3,7 @@ package robot
 import (
 	"apcs_refactored/config"
 	"apcs_refactored/model"
+	"apcs_refactored/plc/conn"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -38,7 +39,7 @@ var (
 func InitRobots() {
 	robotNumber := config.Config.Plc.Resource.Robot.Number
 	robots = make([]*robot, robotNumber)
-	// 시뮬레이터 딜레이 설정
+	// 시뮬���이터 딜레이 설정
 	simulatorDelay = time.Duration(config.Config.Plc.Simulation.Delay)
 
 	// TODO - 각 로봇과 통신 후 로봇 인스턴스 생성 및 등록
@@ -61,62 +62,102 @@ func (r *robot) changeStatus(robotStatus robotStatus) {
 	go DistributeJob()
 }
 
-func (r *robot) moveToSlot(slot model.Slot) error {
+func (r *robot) moveToSlot(slot model.Slot, commandId string) error {
 	log.Infof("[PLC_로봇_Step] 슬롯으로 이동. robotId=%v, slotId=%v", r.id, slot.SlotId)
 
-	// TODO - 슬롯으로 이동
-
-	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 500 * time.Millisecond)
-
+	err := conn.SendRobotMove(r.id, int(slot.SlotId), commandId)
+	if err != nil {
+		log.Errorf("[PLC_로봇] 슬롯 이동 실패: %v", err)
+		return err
+	}
 	return nil
 }
 
-func (r *robot) moveToTable() error {
+func (r *robot) moveToTable(commandId string) error {
 	log.Infof("[PLC_로봇_Step] 테이블로 이동. robotId=%v", r.id)
-	// TODO - 테이블로 이동
 
-	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 500 * time.Millisecond)
-
+	err := conn.SendRobotMove(r.id, 0, commandId)
+	if err != nil {
+		log.Errorf("[PLC_로봇] 테이블 이동 실패: %v", err)
+		return err
+	}
 	return nil
 }
 
-func (r *robot) pullFromSlot(slot model.Slot) error {
+func (r *robot) rotateHandler(direction string, commandId string) error {
+	log.Infof("[PLC_Robot] 로봇 핸들러 회전: robotId=%v, direction=%v", r.id, direction)
+
+	err := conn.SendRobotRotate(r.id, direction, commandId)
+	if err != nil {
+		log.Errorf("[PLC_Robot] 로봇 핸들러 회전 실패: %v", err)
+		return err
+	}
+	return nil
+}
+
+func (r *robot) rotateHandlerHome(commandId string) error {
+	log.Infof("[PLC_Robot] 로봇 핸들러 원위치 회전: robotId=%v", r.id)
+
+	err := conn.SendRobotRotate(r.id, "home", commandId)
+	if err != nil {
+		log.Errorf("[PLC_Robot] 로봇 핸들러 원위치 회전 실패: %v", err)
+		return err
+	}
+	return nil
+}
+
+func (r *robot) pullFromSlot(slot model.Slot, commandId string) error {
 	log.Infof("[PLC_로봇_Step] 슬롯에서 트레이 꺼내기. robotId=%v, slotId=%v", r.id, slot.SlotId)
-	// TODO - 슬롯에서 트레이 꺼내기
 
-	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 500 * time.Millisecond)
+	err := conn.SendRobotHandler(r.id, "pull", commandId)
+	if err != nil {
+		log.Errorf("[PLC_로봇] 트레이 꺼내기 실패: %v", err)
+		return err
+	}
 	return nil
 }
 
-func (r *robot) pushToSlot(slot model.Slot) error {
+func (r *robot) pushToSlot(slot model.Slot, commandId string) error {
 	log.Infof("[PLC_로봇_Step] 슬롯으로 트레이 넣기. robotId=%v, slotId=%v", r.id, slot.SlotId)
-	// TODO - 슬롯으로 트레이 넣기
+
+	err := conn.SendRobotHandler(r.id, "push", commandId)
+	if err != nil {
+		log.Errorf("[PLC_로봇] 트레이 넣기 실패: %v", err)
+		return err
+	}
 
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 500 * time.Millisecond)
+	// time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return nil
 }
 
-func (r *robot) pullFromTable() error {
+func (r *robot) pullFromTable(commandId string) error {
 	log.Infof("[PLC_로봇_Step] 테이블에서 트레이 꺼내기. robotId=%v", r.id)
-	// TODO - 테이블에서 트레이 꺼내기
+
+	err := conn.SendRobotHandler(r.id, "pull", commandId)
+	if err != nil {
+		log.Errorf("[PLC_로봇] 트레이 꺼내기 실패: %v", err)
+		return err
+	}
 
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 500 * time.Millisecond)
+	// time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return nil
 }
 
-func (r *robot) pushToTable() error {
+func (r *robot) pushToTable(commandId string) error {
 	log.Infof("[PLC_로봇_Step] 테이블에 트레이 올리기. robotId=%v", r.id)
-	// TODO - 테이블에 트레이 올리기
+
+	err := conn.SendRobotHandler(r.id, "push", commandId)
+	if err != nil {
+		log.Errorf("[PLC_로봇] 트레이 넣기 실패: %v", err)
+		return err
+	}
 
 	// TODO - temp - 시뮬레이터
-	time.Sleep(simulatorDelay * 500 * time.Millisecond)
+	// time.Sleep(simulatorDelay * 500 * time.Millisecond)
 
 	return nil
 }
@@ -131,11 +172,14 @@ func (r *robot) scanTray() (int, error) {
 }
 
 // 대기 위치로 복귀
-func (r *robot) returnToHome() error {
+func (r *robot) returnToHome(commandId string) error {
 	log.Infof("[PLC_로봇_Step] 대기 위치로 복귀. robotId=%v, target=(x:%v,z:%v)", r.id, r.homePosition.x, r.homePosition.z)
 
-	// 대기 위치로 이동
-	time.Sleep(simulatorDelay * 500 * time.Millisecond)
-
+	// 대기 위치로 이동 명령 전송
+	err := conn.SendRobotMove(r.id, -1, commandId)
+	if err != nil {
+		log.Errorf("[PLC_로봇] 대기 위치 이동 실패: %v", err)
+		return err
+	}
 	return nil
 }
