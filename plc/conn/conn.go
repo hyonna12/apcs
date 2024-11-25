@@ -1,6 +1,7 @@
 package conn
 
 import (
+	"apcs_refactored/event/trouble"
 	"encoding/json"
 	"fmt"
 	"net"
@@ -20,10 +21,11 @@ type PLCResponse struct {
 }
 
 type PLCClient struct {
-	conn      net.Conn
-	host      string
-	port      string
-	connected bool
+	conn           net.Conn
+	host           string
+	port           string
+	connected      bool
+	troubleHandler trouble.TroubleEventHandler
 }
 
 var client *PLCClient
@@ -42,6 +44,12 @@ func (c *PLCClient) Connect() error {
 	}
 	c.conn = conn
 	c.connected = true
+
+	// Keep-alive 설정
+	tcpConn := conn.(*net.TCPConn)
+	tcpConn.SetKeepAlive(true)
+	tcpConn.SetKeepAlivePeriod(30 * time.Second)
+
 	return nil
 }
 
@@ -88,7 +96,7 @@ func (c *PLCClient) SendCommand(cmd *PLCCommand) (*PLCResponse, error) {
 	return nil, fmt.Errorf("failed after 3 retries")
 }
 
-func ConnectPlcServer() {
+func ConnectPlcServer() *PLCClient {
 	log.Info("[PLC] PLC 서버 연결 시도...")
 
 	client = NewPLCClient("localhost", "5000")
@@ -102,8 +110,60 @@ func ConnectPlcServer() {
 			continue
 		}
 		log.Info("Connected to PLC server")
+
+		// 연결 성공 시 메시지 리스너 시작
+		go listenForMessages()
+		go client.StartPingPong() // Ping-Pong 시작
+
 		break
 	}
+	return client
+}
+
+// 메시지 리스닝 고루틴
+func listenForMessages() {
+	log.Info("[PLC] 메시지 리스닝 시작")
+
+	for {
+		if client == nil || !client.connected {
+			log.Error("[PLC] 서버 연결이 끊어짐")
+			time.Sleep(5 * time.Second)
+			continue
+		}
+
+		// 메시지 수신
+		response, err := GetResponse()
+		if err != nil {
+			log.Errorf("[PLC] 메시지 수신 에러: %v", err)
+			continue
+		}
+
+		// command_id가 "0"인 경우 트러블 메시지로 처리
+		if response.CommandId == "0" {
+			handleTroubleMessage(response)
+			continue
+		}
+
+		// 일반 메시지 로깅
+		log.Infof("[PLC] 일반 메시지 수신: %+v", response)
+	}
+}
+
+func handleTroubleMessage(response *Response) {
+	if client.troubleHandler == nil {
+		log.Error("[PLC] 트러블 핸들러가 설정되지 않음")
+		return
+	}
+
+	details := response.Details
+	troubleType, ok := details["type"].(string)
+	if !ok {
+		log.Error("[PLC] 트러블 타입 파싱 실패")
+		return
+	}
+
+	log.Infof("[PLC] 트러블 메시지 수신: %s", troubleType)
+	client.troubleHandler.HandleTroubleEvent(troubleType, details)
 }
 
 // Response PLC 서버로부터의 응답 구조체
@@ -150,225 +210,43 @@ func readData() ([]byte, error) {
 	return buf[:n], nil
 }
 
-// 	return nil
-// }
+// 핸들러 설정 함수 추가
+func (c *PLCClient) SetTroubleHandler(handler trouble.TroubleEventHandler) {
+	c.troubleHandler = handler
+}
 
-// // PLC 메시지 수신 처리 함수
-// func handlePlcMessages() {
-// 	for {
-// 		_, message, err := plcConn.ReadMessage()
-// 		if err != nil {
-// 			log.Errorf("Error reading message: %v", err)
-// 			isPlcConnected = false
-// 			plcConn.Close()
-// 			go ConnectPlcServer() // 재연결 시도
-// 			return
-// 		}
+// StartPingPong 주기적으로 서버에 ping을 보내는 함수
+func (c *PLCClient) StartPingPong() {
+	ticker := time.NewTicker(20 * time.Second) // 30초마다 Ping
+	defer ticker.Stop()
 
-// 		// 서버로부터 받은 메시지 출력
-// 		msgStr := string(message)
-// 		log.Tracef("Raw message from PLC server: %s", msgStr)
+	for range ticker.C {
+		if !c.connected {
+			log.Warn("[PLC] Not connected to server, skipping ping")
+			continue
+		}
 
-// 		// 초기 연결 메시지는 무시
-// 		if strings.Contains(msgStr, "connect to server.js") {
-// 			continue
-// 		}
+		pingCmd := &PLCCommand{Type: "ping"}
+		response, err := c.SendCommand(pingCmd)
+		if err != nil {
+			log.Errorf("[PLC] Ping error: %v", err)
+			c.connected = false
+			continue
+		}
 
-// 		// "Message from server: 화재" 형식의 메시지 처리
-// 		if strings.Contains(msgStr, "Message from server:") {
-// 			// 메시지에서 실제 내용 추출
-// 			content := strings.TrimPrefix(msgStr, "Message from server: ")
-// 			content = strings.TrimSpace(content)
+		if response.Message != "pong" {
+			log.Warn("[PLC] Unexpected pong response")
+		} else {
+			log.Info("[PLC] Pong received")
+		}
+	}
+}
 
-// 			log.Debugf("Extracted trouble content: %s", content)
-
-// 			// 트러블 처리
-// 			SenseTrouble(content)
-// 			continue
-// 		}
-
-// 		// JSON 메시지 처리 (필요한 경우)
-// 		var plcMsg PlcMessage
-// 		if err := json.Unmarshal(message, &plcMsg); err == nil {
-// 			if plcMsg.Type == "trouble" {
-// 				troubleType, ok := plcMsg.Content.(string)
-// 				if ok {
-// 					SenseTrouble(troubleType)
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
-// // 문자열에 특정 키워드가 포함되어 있는지 확인하는 헬퍼 함수
-// func contains(s, substr string) bool {
-// 	return strings.Contains(s, substr)
-// }
-
-// // PLC 서버로 트러블 메시지 전송
-// func SendTroubleToPlc(troubleType string) {
-// 	if !isPlcConnected {
-// 		log.Error("PLC server not connected")
-// 		return
-// 	}
-
-// 	msg := PlcMessage{
-// 		Type:    "trouble",
-// 		Id:      "apcs_client",
-// 		Content: troubleType,
-// 	}
-
-// 	data, err := json.Marshal(msg)
-// 	if err != nil {
-// 		log.Errorf("Failed to marshal trouble message: %v", err)
-// 		return
-// 	}
-
-// 	err = plcConn.WriteMessage(websocket.TextMessage, data)
-// 	if err != nil {
-// 		log.Errorf("Failed to send trouble message: %v", err)
-// 		isPlcConnected = false
-// 		return
-// 	}
-
-// 	log.Debugf("Sent trouble message to PLC server: %s", troubleType)
-// }
-
-// // 트러블 감지 함수 수정
-// func SenseTrouble(data string) {
-// 	log.Debug(data)
-
-// 	switch data {
-// 	case "화재":
-// 		log.Infof("[PLC] 화재발생")
-// 		err := webserver.ChangeKioskView("/error/trouble")
-// 		if err != nil {
-// 			log.Error("Error changing view:", err)
-// 		}
-// 		webserver.SendEvent("화재")
-
-// 	case "물품 끼임":
-// 		log.Infof("[PLC] 물품 끼임")
-// 		err := webserver.ChangeKioskView("/error/trouble")
-// 		if err != nil {
-// 			log.Error(err)
-// 		}
-// 		webserver.SendEvent("물품 끼임")
-
-// 	case "물품 낙하":
-// 		log.Infof("[PLC] 물품 낙하")
-// 		err := webserver.ChangeKioskView("/error/trouble")
-// 		if err != nil {
-// 			log.Error(err)
-// 		}
-// 		webserver.SendEvent("물품 낙하")
-
-// 	case "이물질 감지":
-// 		log.Infof("[PLC] 이물질 감지")
-// 		err := webserver.ChangeKioskView("/error/trouble")
-// 		if err != nil {
-// 			log.Error(err)
-// 		}
-// 		webserver.SendEvent("이물질 감지")
-// 	}
-
-// 	// PLC 서버에 트러블 상태 전송
-// 	if isPlcConnected {
-// 		msg := PlcMessage{
-// 			Type:    "trouble_ack",
-// 			Id:      "apcs_client",
-// 			Content: data,
-// 		}
-// 		if err := sendPlcMessage(msg); err != nil {
-// 			log.Error("Failed to send trouble acknowledgment:", err)
-// 		}
-// 	}
-// }
-
-// var McClient mcp.Client
-
-// // InitConnPlc 함수 수정
-// func InitConnPlc() {
-// 	// PLC 서버 연결 시작
-// 	go ConnectPlcServer()
-// }
-
-// func ParseAddress(address string) (string, int64, error) {
-// 	deviceName := string(address[0])
-// 	offset, err := strconv.ParseInt(address[1:], 10, 64)
-// 	if err != nil {
-// 		return "", 0, fmt.Errorf("invalid address format: %s", address)
-// 	}
-// 	return deviceName, offset, nil
-// }
-
-// func read(taskName string) error {
-// 	task, exists := TaskList[taskName]
-// 	if !exists {
-// 		return fmt.Errorf("task %s not found", taskName)
-// 	}
-// 	fmt.Printf("Start Task: %s\n", taskName)
-
-// 	deviceName, offset, err := ParseAddress(task.Address)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	response, err := McClient.Read(deviceName, offset, 1)
-// 	if err != nil {
-// 		return fmt.Errorf("error reading from address %s: %v", task.Address, err)
-// 	}
-
-// 	if len(response) < 2 {
-// 		return fmt.Errorf("invalid response length")
-// 	}
-
-// 	value := binary.LittleEndian.Uint16(response[11:13])
-// 	//value := binary.LittleEndian.Uint16(response)
-// 	fmt.Printf("Read value from address %s[%s]: %v\n", taskName, task.Address, value)
-// 	return nil
-// }
-
-// func write(taskName string, value uint16) error {
-// 	task, exists := TaskList[taskName]
-// 	if !exists {
-// 		return fmt.Errorf("task %s not found", taskName)
-// 	}
-
-// 	fmt.Printf("Start Task: %s\n", task.TaskName)
-
-// 	deviceName, offset, err := ParseAddress(task.Address)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	data := make([]byte, 2)
-// 	binary.LittleEndian.PutUint16(data, value)
-
-// 	_, err = McClient.Write(deviceName, offset, 1, data)
-// 	if err != nil {
-// 		return fmt.Errorf("error writing %s: %v", task.TaskName, err)
-// 	}
-
-// 	// Process the response
-// 	fmt.Printf("Successfully write %s: %d\n", task.TaskName, value)
-
-// 	// Verify the write operation if needed
-// 	response, err := McClient.Read(deviceName, offset, 1)
-// 	if err != nil {
-// 		return fmt.Errorf("error verifying write for %s: %v", task.TaskName, err)
-// 	}
-
-// 	if len(response) < 2 {
-// 		return fmt.Errorf("invalid response length during verification")
-// 	}
-
-// 	readValue := binary.LittleEndian.Uint16(response[11:13])
-// 	//readValue := binary.LittleEndian.Uint16(response)
-
-// 	if readValue != value {
-// 		return fmt.Errorf("write verification failed for %s: expected %d, got %d", task.TaskName, value, readValue)
-// 	}
-
-// 	return nil
-// }
+// GetPLCClient returns the current PLC client instance
+func GetPLCClient() *PLCClient {
+	if client == nil {
+		log.Error("[PLC] PLC client is not initialized")
+		return nil
+	}
+	return client
+}

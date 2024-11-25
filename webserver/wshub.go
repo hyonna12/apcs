@@ -43,7 +43,7 @@ func (h *WsHub) run() {
 				}
 			}
 
-			//메시지를 래핑해서 메신저에 전달
+			// 메시지를 래핑해서 메신저에 전달
 			err := msgNode.SpreadMessage(message)
 			if err != nil {
 				// TODO - 메시지 응답 없음 관련 에러 처리

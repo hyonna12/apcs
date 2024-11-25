@@ -12,6 +12,8 @@ import (
 	"database/sql"
 	"time"
 
+	"apcs_refactored/interfaces"
+
 	log "github.com/sirupsen/logrus"
 )
 
@@ -39,14 +41,81 @@ type ItemDimension struct {
 	TrackingNum int
 }
 
-func StartPlcClient(n *messenger.Node) {
+// TroubleHandler PLC 트러블 이벤트 처리기
+type TroubleHandler struct {
+	kiosk interfaces.KioskView
+}
+
+// HandleTroubleEvent implements trouble.TroubleEventHandler
+func (h *TroubleHandler) HandleTroubleEvent(troubleType string, details map[string]interface{}) error {
+	log.Infof("[PLC] 트러블 발생: %s", troubleType)
+
+	switch troubleType {
+	case "trouble_event":
+		if troubleKind, ok := details["trouble_type"].(string); ok {
+			switch troubleKind {
+			case "화재":
+				log.Warn("[PLC] 화재 발생")
+				if err := h.kiosk.ChangeView("/error/trouble"); err != nil {
+					return err
+				}
+				return h.kiosk.SendEvent("화재")
+
+			case "물품 끼임":
+				log.Warn("[PLC] 물품 끼임 발생")
+				if err := h.kiosk.ChangeView("/error/trouble"); err != nil {
+					return err
+				}
+				return h.kiosk.SendEvent("물품 끼임")
+
+			case "물품 낙하":
+				log.Warn("[PLC] 물품 낙하 발생")
+				if err := h.kiosk.ChangeView("/error/trouble"); err != nil {
+					return err
+				}
+				return h.kiosk.SendEvent("물품 낙하")
+
+			case "이물질 감지":
+				log.Warn("[PLC] 이물질 감지")
+				if err := h.kiosk.ChangeView("/error/trouble"); err != nil {
+					return err
+				}
+				return h.kiosk.SendEvent("이물질 감지")
+			}
+		}
+
+	case "network_status":
+		if status, ok := details["status"].(string); ok && status == "disconnected" {
+			log.Warn("[PLC] 네트워크 절체 감지")
+			if err := h.kiosk.ChangeView("/error/trouble"); err != nil {
+				return err
+			}
+			return h.kiosk.SendEvent("네트워크 절체")
+		}
+
+	default:
+		log.Warnf("[PLC] 알 수 없는 트러블 타입: %s", troubleType)
+	}
+
+	return nil
+}
+
+func StartPlcClient(n *messenger.Node, kiosk interfaces.KioskView) {
 	msgNode = n
 
 	// 시뮬레이터 딜레이 설정
 	simulatorDelay = time.Duration(config.Config.Plc.Simulation.Delay)
 
-	// PLC 서버(plc_protocol) 연결 시작
-	go conn.ConnectPlcServer()
+	// PLC 서버 연결 시작 및 클라이언트 가져오기
+	plcClient := conn.ConnectPlcServer()
+	if plcClient == nil {
+		log.Error("[PLC] Failed to initialize PLC client")
+		return
+	}
+
+	// 트러블 핸들러 설정
+	handler := &TroubleHandler{kiosk: kiosk}
+	plcClient.SetTroubleHandler(handler)
 
 	robot.InitRobots()
 

@@ -6,6 +6,7 @@ import (
 	"apcs_refactored/messenger"
 	"apcs_refactored/model"
 	"apcs_refactored/plc"
+	"apcs_refactored/plc/conn"
 	"apcs_refactored/plc/resource"
 
 	"apcs_refactored/plc/trayBuffer"
@@ -86,8 +87,13 @@ func main() {
 
 	// 메신저 서버 시작
 	messenger.StartMessengerServer(msgNodes)
-	// PLC 클라이언트 시작
-	plc.StartPlcClient(plcMsgNode)
+
+	// 키오스크 핸들러 생성
+	kioskHandler := webserver.NewKioskHandler()
+
+	// PLC 클라이언트 시작 (키오스크 핸들러 전달)
+	plc.StartPlcClient(plcMsgNode, kioskHandler)
+
 	// PLC 리소스 초기화
 	slots, err := model.SelectSlotList()
 	if err != nil {
@@ -121,7 +127,7 @@ func main() {
 	}
 
 	// PLC 서버 연결 시작
-	// go conn.ConnectPlcServer()
+	go conn.ConnectPlcServer()
 
 	// 이벤트 서버 시작
 	event.StartEventServer(eventMsgNode)

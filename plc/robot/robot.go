@@ -39,7 +39,7 @@ var (
 func InitRobots() {
 	robotNumber := config.Config.Plc.Resource.Robot.Number
 	robots = make([]*robot, robotNumber)
-	// 시뮬���이터 딜레이 설정
+	// 시뮬레이터 딜레이 설정
 	simulatorDelay = time.Duration(config.Config.Plc.Simulation.Delay)
 
 	// TODO - 각 로봇과 통신 후 로봇 인스턴스 생성 및 등록

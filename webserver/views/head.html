@@ -61,9 +61,12 @@
 
         // 수신한 메시지 파싱 및 처리
         function processMessage(message) {
-            message = JSON.parse(message)
+            message = JSON.parse(message);
+            console.log(message)
             if (message.request_type === 'changeView') {
                 window.location.replace(message.data.url);
+            } else if (message.request_type === 'alert') {
+                alert(message.data.msg, message.data.detail);
             }
             /*else if(message.request_type === 'alert'){
                 var result = alert(message.data.msg)
